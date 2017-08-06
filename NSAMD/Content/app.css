@@ -1,0 +1,18 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+}
+
+md-toolbar {
+    padding:8px;
+}
+md-toolbar > div > a {
+    padding:0px!important;
+}
+
+md-sidenav > md-content > div > .md-button {
+    height: 50px;
+}
+
+button.md-fab.md-mini {
+    line-height:0px!important;
+}

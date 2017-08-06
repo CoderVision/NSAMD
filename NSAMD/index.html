@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Stewardship</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="utf-8" />
+
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link href="Content/angular-material.css" rel="stylesheet" />
+    <link href="Content/angular-material.layout-attributes.css" rel="stylesheet" />
+    <link href="Content/angular-material.layouts.css" rel="stylesheet" />
+    <link href="Content/app.css" rel="stylesheet" />    
+</head>
+<body layout="row" ng-app="app" ng-controller="rootController as rootCtrl" init="init()">
+    <div ng-include="'views/app/sidenav.html'" layout="vertical"></div>
+
+    <div layout="column" flex id="wrapper">
+
+        <div ng-include="'views/app/toolbarHeader.html'"></div>
+
+        <md-content flex id="content">
+           
+            <ng-view></ng-view>
+
+        </md-content>
+    </div>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-aria.min.js"></script>
+    <script src="Scripts/angular-material.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+    <script src="app.js"></script>
+    <script src="Services/churchService.js"></script>
+    <script src="Services/memberService.js"></script>
+    <script src="Services/teamService.js"></script>
+    <script src="Controllers/rootController.js"></script>
+    <script src="Controllers/adminController.js"></script>
+    <script src="Controllers/churchController.js"></script>
+    <script src="Controllers/memberController.js"></script>
+    <script src="Controllers/teamController.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿
+<md-sidenav class="md-sidenav-left"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')"
+            md-whiteframe="4"
+            >
+    <md-toolbar> 
+        <div layout="column" layout-padding layout-align="center center">
+            <a href="/"><img src="../../Content/images/ntcclogo4-sml.png" /></a>
+            <a href="/" style="text-decoration:none;color:white;">Stewardship</a>
+        </div>
+    </md-toolbar>
+    <md-content class="scrollable-nav-content">
+        <div layout="column" layout-align="start stretch" layout-padding>
+            <md-button ng-class="selected" ng-click="rootCtrl.navigateTo('member', 'Members')">
+                Members
+            </md-button>
+            <md-button ng-click="rootCtrl.navigateTo('church', 'Churches')">
+                Churches
+            </md-button>
+            <md-button ng-click="rootCtrl.navigateTo('team', 'Teams')">
+                Teams
+            </md-button>
+            <md-button ng-click="rootCtrl.navigateTo('admin', 'Admin')">
+                Admin
+            </md-button>
+        </div>
+    </md-content>
+
+</md-sidenav>
