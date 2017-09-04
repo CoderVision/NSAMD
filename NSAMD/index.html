@@ -2,20 +2,15 @@
 <html>
 <head>
     <title>Stewardship</title>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta charset="utf-8" />
 
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-    </style>
-
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
     <link href="Content/angular-material.css" rel="stylesheet" />
     <link href="Content/angular-material.layout-attributes.css" rel="stylesheet" />
     <link href="Content/angular-material.layouts.css" rel="stylesheet" />
+    <link href="Content/angular-data-grid.material.css" rel="stylesheet" />
     <link href="Content/app.css" rel="stylesheet" />    
 </head>
 <body layout="row" ng-app="app" ng-controller="rootController as rootCtrl" init="init()">
@@ -25,7 +20,7 @@
 
         <div ng-include="'views/app/toolbarHeader.html'"></div>
 
-        <md-content flex id="content">
+        <md-content flex id="content" class="content">
            
             <ng-view></ng-view>
 
@@ -39,6 +34,11 @@
     <script src="Scripts/angular-route.min.js"></script>
     <script src="Scripts/angular-messages.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+
+    <!--https://github.com/angular-data-grid/angular-data-grid.github.io-->
+    <script src="Scripts/dataGrid.min.js"></script>
+    <script src="Scripts/pagination.min.js"></script>
+
     <script src="app.js"></script>
     <script src="Services/churchService.js"></script>
     <script src="Services/memberService.js"></script>
@@ -48,5 +48,7 @@
     <script src="Controllers/churchController.js"></script>
     <script src="Controllers/memberController.js"></script>
     <script src="Controllers/teamController.js"></script>
+    <script src="Filters/phoneFilter.js"></script>
+    <script src="Filters/mapAddressFilter.js"></script>
 </body>
 </html>

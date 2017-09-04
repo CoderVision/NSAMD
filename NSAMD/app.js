@@ -1,7 +1,7 @@
 ﻿
 'use strict';
 
-var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute']);
+var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination']);
 
 app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
 
@@ -20,7 +20,7 @@ app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
     }).otherwise({
         templateUrl: './Views/Member/memberIndex.html',
         controller: 'memberController',
-        controllerAs: 'memberCtrl'
+        controllerAs: 'mc'
     });
 
 

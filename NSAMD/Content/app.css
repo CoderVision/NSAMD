@@ -1,4 +1,9 @@
-﻿body {
+﻿
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+body {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -16,3 +21,12 @@ md-sidenav > md-content > div > .md-button {
 button.md-fab.md-mini {
     line-height:0px!important;
 }
+
+th {
+    text-align:left;
+}
+
+.content{
+    padding:10px;
+}
+

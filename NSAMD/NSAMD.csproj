@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="Content\angular-data-grid.material.css" />
     <Content Include="Content\angular-material-icons\action.svg" />
     <Content Include="Content\angular-material-icons\alert.svg" />
     <Content Include="Content\angular-material-icons\av.svg" />
@@ -98,6 +99,8 @@
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\rootController.js" />
     <Content Include="Controllers\teamController.js" />
+    <Content Include="Filters\mapAddressFilter.js" />
+    <Content Include="Filters\phoneFilter.js" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-animate.js" />
@@ -127,6 +130,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\dataGrid.js" />
+    <Content Include="Scripts\dataGrid.min.js" />
+    <Content Include="Scripts\dataGridUtils.js" />
+    <Content Include="Scripts\dataGridUtils.min.js" />
+    <Content Include="Scripts\loading-bar.js" />
+    <Content Include="Scripts\loading-bar.min.js" />
+    <Content Include="Scripts\pagination.js" />
+    <Content Include="Scripts\pagination.min.js" />
     <Content Include="Services\churchService.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\teamService.js" />
