@@ -6,21 +6,25 @@ var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRou
 app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
 
     $routeProvider.when('/church', {
-        templateUrl: './Views/Church/churchIndex.html',
+        templateUrl: './Views/Churches/churchesIndex.html',
         controller: 'churchController',
         controllerAs: 'churchCtrl'
     }).when('/team', {
-        templateUrl: './Views/Team/teamIndex.html',
+        templateUrl: './Views/Teams/teamsIndex.html',
         controller: 'teamController',
         controllerAs: 'teamCtrl'
     }).when('/admin', {
         templateUrl: './Views/Admin/adminIndex.html',
         controller: 'adminController',
         controllerAs: 'adminCtrl'
+    }).when('/perspectives', {
+        templateUrl: './Views/Perspectives/perspectivesIndex.html',
+        controller: 'perspectivesController',
+        controllerAs: 'perspCtrl'
     }).otherwise({
-        templateUrl: './Views/Member/memberIndex.html',
+        templateUrl: './Views/Members/membersIndex.html',
         controller: 'memberController',
-        controllerAs: 'mc'
+        controllerAs: 'memberCtrl'
     });
 
 
