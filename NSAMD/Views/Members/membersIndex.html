@@ -2,14 +2,14 @@
 <div layout="row">
     <md-input-container class="md-block" flex-gt-xs>
         <label>Search</label>
-        <input ng-model="mc.searchText" placeholder="Enter member name" 
-               filter-by="Name" 
+        <input ng-model="memberCtrl.searchText" placeholder="Enter member name"
+               filter-by="Name"
                filter-type="text"
-               ng-change="mc.gridActions.filter()"/>
+               ng-change="memberCtrl.gridActions.filter()" />
     </md-input-container>
 </div>
 
-<md-button ng-click="mc.loadData()">Load Data</md-button>
+<md-button ng-click="memberCtrl.loadData()">Load Data</md-button>
 
 <!-- do not remove this grid!  this is the Angular-Material-Design grid that we are going to use
     https://github.com/angular-data-grid/angular-data-grid.github.io
@@ -17,10 +17,10 @@
     grid-actions="gridActions"
 -->
 
-<div id="memGrid" 
-     grid-data  
-     grid-options="mc.gridOptions" 
-     grid-actions="mc.gridActions">
+<div id="memGrid"
+     grid-data
+     grid-options="memberCtrl.gridOptions"
+     grid-actions="memberCtrl.gridActions">
 
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
@@ -40,6 +40,9 @@
                 <th sortable='Phone' class="sortable">
                     Phone
                 </th>
+                <th class="showMobileOnly sortable" sortable='Phone'>
+                    Text
+                </th>
                 <th sortable='Email' class="sortable">
                     Email
                 </th>
@@ -54,9 +57,28 @@
                 <td ng-bind="item.Status"></td>
                 <td ng-bind="item.StatusDescription"></td>
                 <td ng-bind="item.LastAttendance | date:'MM/dd/yyyy'"></td>
-                <td ng-bind="item.Phone"></td>
-                <td ng-bind="item.Email"></td>
-                <td><ng-md-icon icon="map"></ng-md-icon></td>
+                <td>
+                    <a class="showDesktopOnly" href="tel:{{item.Phone}}">{{item.Phone}}</a>
+                    <a class="showMobileOnly" ng-if="item.Phone" href="tel:item.Phone">
+                        <ng-md-icon icon="call"></ng-md-icon>
+                    </a>
+                </td>
+                <td class="showMobileOnly">
+                    <a  ng-if="item.Phone" href="sms:item.Phone">
+                        <ng-md-icon icon="sms"></ng-md-icon>
+                    </a>
+                </td>
+                <td>
+                    <a class="showDesktopOnly" href="mailto:{{item.Email}}">{{item.Email}}</a>
+                    <a class="showMobileOnly" ng-if="item.Email" href="mailto:{{item.Email}}">
+                        <ng-md-icon icon="email"></ng-md-icon>
+                    </a>
+                </td>
+                <td>
+                    <a ng-if="item.Address" href="https://www.google.com/maps/place/{{item.Address.replace(' ', '+')}}" )>
+                        <ng-md-icon icon="map"></ng-md-icon>
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -64,21 +86,21 @@
 
 <!--Paging example:
 file:///C:/Source/Examples/angular-data-grid.github.io-master/angular-data-grid.github.io-master/demo/material/index.html#!/?page=1-->
-
+<!--ng-if="memberCtrl.paginationOptions.totalItems  > memberCtrl.paginationOptions.itemsPerPage"-->
 <grid-pagination max-size="5"
                  boundary-links="true"
                  class="pagination"
-                 ng-if="mc.paginationOptions.totalItems  > mc.paginationOptions.itemsPerPage"
-                 total-items="mc.paginationOptions.totalItems"
-                 ng-model="mc.paginationOptions.currentPage"
-                 ng-change="mc.loadData()"
-                 items-per-page="mc.paginationOptions.itemsPerPage">
+                 ng-disabled="memberCtrl.paginationOptions.totalItems  > memberCtrl.paginationOptions.itemsPerPage"
+                 total-items="memberCtrl.paginationOptions.totalItems"
+                 ng-model="memberCtrl.paginationOptions.currentPage"
+                 ng-change="memberCtrl.loadData()"
+                 items-per-page="memberCtrl.paginationOptions.itemsPerPage">
 </grid-pagination>
 
 <md-input-container flex-offset-gt-xs="5" class="items-per-page">
-    <md-select ng-init="mc.paginationOptions.itemsPerPage = '10'" 
-               ng-model="mc.paginationOptions.itemsPerPage" 
-               ng-change="mc.loadData()">
+    <md-select ng-init="memberCtrl.paginationOptions.itemsPerPage = '10'"
+               ng-model="memberCtrl.paginationOptions.itemsPerPage"
+               ng-change="memberCtrl.loadData()">
         <md-option value="10">10</md-option>
         <md-option value="25">25</md-option>
         <md-option value="50">50</md-option>

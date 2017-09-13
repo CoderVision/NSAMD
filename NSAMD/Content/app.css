@@ -8,25 +8,43 @@ body {
 }
 
 md-toolbar {
-    padding:8px;
+    padding: 8px;
 }
-md-toolbar > div > a {
-    padding:0px!important;
-}
+
+    md-toolbar > div > a {
+        padding: 0px !important;
+    }
 
 md-sidenav > md-content > div > .md-button {
     height: 50px;
 }
 
 button.md-fab.md-mini {
-    line-height:0px!important;
+    line-height: 0px !important;
 }
 
 th {
-    text-align:left;
+    text-align: left;
 }
 
-.content{
-    padding:10px;
+.content {
+    padding: 10px;
 }
 
+@media(max-width: 961px) {
+    .showMobileOnly {
+        display: normal;
+    }
+    .showDesktopOnly {
+        display: none;
+    }
+}
+
+@media(min-width: 962px) {
+    .showDesktopOnly {
+        display: normal;
+    }
+    .showMobileOnly {
+        display: none;
+    }
+}

@@ -38,9 +38,9 @@ angular.module('app').controller('memberController',
             "Status": "Active",
             "StatusDescription": "Coming Regularly",
             "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
+            "Phone": "",
+            "Email": "",
+            "Address": ""
         },
         {
             "Name": "Gary",
