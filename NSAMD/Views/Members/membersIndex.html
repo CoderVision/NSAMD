@@ -9,8 +9,6 @@
     </md-input-container>
 </div>
 
-<md-button ng-click="memberCtrl.loadData()">Load Data</md-button>
-
 <!-- do not remove this grid!  this is the Angular-Material-Design grid that we are going to use
     https://github.com/angular-data-grid/angular-data-grid.github.io
     http://angular-data-grid.github.io/demo/material/#!?page=1&code=3747
@@ -84,20 +82,16 @@
     </table>
 </div>
 
-<!--Paging example:
-file:///C:/Source/Examples/angular-data-grid.github.io-master/angular-data-grid.github.io-master/demo/material/index.html#!/?page=1-->
-<!--ng-if="memberCtrl.paginationOptions.totalItems  > memberCtrl.paginationOptions.itemsPerPage" max-size="5"-->
-<grid-pagination 
-                 boundary-links="true"
+<grid-pagination boundary-links="true"
                  class="pagination"
                  ng-disabled="memberCtrl.paginationOptions.totalItems <= memberCtrl.paginationOptions.itemsPerPage"
                  total-items="memberCtrl.paginationOptions.totalItems"
                  ng-model="memberCtrl.paginationOptions.currentPage"
                  ng-change="memberCtrl.loadData()"
-                 items-per-page="memberCtrl.paginationOptions.itemsPerPage">
+                 items-per-page="memberCtrl.paginationOptions.itemsPerPage"
+                 ng-init="memberCtrl.loadData()">
 </grid-pagination>
 
-<!--ng-init="memberCtrl.paginationOptions.itemsPerPage = '10'"-->
 <md-input-container flex-offset-gt-xs="5" class="items-per-page">
     <md-select ng-model="memberCtrl.paginationOptions.itemsPerPage"
                ng-change="memberCtrl.loadData()">

@@ -19,7 +19,7 @@ angular.module('app').controller('memberController',
     vm.paginationOptions = {
         //maxSize: 5,       //Limit number for pagination size
         totalItems: 0,    // Total number of items in all pages.
-        itemsPerPage: 10,  // Maximum number of items per page. A value less than one indicates all items on one page.
+        itemsPerPage: 25,  // Maximum number of items per page. A value less than one indicates all items on one page.
         currentPage: 1,
     };
 
