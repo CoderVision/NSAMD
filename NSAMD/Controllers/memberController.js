@@ -24,157 +24,160 @@ angular.module('app').controller('memberController',
     };
 
     vm.loadData = function () {
-        vm.gridOptions.data = [{
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        },
-        {
-            "Name": "Wei",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "",
-            "Email": "",
-            "Address": ""
-        },
-        {
-            "Name": "Abc",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        },
-        {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        },
-        {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }, {
-            "Name": "Gary",
-            "Status": "Active",
-            "StatusDescription": "Coming Regularly",
-            "LastAttendance": "09/04/2017",
-            "Phone": "253-318-4015",
-            "Email": "gl@msn.com",
-            "Address": "8918 176th Street Ct E"
-        }];
 
-        vm.paginationOptions.totalItems = 18;
+        memberService.getList()
+
+        //vm.gridOptions.data = [{
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //},
+        //{
+        //    "Name": "Wei",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "",
+        //    "Email": "",
+        //    "Address": ""
+        //},
+        //{
+        //    "Name": "Abc",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //},
+        //{
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //},
+        //{
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}, {
+        //    "Name": "Gary",
+        //    "Status": "Active",
+        //    "StatusDescription": "Coming Regularly",
+        //    "LastAttendance": "09/04/2017",
+        //    "Phone": "253-318-4015",
+        //    "Email": "gl@msn.com",
+        //    "Address": "8918 176th Street Ct E"
+        //}];
+
+        //vm.paginationOptions.totalItems = 18;
 
         $log.info("loadData called");
     };

@@ -1,7 +1,15 @@
 ﻿
 'use strict';
 
+var config = {};
+
+if (window) {
+    Object.assign(config, window.__config);
+}
+
 var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination']);
+
+app.constant('config', config);
 
 app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
 

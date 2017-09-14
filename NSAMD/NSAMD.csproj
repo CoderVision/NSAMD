@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="config.js" />
     <Content Include="Content\angular-data-grid.material.css" />
     <Content Include="Content\angular-material-icons\action.svg" />
     <Content Include="Content\angular-material-icons\alert.svg" />
