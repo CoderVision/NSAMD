@@ -17,9 +17,9 @@ angular.module('app').controller('memberController',
     };
 
     vm.paginationOptions = {
-        maxSize: 5,       //Limit number for pagination size
-        totalItems: 15,    // Total number of items in all pages.
-        itemsPerPage: 5,  // Maximum number of items per page. A value less than one indicates all items on one page.
+        //maxSize: 5,       //Limit number for pagination size
+        totalItems: 0,    // Total number of items in all pages.
+        itemsPerPage: 10,  // Maximum number of items per page. A value less than one indicates all items on one page.
         currentPage: 1,
     };
 
@@ -34,7 +34,7 @@ angular.module('app').controller('memberController',
             "Address": "8918 176th Street Ct E"
         },
         {
-            "Name": "Gary",
+            "Name": "Wei",
             "Status": "Active",
             "StatusDescription": "Coming Regularly",
             "LastAttendance": "09/04/2017",
@@ -43,7 +43,7 @@ angular.module('app').controller('memberController',
             "Address": ""
         },
         {
-            "Name": "Gary",
+            "Name": "Abc",
             "Status": "Active",
             "StatusDescription": "Coming Regularly",
             "LastAttendance": "09/04/2017",
