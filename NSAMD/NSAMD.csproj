@@ -98,6 +98,7 @@
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\memberController.js" />
+    <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\perspectivesController.js" />
     <Content Include="Controllers\rootController.js" />
     <Content Include="Controllers\teamController.js" />
@@ -147,6 +148,7 @@
     <Content Include="Views\App\sideNav.html" />
     <Content Include="Views\App\toolbarHeader.html" />
     <Content Include="Views\Churches\churchesIndex.html" />
+    <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
     <Content Include="Views\Teams\teamsIndex.html" />

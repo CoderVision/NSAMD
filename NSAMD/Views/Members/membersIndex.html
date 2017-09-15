@@ -3,7 +3,7 @@
     <md-input-container class="md-block" flex-gt-xs>
         <label>Search</label>
         <input ng-model="memberCtrl.searchText" placeholder="Enter member name"
-               filter-by="Name"
+               filter-by="fullName"
                filter-type="text"
                ng-change="memberCtrl.gridActions.filter()" />
     </md-input-container>
@@ -23,57 +23,57 @@
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
             <tr>
-                <th sortable="Name" class="sortable">
+                <th sortable="fullName" class="sortable">
                     Name
                 </th>
-                <th sortable="Status" class="sortable">
+                <th sortable="status" class="sortable">
                     Status
                 </th>
-                <th sortable="StatusDescription" class="sortable">
+                <th sortable="statusChangeType" class="sortable">
                     Description
                 </th>
-                <th sortable='LastAttendance' class="sortable">
+                <th sortable='attendance' class="sortable">
                     Last Attendance
                 </th>
-                <th sortable='Phone' class="sortable">
+                <th sortable='phone' class="sortable">
                     Phone
                 </th>
-                <th class="showMobileOnly sortable" sortable='Phone'>
+                <th class="showMobileOnly sortable" sortable='phone'>
                     Text
                 </th>
-                <th sortable='Email' class="sortable">
+                <th sortable='email' class="sortable">
                     Email
                 </th>
-                <th sortable='Map' class="sortable">
+                <th>
                     Map
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in filtered | startFrom:(memberCtrl.paginationOptions.currentPage-1)*memberCtrl.paginationOptions.itemsPerPage | limitTo:memberCtrl.paginationOptions.itemsPerPage track by $index">
-                <td ng-bind="item.Name"></td>
-                <td ng-bind="item.Status"></td>
-                <td ng-bind="item.StatusDescription"></td>
-                <td ng-bind="item.LastAttendance | date:'MM/dd/yyyy'"></td>
+                <td><a href ng-click="memberCtrl.openProfile(item.id)">{{item.fullName}}</a></td>
+                <td ng-bind="item.status"></td>
+                <td ng-bind="item.statusChangeType"></td>
+                <td ng-bind="item.attendance | date:'MM/dd/yyyy'"></td>
                 <td>
-                    <a class="showDesktopOnly" href="tel:{{item.Phone}}">{{item.Phone}}</a>
-                    <a class="showMobileOnly" ng-if="item.Phone" href="tel:item.Phone">
+                    <a class="showDesktopOnly" href="tel:{{item.phone}}">{{item.phone | phone}}</a>
+                    <a class="showMobileOnly" ng-if="item.phone" href="tel:{{item.phone}}">
                         <ng-md-icon icon="call"></ng-md-icon>
                     </a>
                 </td>
                 <td class="showMobileOnly">
-                    <a  ng-if="item.Phone" href="sms:item.Phone">
+                    <a ng-if="item.phone" href="sms:{{item.phone}}">
                         <ng-md-icon icon="sms"></ng-md-icon>
                     </a>
                 </td>
                 <td>
-                    <a class="showDesktopOnly" href="mailto:{{item.Email}}">{{item.Email}}</a>
-                    <a class="showMobileOnly" ng-if="item.Email" href="mailto:{{item.Email}}">
+                    <a class="showDesktopOnly" href="mailto:{{item.email}}">{{item.email}}</a>
+                    <a class="showMobileOnly" ng-if="item.email" href="mailto:{{item.email}}">
                         <ng-md-icon icon="email"></ng-md-icon>
                     </a>
                 </td>
                 <td>
-                    <a ng-if="item.Address" href="https://www.google.com/maps/place/{{item.Address.replace(' ', '+')}}" )>
+                    <a ng-if="item.address" href="https://www.google.com/maps/place/{{item.address.replace(' ', '+')}}" )>
                         <ng-md-icon icon="map"></ng-md-icon>
                     </a>
                 </td>

@@ -29,9 +29,13 @@ app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
         templateUrl: './Views/Perspectives/perspectivesIndex.html',
         controller: 'perspectivesController',
         controllerAs: 'perspCtrl'
+    }).when('/member', {
+        templateUrl: './Views/Members/memberProfile.html',
+        controller: 'memberController',
+        controllerAs: 'mc'
     }).otherwise({
         templateUrl: './Views/Members/membersIndex.html',
-        controller: 'memberController',
+        controller: 'memberListController',
         controllerAs: 'memberCtrl'
     });
 

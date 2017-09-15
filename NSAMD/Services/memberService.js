@@ -9,7 +9,8 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
         var deferred = $q.defer();
 
-        var uri = config.apiUrl + "/Members?churchId=1,statusIds=1";
+        // remove churchId hardcoded value of "3", Graham; and statusIds "49"
+        var uri = config.apiUrl + "/Members?churchId=3&statusIds=49";
 
         $http.get(uri).then(function (success) {
 
@@ -21,6 +22,8 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
             deferred.reject("Error retrieving member list");
         });
+
+        return deferred.promise;
     };
 
     return svc;

@@ -31,6 +31,13 @@ th {
     padding: 15px;
 }
 
+tr{
+    line-height:24px;
+}
+
+svg{
+    fill:#4a7a5a;
+}
 @media(max-width: 961px) {
     .showMobileOnly {
         display: normal;
