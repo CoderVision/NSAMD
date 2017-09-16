@@ -19,6 +19,40 @@ md-sidenav > md-content > div > .md-button {
     height: 50px;
 }
 
+.md-toast-content {
+    background-color:#4a7a5a!important;
+}
+
+/*.md-on{
+    background-color:#4a7a5a!important;
+}*/
+
+    /*md-radio-button.md-checked ._md-off{
+      border-color: green;
+    }
+    md-radio-button.md-checked ._md-on{
+      background-color: red;
+    }*/
+
+md-radio-button.md-default-theme .md-off, md-radio-button .md-on {
+    border-color: rgba(0,0,0,0.54)!important;
+    background-color:rgba(0,0,0,0.54)!important;
+}
+
+md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off {
+    border-color: rgba(0,0,0,0.54)!important;
+}
+
+.md-datepicker-button {
+  display: none;
+}
+
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
+    right: 0px;
+    left: 0px;
+    width: calc(100% - 0px);
+}
+
 button.md-fab.md-mini {
     line-height: 0px !important;
 }

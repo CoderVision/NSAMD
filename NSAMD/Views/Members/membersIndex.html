@@ -18,7 +18,8 @@
 <div id="memGrid"
      grid-data
      grid-options="memberCtrl.gridOptions"
-     grid-actions="memberCtrl.gridActions">
+     grid-actions="memberCtrl.gridActions"
+     ng-init="memberCtrl.loadData()">
 
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
@@ -84,16 +85,16 @@
 
 <grid-pagination boundary-links="true"
                  class="pagination"
-                 ng-disabled="memberCtrl.paginationOptions.totalItems <= memberCtrl.paginationOptions.itemsPerPage"
+                 ng-if="memberCtrl.paginationOptions.totalItems > memberCtrl.paginationOptions.itemsPerPage"
                  total-items="memberCtrl.paginationOptions.totalItems"
                  ng-model="memberCtrl.paginationOptions.currentPage"
                  ng-change="memberCtrl.loadData()"
-                 items-per-page="memberCtrl.paginationOptions.itemsPerPage"
-                 ng-init="memberCtrl.loadData()">
+                 items-per-page="memberCtrl.paginationOptions.itemsPerPage">
 </grid-pagination>
 
 <md-input-container flex-offset-gt-xs="5" class="items-per-page">
     <md-select ng-model="memberCtrl.paginationOptions.itemsPerPage"
+               ng-if="memberCtrl.paginationOptions.totalItems > memberCtrl.paginationOptions.itemsPerPage"
                ng-change="memberCtrl.loadData()">
         <md-option ng-value="10">10</md-option>
         <md-option ng-value="25">25</md-option>

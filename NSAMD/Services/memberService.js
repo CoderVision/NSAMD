@@ -26,5 +26,25 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         return deferred.promise;
     };
 
+    svc.get = function (id) {
+
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/Members?id=" + id;
+
+        $http.get(uri).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.get:  " + error);
+
+            deferred.reject("Error retrieving member id " + id);
+        });
+
+        return deferred.promise;
+    };
+
     return svc;
 }]);

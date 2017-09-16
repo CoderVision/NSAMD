@@ -141,6 +141,7 @@
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\pagination.min.js" />
+    <Content Include="Services\appNotificationService.js" />
     <Content Include="Services\churchService.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\teamService.js" />
@@ -148,6 +149,7 @@
     <Content Include="Views\App\sideNav.html" />
     <Content Include="Views\App\toolbarHeader.html" />
     <Content Include="Views\Churches\churchesIndex.html" />
+    <Content Include="Views\Members\addMember.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />

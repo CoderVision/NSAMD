@@ -1,4 +1,87 @@
 ﻿
 
+<div ng-init="mc.loadMember()">
 
-This is the member profile for {{ mc.memberId }}
+    <form name="memberForm">
+
+        <div layout="column"
+             layout-gt-sm="row"
+             layout-align="start start">
+
+            <!-- left panel -->
+            <div layout="column" 
+                 layout-align="start start"
+                 flex flex-gt-sm="50">
+
+                <!-- Name -->
+                <div layout="column" layout-gt-xs="row">
+                    <md-input-container class="md-block" flex>
+                        <label>First Name</label>
+                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required />
+                        <div ng-messages="memberForm.firstName.$error">
+                            <div ng-message="required">First name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 50 characters</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex>
+                        <label>Middle Name</label>
+                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1" />
+                        <div ng-messages="memberForm.middleName.$error">
+                            <div ng-message="minlength">At least 1 characters required</div>
+                            <div ng-message="maxlength">No more that 50 characters</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex>
+                        <label>Last Name</label>
+                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required />
+                        <div ng-messages="memberForm.lastName.$error">
+                            <div ng-message="required">Last name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 50 characters</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <!-- Gender -->
+                <div layout="column" layout-gt-sm="row" layout-align="start center">
+                    <md-radio-group ng-model="mc.member.gender" layout="row"> 
+                        <md-radio-button value="M">Male</md-radio-button>
+                        <md-radio-button value="F">Female</md-radio-button>
+                    </md-radio-group>
+                    <md-input-container class="md-block" flex>
+                        <label>Birthdate</label>
+                        <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>
+                    </md-input-container>
+                </div>
+
+                <!-- Dates -->
+                <div layout="column" layout-gt-sm="row" layout-align="start start">
+                    <md-input-container class="md-block" flex>
+                        <label>Saved</label>
+                        <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"></md-datepicker>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex>
+                        <label>Spirit</label>
+                        <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"></md-datepicker>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex>
+                        <label>Baptized</label>
+                        <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"></md-datepicker>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <!-- right panel -->
+            <div layout="column" layout-align="start center" style="background-color:orange;" 
+                 flex flex-gt-sm="50">
+
+                right panel
+            </div>
+        </div>
+
+    </form>
+</div>
+
