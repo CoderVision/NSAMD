@@ -37,17 +37,14 @@ angular.module('app').controller('memberListController',
 
         memberService.getList().then(function (success) {
 
-            vm.isLoading = false;
-
             vm.gridOptions.data = success;
 
             vm.paginationOptions.totalItems = success.length;
 
         }, function (error) {
-
+           $log.error(error);
+        }).then(function () {
             vm.isLoading = false;
-
-            $log.error(error);
         });
     };
 
