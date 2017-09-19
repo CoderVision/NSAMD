@@ -8,7 +8,7 @@ angular.module('app').factory('appNotificationService', ['$mdToast', '$mdDialog'
             $mdToast.simple()
                 .textContent(message)
                 .position('bottom right')
-                .hideDelay(30000)
+                .hideDelay(3000)
         );
     }
 

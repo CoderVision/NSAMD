@@ -1,23 +1,27 @@
 ﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mc.isLoading"></md-progress-linear>
 
-<div ng-init="mc.loadMember()">
+<div ng-init="mc.loadMember()" class="content">
 
     <form name="memberForm">
 
         <div layout="column"
              layout-gt-sm="row"
-             layout-align="start start">
+             layout-align="start start"
+             flex>
 
             <!-- left panel -->
-            <div layout="column" 
+            <div layout="column"
                  layout-align="start start"
                  flex flex-gt-sm="50">
 
                 <!-- Name -->
-                <div layout="column" layout-gt-xs="row">
+                <div layout="column" 
+                     layout-gt-xs="row" 
+                     class="maxWidth">
                     <md-input-container class="md-block" flex>
                         <label>First Name</label>
-                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required />
+                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required flex />
                         <div ng-messages="memberForm.firstName.$error">
                             <div ng-message="required">First name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -27,7 +31,7 @@
 
                     <md-input-container class="md-block" flex>
                         <label>Middle Name</label>
-                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1" />
+                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1" flex />
                         <div ng-messages="memberForm.middleName.$error">
                             <div ng-message="minlength">At least 1 characters required</div>
                             <div ng-message="maxlength">No more that 50 characters</div>
@@ -36,7 +40,7 @@
 
                     <md-input-container class="md-block" flex>
                         <label>Last Name</label>
-                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required />
+                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required flex />
                         <div ng-messages="memberForm.lastName.$error">
                             <div ng-message="required">Last name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -46,42 +50,138 @@
                 </div>
 
                 <!-- Gender -->
-                <div layout="column" layout-gt-sm="row" layout-align="start center">
-                    <md-radio-group ng-model="mc.member.gender" layout="row"> 
+                <md-input-container class="md-block maxWidth">
+                    <md-radio-group ng-model="mc.member.gender" layout="row">
                         <md-radio-button value="M">Male</md-radio-button>
                         <md-radio-button value="F">Female</md-radio-button>
                     </md-radio-group>
-                    <md-input-container class="md-block" flex>
+                </md-input-container>
+                
+                <!-- Dates -->
+                <div 
+                     layout="row" 
+                     layout-align="start start"
+                     style="margin-top: 10px;"
+                     class="maxWidth">
+                    <md-input-container class="md-block">
                         <label>Birthdate</label>
                         <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>
                     </md-input-container>
+                    <md-input-container class="md-block" style="margin-left: 18px;">
+                        <label>Saved</label>
+                        <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date" flex></md-datepicker>
+                    </md-input-container>
+                </div>
+                <div 
+                     layout="row"  
+                     layout-align="start start"
+                     style="margin-top: 8px;"
+                     class="maxWidth">
+                    <md-input-container class="md-block">
+                        <label>Spirit</label>
+                        <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date" flex></md-datepicker>
+                    </md-input-container>
+                    <md-input-container class="md-block" style="margin-left: 18px;">
+                        <label>Baptized</label>
+                        <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date" flex></md-datepicker>
+                    </md-input-container>
                 </div>
 
-                <!-- Dates -->
-                <div layout="column" layout-gt-sm="row" layout-align="start start">
-                    <md-input-container class="md-block" flex>
-                        <label>Saved</label>
-                        <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"></md-datepicker>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex>
-                        <label>Spirit</label>
-                        <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"></md-datepicker>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex>
-                        <label>Baptized</label>
-                        <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"></md-datepicker>
-                    </md-input-container>
+                <div layout="row" layout-align="start start"
+                     class="maxWidth">
+                        <md-switch class="md-primary" name="married" ng-model="mc.member.married">
+                            Married
+                        </md-switch>
+                        <md-switch class="md-primary" name="veteran" ng-model="mc.member.veteran" style="margin-left: 18px;">
+                            Veteran
+                        </md-switch>
                 </div>
             </div>
 
             <!-- right panel -->
-            <div layout="column" layout-align="start center" style="background-color:orange;" 
-                 flex flex-gt-sm="50">
+            <div layout="column" layout-align="start stretch" 
+                 flex flex-gt-sm="50" class="maxWidth">
 
-                right panel
+                <md-input-container flex>
+                    <label>Church</label>
+                    <md-select ng-model="mc.member.churchId">
+                        <md-option ng-value="3">Graham</md-option>
+                        <md-option ng-value="9">Dallas</md-option>
+                        <md-option ng-value="7">Denver</md-option>
+                        <md-option ng-value="8">San Diego</md-option>
+                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                            {{state.abbrev}}
+                        </md-option>-->
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Type</label>
+                    <md-select ng-model="mc.member.memberTypeEnumId">
+                        <md-option ng-value="65">Helper</md-option>
+                        <md-option ng-value="62">Member</md-option>
+                        <md-option ng-value="64">Minister</md-option>
+                        <md-option ng-value="63">Pastor</md-option>
+                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                {{state.abbrev}}
+            </md-option>-->
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Status</label>
+                    <md-select ng-model="mc.member.statusId">
+                        <md-option ng-value="3">Active</md-option>
+                        <md-option ng-value="9">Faithful</md-option>
+                        <md-option ng-value="7">Inactive</md-option>
+                        <md-option ng-value="8">Dropped</md-option>
+                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                {{state.abbrev}}
+            </md-option>-->
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Reason</label>
+                    <md-select ng-model="mc.member.statusChangeTypeId">
+                        <md-option ng-value="23">Coming Regularly</md-option>
+                        <md-option ng-value="24">Guest will not answer door/phone</md-option>
+                        <md-option ng-value="25">Sponsor works on the job with them</md-option>
+                        <md-option ng-value="26">Sponsor is giving them space</md-option>
+                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                {{state.abbrev}}
+            </md-option>-->
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Sponsor</label>
+                    <md-select ng-model="mc.member.sponsorId">
+                        <md-option ng-value="4">Gary Lima</md-option>
+                        <md-option ng-value="4">Wei Lima</md-option>
+                        <md-option ng-value="22">Phillip</md-option>
+                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                {{state.abbrev}}
+            </md-option>-->
+                    </md-select>
+                </md-input-container>
             </div>
         </div>
 
+        <md-input-container class="md-block">
+            <label>Comments</label>
+            <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="4" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <p>
+            Add address Collection
+        </p>
+        <p>
+            Add phone Collection
+        </p>
+        <p>
+            Add email Collection
+        </p>
     </form>
 </div>
 

@@ -12,10 +12,14 @@ angular.module('app').controller('memberController',
 
         vm.member = {};
 
+        vm.isLoading = false;
+
         vm.loadMember = function () {
+            vm.isLoading = true;
             memberService.get(vm.memberId).then(function (success) {
                 vm.member = success;
-                appNotificationService.openToast("success");
+                vm.isLoading = false;
+                //appNotificationService.openToast("success");
             }, function (error) {
                 appNotificationService.openToast("Error loading member " + vm.memberId + ":  " + error);
             });

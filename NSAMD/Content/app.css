@@ -53,6 +53,26 @@ md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked 
     width: calc(100% - 0px);
 }
 
+.md-button.md-fab.md-fab-bottom-right {
+    top: auto;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    position: fixed;
+    background-color:#4a7a5a!important;
+    /*line-height:3px;*/
+    color:white!important;
+    fill:white!important;
+}
+
+.maxWidth {
+    width:100%;
+}
+
+.md-fab {
+    fill:white;
+}
+
 button.md-fab.md-mini {
     line-height: 0px !important;
 }
@@ -71,7 +91,23 @@ tr{
 
 svg{
     fill:#4a7a5a;
+    vertical-align:middle;
 }
+
+.fixedTextArea{
+    overflow-y: scroll!important;
+    height: 100px!important;
+    resize: none!important; 
+}
+
+.menuIcon > svg {
+    fill:white;
+}
+
+button.addFab > ng-md-icon > svg{
+    fill:white;
+}
+
 @media(max-width: 961px) {
     .showMobileOnly {
         display: normal;

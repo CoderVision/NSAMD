@@ -5,7 +5,9 @@ angular.module('app').controller('memberListController',
     ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService'
     , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService) {
 
-    var vm = this;
+        var vm = this;
+
+        vm.isLoading = false;
         
     vm.gridOptions = {
         data: [], //required parameter - array with data
@@ -31,13 +33,20 @@ angular.module('app').controller('memberListController',
 
     vm.loadData = function () {
 
+        vm.isLoading = true;
+
         memberService.getList().then(function (success) {
+
+            vm.isLoading = false;
 
             vm.gridOptions.data = success;
 
             vm.paginationOptions.totalItems = success.length;
 
         }, function (error) {
+
+            vm.isLoading = false;
+
             $log.error(error);
         });
     };
