@@ -13,7 +13,8 @@
             <!-- left panel -->
             <div layout="column"
                  layout-align="start start"
-                 flex flex-gt-sm="50">
+                 flex flex-gt-sm="50"
+                 class="maxWidth">
 
                 <!-- Name -->
                 <div layout="column" 
@@ -50,18 +51,24 @@
                 </div>
 
                 <!-- Gender -->
-                <md-input-container class="md-block maxWidth">
+                <!--<md-input-container class="md-block maxWidth">
                     <md-radio-group ng-model="mc.member.gender" layout="row">
                         <md-radio-button value="M">Male</md-radio-button>
                         <md-radio-button value="F">Female</md-radio-button>
                     </md-radio-group>
+                </md-input-container>-->
+                <md-input-container flex class="maxWidth">
+                    <label>Gender</label>
+                    <md-select ng-model="mc.member.gender">
+                        <md-option ng-value="M">Male</md-option>
+                        <md-option ng-value="F">Female</md-option>
+                    </md-select>
                 </md-input-container>
                 
                 <!-- Dates -->
                 <div 
                      layout="row" 
                      layout-align="start start"
-                     style="margin-top: 10px;"
                      class="maxWidth">
                     <md-input-container class="md-block">
                         <label>Birthdate</label>
@@ -75,7 +82,6 @@
                 <div 
                      layout="row"  
                      layout-align="start start"
-                     style="margin-top: 8px;"
                      class="maxWidth">
                     <md-input-container class="md-block">
                         <label>Spirit</label>
@@ -173,15 +179,112 @@
             <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="4" md-select-on-focus></textarea>
         </md-input-container>
 
-        <p>
-            Add address Collection
-        </p>
-        <p>
-            Add phone Collection
-        </p>
-        <p>
-            Add email Collection
-        </p>
+        <!--<md-divider></md-divider>-->
+
+        <!--https://material.angularjs.org/latest/demo/list-->
+        <md-card>
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Address
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <!--ng-repeat="person in people"-->
+                <md-list-item class="md-2-line"  ng-click="goToPerson(person.name, $event)">
+                    <div class="md-list-item-text" layout="column">
+                        <h4>8918 176th Street Ct E</h4>
+                        <h4>Puyallup, WA 98375</h4>
+                    </div>
+                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                    <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="doSecondaryAction($event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card>
+            <!--Add phone Collection
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Phone Number</label>
+                <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" />
+                <div class="hint" ng-show="showHints">(###) ###-####</div>
+                <div ng-messages="userForm.phone.$error" ng-hide="showHints">
+                    <div ng-message="pattern">(###) ###-#### - Please enter a valid phone number.</div>
+                </div>
+            </md-input-container>-->
+
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Phone
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <!--ng-repeat="person in people"-->
+                <md-list-item class="md-2-line" ng-click="goToPerson(person.name, $event)">
+                    <!--ng-class="{'md-offset': phone.options.offset }"-->
+                    <div class="md-list-item-text">
+                        <h4> 253-381-4015 </h4>
+                        <p> Cell </p>
+                    </div>
+                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
+                    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="doSecondaryAction($event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card>
+            <!--Add email Collection
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Email</label>
+                <input name="email" ng-model="user.email"
+                       required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+                <div class="hint" ng-show="showHints">How can we reach you?</div>
+
+                <div ng-messages="userForm.email.$error" ng-hide="showHints">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        Your email must be between 10 and 100 characters long and look like an e-mail address.
+                    </div>
+                </div>
+            </md-input-container>-->
+
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Email
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <!--ng-repeat="person in people"-->
+                <md-list-item class="md-2-line"  ng-click="goToPerson(person.name, $event)">
+                    <div class="md-list-item-text">
+                        <h4>garymisc@outlook.com</h4>
+                    </div>
+                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                    <md-icon md-svg-icon="communication:email" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="doSecondaryAction($event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
     </form>
 </div>
 

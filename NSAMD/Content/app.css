@@ -104,6 +104,14 @@ svg{
     fill:white;
 }
 
+md-icon[md-svg-icon="content:remove"] > svg {
+    fill:red!important;
+}
+
+md-subheader > div > span > md-icon[md-svg-icon="content:add"] {
+    cursor:pointer;
+}
+
 button.addFab > ng-md-icon > svg{
     fill:white;
 }
