@@ -116,6 +116,11 @@ button.addFab > ng-md-icon > svg{
     fill:white;
 }
 
+.addressContainer {
+    margin-left:0px;
+    margin-right:0px;
+}
+
 @media(max-width: 961px) {
     .showMobileOnly {
         display: normal;
