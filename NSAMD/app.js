@@ -7,7 +7,7 @@ if (window) {
     Object.assign(config, window.__config);
 }
 
-var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination', 'md-date-picker']);
+var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination']);  // , 'md-date-picker' - not using
 
 app.constant('config', config);
 

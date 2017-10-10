@@ -12,7 +12,7 @@
 
             <!-- left panel -->
             <div layout="column"
-                 flex flex-gt-sm="50"
+                 flex flex-gt-xs="50"
                  class="maxWidth">
 
                 <!-- Name -->
@@ -70,8 +70,8 @@
                     <md-input-container class="md-block">
                         <label>Birthdate</label>
                         <!--<input type="date" placeholder="Enter date" />-->
-                        <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.birthDate" on-change="date = $date" ></md-date-picker>
-                        <!--<md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>-->
+                        <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.birthDate" on-change="date = $date" current-month-view-dates-only="true" ></md-date-picker>-->
+                        <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>
                     </md-input-container>
                 <div layout="row" layout-align="space-around start"
                      class="maxWidth">
@@ -162,16 +162,19 @@
 
                 <md-input-container class="md-block">
                     <label>Saved</label>
-                    <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>-->
+                    <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"></md-datepicker>
                 </md-input-container>
 
                 <md-input-container class="md-block">
                     <label>Spirit</label>
-                    <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>
+                    <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"></md-datepicker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>-->
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Baptized</label>
-                    <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>
+                    <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"></md-datepicker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>-->
                 </md-input-container>
             </div>
         </div>

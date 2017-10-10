@@ -116,6 +116,24 @@ button.addFab > ng-md-icon > svg{
     fill:white;
 }
 
+md-datepicker {
+    position: relative;
+    left: -16px;
+}
+    .md-datepicker-input-container{
+      margin-left: 1px;
+      width:100%;
+    }
+    .md-datepicker-button.md-icon-button {
+      margin-right: 0;
+    }
+    .md-datepicker-input{
+        width:100%;
+        max-width: 1000px;
+        margin-left: 2px;
+    }
+
+
 .addressContainer {
     margin-left:0px;
     margin-right:0px;
