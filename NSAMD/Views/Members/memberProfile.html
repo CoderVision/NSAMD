@@ -12,27 +12,27 @@
 
             <!-- left panel -->
             <div layout="column"
-                 layout-align="start start"
                  flex flex-gt-sm="50"
                  class="maxWidth">
 
                 <!-- Name -->
-                <div layout="column" 
+                <!--<div layout="column" 
                      layout-gt-xs="row" 
-                     class="maxWidth">
-                    <md-input-container class="md-block" flex>
+                     class="maxWidth">-->
+                
+                    <md-input-container class="md-block" >
                         <label>First Name</label>
-                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required flex />
+                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required  />
                         <div ng-messages="memberForm.firstName.$error">
                             <div ng-message="required">First name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
                             <div ng-message="maxlength">No more that 50 characters</div>
                         </div>
                     </md-input-container>
-
+            
                     <md-input-container class="md-block" flex>
                         <label>Middle Name</label>
-                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1" flex />
+                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1" />
                         <div ng-messages="memberForm.middleName.$error">
                             <div ng-message="minlength">At least 1 characters required</div>
                             <div ng-message="maxlength">No more that 50 characters</div>
@@ -41,14 +41,14 @@
 
                     <md-input-container class="md-block" flex>
                         <label>Last Name</label>
-                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required flex />
+                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required />
                         <div ng-messages="memberForm.lastName.$error">
                             <div ng-message="required">Last name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
                             <div ng-message="maxlength">No more that 50 characters</div>
                         </div>
                     </md-input-container>
-                </div>
+                <!--</div>-->
 
                 <!-- Gender -->
                 <!--<md-input-container class="md-block maxWidth">
@@ -66,42 +66,30 @@
                 </md-input-container>
                 
                 <!-- Dates -->
-                <div 
-                     layout="row" 
-                     layout-align="start start"
-                     class="maxWidth">
+
                     <md-input-container class="md-block">
                         <label>Birthdate</label>
-                        <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>
+                        <!--<input type="date" placeholder="Enter date" />-->
+                        <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.birthDate" on-change="date = $date" ></md-date-picker>
+                        <!--<md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>-->
                     </md-input-container>
-                    <md-input-container class="md-block" style="margin-left: 18px;">
-                        <label>Saved</label>
-                        <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date" flex></md-datepicker>
-                    </md-input-container>
-                </div>
-                <div 
-                     layout="row"  
-                     layout-align="start start"
+                <div layout="row" layout-align="space-around start"
                      class="maxWidth">
-                    <md-input-container class="md-block">
-                        <label>Spirit</label>
-                        <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date" flex></md-datepicker>
-                    </md-input-container>
-                    <md-input-container class="md-block" style="margin-left: 18px;">
-                        <label>Baptized</label>
-                        <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date" flex></md-datepicker>
-                    </md-input-container>
+                    <md-switch class="md-primary" name="married" ng-model="mc.member.married">
+                        Married
+                    </md-switch>
+                    <md-switch class="md-primary" name="veteran" ng-model="mc.member.veteran">
+                        Veteran
+                    </md-switch>
                 </div>
 
-                <div layout="row" layout-align="start start"
-                     class="maxWidth">
-                        <md-switch class="md-primary" name="married" ng-model="mc.member.married">
-                            Married
-                        </md-switch>
-                        <md-switch class="md-primary" name="veteran" ng-model="mc.member.veteran" style="margin-left: 18px;">
-                            Veteran
-                        </md-switch>
-                </div>
+                <md-input-container class="md-block">
+                    <label>Comments</label>
+                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+
+
+
             </div>
 
             <!-- right panel -->
@@ -171,13 +159,23 @@
             </md-option>-->
                     </md-select>
                 </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Saved</label>
+                    <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Spirit</label>
+                    <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Baptized</label>
+                    <md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>
+                </md-input-container>
             </div>
         </div>
 
-        <md-input-container class="md-block">
-            <label>Comments</label>
-            <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="4" md-select-on-focus></textarea>
-        </md-input-container>
 
         <!--<md-divider></md-divider>-->
 

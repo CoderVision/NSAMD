@@ -7,7 +7,7 @@ if (window) {
     Object.assign(config, window.__config);
 }
 
-var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination']);
+var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination', 'md-date-picker']);
 
 app.constant('config', config);
 

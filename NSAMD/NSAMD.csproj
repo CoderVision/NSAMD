@@ -95,6 +95,8 @@
     <Content Include="Content\images\ntcclogo.png" />
     <Content Include="Content\images\ntcclogo4-sml.png" />
     <Content Include="Content\images\ntccShield-48.png" />
+    <Content Include="Content\md-date-picker.css" />
+    <Content Include="Content\md-date-picker.min.css" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\memberController.js" />
@@ -139,6 +141,8 @@
     <Content Include="Scripts\dataGridUtils.min.js" />
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\loading-bar.min.js" />
+    <Content Include="Scripts\md-date-picker.js" />
+    <Content Include="Scripts\md-date-picker.min.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\pagination.min.js" />
     <Content Include="Services\appNotificationService.js" />
