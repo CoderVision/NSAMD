@@ -6,14 +6,14 @@
     <form name="memberForm">
 
         <div layout="column"
-             layout-gt-sm="row"
+             layout-gt-xs="row"
              layout-align="start start"
              flex>
 
             <!-- left panel -->
             <div layout="column"
                  flex flex-gt-xs="50"
-                 class="maxWidth">
+                 class="maxWidth profileLeftPanel">
 
                 <!-- Name -->
                 <!--<div layout="column" 
@@ -22,7 +22,8 @@
                 
                     <md-input-container class="md-block" >
                         <label>First Name</label>
-                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required  />
+                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required 
+                               ng-blur="mc.patch('firstName', mc.member.firstName)"  />
                         <div ng-messages="memberForm.firstName.$error">
                             <div ng-message="required">First name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -32,7 +33,8 @@
             
                     <md-input-container class="md-block" flex>
                         <label>Middle Name</label>
-                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1" />
+                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1"
+                               ng-blur="mc.patch('middleName', mc.member.middleName)" />
                         <div ng-messages="memberForm.middleName.$error">
                             <div ng-message="minlength">At least 1 characters required</div>
                             <div ng-message="maxlength">No more that 50 characters</div>
@@ -41,7 +43,8 @@
 
                     <md-input-container class="md-block" flex>
                         <label>Last Name</label>
-                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required />
+                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required
+                               ng-blur="mc.patch('lastName', mc.member.lastName)" />
                         <div ng-messages="memberForm.lastName.$error">
                             <div ng-message="required">Last name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -59,9 +62,12 @@
                 </md-input-container>-->
                 <md-input-container flex class="maxWidth">
                     <label>Gender</label>
-                    <md-select ng-model="mc.member.gender">
-                        <md-option ng-value="M">Male</md-option>
-                        <md-option ng-value="F">Female</md-option>
+
+                    <!-- has to use "value" instead of ng-value in order to set to a string: F and M -->
+                    <md-select ng-model="mc.member.gender"
+                               ng-change="mc.patch('gender', mc.member.gender)">
+                        <md-option value="M">Male</md-option>
+                        <md-option value="F">Female</md-option>
                     </md-select>
                 </md-input-container>
                 
@@ -71,24 +77,26 @@
                         <label>Birthdate</label>
                         <!--<input type="date" placeholder="Enter date" />-->
                         <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.birthDate" on-change="date = $date" current-month-view-dates-only="true" ></md-date-picker>-->
-                        <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"></md-datepicker>
+                        <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"
+                                       ng-change="mc.patch('birthDate', mc.member.birthDate)"></md-datepicker>   <!--| date:'M/dd/yyyy'-->
                     </md-input-container>
                 <div layout="row" layout-align="space-around start"
                      class="maxWidth">
-                    <md-switch class="md-primary" name="married" ng-model="mc.member.married">
+                    <md-switch class="md-primary" name="married" ng-model="mc.member.married"
+                               ng-change="mc.patch('married', mc.member.married)">
                         Married
                     </md-switch>
-                    <md-switch class="md-primary" name="veteran" ng-model="mc.member.veteran">
+                    <md-switch class="md-primary" name="veteran" ng-model="mc.member.veteran"
+                               ng-change="mc.patch('veteran', mc.member.veteran)">
                         Veteran
                     </md-switch>
                 </div>
 
                 <md-input-container class="md-block">
                     <label>Comments</label>
-                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="5" md-select-on-focus></textarea>
+                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="5" md-select-on-focus
+                              ng-blur="mc.patch('comment', mc.member.comment)" ></textarea>
                 </md-input-container>
-
-
 
             </div>
 
@@ -98,7 +106,8 @@
 
                 <md-input-container flex>
                     <label>Church</label>
-                    <md-select ng-model="mc.member.churchId">
+                    <md-select ng-model="mc.member.churchId"
+                               ng-change="mc.patch('churchId', mc.member.churchId)">
                         <md-option ng-value="3">Graham</md-option>
                         <md-option ng-value="9">Dallas</md-option>
                         <md-option ng-value="7">Denver</md-option>
@@ -111,7 +120,8 @@
 
                 <md-input-container flex>
                     <label>Type</label>
-                    <md-select ng-model="mc.member.memberTypeEnumId">
+                    <md-select ng-model="mc.member.memberTypeEnumId"
+                               ng-change="mc.patch('memberTypeEnumId', mc.member.memberTypeEnumId)">
                         <md-option ng-value="65">Helper</md-option>
                         <md-option ng-value="62">Member</md-option>
                         <md-option ng-value="64">Minister</md-option>
@@ -124,7 +134,8 @@
 
                 <md-input-container flex>
                     <label>Status</label>
-                    <md-select ng-model="mc.member.statusId">
+                    <md-select ng-model="mc.member.statusId"
+                               ng-change="mc.patch('statusId', mc.member.statusId)">
                         <md-option ng-value="3">Active</md-option>
                         <md-option ng-value="9">Faithful</md-option>
                         <md-option ng-value="7">Inactive</md-option>
@@ -137,7 +148,8 @@
 
                 <md-input-container flex>
                     <label>Reason</label>
-                    <md-select ng-model="mc.member.statusChangeTypeId">
+                    <md-select ng-model="mc.member.statusChangeTypeId"
+                               ng-change="mc.patch('statusChangeTypeId', mc.member.statusChangeTypeId)">
                         <md-option ng-value="23">Coming Regularly</md-option>
                         <md-option ng-value="24">Guest will not answer door/phone</md-option>
                         <md-option ng-value="25">Sponsor works on the job with them</md-option>
@@ -150,7 +162,8 @@
 
                 <md-input-container flex>
                     <label>Sponsor</label>
-                    <md-select ng-model="mc.member.sponsorId">
+                    <md-select ng-model="mc.member.sponsorId"
+                               ng-change="mc.patch('statusChangeTypeId', mc.member.sponsorId)">
                         <md-option ng-value="4">Gary Lima</md-option>
                         <md-option ng-value="4">Wei Lima</md-option>
                         <md-option ng-value="22">Phillip</md-option>
@@ -163,17 +176,20 @@
                 <md-input-container class="md-block">
                     <label>Saved</label>
                     <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>-->
-                    <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"></md-datepicker>
+                    <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateSaved', mc.member.dateSaved)"></md-datepicker>
                 </md-input-container>
 
                 <md-input-container class="md-block">
                     <label>Spirit</label>
-                    <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"></md-datepicker>
+                    <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateBaptizedHolyGhost', mc.member.dateBaptizedHolyGhost)"></md-datepicker>
                     <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>-->
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Baptized</label>
-                    <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"></md-datepicker>
+                    <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateBaptizedWater', mc.member.dateBaptizedWater)"></md-datepicker>
                     <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>-->
                 </md-input-container>
             </div>
@@ -287,5 +303,8 @@
             </md-list>
         </md-card>
     </form>
+
 </div>
+
+
 

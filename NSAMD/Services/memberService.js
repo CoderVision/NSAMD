@@ -46,5 +46,32 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         return deferred.promise;
     };
 
+    svc.patch = function (memberId, fieldName, fieldValue) {
+
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/Members?id=" + memberId;
+        var patchDocument = [{
+            "op": "replace",
+            "path": "/" + fieldName,
+            "value": fieldValue
+        }];
+
+        $http.patch(uri, patchDocument).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.get:  " + error);
+
+            deferred.reject("Error retrieving member id " + id);
+        });
+
+        return deferred.promise;
+
+    }
+
+
     return svc;
 }]);

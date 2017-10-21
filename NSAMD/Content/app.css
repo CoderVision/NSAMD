@@ -65,6 +65,19 @@ md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked 
     fill:white!important;
 }
 
+.md-button.md-fab.md-fab-bottom-center {
+    top: auto;
+    /*right: 20px;*/
+    bottom: 20px;
+    left: auto;
+    right:auto;
+    position: fixed;
+    background-color:#4a7a5a!important;
+    /*line-height:3px;*/
+    color:white!important;
+    fill:white!important;
+}
+
 .maxWidth {
     width:100%;
 }
@@ -98,6 +111,10 @@ svg{
     overflow-y: scroll!important;
     height: 109px!important;
     resize: none!important; 
+}
+
+.profileLeftPanel{
+    margin-right:15px;
 }
 
 .menuIcon > svg {
@@ -137,6 +154,12 @@ md-datepicker {
 .addressContainer {
     margin-left:0px;
     margin-right:0px;
+}
+
+@media(max-width: 600px) {
+    .profileLeftPanel{
+    margin-right:0px!important;
+    }
 }
 
 @media(max-width: 961px) {

@@ -26,5 +26,17 @@ angular.module('app').controller('memberController',
             });
         };
 
+        vm.patch = function (fieldName, fieldValue) {
+            memberService.patch(vm.memberId, fieldName, fieldValue).then(function (success) {
+               // vm.member = success;
+                appNotificationService.openToast("Save success");
+            }, function (error) {
+                appNotificationService.openToast("Error saving member " + vm.memberId + ":  " + error);
+            }).then(function () {
+                vm.isLoading = false;
+            });
+        }
+
+
         return vm;
     }]);
