@@ -192,7 +192,7 @@
                             Address
                         </span>
                         <span>
-                            <md-icon class="md-secondary" ng-click="mc.addAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress('address', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
                         </span>
                     </div>
                 </md-subheader>
@@ -222,7 +222,7 @@
                             Phone
                         </span>
                         <span>
-                            <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress('phone', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
                         </span>
                     </div>
                 </md-subheader>
@@ -253,7 +253,7 @@
                             Email
                         </span>
                         <span>
-                            <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress('email', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
                         </span>
                     </div>
                 </md-subheader>

@@ -74,6 +74,35 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
     }
 
+    svc.saveAddy = function(addy)
+    {
+        if (addy.type == "phone") {
+
+        }
+        else if (addy.type == "email") {
+
+        }
+        else {
+            // address
+        }
+
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/Members?id=" + memberId + "&churchId=" + churchId;
+
+        $http.post(uri, addy).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.saveAddy:  " + error);
+
+            deferred.reject("Error retrieving member id " + id);
+        });
+
+        return deferred.promise;
+    }
 
     return svc;
 }]);

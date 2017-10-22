@@ -38,11 +38,20 @@ angular.module('app').controller('memberController',
             });
         }
 
+        vm.addAddress = function (type, $event) {
+
+            var addy = { IdentityId: vm.memberId };  // empty object will get relative properties created when binding to the modal
+
+            vm.editAddress(type, addy, $event);
+        }
+
         vm.editAddress = function (type, addy, $event) {
 
-            var config = GetEditConfiguration(type);
-
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            addy.type = type;
+
+            var config = GetEditConfiguration(type);
 
             $mdDialog.show({
                 locals: { currentItem: addy },
@@ -55,9 +64,15 @@ angular.module('app').controller('memberController',
                 fullscreen: useFullScreen
             }).then(function (editedItem) {
 
-                config.push(editedItem);
+                memberService.saveAddy(editedItem).then(function (success) {
 
-                $log.info("Edit item saved");
+                    config.push(success.data);
+
+                    $log.info("Edit item saved");
+
+                }, function (error) {
+                    $log.info("Error saving addy");
+                });
 
             }, function () {
                 $log.info("Edit item cancelled");
