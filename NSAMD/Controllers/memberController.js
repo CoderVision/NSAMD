@@ -9,6 +9,7 @@ angular.module('app').controller('memberController',
         var vm = this;
         
         vm.memberId = $routeParams.memberId;
+        vm.churchId = 3;
 
         vm.member = {};
 
@@ -16,7 +17,7 @@ angular.module('app').controller('memberController',
 
         vm.loadMember = function () {
             vm.isLoading = true;
-            memberService.get(vm.memberId).then(function (success) {
+            memberService.get(vm.memberId, vm.churchId).then(function (success) {
                 vm.member = success;
                 //appNotificationService.openToast("success");
             }, function (error) {
@@ -27,7 +28,7 @@ angular.module('app').controller('memberController',
         };
 
         vm.patch = function (fieldName, fieldValue) {
-            memberService.patch(vm.memberId, fieldName, fieldValue).then(function (success) {
+            memberService.patch(vm.memberId, vm.churchId, fieldName, fieldValue).then(function (success) {
                // vm.member = success;
                 appNotificationService.openToast("Save success");
             }, function (error) {

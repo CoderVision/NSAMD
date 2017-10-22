@@ -6,6 +6,8 @@ angular.module('app').controller('memberListController',
     , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService) {
 
         var vm = this;
+        vm.churchId = 3;
+        vm.statusIds = 49;
 
         vm.isLoading = false;
         
