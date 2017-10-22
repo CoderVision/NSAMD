@@ -103,6 +103,7 @@
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\perspectivesController.js" />
     <Content Include="Controllers\rootController.js" />
+    <Content Include="Controllers\simpleDialogController.js" />
     <Content Include="Controllers\teamController.js" />
     <Content Include="Filters\mapAddressFilter.js" />
     <Content Include="Filters\phoneFilter.js" />
@@ -127,6 +128,7 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\ngMask.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -143,6 +145,8 @@
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\md-date-picker.js" />
     <Content Include="Scripts\md-date-picker.min.js" />
+    <Content Include="Scripts\ngMask.js" />
+    <Content Include="Scripts\ngMask.min.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\pagination.min.js" />
     <Content Include="Services\appNotificationService.js" />
@@ -150,6 +154,9 @@
     <Content Include="Services\memberService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
+    <Content Include="Views\App\addressDialog.html" />
+    <Content Include="Views\App\emailDialog.html" />
+    <Content Include="Views\App\phoneDialog.html" />
     <Content Include="Views\App\sideNav.html" />
     <Content Include="Views\App\toolbarHeader.html" />
     <Content Include="Views\Churches\churchesIndex.html" />

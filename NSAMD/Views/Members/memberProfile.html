@@ -14,12 +14,7 @@
             <div layout="column"
                  flex flex-gt-xs="50"
                  class="maxWidth profileLeftPanel">
-
-                <!-- Name -->
-                <!--<div layout="column" 
-                     layout-gt-xs="row" 
-                     class="maxWidth">-->
-                
+               
                     <md-input-container class="md-block" >
                         <label>First Name</label>
                         <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required 
@@ -51,15 +46,7 @@
                             <div ng-message="maxlength">No more that 50 characters</div>
                         </div>
                     </md-input-container>
-                <!--</div>-->
 
-                <!-- Gender -->
-                <!--<md-input-container class="md-block maxWidth">
-                    <md-radio-group ng-model="mc.member.gender" layout="row">
-                        <md-radio-button value="M">Male</md-radio-button>
-                        <md-radio-button value="F">Female</md-radio-button>
-                    </md-radio-group>
-                </md-input-container>-->
                 <md-input-container flex class="maxWidth">
                     <label>Gender</label>
 
@@ -75,8 +62,6 @@
 
                     <md-input-container class="md-block">
                         <label>Birthdate</label>
-                        <!--<input type="date" placeholder="Enter date" />-->
-                        <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.birthDate" on-change="date = $date" current-month-view-dates-only="true" ></md-date-picker>-->
                         <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"
                                        ng-change="mc.patch('birthDate', mc.member.birthDate)"></md-datepicker>   <!--| date:'M/dd/yyyy'-->
                     </md-input-container>
@@ -207,15 +192,19 @@
                             Address
                         </span>
                         <span>
-                            <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress($event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
                         </span>
                     </div>
                 </md-subheader>
-                <!--ng-repeat="person in people"-->
-                <md-list-item class="md-2-line"  ng-click="goToPerson(person.name, $event)">
+                <md-list-item class="md-2-line"  
+                              ng-repeat="addy in mc.member.addressList"
+                              ng-click="mc.editAddress('address', addy, $event)" >
                     <div class="md-list-item-text" layout="column">
-                        <h4>8918 176th Street Ct E</h4>
-                        <h4>Puyallup, WA 98375</h4>
+                        <h3>{{addy.line1}}</h3>
+                        <h3 ng-if="addy.line2">{{addy.line2}}</h3>
+                        <h3>{{addy.city}}, {{addy.state}}  {{addy.zip}}</h3>
+                        <h4 ng-if="addy.verified == true">Verified</h4>
+                        <h4 ng-if="addy.verified == true">Preferred</h4>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
@@ -226,16 +215,6 @@
         </md-card>
 
         <md-card class="addressContainer">
-            <!--Add phone Collection
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Phone Number</label>
-                <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" />
-                <div class="hint" ng-show="showHints">(###) ###-####</div>
-                <div ng-messages="userForm.phone.$error" ng-hide="showHints">
-                    <div ng-message="pattern">(###) ###-#### - Please enter a valid phone number.</div>
-                </div>
-            </md-input-container>-->
-
             <md-list>
                 <md-subheader class="md-no-sticky">
                     <div layout="row" layout-align="space-between center">
@@ -247,12 +226,15 @@
                         </span>
                     </div>
                 </md-subheader>
-                <!--ng-repeat="person in people"-->
-                <md-list-item class="md-2-line" ng-click="goToPerson(person.name, $event)">
+                <md-list-item class="md-2-line" 
+                              ng-repeat="addy in mc.member.phoneList"
+                              ng-click="mc.editAddress('phone', addy, $event)">
                     <!--ng-class="{'md-offset': phone.options.offset }"-->
                     <div class="md-list-item-text">
-                        <h4> 253-381-4015 </h4>
-                        <p> Cell </p>
+                        <h3> {{ addy.phoneNumber | phone}} </h3>
+                        <!--<p> Cell </p>-->
+                        <h4 ng-if="addy.verified == true">Verified</h4>
+                        <h4 ng-if="addy.verified == true">Preferred</h4>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
@@ -264,21 +246,6 @@
         </md-card>
 
         <md-card class="addressContainer">
-            <!--Add email Collection
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Email</label>
-                <input name="email" ng-model="user.email"
-                       required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
-
-                <div class="hint" ng-show="showHints">How can we reach you?</div>
-
-                <div ng-messages="userForm.email.$error" ng-hide="showHints">
-                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                        Your email must be between 10 and 100 characters long and look like an e-mail address.
-                    </div>
-                </div>
-            </md-input-container>-->
-
             <md-list>
                 <md-subheader class="md-no-sticky">
                     <div layout="row" layout-align="space-between center">
@@ -290,10 +257,13 @@
                         </span>
                     </div>
                 </md-subheader>
-                <!--ng-repeat="person in people"-->
-                <md-list-item class="md-2-line"  ng-click="goToPerson(person.name, $event)">
+                <md-list-item class="md-2-line"  
+                              ng-repeat="addy in mc.member.emailList"
+                              ng-click="mc.editAddress('email', addy, $event)">
                     <div class="md-list-item-text">
-                        <h4>garymisc@outlook.com</h4>
+                        <h3>{{addy.emailAddress}}</h3>
+                        <h4 ng-if="addy.verified == true">Verified</h4>
+                        <h4 ng-if="addy.verified == true">Preferred</h4>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->

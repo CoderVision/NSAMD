@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('memberController',
-    ['$routeParams', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
-    , function ($routeParams, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
+    ['$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
+    , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
 
         var vm = this;
         
@@ -38,6 +38,55 @@ angular.module('app').controller('memberController',
             });
         }
 
+        vm.editAddress = function (type, addy, $event) {
+
+            var config = GetEditConfiguration(type);
+
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            $mdDialog.show({
+                locals: { currentItem: addy },
+                templateUrl: config.template,
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: config.controller,
+                controllerAs: 'dc', // dc = dialog controller
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen
+            }).then(function (editedItem) {
+
+                config.push(editedItem);
+
+                $log.info("Edit item saved");
+
+            }, function () {
+                $log.info("Edit item cancelled");
+            });
+        }
+
+        function GetEditConfiguration(type) {
+            var config = {};
+            config.controller = "SimpleDialogController";
+            if (type == "email") {
+                config.template = './views/app/emailDialog.html';
+                config.push = function (item) {
+                    vm.member.emailList.push(item);
+                }
+            }
+            else if (type == "phone") {
+                config.template = './views/app/phoneDialog.html';
+                config.push = function (item) {
+                    vm.member.phoneList.push(item);
+                }
+            }
+            else {
+                config.template = './views/app/addressDialog.html';
+                config.push = function (item) {
+                    vm.member.addressList.push(item);
+                }
+            }
+            return config;
+        }
 
         return vm;
     }]);

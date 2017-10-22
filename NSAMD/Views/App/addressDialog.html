@@ -1,0 +1,77 @@
+﻿
+
+<md-dialog class="addressDiag">
+    <form name="addyForm" ng-submit="dc.save()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+
+                <md-input-container>
+                    <label>Line 1</label>
+                    <input type="text" ng-model="dc.currentItem.line1" name="line1" min="0" ng-maxlength="50" />
+                    <div ng-messages="addyForm.line1.$error">
+                        <div ng-message="maxlength">50 characters max</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Line 2</label>
+                    <input type="text" ng-model="dc.currentItem.line2" name="line2" min="0" ng-maxlength="50" />
+                    <div ng-messages="addyForm.line2.$error">
+                        <div ng-message="maxlength">50 characters max</div>
+                    </div>
+                </md-input-container>
+
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>City</label>
+                        <input type="text" ng-model="dc.currentItem.city" name="city" min="0" ng-maxlength="50" />
+                        <div ng-messages="addyForm.city.$error">
+                            <div ng-message="maxlength">50 characters max</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex="15">
+                        <label>State</label>
+                        <input type="text" ng-model="dc.currentItem.state" name="state" min="0" ng-maxlength="2" 
+                               mask="AA" clean="true" restrict="reject"/>
+                        <div ng-messages="addyForm.state.$error">
+                            <div ng-message="maxlength">2 characters max</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex="30">
+                        <label>Zip Code</label>
+                        <input type="text" ng-model="dc.currentItem.zip" name="zip" min="0" ng-maxlength="10" 
+                               mask="99999-9999" clean="true" restrict="reject"
+                               ng-pattern="/\d{5}-?(\d{4})?/"/>
+                        <div class="hint" ng-show="showHints">99999-9999</div>
+                        <div ng-messages="addyForm.zip.$error">
+                            <div ng-message="maxlength">10 characters max</div>
+                            <div ng-message="pattern">Invalid zip code</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row" layout-align="space-around start"
+                     class="maxWidth">
+                    <md-switch class="md-primary" name="verified" ng-model="dc.currentItem.verified">
+                        Verified
+                    </md-switch>
+                    <md-switch class="md-primary" name="preferred" ng-model="dc.currentItem.preferred">
+                        Preferred
+                    </md-switch>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="addyForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

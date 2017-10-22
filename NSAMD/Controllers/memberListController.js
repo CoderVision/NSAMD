@@ -6,7 +6,7 @@ angular.module('app').controller('memberListController',
     , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService) {
 
         var vm = this;
-        vm.churchId = 3;
+        vm.churchId = 3; // default to the first one that they have access to
         vm.statusIds = 49;
 
         vm.isLoading = false;
@@ -37,7 +37,7 @@ angular.module('app').controller('memberListController',
 
         vm.isLoading = true;
 
-        memberService.getList().then(function (success) {
+        memberService.getList(vm.churchId, vm.statusIds).then(function (success) {
 
             vm.gridOptions.data = success;
 
