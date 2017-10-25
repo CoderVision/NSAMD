@@ -7,7 +7,7 @@ angular.module('app').controller('memberListController',
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
-        vm.statusIds = 49;
+        vm.statusIds = "49-50";
 
         vm.isLoading = false;
         

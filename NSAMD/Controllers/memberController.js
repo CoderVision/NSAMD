@@ -40,7 +40,7 @@ angular.module('app').controller('memberController',
 
         vm.addAddress = function (type, $event) {
 
-            var addy = { IdentityId: vm.memberId };  // empty object will get relative properties created when binding to the modal
+            var addy = { isNew: true, IdentityId: vm.memberId };  // empty object will get relative properties created when binding to the modal
 
             vm.editAddress(type, addy, $event);
         }
@@ -49,12 +49,16 @@ angular.module('app').controller('memberController',
 
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
-            addy.type = type;
-
             var config = GetEditConfiguration(type);
 
+            addy.identityId = vm.memberId;
+            addy.type = type;
+            addy.contactInfoType = config.ContactInfoType;
+
+            var editAddy = angular.copy(addy);
+
             $mdDialog.show({
-                locals: { currentItem: addy },
+                locals: { currentItem: editAddy },
                 templateUrl: config.template,
                 parent: angular.element(document.body),
                 targetEvent: $event,
@@ -66,7 +70,10 @@ angular.module('app').controller('memberController',
 
                 memberService.saveAddy(editedItem).then(function (success) {
 
-                    config.push(success.data);
+                    if (editedItem.isNew)
+                        config.push(success);
+                    else
+                        angular.copy(success, addy);
 
                     $log.info("Edit item saved");
 
@@ -84,18 +91,21 @@ angular.module('app').controller('memberController',
             config.controller = "SimpleDialogController";
             if (type == "email") {
                 config.template = './views/app/emailDialog.html';
+                config.ContactInfoType = 2;
                 config.push = function (item) {
                     vm.member.emailList.push(item);
                 }
             }
             else if (type == "phone") {
                 config.template = './views/app/phoneDialog.html';
+                config.ContactInfoType = 3;
                 config.push = function (item) {
                     vm.member.phoneList.push(item);
                 }
             }
             else {
                 config.template = './views/app/addressDialog.html';
+                config.ContactInfoType = 1;
                 config.push = function (item) {
                     vm.member.addressList.push(item);
                 }

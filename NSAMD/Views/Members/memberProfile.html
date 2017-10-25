@@ -64,6 +64,7 @@
                         <label>Birthdate</label>
                         <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"
                                        ng-change="mc.patch('birthDate', mc.member.birthDate)"></md-datepicker>   <!--| date:'M/dd/yyyy'-->
+                        <!--mask="1?9/39/3999" clean="true" restrict="reject"-->
                     </md-input-container>
                 <div layout="row" layout-align="space-around start"
                      class="maxWidth">
@@ -204,7 +205,7 @@
                         <h3 ng-if="addy.line2">{{addy.line2}}</h3>
                         <h3>{{addy.city}}, {{addy.state}}  {{addy.zip}}</h3>
                         <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.verified == true">Preferred</h4>
+                        <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
@@ -234,7 +235,7 @@
                         <h3> {{ addy.phoneNumber | phone}} </h3>
                         <!--<p> Cell </p>-->
                         <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.verified == true">Preferred</h4>
+                        <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
@@ -263,7 +264,7 @@
                     <div class="md-list-item-text">
                         <h3>{{addy.emailAddress}}</h3>
                         <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.verified == true">Preferred</h4>
+                        <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->

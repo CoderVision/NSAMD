@@ -76,19 +76,9 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
     svc.saveAddy = function(addy)
     {
-        if (addy.type == "phone") {
-
-        }
-        else if (addy.type == "email") {
-
-        }
-        else {
-            // address
-        }
-
         var deferred = $q.defer();
 
-        var uri = config.apiUrl + "/Members?id=" + memberId + "&churchId=" + churchId;
+        var uri = config.apiUrl + "/Members/" + addy.identityId + "/" + addy.type;
 
         $http.post(uri, addy).then(function (success) {
 
