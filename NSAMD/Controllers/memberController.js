@@ -113,5 +113,33 @@ angular.module('app').controller('memberController',
             return config;
         }
 
+
+        vm.removeAddress = function(type, addy, $event){
+
+            memberService.removeAddy(addy).then(function (success) {
+
+                if (type == "phone") {
+                    for (var i = vm.member.phoneList.length - 1; i >= 0; i--) {
+                        if (vm.member.phoneList[i].contactInfoId == addy.contactInfoId)
+                            vm.member.phoneList.splice(i, 1);
+                    }
+                }
+                else if (type == "email") {
+                    for (var i = vm.member.emailList.length - 1; i >= 0; i--) {
+                        if (vm.member.emailList[i].contactInfoId == addy.contactInfoId)
+                            vm.member.emailList.splice(i, 1);
+                    }
+                }
+                else if (type == "address") {
+                    for (var i = vm.member.addressList.length - 1; i >= 0; i--) {
+                        if (vm.member.addressList[i].contactInfoId == addy.contactInfoId)
+                            vm.member.addressList.splice(i, 1);
+                    }
+                }
+
+            }, function (error) {
+                appNotificationService.openToast("Error deleting " + type + ":  " + error);
+            });
+        }
         return vm;
     }]);

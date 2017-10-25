@@ -209,8 +209,8 @@
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                    <md-icon class="md-secondary" ng-click="openAddress($event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
-                    <md-icon md-svg-icon="content:remove" ng-click="doSecondaryAction($event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon class="md-secondary" ng-click="mc.openMap(addy, $event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('address', addy, $event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -239,9 +239,9 @@
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
-                    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
-                    <md-icon md-svg-icon="content:remove" ng-click="doSecondaryAction($event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon class="md-secondary" ng-click="mc.smsPhone(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
+                    <md-icon class="md-secondary" ng-click="mc.callPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -266,10 +266,8 @@
                         <h4 ng-if="addy.verified == true">Verified</h4>
                         <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
-                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
-                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                    <md-icon md-svg-icon="communication:email" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
-                    <md-icon md-svg-icon="content:remove" ng-click="doSecondaryAction($event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail($event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>
         </md-card>

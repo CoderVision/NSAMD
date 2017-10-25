@@ -94,5 +94,24 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         return deferred.promise;
     }
 
+    svc.removeAddy = function (addy) {
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/Members/" + addy.identityId + "/" + addy.contactInfoId;
+
+        $http.delete(uri).then(function (success) {
+
+            deferred.resolve();
+
+        }, function (error) {
+
+            $log.error("error in memberService.saveAddy:  " + error);
+
+            deferred.reject("Error retrieving member id " + id);
+        });
+
+        return deferred.promise;
+    }
+
     return svc;
 }]);
