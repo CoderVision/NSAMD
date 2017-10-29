@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('memberController',
-    ['$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
-    , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
+    ['$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService'
+    , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService) {
 
         var vm = this;
         
@@ -12,6 +12,40 @@ angular.module('app').controller('memberController',
         vm.churchId = 3;
 
         vm.member = {};
+        vm.memberList = [{ id: 4, name: "Gary Lima" }, { id: 5, name: "Wei Lima" }, { id: 6, name: "Phillip Kinson" }];
+        vm.teamList = [{ id: 1, name: "Ambassadors for Christ" }, { id: 2, name: "Harvesters" }];
+
+        // Sponsors
+        vm.selectedSponsors = [vm.memberList[0]];
+        vm.selectedSponsor = null;
+        vm.sponsorSearchText = null;
+        vm.sponsorSearch = function (sponsorSearchText) {
+            //var result = vm.memberList.filter(createFilterFor(sponsorSearchText));
+            var result = vm.memberList.filter(sponsorFilter);
+            return result;
+        }
+        function sponsorFilter(member) {
+            var lowercase = angular.lowercase(vm.sponsorSearchText);
+            return (member.name.toLowerCase().indexOf(lowercase) === 0);
+        }
+
+        // Teams
+        vm.selectedTeams = [vm.teamList[0]];
+        vm.selectedTeam = null;
+        vm.teamSearchText = null;
+        vm.teamSearch = function (sponsorSearchText) {
+            //var result = vm.memberList.filter(createFilterFor(sponsorSearchText));
+            var result = vm.memberList.filter(teamFilter);
+            return result;
+        }
+        function teamFilter(member) {
+            var lowercase = angular.lowercase(vm.sponsorSearchText);
+            return (member.name.toLowerCase().indexOf(lowercase) === 0);
+        }
+
+
+
+
 
         vm.isLoading = false;
 
@@ -140,6 +174,14 @@ angular.module('app').controller('memberController',
             }, function (error) {
                 appNotificationService.openToast("Error deleting " + type + ":  " + error);
             });
+        }
+
+        vm.openEmail = function (addy, $event) {
+            sendMail(addy.emailAddress);
+        }
+
+        function sendMail(email) {
+            $window.open("mailto:" + email);
         }
         return vm;
     }]);

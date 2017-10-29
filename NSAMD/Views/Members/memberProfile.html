@@ -122,10 +122,10 @@
                     <label>Status</label>
                     <md-select ng-model="mc.member.statusId"
                                ng-change="mc.patch('statusId', mc.member.statusId)">
-                        <md-option ng-value="3">Active</md-option>
-                        <md-option ng-value="9">Faithful</md-option>
-                        <md-option ng-value="7">Inactive</md-option>
-                        <md-option ng-value="8">Dropped</md-option>
+                        <md-option ng-value="49">Active</md-option>
+                        <md-option ng-value="50">Faithful</md-option>
+                        <md-option ng-value="51">Inactive</md-option>
+                        <md-option ng-value="52">Dropped</md-option>
                         <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
                 {{state.abbrev}}
             </md-option>-->
@@ -147,16 +147,54 @@
                 </md-input-container>
 
                 <md-input-container flex>
-                    <label>Sponsor</label>
-                    <md-select ng-model="mc.member.sponsorId"
+                    <label>Sponsors</label>
+                    <!--<md-select ng-model="mc.member.sponsorId"
                                ng-change="mc.patch('sponsorId', mc.member.sponsorId)">
                         <md-option ng-value="4">Gary Lima</md-option>
                         <md-option ng-value="5">Wei Lima</md-option>
                         <md-option ng-value="22">Phillip</md-option>
-                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                {{state.abbrev}}
-            </md-option>-->
-                    </md-select>
+                    </md-select>-->
+
+                    <!--md-transform-chip="ctrl.transformChip($chip)"
+                        md-items="item in mc.querySearch(ctrl.searchText)"-->
+                    <md-chips ng-model="mc.selectedSponsors" 
+                              md-autocomplete-snap
+                              md-require-match="true">
+                        <md-autocomplete md-selected-item="mc.selectedSponsor"
+                                         md-search-text="mc.sponsorSearchText"
+                                         md-items="item in mc.sponsorSearch(mc.sponsorSearchText)"
+                                         md-item-text="item.name"
+                                         placeholder="Search for a member">
+                            <span md-highlight-text="mc.sponsorSearchText">{{item.name}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <strong>{{$chip.name}}</strong>
+                                <!--<em>({{$chip.type}})</em>-->
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Teams</label>
+                    <md-chips ng-model="mc.selectedTeams"
+                              md-autocomplete-snap
+                              md-require-match="true">
+                        <md-autocomplete md-selected-item="mc.selectedTeam"
+                                         md-search-text="mc.teamSearchText"
+                                         md-items="item in mc.teamSearch(mc.teamSearchText)"
+                                         md-item-text="item.name"
+                                         placeholder="Search for a team">
+                            <span md-highlight-text="mc.teamSearchText">{{item.name}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <strong>{{$chip.name}}</strong>
+                                <!--<em>({{$chip.type}})</em>-->
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
                 </md-input-container>
 
                 <md-input-container class="md-block">
@@ -266,7 +304,7 @@
                         <h4 ng-if="addy.verified == true">Verified</h4>
                         <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
-                    <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail($event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>

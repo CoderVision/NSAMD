@@ -105,6 +105,7 @@ tr{
 svg{
     fill:#4a7a5a;
     vertical-align:middle;
+    cursor:pointer;
 }
 
 .fixedTextArea{
