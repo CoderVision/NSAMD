@@ -1,0 +1,71 @@
+﻿
+
+
+<md-dialog class="messageDiag">
+    <form name="messageForm" ng-submit="dc.save()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+
+                <md-input-container ng-if="dc.messageType == 2">
+                    <label>Recipient</label>
+                    <input type="text" ng-model="dc.currentItem.phoneNumber" name="recipient" min="0" ng-maxlength="25"
+                           mask="(999) 999-9999" clean="true" restrict="reject" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/"
+                           md-autofocus />
+                    <div class="hint" ng-show="showHints">(###) ###-####</div>
+                    <div ng-messages="messageForm.recipient.$error">
+                        <div ng-message="maxlength">25 characters max</div>
+                        <div ng-message="pattern">Invalid phone number</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container ng-if="dc.messageType == 1">
+                    <label>Recipient</label>
+                    <input type="email" ng-model="dc.currentItem.emailAddress" name="recipient" min="0" ng-maxlength="50"
+                           ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/"
+                           md-autofocus />
+                    <div class="hint" ng-show="showHints">user@email.com</div>
+                    <div ng-messages="messageForm.recipient.$error">
+                        <div ng-message="maxlength">50 characters max</div>
+                        <div ng-message="pattern">Invalid email address</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container ng-if="dc.messageType == 1">
+                    <label>Subject</label>
+                    <input type="text" ng-model="dc.currentItem.subject" name="subject" min="0" ng-maxlength="50"/>
+                    <div ng-messages="messageForm.subject.$error">
+                        <div ng-message="maxlength">50 characters max</div>
+                        <div ng-message="pattern">Invalid email address</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container  ng-if="dc.messageType == 2">
+                    <label>Message</label>
+                    <input type="text" ng-model="dc.currentItem.body" name="body" min="0" ng-maxlength="50" />
+                    <div class="hint" ng-show="showHints">user@email.com</div>
+                    <div ng-messages="messageForm.body.$error">
+                        <div ng-message="maxlength">50 characters max</div>
+                        <div ng-message="pattern">Invalid email address</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" ng-if="dc.messageType == 1">
+                    <label>Body</label>
+                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="5" md-select-on-focus name="body"
+                              ng-blur="mc.patch('comment', mc.member.comment)"></textarea>
+                </md-input-container>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="messageForm.$invalid">
+                Send
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

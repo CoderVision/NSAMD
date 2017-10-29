@@ -11,7 +11,9 @@ var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRou
 
 app.constant('config', config);
 
-app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
+app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider) {
+
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|callto|file|tel):/);
 
     $routeProvider.when('/church', {
         templateUrl: './Views/Churches/churchesIndex.html',

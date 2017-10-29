@@ -7,7 +7,7 @@ angular.module('app').controller('memberController',
     , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService) {
 
         var vm = this;
-        
+
         vm.memberId = $routeParams.memberId;
         vm.churchId = 3;
 
@@ -43,10 +43,6 @@ angular.module('app').controller('memberController',
             return (member.name.toLowerCase().indexOf(lowercase) === 0);
         }
 
-
-
-
-
         vm.isLoading = false;
 
         vm.loadMember = function () {
@@ -63,7 +59,7 @@ angular.module('app').controller('memberController',
 
         vm.patch = function (fieldName, fieldValue) {
             memberService.patch(vm.memberId, vm.churchId, fieldName, fieldValue).then(function (success) {
-               // vm.member = success;
+                // vm.member = success;
                 appNotificationService.openToast("Save success");
             }, function (error) {
                 appNotificationService.openToast("Error saving member " + vm.memberId + ":  " + error);
@@ -148,7 +144,7 @@ angular.module('app').controller('memberController',
         }
 
 
-        vm.removeAddress = function(type, addy, $event){
+        vm.removeAddress = function (type, addy, $event) {
 
             memberService.removeAddy(addy).then(function (success) {
 
@@ -176,12 +172,105 @@ angular.module('app').controller('memberController',
             });
         }
 
+        vm.openSms = function (addy, $event) {
+            //<a href="sms:@(String.Format("{0:###-###-####}", double.Parse(m.Phone)))"><img class="icon32" src="~/Content/images/Text-32.png" alt="call" /></a>
+            openMessage(addy, 2, $event);
+        }
+
+        vm.openPhone = function (addy, $event) {
+
+            if (!addy.phoneNumber || addy.phoneNumber.length == 0)
+                return;
+
+            var value = addy.phoneNumber.toString().trim().replace(/^\+/, '');
+
+            var city = value.slice(0, 3);
+            var number = value.slice(3);
+            number = number.slice(0, 3) + '-' + number.slice(3);
+
+            //<a href="tel:@(String.Format("{0:###-###-####}", double.Parse(m.Phone)))"><img class="icon32" src="~/Content/images/Calls-32.png" alt="call" /></a>
+            $window.location.href = "callto://" + city + "-" + number;
+        }
+
+        vm.openMap = function (addy, $event) {
+
+            var address = "";
+            if (addy.line1 && addy.line1.length > 0)
+                address = addy.line1.trim() + ",";
+
+            if (addy.city && addy.city.length > 0)
+                address += addy.city.trim() + ",";
+
+            if (addy.state && addy.state.length > 0)
+                address += addy.state.trim() + " ";
+
+            if (addy.zip && addy.zip.length > 0)
+                address += addy.zip.trim();
+
+            //<a href="https://www.google.com/maps/place/@(m.Address?.Replace(' ', '+'))")><img class="icon32" src="~/Content/images/Maps-32.png" alt="map" /></a>
+            var rx = new RegExp(' ', 'g');
+            var url = $location.protocol() + "://www.google.com/maps/place/" + address.replace(rx, '+');
+
+            $window.open(url);
+        }
+
         vm.openEmail = function (addy, $event) {
-            sendMail(addy.emailAddress);
+            //sendMail(addy.emailAddress);
+            openMessage(addy, 1, $event);
+        }
+
+        function openMessage(addy, messageType, $event) {
+
+            addy.messageType = messageType;
+
+             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            // show dialog passing addy as current item
+            $mdDialog.show({
+                locals: { currentItem: addy },
+                templateUrl: './views/app/messageDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: "MessageDialogController",
+                controllerAs: 'dc', // dc = dialog controller
+                clickOutsideToClose: false,
+                fullscreen: useFullScreen
+            }).then(function (editedItem) {
+
+                //memberService.saveAddy(editedItem).then(function (success) {
+
+                //    if (editedItem.isNew)
+                //        config.push(success);
+                //    else
+                //        angular.copy(success, addy);
+
+                //    $log.info("Edit item saved");
+
+                //}, function (error) {
+                //    $log.info("Error saving addy");
+                //});
+
+                if (messageType == 1) {
+                    // send email
+                    $log.info("email sent!");
+                    appNotificationService.openToast("Email sent!");
+                }
+                else {
+                    // send sms
+                    $log.info("Text sent!");
+                    appNotificationService.openToast("Email sent!");
+                }
+
+            }, function () {
+                $log.info("Edit item cancelled");
+            });
+ 
         }
 
         function sendMail(email) {
-            $window.open("mailto:" + email);
+            //<a href="mailto:@m.Email"><img class="icon32" src="~/Content/images/Mail-32.png" alt="email" /></a>
+            //$window.open("mailto:" + email);
+            $window.location.href = "mailto:" + email;
         }
         return vm;
     }]);

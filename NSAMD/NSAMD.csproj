@@ -101,6 +101,7 @@
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\memberListController.js" />
+    <Content Include="Controllers\messageDialogController.js" />
     <Content Include="Controllers\perspectivesController.js" />
     <Content Include="Controllers\rootController.js" />
     <Content Include="Controllers\simpleDialogController.js" />
@@ -156,6 +157,7 @@
     <Content Include="Views\Admin\adminIndex.html" />
     <Content Include="Views\App\addressDialog.html" />
     <Content Include="Views\App\emailDialog.html" />
+    <Content Include="Views\App\messageDialog.html" />
     <Content Include="Views\App\phoneDialog.html" />
     <Content Include="Views\App\sideNav.html" />
     <Content Include="Views\App\toolbarHeader.html" />

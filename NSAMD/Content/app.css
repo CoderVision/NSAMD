@@ -23,6 +23,9 @@ md-sidenav > md-content > div > .md-button {
     background-color:#4a7a5a!important;
 }
 
+.messageDiag{
+    width:600px;
+}
 /*.md-on{
     background-color:#4a7a5a!important;
 }*/
