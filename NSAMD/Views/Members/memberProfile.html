@@ -66,6 +66,30 @@
                                        ng-change="mc.patch('birthDate', mc.member.birthDate)"></md-datepicker>   <!--| date:'M/dd/yyyy'-->
                         <!--mask="1?9/39/3999" clean="true" restrict="reject"-->
                     </md-input-container>
+
+
+
+
+                <md-input-container class="md-block">
+                    <label>Saved</label>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>-->
+                    <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateSaved', mc.member.dateSaved)"></md-datepicker>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Spirit</label>
+                    <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateBaptizedHolyGhost', mc.member.dateBaptizedHolyGhost)"></md-datepicker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>-->
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Baptized</label>
+                    <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateBaptizedWater', mc.member.dateBaptizedWater)"></md-datepicker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>-->
+                </md-input-container>
+
                 <div layout="row" layout-align="space-around start"
                      class="maxWidth">
                     <md-switch class="md-primary" name="married" ng-model="mc.member.married"
@@ -77,13 +101,6 @@
                         Veteran
                     </md-switch>
                 </div>
-
-                <md-input-container class="md-block">
-                    <label>Comments</label>
-                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="5" md-select-on-focus
-                              ng-blur="mc.patch('comment', mc.member.comment)" ></textarea>
-                </md-input-container>
-
             </div>
 
             <!-- right panel -->
@@ -169,7 +186,7 @@
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
-                                <strong>{{$chip.name}}</strong>
+                                {{$chip.name}}
                                 <!--<em>({{$chip.type}})</em>-->
                             </span>
                         </md-chip-template>
@@ -190,7 +207,7 @@
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
-                                <strong>{{$chip.name}}</strong>
+                                {{$chip.name}}
                                 <!--<em>({{$chip.type}})</em>-->
                             </span>
                         </md-chip-template>
@@ -198,23 +215,9 @@
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Saved</label>
-                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>-->
-                    <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"
-                                   ng-change="mc.patch('dateSaved', mc.member.dateSaved)"></md-datepicker>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Spirit</label>
-                    <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"
-                                   ng-change="mc.patch('dateBaptizedHolyGhost', mc.member.dateBaptizedHolyGhost)"></md-datepicker>
-                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>-->
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Baptized</label>
-                    <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"
-                                   ng-change="mc.patch('dateBaptizedWater', mc.member.dateBaptizedWater)"></md-datepicker>
-                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>-->
+                    <label>Comments</label>
+                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="6" md-select-on-focus
+                              ng-blur="mc.patch('comment', mc.member.comment)"></textarea>
                 </md-input-container>
             </div>
         </div>

@@ -110,7 +110,7 @@ svg{
 
 .fixedTextArea{
     overflow-y: scroll!important;
-    height: 109px!important;
+    height: 125px!important;
     resize: none!important; 
 }
 
@@ -122,6 +122,9 @@ svg{
     fill:white;
 }
 
+md-icon{
+    cursor:pointer;
+}
 md-icon[md-svg-icon="content:remove"] > svg {
     fill:red!important;
 }

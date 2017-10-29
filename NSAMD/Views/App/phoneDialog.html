@@ -20,7 +20,8 @@
                 <md-input-container>
                     <label>Phone Number</label>
                     <input type="text" ng-model="dc.currentItem.phoneNumber" name="number" min="0" ng-maxlength="25" 
-                           mask="(999) 999-9999" clean="true" restrict="reject" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" />
+                           mask="(999) 999-9999" clean="true" restrict="reject" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/"
+                           md-autofocus />
                     <div class="hint" ng-show="showHints">(###) ###-####</div>
                     <div ng-messages="phoneForm.number.$error">
                         <div ng-message="maxlength">25 characters max</div>
