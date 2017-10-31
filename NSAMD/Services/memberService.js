@@ -15,9 +15,9 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         if (localStorageService.isSupported) {
             cfg = localStorageService.get("memberConfig");
 
-            if (cfg)
+            if (cfg && cfg.churchId == churchId)
             {
-                deferred.resolve(cfg);
+                deferred.resolve(cfg.data);
                 return deferred.promise;
             }
         }
@@ -29,7 +29,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         
         $http.get(uri).then(function (success) {
 
-            localStorageService.set("memberConfig", success.data);
+            localStorageService.set("memberConfig", new { churchId: churchId, data: success.data});
 
             deferred.resolve(success.data);
 
