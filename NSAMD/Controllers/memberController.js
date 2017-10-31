@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('memberController',
-    ['$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService'
-    , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService) {
+    ['$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService'
+    , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService) {
 
         var vm = this;
 
@@ -12,43 +12,71 @@ angular.module('app').controller('memberController',
         vm.churchId = 3;
 
         vm.member = {};
-        vm.memberList = [{ id: 4, name: "Gary Lima" }, { id: 5, name: "Wei Lima" }, { id: 6, name: "Phillip Kinson" }];
-        vm.teamList = [{ id: 1, name: "Ambassadors for Christ" }, { id: 2, name: "Harvesters" }];
+        vm.memberList = [];
+        vm.teamList = [];
 
-        // Sponsors
-        vm.selectedSponsors = [vm.memberList[0]];
+        vm.churchList = [];
+        vm.contactInfoTypeList = [];
+        vm.contactInfoLocationTypeList = [];
+        vm.phoneTypeList = [];
+        vm.memberStatusChangeTypeList = [];
+        vm.memberStatusList = [];
+        vm.memberTypeList = [];
+
+        vm.selectedSponsors = [];
         vm.selectedSponsor = null;
         vm.sponsorSearchText = null;
-        vm.sponsorSearch = function (sponsorSearchText) {
-            //var result = vm.memberList.filter(createFilterFor(sponsorSearchText));
-            var result = vm.memberList.filter(sponsorFilter);
-            return result;
-        }
-        function sponsorFilter(member) {
-            var lowercase = angular.lowercase(vm.sponsorSearchText);
-            return (member.name.toLowerCase().indexOf(lowercase) === 0);
-        }
-
-        // Teams
-        vm.selectedTeams = [vm.teamList[0]];
+        vm.selectedTeams = [];
         vm.selectedTeam = null;
         vm.teamSearchText = null;
-        vm.teamSearch = function (sponsorSearchText) {
-            //var result = vm.memberList.filter(createFilterFor(sponsorSearchText));
-            var result = vm.memberList.filter(teamFilter);
-            return result;
-        }
-        function teamFilter(member) {
-            var lowercase = angular.lowercase(vm.sponsorSearchText);
-            return (member.name.toLowerCase().indexOf(lowercase) === 0);
-        }
 
         vm.isLoading = false;
 
+        // init()
         vm.loadMember = function () {
             vm.isLoading = true;
+
+            // get meta data
+            memberService.getConfig(vm.churchId).then(function (success) {
+                vm.memberList = success.memberList;
+                vm.teamList = success.teamList;
+                vm.churchList = success.churchList;
+                vm.contactInfoTypeList = success.contactInfoTypeList;
+                vm.contactInfoLocationTypeList = success.contactInfoLocationTypeList;
+                vm.phoneTypeList = success.phoneTypeList;
+                vm.memberStatusChangeTypeList = success.memberStatusChangeTypeList;
+                vm.memberStatusList = success.memberStatusList;
+                vm.memberTypeList = success.memberTypeList;
+            }, function (error) {
+                appNotificationService.openToast("Error loading member config ");
+            });
+           
+            
+            // get member profile   
             memberService.get(vm.memberId, vm.churchId).then(function (success) {
                 vm.member = success;
+
+                // create selected
+                //vm.selectedSponsors = success.sponsorList;
+                vm.selectedSponsors = vm.memberList.filter(function (member) {
+                    for (var i = 0; i < vm.member.sponsorList.length; i++) {
+                        if (member.id == vm.member.sponsorList[i].id) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+
+                //vm.selectedTeams = success.teamList;
+                vm.selectedTeams = vm.teamList.filter(function (team) {
+                    for (var i = 0; i < vm.member.teamList.length; i++) {
+                        if (team.id == vm.member.teamList[i].id) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+
                 //appNotificationService.openToast("success");
             }, function (error) {
                 appNotificationService.openToast("Error loading member " + vm.memberId + ":  " + error);
@@ -56,6 +84,28 @@ angular.module('app').controller('memberController',
                 vm.isLoading = false;
             });
         };
+
+        // Sponsors
+        vm.sponsorSearch = function (sponsorSearchText) {
+            var result = vm.memberList.filter(sponsorFilter);
+            return result;
+        }
+        function sponsorFilter(member) {
+            var lowercase = angular.lowercase(vm.sponsorSearchText);
+            return (member.desc.toLowerCase().indexOf(lowercase) === 0);
+        }
+
+        // Teams
+        vm.teamSearch = function (teamSearchText) {
+            var result = vm.teamList.filter(teamFilter);
+            return result;
+        }
+        function teamFilter(team) {
+            var lowercase = angular.lowercase(vm.teamSearchText);
+            return (team.desc.toLowerCase().indexOf(lowercase) === 0);
+        }
+
+
 
         vm.patch = function (fieldName, fieldValue) {
             memberService.patch(vm.memberId, vm.churchId, fieldName, fieldValue).then(function (success) {
@@ -223,7 +273,7 @@ angular.module('app').controller('memberController',
 
             addy.messageType = messageType;
 
-             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
             // show dialog passing addy as current item
             $mdDialog.show({
@@ -264,7 +314,7 @@ angular.module('app').controller('memberController',
             }, function () {
                 $log.info("Edit item cancelled");
             });
- 
+
         }
 
         function sendMail(email) {

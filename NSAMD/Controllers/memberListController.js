@@ -10,52 +10,60 @@ angular.module('app').controller('memberListController',
         vm.statusIds = "49-50";
 
         vm.isLoading = false;
-        
-    vm.gridOptions = {
-        data: [], //required parameter - array with data
-        //optional parameter - start sort options
-        sort: {
-            predicate: 'Name',
-            direction: 'asc'
+        vm.config = {};
+
+        vm.gridOptions = {
+            data: [], //required parameter - array with data
+            //optional parameter - start sort options
+            sort: {
+                predicate: 'Name',
+                direction: 'asc'
+            }
+        };
+
+        //vm.gridActions = {
+        //    sort: function () { $log.info("sort"); },
+        //    filter: function () { $log.info("filter"); },
+        //    refresh: function () { $log.info("refresh"); }
+        //};
+
+        vm.paginationOptions = {
+            //maxSize: 5,       //Limit number for pagination size
+            totalItems: 0,    // Total number of items in all pages.
+            itemsPerPage: 25,  // Maximum number of items per page. A value less than one indicates all items on one page.
+            currentPage: 1,
+        };
+
+        vm.loadData = function () {
+
+            vm.isLoading = true;
+
+            memberService.getConfig(vm.churchId).then(function (success) {
+
+                vm.config = success;
+
+            }, function (error) {
+                appNotificationService.openToast("Error loading member config ");
+            });
+
+            memberService.getList(vm.churchId, vm.statusIds).then(function (success) {
+
+                vm.gridOptions.data = success;
+
+                vm.paginationOptions.totalItems = success.length;
+
+            }, function (error) {
+                $log.error(error);
+            }).then(function () {
+                vm.isLoading = false;
+            });
         }
-    };
 
-    //vm.gridActions = {
-    //    sort: function () { $log.info("sort"); },
-    //    filter: function () { $log.info("filter"); },
-    //    refresh: function () { $log.info("refresh"); }
-    //};
+        vm.searchText = "";
 
-    vm.paginationOptions = {
-        //maxSize: 5,       //Limit number for pagination size
-        totalItems: 0,    // Total number of items in all pages.
-        itemsPerPage: 25,  // Maximum number of items per page. A value less than one indicates all items on one page.
-        currentPage: 1,
-    };
+        vm.openProfile = function (memberId) {
+            $location.path('/member').search({ memberId: memberId });
+        }
 
-    vm.loadData = function () {
-
-        vm.isLoading = true;
-
-        memberService.getList(vm.churchId, vm.statusIds).then(function (success) {
-
-            vm.gridOptions.data = success;
-
-            vm.paginationOptions.totalItems = success.length;
-
-        }, function (error) {
-           $log.error(error);
-        }).then(function () {
-            vm.isLoading = false;
-        });
-    };
-
-    vm.searchText = "";
-
-    vm.openProfile = function(memberId)
-    {
-        $location.path('/member').search({ memberId: memberId });
-    }
-
-    return vm;
-}]);
+        return vm;
+    }]);

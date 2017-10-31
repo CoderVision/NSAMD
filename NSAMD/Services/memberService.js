@@ -1,9 +1,47 @@
 ﻿
 'use strict'
 
-angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config', function ($http, $log, $q, config) {
+angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config', 'localStorageService'
+    , function ($http, $log, $q, config, localStorageService) {
 
     var svc = {};
+
+    // load configuration info (enums, etc.)
+    svc.getConfig = function (churchId) {
+
+        var deferred = $q.defer();
+
+        var cfg;
+        if (localStorageService.isSupported) {
+            cfg = localStorageService.get("memberConfig");
+
+            if (cfg)
+            {
+                deferred.resolve(cfg);
+                return deferred.promise;
+            }
+        }
+
+        // remove churchId hardcoded value of "3", Graham; and statusIds "49"
+        //var uri = config.apiUrl + "/Members?churchId=3&statusIds=49";
+        http://localhost:62428/members/metadata?churchId=3
+        var uri = config.apiUrl + "/members/metadata?churchId=" + churchId;
+        
+        $http.get(uri).then(function (success) {
+
+            localStorageService.set("memberConfig", success.data);
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.getConfig:  " + error);
+
+            deferred.reject("Error retrieving config list");
+        });
+
+        return deferred.promise;
+    };
 
     // statusIds is a csv list of statuses
     svc.getList = function (churchId,statusIds) {
@@ -67,7 +105,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
             $log.error("error in memberService.get:  " + error);
 
-            deferred.reject("Error retrieving member id " + id);
+            deferred.reject("Error retrieving member id " + memberId);
         });
 
         return deferred.promise;
@@ -88,7 +126,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
             $log.error("error in memberService.saveAddy:  " + error);
 
-            deferred.reject("Error retrieving member id " + id);
+            deferred.reject("Error retrieving address id " + addy.id);
         });
 
         return deferred.promise;

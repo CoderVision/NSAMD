@@ -110,68 +110,45 @@
                 <md-input-container flex>
                     <label>Church</label>
                     <md-select ng-model="mc.member.churchId"
-                               ng-change="mc.patch('churchId', mc.member.churchId)">
-                        <md-option ng-value="3">Graham</md-option>
-                        <md-option ng-value="9">Dallas</md-option>
-                        <md-option ng-value="7">Denver</md-option>
-                        <md-option ng-value="8">San Diego</md-option>
-                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                            {{state.abbrev}}
-                        </md-option>-->
+                               ng-change="mc.patch('churchId', mc.member.churchId)"
+                               placeholder="Select a church">
+                        <md-option>Select a church</md-option>
+                        <md-option ng-repeat="item in mc.churchList" ng-value="{{item.id}}">{{item.desc}}</md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container flex>
                     <label>Type</label>
                     <md-select ng-model="mc.member.memberTypeEnumId"
-                               ng-change="mc.patch('memberTypeEnumId', mc.member.memberTypeEnumId)">
-                        <md-option ng-value="65">Helper</md-option>
-                        <md-option ng-value="62">Member</md-option>
-                        <md-option ng-value="64">Minister</md-option>
-                        <md-option ng-value="63">Pastor</md-option>
-                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                {{state.abbrev}}
-            </md-option>-->
+                               ng-change="mc.patch('memberTypeEnumId', mc.member.memberTypeEnumId)"
+                               placeholder="Select a type">
+                        <md-option>Select a type</md-option>
+                        <md-option ng-repeat="item in mc.memberTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container flex>
                     <label>Status</label>
                     <md-select ng-model="mc.member.statusId"
-                               ng-change="mc.patch('statusId', mc.member.statusId)">
-                        <md-option ng-value="49">Active</md-option>
-                        <md-option ng-value="50">Faithful</md-option>
-                        <md-option ng-value="51">Inactive</md-option>
-                        <md-option ng-value="52">Dropped</md-option>
-                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                {{state.abbrev}}
-            </md-option>-->
+                               ng-change="mc.patch('statusId', mc.member.statusId)"
+                               placeholder="Select a status">
+                        <md-option>Select a status</md-option>
+                        <md-option ng-repeat="item in mc.memberStatusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container flex>
                     <label>Reason</label>
                     <md-select ng-model="mc.member.statusChangeTypeId"
-                               ng-change="mc.patch('statusChangeTypeId', mc.member.statusChangeTypeId)">
-                        <md-option ng-value="23">Coming Regularly</md-option>
-                        <md-option ng-value="24">Guest will not answer door/phone</md-option>
-                        <md-option ng-value="25">Sponsor works on the job with them</md-option>
-                        <md-option ng-value="26">Sponsor is giving them space</md-option>
-                        <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                {{state.abbrev}}
-            </md-option>-->
+                               ng-change="mc.patch('statusChangeTypeId', mc.member.statusChangeTypeId)"
+                               placeholder="Select a reason">
+                        <md-option>Select a reason</md-option>
+                        <md-option ng-repeat="item in mc.memberStatusChangeTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container flex>
                     <label>Sponsors</label>
-                    <!--<md-select ng-model="mc.member.sponsorId"
-                               ng-change="mc.patch('sponsorId', mc.member.sponsorId)">
-                        <md-option ng-value="4">Gary Lima</md-option>
-                        <md-option ng-value="5">Wei Lima</md-option>
-                        <md-option ng-value="22">Phillip</md-option>
-                    </md-select>-->
-
                     <!--md-transform-chip="ctrl.transformChip($chip)"
                         md-items="item in mc.querySearch(ctrl.searchText)"-->
                     <md-chips ng-model="mc.selectedSponsors" 
@@ -180,13 +157,13 @@
                         <md-autocomplete md-selected-item="mc.selectedSponsor"
                                          md-search-text="mc.sponsorSearchText"
                                          md-items="item in mc.sponsorSearch(mc.sponsorSearchText)"
-                                         md-item-text="item.name"
+                                         md-item-text="item.desc"
                                          placeholder="Search for a member">
-                            <span md-highlight-text="mc.sponsorSearchText">{{item.name}}</span>
+                            <span md-highlight-text="mc.sponsorSearchText">{{item.desc}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
-                                {{$chip.name}}
+                                {{$chip.desc}}
                                 <!--<em>({{$chip.type}})</em>-->
                             </span>
                         </md-chip-template>
@@ -201,13 +178,13 @@
                         <md-autocomplete md-selected-item="mc.selectedTeam"
                                          md-search-text="mc.teamSearchText"
                                          md-items="item in mc.teamSearch(mc.teamSearchText)"
-                                         md-item-text="item.name"
+                                         md-item-text="item.desc"
                                          placeholder="Search for a team">
-                            <span md-highlight-text="mc.teamSearchText">{{item.name}}</span>
+                            <span md-highlight-text="mc.teamSearchText">{{item.desc}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
-                                {{$chip.name}}
+                                {{$chip.desc}}
                                 <!--<em>({{$chip.type}})</em>-->
                             </span>
                         </md-chip-template>
