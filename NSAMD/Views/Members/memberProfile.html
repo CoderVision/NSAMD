@@ -150,7 +150,8 @@
                 <md-input-container flex>
                     <label>Sponsors</label>
                     <!--md-transform-chip="ctrl.transformChip($chip)"
-                        md-items="item in mc.querySearch(ctrl.searchText)"-->
+                        md-items="item in mc.querySearch(ctrl.searchText)"
+                        ng-change="mc.patch('sposors', mc.member.selectedSponsors)"-->
                     <md-chips ng-model="mc.selectedSponsors" 
                               md-autocomplete-snap
                               md-require-match="true">
@@ -172,6 +173,7 @@
 
                 <md-input-container flex>
                     <label>Teams</label>
+                    <!--ng-change="mc.patch('teams', mc.member.selectedTeams)"-->
                     <md-chips ng-model="mc.selectedTeams"
                               md-autocomplete-snap
                               md-require-match="true">

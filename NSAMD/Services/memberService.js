@@ -12,24 +12,24 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         var deferred = $q.defer();
 
         var cfg;
-        if (localStorageService.isSupported) {
-            cfg = localStorageService.get("memberConfig");
+        //if (localStorageService.isSupported) {
+        //    cfg = localStorageService.get("memberConfig");
 
-            if (cfg && cfg.churchId == churchId)
-            {
-                deferred.resolve(cfg.data);
-                return deferred.promise;
-            }
-        }
+        //    if (cfg && cfg.churchId == churchId)
+        //    {
+        //        deferred.resolve(cfg.data);
+        //        return deferred.promise;
+        //    }
+        //}
 
         // remove churchId hardcoded value of "3", Graham; and statusIds "49"
         //var uri = config.apiUrl + "/Members?churchId=3&statusIds=49";
-        http://localhost:62428/members/metadata?churchId=3
+        //http://localhost:62428/members/metadata?churchId=3
         var uri = config.apiUrl + "/members/metadata?churchId=" + churchId;
         
         $http.get(uri).then(function (success) {
 
-            localStorageService.set("memberConfig", new { churchId: churchId, data: success.data});
+            localStorageService.set("memberConfig", { churchId: churchId, data: success.data});
 
             deferred.resolve(success.data);
 

@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('memberController',
-    ['$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService'
-    , function ($routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService) {
+    ['$scope','$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService'
+    , function ($scope,$routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService) {
 
         var vm = this;
 
@@ -47,50 +47,69 @@ angular.module('app').controller('memberController',
                 vm.memberStatusChangeTypeList = success.memberStatusChangeTypeList;
                 vm.memberStatusList = success.memberStatusList;
                 vm.memberTypeList = success.memberTypeList;
+
+                // get member profile   
+                memberService.get(vm.memberId, vm.churchId).then(function (success) {
+                    vm.member = success;
+
+                    // create selected
+                    //vm.selectedSponsors = success.sponsorList;
+                    vm.selectedSponsors = vm.memberList.filter(function (member) {
+                        for (var i = 0; i < vm.member.sponsorList.length; i++) {
+                            if (member.id == vm.member.sponsorList[i].sponsorId) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
+
+                    //vm.selectedTeams = success.teamList;
+                    vm.selectedTeams = vm.teamList.filter(function (team) {
+                        for (var i = 0; i < vm.member.teamList.length; i++) {
+                            if (team.id == vm.member.teamList[i].id) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
+
+                    //appNotificationService.openToast("success");
+                }, function (error) {
+                    appNotificationService.openToast("Error loading member " + vm.memberId + ":  " + error);
+                }).then(function () {
+                    vm.isLoading = false;
+                });
             }, function (error) {
                 appNotificationService.openToast("Error loading member config ");
             });
-           
-            
-            // get member profile   
-            memberService.get(vm.memberId, vm.churchId).then(function (success) {
-                vm.member = success;
-
-                // create selected
-                //vm.selectedSponsors = success.sponsorList;
-                vm.selectedSponsors = vm.memberList.filter(function (member) {
-                    for (var i = 0; i < vm.member.sponsorList.length; i++) {
-                        if (member.id == vm.member.sponsorList[i].id) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-
-                //vm.selectedTeams = success.teamList;
-                vm.selectedTeams = vm.teamList.filter(function (team) {
-                    for (var i = 0; i < vm.member.teamList.length; i++) {
-                        if (team.id == vm.member.teamList[i].id) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-
-                //appNotificationService.openToast("success");
-            }, function (error) {
-                appNotificationService.openToast("Error loading member " + vm.memberId + ":  " + error);
-            }).then(function () {
-                vm.isLoading = false;
-            });
         };
+
+        $scope.$watch("mc.selectedSponsors", function (sponsors) {
+            if (vm.isLoading == true)
+                return;
+
+            var list = [];
+            if (sponsors.length > 0) {
+                for (var i = 0; i < sponsors.length; i++) {
+                    var s = {
+                        SponsorId: sponsors[i].id,
+                        MemberId: vm.memberId,
+                        FirstName: "",
+                        LastName: ""
+                    };
+                    list.push(s);
+                }
+            }
+            vm.patch("sponsorList", list);
+        }, true);
+
 
         // Sponsors
         vm.sponsorSearch = function (sponsorSearchText) {
             var result = vm.memberList.filter(sponsorFilter);
             return result;
         }
-        function sponsorFilter(member) {
+        function sponsorFilter(member) { 
             var lowercase = angular.lowercase(vm.sponsorSearchText);
             return (member.desc.toLowerCase().indexOf(lowercase) === 0);
         }
