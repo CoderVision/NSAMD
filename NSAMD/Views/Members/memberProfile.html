@@ -195,8 +195,8 @@
 
                 <md-input-container class="md-block">
                     <label>Comments</label>
-                    <textarea class="fixedTextArea" ng-model="mc.member.comment" rows="6" md-select-on-focus
-                              ng-blur="mc.patch('comment', mc.member.comment)"></textarea>
+                    <textarea class="fixedTextArea" ng-model="mc.member.comments" rows="6" md-select-on-focus
+                              ng-blur="mc.patch('comments', mc.member.comments)"></textarea>
                 </md-input-container>
             </div>
         </div>
@@ -259,8 +259,8 @@
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                    <md-icon class="md-secondary" ng-click="mc.openSms(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
-                    <md-icon class="md-secondary" ng-click="mc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
+                    <md-icon class="md-secondary" ng-click="mc.openSms(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms" ng-disabled></md-icon>
+                    <md-icon class="md-secondary" ng-click="mc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone" ng-disabled></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>
@@ -286,7 +286,7 @@
                         <h4 ng-if="addy.verified == true">Verified</h4>
                         <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
-                    <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3" ng-disabled></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>

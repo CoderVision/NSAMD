@@ -43,7 +43,7 @@
                         <label>Zip Code</label>
                         <input type="text" ng-model="dc.currentItem.zip" name="zip" min="0" ng-maxlength="10" 
                                mask="99999-9999" clean="true" restrict="reject"
-                               ng-pattern="/\d{5}-?(\d{4})?/"/>
+                               ng-pattern="/\d{5}(-\d{4})?/"/>
                         <div class="hint" ng-show="showHints">99999-9999</div>
                         <div ng-messages="addyForm.zip.$error">
                             <div ng-message="maxlength">10 characters max</div>

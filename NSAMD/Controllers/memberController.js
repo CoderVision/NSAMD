@@ -66,7 +66,7 @@ angular.module('app').controller('memberController',
                     //vm.selectedTeams = success.teamList;
                     vm.selectedTeams = vm.teamList.filter(function (team) {
                         for (var i = 0; i < vm.member.teamList.length; i++) {
-                            if (team.id == vm.member.teamList[i].id) {
+                            if (team.id == vm.member.teamList[i].teamId) {
                                 return true;
                             }
                         }
@@ -85,6 +85,7 @@ angular.module('app').controller('memberController',
         };
 
         $scope.$watch("mc.selectedSponsors", function (sponsors) {
+
             if (vm.isLoading == true)
                 return;
 
@@ -103,6 +104,24 @@ angular.module('app').controller('memberController',
             vm.patch("sponsorList", list);
         }, true);
 
+        $scope.$watch("mc.selectedTeams", function (teams) {
+
+            if (vm.isLoading == true)
+                return;
+
+            var list = [];
+            if (teams.length > 0) {
+                for (var i = 0; i < teams.length; i++) {
+                    var s = {
+                        TeamId: teams[i].id,
+                        MemberId: vm.memberId,
+                        TeamName: ""
+                    };
+                    list.push(s);
+                }
+            }
+            vm.patch("teamList", list);
+        }, true);
 
         // Sponsors
         vm.sponsorSearch = function (sponsorSearchText) {
@@ -175,6 +194,7 @@ angular.module('app').controller('memberController',
                         angular.copy(success, addy);
 
                     $log.info("Edit item saved");
+                    appNotificationService.openToast("Save success");
 
                 }, function (error) {
                     $log.info("Error saving addy");
