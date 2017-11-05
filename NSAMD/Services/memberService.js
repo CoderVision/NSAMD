@@ -151,5 +151,24 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         return deferred.promise;
     }
 
+    svc.saveNewMember = function (member) {
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/Members";
+
+        $http.post(uri, member).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.saveNewMember:  " + error);
+
+            deferred.reject("Error retrieving member id " + member.id);
+        });
+
+        return deferred.promise;
+    }
+
     return svc;
 }]);

@@ -26,6 +26,10 @@ md-sidenav > md-content > div > .md-button {
 .messageDiag{
     width:600px;
 }
+
+.addMemberDiag{
+    width:600px;
+}
 /*.md-on{
     background-color:#4a7a5a!important;
 }*/

@@ -97,6 +97,7 @@
     <Content Include="Content\images\ntccShield-48.png" />
     <Content Include="Content\md-date-picker.css" />
     <Content Include="Content\md-date-picker.min.css" />
+    <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\memberController.js" />

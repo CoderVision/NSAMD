@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('memberListController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService'
-    , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService) {
+    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
+    , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -63,6 +63,45 @@ angular.module('app').controller('memberListController',
 
         vm.openProfile = function (memberId) {
             $location.path('/member').search({ memberId: memberId });
+        }
+
+        vm.addItem = function ($event) {
+
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            var member = {
+                dateCame: new Date(),
+                churchId: vm.churchId
+            };
+            config = {
+                memberList: vm.config.memberList
+            };
+
+            $mdDialog.show({
+                locals: { currentItem: member, config: config },
+                templateUrl: './views/Members/addMember.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: 'AddMemberController',
+                controllerAs: 'dc', // dc = dialog controller
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen
+            }).then(function (editedItem) {
+
+                memberService.saveNewMember(editedItem).then(function (success) {
+
+                    vm.gridOptions.data.push(success);
+
+                    $log.info("new member saved");
+                    appNotificationService.openToast("Save success");
+
+                }, function (error) {
+                    $log.info("Error saving new member");
+                });
+
+            }, function () {
+                $log.info("Edit item cancelled");
+            });
         }
 
         return vm;
