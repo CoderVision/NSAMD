@@ -2,7 +2,8 @@
 'use strict';
 
 angular.module('app')
-    .controller('AddMemberController', ['$mdDialog', 'currentItem', 'config', function ($mdDialog, currentItem, config) {
+    .controller('AddMemberController', ['$mdDialog', '$log', 'memberService', 'appNotificationService', 'currentItem', 'config'
+        , function ($mdDialog, $log, memberService, appNotificationService, currentItem, config) {
 
         var vm = this;
         vm.config = config;
@@ -32,7 +33,28 @@ angular.module('app')
             }
             vm.currentItem.sponsorList = list;
 
-            $mdDialog.hide(vm.currentItem);
+            // save member and reset form so it can be used to enter the next member
+            memberService.saveNewMember(vm.currentItem).then(function (success) {
+
+                $log.info("new member saved");
+                appNotificationService.openToast("Save success");
+
+                var churchId = vm.currentItem.churchId;
+
+                vm.currentItem = {
+                    dateCame: new Date(),
+                    churchId: churchId
+                };
+
+                vm.selectedSponsors = [];
+                vm.selectedSponsor = null;
+                vm.sponsorSearchText = null;
+
+            }, function (error) {
+                $log.info("Error saving new member");
+            });
+
+            //$mdDialog.hide(vm.currentItem);
         }
 
         // Sponsors

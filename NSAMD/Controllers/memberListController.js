@@ -46,6 +46,10 @@ angular.module('app').controller('memberListController',
                 appNotificationService.openToast("Error loading member config ");
             });
 
+            loadMemberList();
+        }
+
+        function loadMemberList() {
             memberService.getList(vm.churchId, vm.statusIds).then(function (success) {
 
                 vm.gridOptions.data = success;
@@ -88,16 +92,20 @@ angular.module('app').controller('memberListController',
                 fullscreen: useFullScreen
             }).then(function (editedItem) {
 
-                memberService.saveNewMember(editedItem).then(function (success) {
+                // reload list
+                loadMemberList();
 
-                    vm.gridOptions.data.push(success);
+                // moved to AddMemberController
+                //memberService.saveNewMember(editedItem).then(function (success) {
 
-                    $log.info("new member saved");
-                    appNotificationService.openToast("Save success");
+                //    vm.gridOptions.data.push(success);
 
-                }, function (error) {
-                    $log.info("Error saving new member");
-                });
+                //    $log.info("new member saved");
+                //    appNotificationService.openToast("Save success");
+
+                //}, function (error) {
+                //    $log.info("Error saving new member");
+                //});
 
             }, function () {
                 $log.info("Edit item cancelled");

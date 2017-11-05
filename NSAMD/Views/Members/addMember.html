@@ -6,7 +6,7 @@
             <div layout="row" layout-align="start start">
                 <md-input-container>
                     <label>Date Came</label>
-                    <md-datepicker ng-model="dc.currentItem.dateCame" md-autofocus></md-datepicker>
+                    <md-datepicker ng-model="dc.currentItem.dateCame"></md-datepicker>
                 </md-input-container>
 
                 <md-switch class="md-primary" name="isGroup" ng-model="dc.currentItem.isGroup" style="margin-left: 30px;">
@@ -20,7 +20,7 @@
             <div layout="row">
                 <md-input-container class="md-block" flex="50">
                     <label>First Name</label>
-                    <input name="firstName" ng-model="dc.currentItem.firstName" ng-maxlength="50" ng-minlength="2" required />
+                    <input name="firstName" ng-model="dc.currentItem.firstName" ng-maxlength="50" ng-minlength="2" required md-autofocus />
                     <div ng-messages="newMemberForm.firstName.$error">
                         <div ng-message="required">First name is required</div>
                         <div ng-message="minlength">At least 2 characters required</div>
