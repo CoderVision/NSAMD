@@ -1,9 +1,24 @@
 ﻿
 'use strict';
 
-var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination']);
+var config = {};
 
-app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
+if (window) {
+    Object.assign(config, window.__config);
+}
+
+var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination', 'ngMask', 'LocalStorageModule']);  // , 'md-date-picker' - not using
+
+app.constant('config', config);
+
+app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, localStorageServiceProvider) {
+
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|callto|file|tel):/);
+
+    // configuration options: https://www.npmjs.com/package/angular-local-storage
+    localStorageServiceProvider.setPrefix('nsamd');
+    localStorageServiceProvider.setStorageType('localStorage');
+    localStorageServiceProvider.setDefaultToCookie(true);
 
     $routeProvider.when('/church', {
         templateUrl: './Views/Churches/churchesIndex.html',
@@ -21,12 +36,15 @@ app.config(function($routeProvider,$mdThemingProvider, $mdIconProvider) {
         templateUrl: './Views/Perspectives/perspectivesIndex.html',
         controller: 'perspectivesController',
         controllerAs: 'perspCtrl'
+    }).when('/member', {
+        templateUrl: './Views/Members/memberProfile.html',
+        controller: 'memberController',
+        controllerAs: 'mc'
     }).otherwise({
         templateUrl: './Views/Members/membersIndex.html',
-        controller: 'memberController',
+        controller: 'memberListController',
         controllerAs: 'memberCtrl'
     });
-
 
     $mdThemingProvider.definePalette('green', {
         '50': 'eaf0ec',

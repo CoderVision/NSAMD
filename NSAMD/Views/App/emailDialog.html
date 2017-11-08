@@ -1,0 +1,56 @@
+﻿
+<md-dialog class="emailDiag">
+    <form name="emailForm" ng-submit="dc.save()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+
+                <!--Add phone Collection
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Phone Number</label>
+                        <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" />
+                        <div class="hint" ng-show="showHints">(###) ###-####</div>
+                        <div ng-messages="userForm.phone.$error" ng-hide="showHints">
+                            <div ng-message="pattern">(###) ###-#### - Please enter a valid phone number.</div>
+                        </div>
+                    </md-input-container>-->
+
+
+                <md-input-container>
+                    <label>Email Address</label>
+                    <!-- http://emailregex.com/ -->
+                    <input type="email" ng-model="dc.currentItem.emailAddress" name="email" min="0" ng-maxlength="50" 
+                           ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/"
+                           md-autofocus />
+                    <!--^.+@.+\..+$-->
+                    <!--(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])-->
+                    <div class="hint" ng-show="showHints">user@email.com</div>
+                    <div ng-messages="emailForm.email.$error">
+                        <div ng-message="maxlength">50 characters max</div>
+                        <div ng-message="pattern">Invalid email address</div>
+                    </div>
+                </md-input-container>
+
+                <div layout="row" layout-align="space-around start"
+                     class="maxWidth">
+                    <md-switch class="md-primary" name="verified" ng-model="dc.currentItem.verified">
+                        Verified
+                    </md-switch>
+                    <md-switch class="md-primary" name="preferred" ng-model="dc.currentItem.preferred">
+                        Preferred
+                    </md-switch>
+                </div>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="emailForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

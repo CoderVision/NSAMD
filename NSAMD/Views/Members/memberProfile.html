@@ -1,0 +1,299 @@
+﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mc.isLoading"></md-progress-linear>
+
+<div ng-init="mc.loadMember()" class="content">
+
+    <form name="memberForm">
+
+        <div layout="column"
+             layout-gt-xs="row"
+             layout-align="start start"
+             flex>
+
+            <!-- left panel -->
+            <div layout="column"
+                 flex flex-gt-xs="50"
+                 class="maxWidth profileLeftPanel">
+               
+                    <md-input-container class="md-block" >
+                        <label>First Name</label>
+                        <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required 
+                               ng-blur="mc.patch('firstName', mc.member.firstName)"  />
+                        <div ng-messages="memberForm.firstName.$error">
+                            <div ng-message="required">First name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 50 characters</div>
+                        </div>
+                    </md-input-container>
+            
+                    <md-input-container class="md-block" flex>
+                        <label>Middle Name</label>
+                        <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1"
+                               ng-blur="mc.patch('middleName', mc.member.middleName)" />
+                        <div ng-messages="memberForm.middleName.$error">
+                            <div ng-message="minlength">At least 1 characters required</div>
+                            <div ng-message="maxlength">No more that 50 characters</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex>
+                        <label>Last Name</label>
+                        <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required
+                               ng-blur="mc.patch('lastName', mc.member.lastName)" />
+                        <div ng-messages="memberForm.lastName.$error">
+                            <div ng-message="required">Last name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 50 characters</div>
+                        </div>
+                    </md-input-container>
+
+                <md-input-container flex class="maxWidth">
+                    <label>Gender</label>
+
+                    <!-- has to use "value" instead of ng-value in order to set to a string: F and M -->
+                    <md-select ng-model="mc.member.gender"
+                               ng-change="mc.patch('gender', mc.member.gender)">
+                        <md-option value="M">Male</md-option>
+                        <md-option value="F">Female</md-option>
+                    </md-select>
+                </md-input-container>
+                
+                <!-- Dates -->
+
+                    <md-input-container class="md-block">
+                        <label>Birthdate</label>
+                        <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"
+                                       ng-change="mc.patch('birthDate', mc.member.birthDate)"></md-datepicker>   <!--| date:'M/dd/yyyy'-->
+                        <!--mask="1?9/39/3999" clean="true" restrict="reject"-->
+                    </md-input-container>
+
+
+
+
+                <md-input-container class="md-block">
+                    <label>Saved</label>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>-->
+                    <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateSaved', mc.member.dateSaved)"></md-datepicker>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Spirit</label>
+                    <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateBaptizedHolyGhost', mc.member.dateBaptizedHolyGhost)"></md-datepicker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>-->
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Baptized</label>
+                    <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"
+                                   ng-change="mc.patch('dateBaptizedWater', mc.member.dateBaptizedWater)"></md-datepicker>
+                    <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>-->
+                </md-input-container>
+
+                <div layout="row" layout-align="space-around start"
+                     class="maxWidth">
+                    <md-switch class="md-primary" name="married" ng-model="mc.member.married"
+                               ng-change="mc.patch('married', mc.member.married)">
+                        Married
+                    </md-switch>
+                    <md-switch class="md-primary" name="veteran" ng-model="mc.member.veteran"
+                               ng-change="mc.patch('veteran', mc.member.veteran)">
+                        Veteran
+                    </md-switch>
+                </div>
+            </div>
+
+            <!-- right panel -->
+            <div layout="column" layout-align="start stretch" 
+                 flex flex-gt-sm="50" class="maxWidth">
+
+                <md-input-container flex>
+                    <label>Church</label>
+                    <md-select ng-model="mc.member.churchId"
+                               ng-change="mc.patch('churchId', mc.member.churchId)"
+                               placeholder="Select a church">
+                        <md-option>Select a church</md-option>
+                        <md-option ng-repeat="item in mc.churchList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Type</label>
+                    <md-select ng-model="mc.member.memberTypeEnumId"
+                               ng-change="mc.patch('memberTypeEnumId', mc.member.memberTypeEnumId)"
+                               placeholder="Select a type">
+                        <md-option>Select a type</md-option>
+                        <md-option ng-repeat="item in mc.memberTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Status</label>
+                    <md-select ng-model="mc.member.statusId"
+                               ng-change="mc.patch('statusId', mc.member.statusId)"
+                               placeholder="Select a status">
+                        <md-option>Select a status</md-option>
+                        <md-option ng-repeat="item in mc.memberStatusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Reason</label>
+                    <md-select ng-model="mc.member.statusChangeTypeId"
+                               ng-change="mc.patch('statusChangeTypeId', mc.member.statusChangeTypeId)"
+                               placeholder="Select a reason">
+                        <md-option>Select a reason</md-option>
+                        <md-option ng-repeat="item in mc.memberStatusChangeTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Sponsors</label>
+                    <!--md-transform-chip="ctrl.transformChip($chip)"
+                        md-items="item in mc.querySearch(ctrl.searchText)"
+                        ng-change="mc.patch('sposors', mc.member.selectedSponsors)"-->
+                    <md-chips ng-model="mc.selectedSponsors" 
+                              md-autocomplete-snap
+                              md-require-match="true">
+                        <md-autocomplete md-selected-item="mc.selectedSponsor"
+                                         md-search-text="mc.sponsorSearchText"
+                                         md-items="item in mc.sponsorSearch(mc.sponsorSearchText)"
+                                         md-item-text="item.desc"
+                                         placeholder="Search for a member">
+                            <span md-highlight-text="mc.sponsorSearchText">{{item.desc}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                {{$chip.desc}}
+                                <!--<em>({{$chip.type}})</em>-->
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Teams</label>
+                    <!--ng-change="mc.patch('teams', mc.member.selectedTeams)"-->
+                    <md-chips ng-model="mc.selectedTeams"
+                              md-autocomplete-snap
+                              md-require-match="true">
+                        <md-autocomplete md-selected-item="mc.selectedTeam"
+                                         md-search-text="mc.teamSearchText"
+                                         md-items="item in mc.teamSearch(mc.teamSearchText)"
+                                         md-item-text="item.desc"
+                                         placeholder="Search for a team">
+                            <span md-highlight-text="mc.teamSearchText">{{item.desc}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                {{$chip.desc}}
+                                <!--<em>({{$chip.type}})</em>-->
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Comments</label>
+                    <textarea class="fixedTextArea" ng-model="mc.member.comments" rows="6" md-select-on-focus
+                              ng-blur="mc.patch('comments', mc.member.comments)"></textarea>
+                </md-input-container>
+            </div>
+        </div>
+
+
+        <!--<md-divider></md-divider>-->
+
+        <!--https://material.angularjs.org/latest/demo/list-->
+        <md-card class="addressContainer">
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Address
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress('address', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"  
+                              ng-repeat="addy in mc.member.addressList"
+                              ng-click="mc.editAddress('address', addy, $event)" >
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{addy.line1}}</h3>
+                        <h3 ng-if="addy.line2">{{addy.line2}}</h3>
+                        <h3>{{addy.city}}, {{addy.state}}  {{addy.zip}}</h3>
+                        <h4 ng-if="addy.verified == true">Verified</h4>
+                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                    </div>
+                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                    <md-icon class="md-secondary" ng-click="mc.openMap(addy, $event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('address', addy, $event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card class="addressContainer">
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Phone
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress('phone', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line" 
+                              ng-repeat="addy in mc.member.phoneList"
+                              ng-click="mc.editAddress('phone', addy, $event)">
+                    <!--ng-class="{'md-offset': phone.options.offset }"-->
+                    <div class="md-list-item-text">
+                        <h3> {{ addy.phoneNumber | phone}} </h3>
+                        <!--<p> Cell </p>-->
+                        <h4 ng-if="addy.verified == true">Verified</h4>
+                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                    </div>
+                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
+                    <md-icon class="md-secondary" ng-click="mc.openSms(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
+                    <md-icon class="md-secondary" ng-click="mc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card class="addressContainer">
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Email
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="mc.addAddress('email', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"  
+                              ng-repeat="addy in mc.member.emailList"
+                              ng-click="mc.editAddress('email', addy, $event)">
+                    <div class="md-list-item-text">
+                        <h3>{{addy.emailAddress}}</h3>
+                        <h4 ng-if="addy.verified == true">Verified</h4>
+                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                    </div>
+                    <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
+    </form>
+
+</div>
+
+
+

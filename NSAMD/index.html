@@ -11,6 +11,7 @@
     <link href="Content/angular-material.layout-attributes.css" rel="stylesheet" />
     <link href="Content/angular-material.layouts.css" rel="stylesheet" />
     <link href="Content/angular-data-grid.material.css" rel="stylesheet" />
+    <!--<link href="Content/md-date-picker.min.css" rel="stylesheet" />-->
     <link href="Content/app.css" rel="stylesheet" />    
 </head>
 <body layout="row" ng-app="app" ng-controller="rootController as rootCtrl" init="init()">
@@ -20,7 +21,7 @@
 
         <div ng-include="'views/app/toolbarHeader.html'"></div>
 
-        <md-content flex id="content" class="content">
+        <md-content flex id="content">
            
             <ng-view></ng-view>
 
@@ -33,22 +34,33 @@
     <script src="Scripts/angular-material.min.js"></script>
     <script src="Scripts/angular-route.min.js"></script>
     <script src="Scripts/angular-messages.min.js"></script>
+    <script src="Scripts/angular-local-storage.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
 
     <!--https://github.com/angular-data-grid/angular-data-grid.github.io-->
     <script src="Scripts/dataGrid.min.js"></script>
     <script src="Scripts/pagination.min.js"></script>
+    <script src="Scripts/ngMask.min.js"></script>
 
+    <!--https://github.com/appfoundations/md-date-picker-->
+    <!--<script src="Scripts/md-date-picker.min.js"></script>-->
+
+    <script src="config.js"></script>
     <script src="app.js"></script>
+    <script src="Services/appNotificationService.js"></script>
     <script src="Services/churchService.js"></script>
     <script src="Services/memberService.js"></script>
     <script src="Services/teamService.js"></script>
     <script src="Controllers/rootController.js"></script>
     <script src="Controllers/adminController.js"></script>
     <script src="Controllers/churchController.js"></script>
+    <script src="Controllers/memberListController.js"></script>
     <script src="Controllers/memberController.js"></script>
+    <script src="Controllers/addMemberController.js"></script>
     <script src="Controllers/teamController.js"></script>
     <script src="Controllers/perspectivesController.js"></script>
+    <script src="Controllers/simpleDialogController.js"></script>
+    <script src="Controllers/messageDialogController.js"></script>
     <script src="Filters/phoneFilter.js"></script>
     <script src="Filters/mapAddressFilter.js"></script>
 </body>

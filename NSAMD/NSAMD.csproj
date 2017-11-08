@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="config.js" />
     <Content Include="Content\angular-data-grid.material.css" />
     <Content Include="Content\angular-material-icons\action.svg" />
     <Content Include="Content\angular-material-icons\alert.svg" />
@@ -94,11 +95,17 @@
     <Content Include="Content\images\ntcclogo.png" />
     <Content Include="Content\images\ntcclogo4-sml.png" />
     <Content Include="Content\images\ntccShield-48.png" />
+    <Content Include="Content\md-date-picker.css" />
+    <Content Include="Content\md-date-picker.min.css" />
+    <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\memberController.js" />
+    <Content Include="Controllers\memberListController.js" />
+    <Content Include="Controllers\messageDialogController.js" />
     <Content Include="Controllers\perspectivesController.js" />
     <Content Include="Controllers\rootController.js" />
+    <Content Include="Controllers\simpleDialogController.js" />
     <Content Include="Controllers\teamController.js" />
     <Content Include="Filters\mapAddressFilter.js" />
     <Content Include="Filters\phoneFilter.js" />
@@ -108,6 +115,8 @@
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />
+    <Content Include="Scripts\angular-local-storage.js" />
+    <Content Include="Scripts\angular-local-storage.min.js" />
     <Content Include="Scripts\angular-material-mocks.js" />
     <Content Include="Scripts\angular-material.js" />
     <Content Include="Scripts\angular-material.min.js" />
@@ -123,6 +132,8 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\ngMask.min.map" />
+    <Content Include="Scripts\angular-local-storage.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -137,15 +148,26 @@
     <Content Include="Scripts\dataGridUtils.min.js" />
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\loading-bar.min.js" />
+    <Content Include="Scripts\md-date-picker.js" />
+    <Content Include="Scripts\md-date-picker.min.js" />
+    <Content Include="Scripts\ngMask.js" />
+    <Content Include="Scripts\ngMask.min.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\pagination.min.js" />
+    <Content Include="Services\appNotificationService.js" />
     <Content Include="Services\churchService.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
+    <Content Include="Views\App\addressDialog.html" />
+    <Content Include="Views\App\emailDialog.html" />
+    <Content Include="Views\App\messageDialog.html" />
+    <Content Include="Views\App\phoneDialog.html" />
     <Content Include="Views\App\sideNav.html" />
     <Content Include="Views\App\toolbarHeader.html" />
     <Content Include="Views\Churches\churchesIndex.html" />
+    <Content Include="Views\Members\addMember.html" />
+    <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
     <Content Include="Views\Teams\teamsIndex.html" />

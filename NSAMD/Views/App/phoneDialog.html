@@ -1,0 +1,54 @@
+﻿
+
+
+<md-dialog class="phoneDiag">
+    <form name="phoneForm" ng-submit="dc.save()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+
+                <!--Add phone Collection
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Phone Number</label>
+                    <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" />
+                    <div class="hint" ng-show="showHints">(###) ###-####</div>
+                    <div ng-messages="userForm.phone.$error" ng-hide="showHints">
+                        <div ng-message="pattern">(###) ###-#### - Please enter a valid phone number.</div>
+                    </div>
+                </md-input-container>-->
+
+
+                <md-input-container>
+                    <label>Phone Number</label>
+                    <input type="text" ng-model="dc.currentItem.phoneNumber" name="number" min="0" ng-maxlength="25" 
+                           mask="(999) 999-9999" clean="true" restrict="reject" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/"
+                           md-autofocus />
+                    <div class="hint" ng-show="showHints">(###) ###-####</div>
+                    <div ng-messages="phoneForm.number.$error">
+                        <div ng-message="maxlength">25 characters max</div>
+                        <div ng-message="pattern">Invalid phone number</div>
+                    </div>
+                </md-input-container>
+
+                <div layout="row" layout-align="space-around start"
+                        class="maxWidth">
+                    <md-switch class="md-primary" name="verified" ng-model="dc.currentItem.verified">
+                        Verified
+                    </md-switch>
+                    <md-switch class="md-primary" name="preferred" ng-model="dc.currentItem.preferred">
+                        Preferred
+                    </md-switch>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="phoneForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
