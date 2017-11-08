@@ -11,18 +11,9 @@
                    ng-change="clc.gridActions.filter()" />
         </md-input-container>
 
-        <md-input-container flex-gt-xs>
-            <label>Church</label>
-            <md-select ng-model="memberCtrl.churchId">
-                <md-option ng-value="3">Graham</md-option>
-                <md-option ng-value="9">Dallas</md-option>
-                <md-option ng-value="7">Denver</md-option>
-                <md-option ng-value="8">San Diego</md-option>
-                <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                    {{state.abbrev}}
-                </md-option>-->
-            </md-select>
-        </md-input-container>
+        <md-switch class="md-primary" name="showAll" ng-model="clc.showAll" style="margin-left: 30px;">
+            Show all churches
+        </md-switch>
     </div>
 
     <!-- do not remove this grid!  this is the Angular-Material-Design grid that we are going to use
@@ -31,11 +22,11 @@
         grid-actions="gridActions"
     -->
 
-    <div id="memGrid"
+    <div id="churchGrid"
          grid-data
-         grid-options="memberCtrl.gridOptions"
-         grid-actions="memberCtrl.gridActions"
-         ng-init="memberCtrl.loadData()">
+         grid-options="clc.gridOptions"
+         grid-actions="clc.gridActions"
+         ng-init="clc.loadData()">
 
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
@@ -67,7 +58,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in filtered | startFrom:(memberCtrl.paginationOptions.currentPage-1)*memberCtrl.paginationOptions.itemsPerPage | limitTo:memberCtrl.paginationOptions.itemsPerPage track by $index">
+                <tr ng-repeat="item in filtered | startFrom:(clc.paginationOptions.currentPage-1)*clc.paginationOptions.itemsPerPage | limitTo:clc.paginationOptions.itemsPerPage track by $index">
+
                     <td><a href ng-click="memberCtrl.openProfile(item.id)">{{item.fullName}}</a></td>
                     <td ng-bind="item.status"></td>
                     <td ng-bind="item.statusChangeType"></td>
@@ -101,17 +93,17 @@
 
     <grid-pagination boundary-links="true"
                      class="pagination"
-                     ng-if="memberCtrl.paginationOptions.totalItems > memberCtrl.paginationOptions.itemsPerPage"
-                     total-items="memberCtrl.paginationOptions.totalItems"
-                     ng-model="memberCtrl.paginationOptions.currentPage"
-                     ng-change="memberCtrl.loadData()"
-                     items-per-page="memberCtrl.paginationOptions.itemsPerPage">
+                     ng-if="clc.paginationOptions.totalItems > clc.paginationOptions.itemsPerPage"
+                     total-items="clc.paginationOptions.totalItems"
+                     ng-model="clc.paginationOptions.currentPage"
+                     ng-change="clc.loadData()"
+                     items-per-page="clc.paginationOptions.itemsPerPage">
     </grid-pagination>
 
     <md-input-container flex-offset-gt-xs="5" class="items-per-page">
-        <md-select ng-model="memberCtrl.paginationOptions.itemsPerPage"
-                   ng-if="memberCtrl.paginationOptions.totalItems > memberCtrl.paginationOptions.itemsPerPage"
-                   ng-change="memberCtrl.loadData()">
+        <md-select ng-model="clc.paginationOptions.itemsPerPage"
+                   ng-if="clc.paginationOptions.totalItems > clc.paginationOptions.itemsPerPage"
+                   ng-change="clc.loadData()">
             <md-option ng-value="10">10</md-option>
             <md-option ng-value="25">25</md-option>
             <md-option ng-value="50">50</md-option>
@@ -120,7 +112,7 @@
     </md-input-container>
 
     <md-button class="md-fab md-fab-bottom-right addFab"
-               aria-label="Add" ng-click="memberCtrl.addItem($event)">
+               aria-label="Add" ng-click="clc.addItem($event)">
         <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
     </md-button>
 </div>

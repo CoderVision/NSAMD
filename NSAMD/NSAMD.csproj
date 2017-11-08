@@ -97,6 +97,7 @@
     <Content Include="Content\images\ntccShield-48.png" />
     <Content Include="Content\md-date-picker.css" />
     <Content Include="Content\md-date-picker.min.css" />
+    <Content Include="Controllers\addChurchController.js" />
     <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
@@ -166,7 +167,9 @@
     <Content Include="Views\App\phoneDialog.html" />
     <Content Include="Views\App\sideNav.html" />
     <Content Include="Views\App\toolbarHeader.html" />
+    <Content Include="Views\Churches\addChurch.html" />
     <Content Include="Views\Churches\churchesIndex.html" />
+    <Content Include="Views\Churches\churchProfile.html" />
     <Content Include="Views\Members\addMember.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />

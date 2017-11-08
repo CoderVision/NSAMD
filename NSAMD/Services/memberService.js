@@ -12,15 +12,15 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         var deferred = $q.defer();
 
         var cfg;
-        //if (localStorageService.isSupported) {
-        //    cfg = localStorageService.get("memberConfig");
+        if (localStorageService.isSupported) {
+            cfg = localStorageService.get("memberConfig");
 
-        //    if (cfg && cfg.churchId == churchId)
-        //    {
-        //        deferred.resolve(cfg.data);
-        //        return deferred.promise;
-        //    }
-        //}
+            if (cfg && cfg.churchId == churchId)
+            {
+                deferred.resolve(cfg.data);
+                return deferred.promise;
+            }
+        }
 
         // remove churchId hardcoded value of "3", Graham; and statusIds "49"
         //var uri = config.apiUrl + "/Members?churchId=3&statusIds=49";
@@ -60,7 +60,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
             $log.error("error in memberService.getList:  " + error);
 
-            deferred.reject("Error retrieving member list");
+            deferred.reject("Error retrieving member list for church " + churchId);
         });
 
         return deferred.promise;
@@ -145,7 +145,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
             $log.error("error in memberService.saveAddy:  " + error);
 
-            deferred.reject("Error retrieving member id " + id);
+            deferred.reject("Error retrieving member id " + addy.id);
         });
 
         return deferred.promise;
