@@ -100,6 +100,7 @@
     <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
+    <Content Include="Controllers\churchListController.js" />
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\messageDialogController.js" />
