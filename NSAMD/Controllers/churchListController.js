@@ -1,7 +1,7 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('memberListController',
+angular.module('app').controller('churchListController',
     ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'churchService', 'appNotificationService'
     , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, churchService, appNotificationService) {
 
@@ -76,7 +76,7 @@ angular.module('app').controller('memberListController',
             var church = {};
 
             config = {
-                memberList: vm.config.memberList
+               // memberList: vm.config.memberList
             };
 
             $mdDialog.show({
