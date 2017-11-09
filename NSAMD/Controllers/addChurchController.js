@@ -29,17 +29,18 @@ angular.module('app')
 
             vm.save = function () {
 
+                var saveItem = angular.copy(vm.currentItem);
+
                 // add remainder of timezone offset
-                vm.currentItem.timeZoneOffset += ":00";
+                saveItem.timeZoneOffset += ":00";
 
                 // save member and reset form so it can be used to enter the next member
-                churchService.saveNew(vm.currentItem).then(function (success) {
+                churchService.saveNew(saveItem).then(function (success) {
 
                     $log.info("new church saved");
                     appNotificationService.openToast("Save success");
 
-                    var churchId = vm.currentItem.id;
-
+                    // reset form
                     vm.currentItem = { };
 
                 }, function (error) {

@@ -86,7 +86,7 @@ angular.module('app').controller('memberListController',
                 templateUrl: './views/Members/addMember.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
-                controller: 'AddMemberController',
+                controller: 'addMemberController',
                 controllerAs: 'dc', // dc = dialog controller
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen
