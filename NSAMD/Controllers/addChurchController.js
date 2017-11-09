@@ -2,16 +2,26 @@
 'use strict';
 
 angular.module('app')
-    .controller('AddChurchController', ['$mdDialog', '$log', 'churchService', 'appNotificationService', 'currentItem', 'config'
+    .controller('addChurchController', ['$mdDialog', '$log', 'churchService', 'appNotificationService', 'currentItem', 'config'
         , function ($mdDialog, $log, churchService, appNotificationService, currentItem, config) {
 
             var vm = this;
             vm.config = config;
             vm.currentItem = currentItem;
 
-            //vm.selectedSponsors = [];
-            //vm.selectedSponsor = null;
-            //vm.sponsorSearchText = null;
+            vm.load = function () {
+                vm.config.timeZones = [
+                  { name: "Samoa", offset: "-11" } // remove ending ":00" or Angular will throw errors.  We can add it below when we save.
+                , { name: "Hawaii", offset: "-10" }
+                , { name: "Alaska", offset: "-09" }
+                , { name: "Pacific", offset: "-08" }
+                , { name: "Mountain", offset: "-07" }
+                , { name: "Central", offset: "-06" }
+                , { name: "Eastern", offset: "-05" }
+                , { name: "Atlantic", offset: "-04" }
+                , { name: "Chamorro", offset: "+10" }
+                ];
+            }
 
             vm.cancel = function () {
                 $mdDialog.cancel();
@@ -19,53 +29,25 @@ angular.module('app')
 
             vm.save = function () {
 
-                //var list = [];
-                //if (vm.selectedSponsors.length > 0) {
-                //    for (var i = 0; i < vm.selectedSponsors.length; i++) {
-                //        var s = {
-                //            SponsorId: vm.selectedSponsors[i].id,
-                //            MemberId: 0, // a new member doesn't have a member id yet.
-                //            FirstName: "",
-                //            LastName: ""
-                //        };
-                //        list.push(s);
-                //    }
-                //}
-                //vm.currentItem.sponsorList = list;
+                // add remainder of timezone offset
+                vm.currentItem.timeZoneOffset += ":00";
 
-                //// save member and reset form so it can be used to enter the next member
-                //memberService.saveNewMember(vm.currentItem).then(function (success) {
+                // save member and reset form so it can be used to enter the next member
+                churchService.saveNew(vm.currentItem).then(function (success) {
 
-                //    $log.info("new member saved");
-                //    appNotificationService.openToast("Save success");
+                    $log.info("new church saved");
+                    appNotificationService.openToast("Save success");
 
-                //    var churchId = vm.currentItem.churchId;
+                    var churchId = vm.currentItem.id;
 
-                //    vm.currentItem = {
-                //        dateCame: new Date(),
-                //        churchId: churchId
-                //    };
+                    vm.currentItem = { };
 
-                //    vm.selectedSponsors = [];
-                //    vm.selectedSponsor = null;
-                //    vm.sponsorSearchText = null;
+                }, function (error) {
+                    $log.info("Error saving new church");
+                });
 
-                //}, function (error) {
-                //    $log.info("Error saving new member");
-                //});
-
-                $mdDialog.hide(vm.currentItem);
+                //$mdDialog.hide(vm.currentItem);
             }
-
-            //// Sponsors
-            //vm.sponsorSearch = function (sponsorSearchText) {
-            //    var result = vm.config.memberList.filter(sponsorFilter);
-            //    return result;
-            //}
-            //function sponsorFilter(member) {
-            //    var lowercase = angular.lowercase(vm.sponsorSearchText);
-            //    return (member.desc.toLowerCase().indexOf(lowercase) === 0);
-            //}
 
             return vm;
         }]);

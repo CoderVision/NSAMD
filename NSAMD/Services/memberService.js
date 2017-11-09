@@ -164,7 +164,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
             $log.error("error in memberService.saveNewMember:  " + error);
 
-            deferred.reject("Error retrieving member id " + member.id);
+            deferred.reject("Error saving member:  " + member.firstName);
         });
 
         return deferred.promise;

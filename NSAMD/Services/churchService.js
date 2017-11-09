@@ -148,20 +148,20 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
             return deferred.promise;
         }
 
-        svc.saveNewMember = function (member) {
+        svc.saveNew = function (church) {
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/Members";
+            var uri = config.apiUrl + "/Churches";
 
-            $http.post(uri, member).then(function (success) {
+            $http.post(uri, church).then(function (success) {
 
                 deferred.resolve(success.data);
 
             }, function (error) {
 
-                $log.error("error in memberService.saveNewMember:  " + error);
+                $log.error("error in churchService.saveNew:  " + error);
 
-                deferred.reject("Error saving member id " + member.id);
+                deferred.reject("Error saving church: " + church.name);
             });
 
             return deferred.promise;

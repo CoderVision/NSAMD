@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('app')
-    .controller('SimpleDialogController', ['$mdDialog', 'currentItem', function ($mdDialog, currentItem) {
+    .controller('simpleDialogController', ['$mdDialog', 'currentItem', function ($mdDialog, currentItem) {
         var vm = this;
 
         vm.currentItem = currentItem;

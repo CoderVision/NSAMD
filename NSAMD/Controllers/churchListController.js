@@ -84,7 +84,7 @@ angular.module('app').controller('churchListController',
                 templateUrl: './views/Churches/addChurch.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
-                controller: 'AddChurchController',
+                controller: 'addChurchController',
                 controllerAs: 'dc', // dc = dialog controller
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen
