@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('churchListController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'churchService', 'appNotificationService'
-    , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, churchService, appNotificationService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'churchService', 'appNotificationService'
+    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, churchService, appNotificationService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -20,6 +20,12 @@ angular.module('app').controller('churchListController',
                 direction: 'asc'
             }
         };
+
+        // handle add item event from root scope
+        $scope.$emit('enableAddItemEvent');
+        $scope.$on('addItemEvent', function (event) {
+            vm.addItem(event);
+        });
 
         //vm.gridActions = {
         //    sort: function () { $log.info("sort"); },

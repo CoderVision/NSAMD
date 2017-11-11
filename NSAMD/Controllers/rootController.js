@@ -2,13 +2,14 @@
 'use strict';
 
 angular.module('app').controller('rootController',
-    ['$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log'
-    , function ($mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log) {
+    ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log'
+    , function ($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log) {
 
     var vm = this;
     vm.mdSidenav = $mdSidenav;
     vm.currentTitle = "Members";
     vm.isLoggedIn = false;
+    vm.isAddItemEventEnabled = false;
 
     vm.toggleSideNav = function () {
 
@@ -31,6 +32,14 @@ angular.module('app').controller('rootController',
         vm.isLoggedIn = !vm.isLoggedIn;
     };
 
+    vm.addItem = function ($event) {
+        $scope.$broadcast('addItemEvent');
+    }
+
+    $scope.$on('enableAddItemEvent', function (event) {
+
+        vm.isAddItemEventEnabled = true;
+    });
 
     vm.navigateTo = function (routeName, title) {
         $location.path(routeName);

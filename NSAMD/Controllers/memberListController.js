@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('memberListController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
-    , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
+    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -11,6 +11,12 @@ angular.module('app').controller('memberListController',
 
         vm.isLoading = false;
         vm.config = {};
+
+        // handle add item event from root scope
+        $scope.$emit('enableAddItemEvent');
+        $scope.$on('addItemEvent', function (event) {
+            vm.addItem(event);
+        });
 
         vm.gridOptions = {
             data: [], //required parameter - array with data
