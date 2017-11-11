@@ -1,6 +1,111 @@
-﻿<div layout="row" layout-padding>
-    <md-input-container class="md-block" flex-gt-xs>
-        <label>Search</label>
-        <input ng-model="searchText" placeholder="Enter church name" />
+﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="clc.isLoading"></md-progress-linear>
+
+<div class="content">
+    <div layout="row">
+        <!--flex-gt-xs-->
+        <md-input-container class="md-block" flex-gt-xs>
+            <label>Search</label>
+            <input ng-model="clc.searchText" placeholder="Enter church name"
+                   filter-by="name"
+                   filter-type="text"
+                   ng-change="clc.gridActions.filter()" />
+        </md-input-container>
+
+        <md-switch class="md-primary" name="showAll" ng-model="clc.showAll" style="margin-left: 30px;">
+            Show all churches
+        </md-switch>
+    </div>
+
+    <!-- do not remove this grid!  this is the Angular-Material-Design grid that we are going to use
+        https://github.com/angular-data-grid/angular-data-grid.github.io
+        http://angular-data-grid.github.io/demo/material/#!?page=1&code=3747
+        grid-actions="gridActions"
+    -->
+
+    <div id="churchGrid"
+         grid-data
+         grid-options="clc.gridOptions"
+         grid-actions="clc.gridActions"
+         ng-init="clc.loadData()">
+
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th sortable="name" class="sortable">
+                        Name
+                    </th>
+                    <th sortable="statusDesc" class="sortable">
+                        Status
+                    </th>
+                    <th sortable="pastor" class="sortable">
+                        Pastor
+                    </th>
+                    <th sortable='phone' class="sortable">
+                        Phone
+                    </th>
+                    <th class="showMobileOnly sortable" sortable='phone'>
+                        Text
+                    </th>
+                    <th sortable='email' class="sortable">
+                        Email
+                    </th>
+                    <th>
+                        Map
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in filtered | startFrom:(clc.paginationOptions.currentPage-1)*clc.paginationOptions.itemsPerPage | limitTo:clc.paginationOptions.itemsPerPage track by $index">
+
+                    <td><a href ng-click="clc.openProfile(item.id)">{{item.name}}</a></td>
+                    <td ng-bind="item.statusDesc"></td>
+                    <td ng-bind="item.pastor"></td>
+                    <td>
+                        <a class="showDesktopOnly" href="tel:{{item.phone}}">{{item.phone | phone}}</a>
+                        <a class="showMobileOnly" ng-if="item.phone" href="tel:{{item.phone}}">
+                            <ng-md-icon icon="call"></ng-md-icon>
+                        </a>
+                    </td>
+                    <td class="showMobileOnly">
+                        <a ng-if="item.phone" href="sms:{{item.phone}}">
+                            <ng-md-icon icon="sms"></ng-md-icon>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="showDesktopOnly" href="mailto:{{item.email}}">{{item.email}}</a>
+                        <a class="showMobileOnly" ng-if="item.email" href="mailto:{{item.email}}">
+                            <ng-md-icon icon="email"></ng-md-icon>
+                        </a>
+                    </td>
+                    <td>
+                        <a ng-if="item.address" href="https://www.google.com/maps/place/{{item.address.replace(' ', '+')}}" )>
+                            <ng-md-icon icon="map"></ng-md-icon>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <grid-pagination boundary-links="true"
+                     class="pagination"
+                     ng-if="clc.paginationOptions.totalItems > clc.paginationOptions.itemsPerPage"
+                     total-items="clc.paginationOptions.totalItems"
+                     ng-model="clc.paginationOptions.currentPage"
+                     ng-change="clc.loadData()"
+                     items-per-page="clc.paginationOptions.itemsPerPage">
+    </grid-pagination>
+
+    <md-input-container flex-offset-gt-xs="5" class="items-per-page">
+        <md-select ng-model="clc.paginationOptions.itemsPerPage"
+                   ng-if="clc.paginationOptions.totalItems > clc.paginationOptions.itemsPerPage"
+                   ng-change="clc.loadData()">
+            <md-option ng-value="10">10</md-option>
+            <md-option ng-value="25">25</md-option>
+            <md-option ng-value="50">50</md-option>
+            <md-option ng-value="75">75</md-option>
+        </md-select>
     </md-input-container>
+
 </div>

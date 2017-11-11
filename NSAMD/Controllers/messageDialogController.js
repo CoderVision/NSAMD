@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('MessageDialogController', ['$mdDialog', 'currentItem', function ($mdDialog, currentItem) {
+    .controller('messageDialogController', ['$mdDialog', 'currentItem', function ($mdDialog, currentItem) {
         var vm = this;
 
         vm.currentItem = currentItem;

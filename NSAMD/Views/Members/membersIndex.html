@@ -1,26 +1,22 @@
 ﻿
-<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="memberCtrl.isLoading"></md-progress-linear>
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mlc.isLoading"></md-progress-linear>
 
 <div class="content">
     <div layout="row">
         <md-input-container class="md-block" flex-gt-xs>
             <label>Search</label>
-            <input ng-model="memberCtrl.searchText" placeholder="Enter member name"
+            <input ng-model="mlc.searchText" placeholder="Enter member name"
                    filter-by="fullName"
                    filter-type="text"
-                   ng-change="memberCtrl.gridActions.filter()" />
+                   ng-change="mlc.gridActions.filter()" />
         </md-input-container>
 
         <md-input-container flex-gt-xs>
             <label>Church</label>
-            <md-select ng-model="memberCtrl.churchId">
-                <md-option ng-value="3">Graham</md-option>
-                <md-option ng-value="9">Dallas</md-option>
-                <md-option ng-value="7">Denver</md-option>
-                <md-option ng-value="8">San Diego</md-option>
-                <!--<md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                {{state.abbrev}}
-            </md-option>-->
+            <md-select ng-model="mlc.churchId">
+                <!--<md-option>Select Church</md-option>
+                    ng-disabled="$index === 0"-->
+                <md-option ng-repeat="c in mlc.config.churchList | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
             </md-select>
         </md-input-container>
     </div>
@@ -33,9 +29,9 @@
 
     <div id="memGrid"
          grid-data
-         grid-options="memberCtrl.gridOptions"
-         grid-actions="memberCtrl.gridActions"
-         ng-init="memberCtrl.loadData()">
+         grid-options="mlc.gridOptions"
+         grid-actions="mlc.gridActions"
+         ng-init="mlc.loadData()">
 
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
@@ -67,8 +63,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in filtered | startFrom:(memberCtrl.paginationOptions.currentPage-1)*memberCtrl.paginationOptions.itemsPerPage | limitTo:memberCtrl.paginationOptions.itemsPerPage track by $index">
-                    <td><a href ng-click="memberCtrl.openProfile(item.id)">{{item.fullName}}</a></td>
+                <tr ng-repeat="item in filtered | startFrom:(mlc.paginationOptions.currentPage-1)*mlc.paginationOptions.itemsPerPage | limitTo:mlc.paginationOptions.itemsPerPage track by $index">
+                    <td><a href ng-click="mlc.openProfile(item.id)">{{item.fullName}}</a></td>
                     <td ng-bind="item.status"></td>
                     <td ng-bind="item.statusChangeType"></td>
                     <td ng-bind="item.attendance | date:'MM/dd/yyyy'"></td>
@@ -101,17 +97,17 @@
 
     <grid-pagination boundary-links="true"
                      class="pagination"
-                     ng-if="memberCtrl.paginationOptions.totalItems > memberCtrl.paginationOptions.itemsPerPage"
-                     total-items="memberCtrl.paginationOptions.totalItems"
-                     ng-model="memberCtrl.paginationOptions.currentPage"
-                     ng-change="memberCtrl.loadData()"
-                     items-per-page="memberCtrl.paginationOptions.itemsPerPage">
+                     ng-if="mlc.paginationOptions.totalItems > mlc.paginationOptions.itemsPerPage"
+                     total-items="mlc.paginationOptions.totalItems"
+                     ng-model="mlc.paginationOptions.currentPage"
+                     ng-change="mlc.loadData()"
+                     items-per-page="mlc.paginationOptions.itemsPerPage">
     </grid-pagination>
 
     <md-input-container flex-offset-gt-xs="5" class="items-per-page">
-        <md-select ng-model="memberCtrl.paginationOptions.itemsPerPage"
-                   ng-if="memberCtrl.paginationOptions.totalItems > memberCtrl.paginationOptions.itemsPerPage"
-                   ng-change="memberCtrl.loadData()">
+        <md-select ng-model="mlc.paginationOptions.itemsPerPage"
+                   ng-if="mlc.paginationOptions.totalItems > mlc.paginationOptions.itemsPerPage"
+                   ng-change="mlc.loadData()">
             <md-option ng-value="10">10</md-option>
             <md-option ng-value="25">25</md-option>
             <md-option ng-value="50">50</md-option>
@@ -119,8 +115,4 @@
         </md-select>
     </md-input-container>
 
-    <md-button class="md-fab md-fab-bottom-right addFab"
-               aria-label="Add" ng-click="memberCtrl.addItem($event)">
-        <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
-    </md-button>
 </div>

@@ -20,22 +20,26 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     localStorageServiceProvider.setStorageType('localStorage');
     localStorageServiceProvider.setDefaultToCookie(true);
 
-    $routeProvider.when('/church', {
+    $routeProvider.when('/churches', {
         templateUrl: './Views/Churches/churchesIndex.html',
+        controller: 'churchListController',
+        controllerAs: 'clc'
+    }).when('/church', {
+        templateUrl: './Views/Churches/churchesProfile.html',
         controller: 'churchController',
-        controllerAs: 'churchCtrl'
-    }).when('/team', {
+        controllerAs: 'cc'
+    }).when('/teams', {
         templateUrl: './Views/Teams/teamsIndex.html',
         controller: 'teamController',
-        controllerAs: 'teamCtrl'
+        controllerAs: 'tc'
     }).when('/admin', {
         templateUrl: './Views/Admin/adminIndex.html',
         controller: 'adminController',
-        controllerAs: 'adminCtrl'
+        controllerAs: 'ac'
     }).when('/perspectives', {
         templateUrl: './Views/Perspectives/perspectivesIndex.html',
         controller: 'perspectivesController',
-        controllerAs: 'perspCtrl'
+        controllerAs: 'pc'
     }).when('/member', {
         templateUrl: './Views/Members/memberProfile.html',
         controller: 'memberController',
@@ -43,7 +47,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     }).otherwise({
         templateUrl: './Views/Members/membersIndex.html',
         controller: 'memberListController',
-        controllerAs: 'memberCtrl'
+        controllerAs: 'mlc'
     });
 
     $mdThemingProvider.definePalette('green', {

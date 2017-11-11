@@ -21,6 +21,12 @@
 
         <div ng-include="'views/app/toolbarHeader.html'"></div>
 
+        <md-button class="md-fab md-fab-bottom-right addFab"
+                   aria-label="Add" ng-click="rootCtrl.addItem($event)"
+                   ng-hide="rootCtrl.isAddItemEventEnabled === false">
+            <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
+        </md-button>
+
         <md-content flex id="content">
            
             <ng-view></ng-view>
@@ -53,7 +59,9 @@
     <script src="Services/teamService.js"></script>
     <script src="Controllers/rootController.js"></script>
     <script src="Controllers/adminController.js"></script>
+    <script src="Controllers/churchListController.js"></script>
     <script src="Controllers/churchController.js"></script>
+    <script src="Controllers/addChurchController.js"></script>
     <script src="Controllers/memberListController.js"></script>
     <script src="Controllers/memberController.js"></script>
     <script src="Controllers/addMemberController.js"></script>

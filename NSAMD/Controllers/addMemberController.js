@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('AddMemberController', ['$mdDialog', '$log', 'memberService', 'appNotificationService', 'currentItem', 'config'
+    .controller('addMemberController', ['$mdDialog', '$log', 'memberService', 'appNotificationService', 'currentItem', 'config'
         , function ($mdDialog, $log, memberService, appNotificationService, currentItem, config) {
 
         var vm = this;
