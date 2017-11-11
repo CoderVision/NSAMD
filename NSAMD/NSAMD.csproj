@@ -158,6 +158,7 @@
     <Content Include="Scripts\pagination.min.js" />
     <Content Include="Services\appNotificationService.js" />
     <Content Include="Services\churchService.js" />
+    <Content Include="Services\configService.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
