@@ -1,7 +1,4 @@
 ﻿
-churchId
-
-
 <md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="cc.isLoading"></md-progress-linear>
 
 <div ng-init="cc.load()" class="content">
@@ -18,7 +15,7 @@ churchId
                  flex flex-gt-xs="50"
                  class="maxWidth profileLeftPanel">
 
-                <md-input-container class="md-block" flex>
+                <md-input-container flex>
                     <label>Church Name</label>
                     <input name="name" ng-model="cc.church.name" ng-maxlength="100" ng-minlength="2" required md-autofocus 
                            ng-change="cc.patch('name', cc.church.name)"/>
@@ -35,16 +32,16 @@ churchId
                                ng-change="cc.patch('statusId', cc.church.statusId)"
                                placeholder="Select a status">
                         <md-option>Select a status</md-option>
-                        <md-option ng-repeat="item in mc.statusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                        <md-option ng-repeat="item in cc.config.statusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container flex>
                     <label>Time Zone</label>
                     <md-select ng-model="cc.church.timeZoneOffset"
-                               ng-change="cc.patch('timeZoneOffset', mc.church.timeZoneOffset)">
+                               ng-change="cc.patch('timeZoneOffset', cc.church.timeZoneOffset)">
                         <md-option>Select a time zone</md-option>
-                        <md-option ng-repeat="item in dc.config.timeZones | orderBy:'name'" ng-value="{{item.offset}}">{{item.name}}</md-option>
+                        <md-option ng-repeat="item in cc.config.timeZones | orderBy:'name'" ng-value="{{item.offset}}">{{item.name}}</md-option>
                     </md-select>
                 </md-input-container>
             </div>
@@ -54,63 +51,63 @@ churchId
                  flex flex-gt-sm="50" class="maxWidth">
                 <md-input-container class="md-block">
                     <label>Comments</label>
-                    <textarea class="fixedTextArea" ng-model="cc.church.comments" rows="6" md-select-on-focus
+                    <textarea ng-model="cc.church.comments" rows="6" md-select-on-focus
                               ng-blur="cc.patch('comments', cc.church.comments)"></textarea>
                 </md-input-container>
             </div>
         </div>
 
+        
         <!-- Pastor Teams -->
-        <md-subheader>Pastoral Team</md-subheader>
-        <div>
-            <div layout="row" ng-repeat="member in cc.church.teamMembers">
-                <md-input-container flex>
-                    <!-- member dropdown list for selecting a team member -->
-                    <md-select ng-model="cc.church.teamMemberId"
-                               ng-change="cc.patch('teamMemberId', cc.church.teamMemberId)"
-                               placeholder="Select a member">
-                        <md-option>Select a member</md-option>
-                        <md-option ng-repeat="item in mc.churchList" ng-value="{{item.id}}">{{item.desc}}</md-option>
-                    </md-select>
-                </md-input-container>
-
-                <!-- member dropdown list for selecting a team member -->
-                <!-- $Watch this and patch it when it changes -->
-                <md-input-container flex>
-                    <md-select ng-model="mc.member.memberTypeEnumId"
-                               ng-change="mc.patch('memberTypeEnumId', cc.church.teamMemberPositionId)"
-                               placeholder="Select a position">
-                        <md-option>Select a type</md-option>
-                        <md-option ng-repeat="item in mc.memberTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-        </div>
+        <md-card class="pastoralTeamContainer">
+            <md-list>  
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Pastoral Team
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="cc.addTeammate($event)" aria-label="Add Team Member" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"
+                              ng-repeat="addy in cc.church.addressList"
+                              ng-click="cc.editAddress('address', addy, $event)">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{teammate.name}}</h3>
+                        <h3>{{teammate.position}}</h3>
+                    </div>
+                    <md-icon md-svg-icon="content:remove" ng-click="cc.removeTeammate(teammate, $event)" aria-label="Delete Member" class="md-secondary md-hue-3"></md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card>
 
         <!-- Communication -->
-        <md-subheader>Communication</md-subheader>
-        <md-tabs>
+        <md-tabs md-border-bottom md-swipe-content>
             <md-tab id="emailTab">
                 <md-tab-label>Email Configuration</md-tab-label>
                 <md-tab-body>
                     <div layout="row" layout-align="start center">
-                        <md-input-container flex>
+                        <md-input-container flex flex-gt-sm="50">
                             <label>Provider</label>
                             <md-select ng-model="cc.church.emailConfigProfileId"
                                        ng-change="cc.patch('emailConfigProfileId', mc.church.emailConfigProfileId)">
                                 <md-option>Select a provider</md-option>
-                                <md-option ng-repeat="item in dc.config.emailConfigs | orderBy:'name'" ng-value="{{item.offset}}">{{item.name}}</md-option>
+                                <md-option ng-repeat="item in dc.config.emailProviders | orderBy:'name'" ng-value="{{item.id}}">{{item.name}}</md-option>
                             </md-select>
                         </md-input-container>
 
-                        <div>{{cc.providerServer}}</div>
+                        <div layout="row" flex flex-gt-sm="50">
+                            <div flex>{{cc.server}}</div>
 
-                        <div>{{cc.providerPort}}</div>
+                            <div flex>{{cc.port}}</div>
+                        </div>
                     </div>
 
                     <md-input-container class="md-block" flex>
                         <label>Email Address</label>
-                        <input name="email" ng-model="cc.church.email" ng-maxlength="100" ng-minlength="2" required md-autofocus
+                        <input name="email" type="email" ng-model="cc.church.email" ng-maxlength="100" ng-minlength="2" required 
                                ng-change="cc.patch('email', cc.church.email)" />
                         <div ng-messages="churchForm.email.$error">
                             <div ng-message="required">Name is required</div>
@@ -121,7 +118,7 @@ churchId
 
                     <md-input-container class="md-block" flex>
                         <label>Password</label>
-                        <input type="password" name="password" ng-model="cc.church.emailPassword" ng-maxlength="100" ng-minlength="2" required md-autofocus
+                        <input type="password" name="password" ng-model="cc.church.emailPassword" ng-maxlength="100" ng-minlength="2" required 
                                ng-change="cc.patch('emailPassword', cc.church.emailPassword)" />
                         <div ng-messages="churchForm.password.$error">
                             <div ng-message="required">Name is required</div>
@@ -180,7 +177,7 @@ churchId
                     </div>
                 </md-subheader>
                 <md-list-item class="md-2-line"
-                              ng-repeat="addy in mc.church.addressList"
+                              ng-repeat="addy in cc.church.addressList"
                               ng-click="mc.editAddress('address', addy, $event)">
                     <div class="md-list-item-text" layout="column">
                         <h3>{{addy.line1}}</h3>
@@ -210,16 +207,11 @@ churchId
                 <md-list-item class="md-2-line"
                               ng-repeat="addy in cc.church.phoneList"
                               ng-click="cc.editAddress('phone', addy, $event)">
-                    <!--ng-class="{'md-offset': phone.options.offset }"-->
                     <div class="md-list-item-text">
                         <h3> {{ addy.phoneNumber | phone}} </h3>
-                        <!--<p> Cell </p>-->
                         <h4 ng-if="addy.verified == true">Verified</h4>
                         <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
-                    <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
-                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
-                    <md-icon class="md-secondary" ng-click="cc.openSms(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
                     <md-icon class="md-secondary" ng-click="cc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
@@ -240,13 +232,12 @@ churchId
                 </md-subheader>
                 <md-list-item class="md-2-line"
                               ng-repeat="addy in cc.church.emailList"
-                              ng-click="mc.editAddress('email', addy, $event)">
+                              ng-click="cc.editAddress('email', addy, $event)">
                     <div class="md-list-item-text">
                         <h3>{{addy.emailAddress}}</h3>
                         <h4 ng-if="addy.verified == true">Verified</h4>
                         <h4 ng-if="addy.preferred == true">Preferred</h4>
                     </div>
-                    <md-icon md-svg-icon="communication:email" ng-click="cc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
                 </md-list-item>
             </md-list>

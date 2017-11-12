@@ -1,0 +1,35 @@
+﻿
+<md-dialog class="addTeamMemberDiag">
+    <form name="newMemberForm" ng-submit="dc.save()">
+        <md-dialog-content style="padding:8px;">
+
+            <md-input-container flex>
+                <!-- member dropdown list for selecting a team member -->
+                <md-select ng-model="dc.currentItem.memberId"
+                           placeholder="Select a member">
+                    <md-option>Select a member</md-option>
+                    <md-option ng-repeat="item in mc.churchList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex>
+                <md-select ng-model="dc.currentItem.positionTypeEnumId"
+                           placeholder="Select a position">
+                    <md-option>Select a type</md-option>
+                    <md-option ng-repeat="item in mc.memberTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                </md-select>
+            </md-input-container>
+
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Close
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="newMemberForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -25,7 +25,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controller: 'churchListController',
         controllerAs: 'clc'
     }).when('/church', {
-        templateUrl: './Views/Churches/churchesProfile.html',
+        templateUrl: './Views/Churches/churchProfile.html',
         controller: 'churchController',
         controllerAs: 'cc'
     }).when('/teams', {
