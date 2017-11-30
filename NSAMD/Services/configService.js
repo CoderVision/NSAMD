@@ -1,5 +1,5 @@
 ﻿
-angular.module('app').factory('configService', ['$scope', function ($scope) {
+angular.module('app').factory('configService', function () {
 
     var svc = {};
 
@@ -18,4 +18,4 @@ angular.module('app').factory('configService', ['$scope', function ($scope) {
         ];
     }
     return svc;
-}]);
+});

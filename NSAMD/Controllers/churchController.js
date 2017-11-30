@@ -35,6 +35,8 @@ angular.module('app').controller('churchController',
                 });
             }, function (error) {
                 appNotificationService.openToast("Error loading church config ");
+            }).then(function () {
+                vm.isLoading = false;
             });
         };
 

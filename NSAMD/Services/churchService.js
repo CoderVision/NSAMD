@@ -23,7 +23,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
             //    }
             //}
 
-            var uri = config.apiUrl + "/Churches/ " + churchId + "/metadata";
+            var uri = config.apiUrl + "/Churches/" + churchId + "/metadata";
 
             $http.get(uri).then(function (success) {
 
