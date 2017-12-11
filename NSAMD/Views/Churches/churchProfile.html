@@ -51,8 +51,8 @@
                  flex flex-gt-sm="50" class="maxWidth">
                 <md-input-container class="md-block">
                     <label>Comments</label>
-                    <textarea ng-model="cc.church.comments" rows="6" md-select-on-focus
-                              ng-blur="cc.patch('comments', cc.church.comments)"></textarea>
+                    <textarea ng-model="cc.church.comment" rows="6" md-select-on-focus
+                              ng-blur="cc.patch('comment', cc.church.comment)"></textarea>
                 </md-input-container>
             </div>
         </div>
@@ -94,7 +94,7 @@
                             <md-select ng-model="cc.church.emailConfigProfileId"
                                        ng-change="cc.patch('emailConfigProfileId', mc.church.emailConfigProfileId)">
                                 <md-option>Select a provider</md-option>
-                                <md-option ng-repeat="item in dc.config.emailProviders | orderBy:'name'" ng-value="{{item.id}}">{{item.name}}</md-option>
+                                <md-option ng-repeat="item in cc.config.emailProviders | orderBy:'name'" ng-value="{{item.id}}">{{item.name}}</md-option>
                             </md-select>
                         </md-input-container>
 
@@ -107,8 +107,8 @@
 
                     <md-input-container class="md-block" flex>
                         <label>Email Address</label>
-                        <input name="email" type="email" ng-model="cc.church.email" ng-maxlength="100" ng-minlength="2" required 
-                               ng-change="cc.patch('email', cc.church.email)" />
+                        <input name="email" type="email" ng-model="cc.church.emailConfigUsername" ng-maxlength="100" ng-minlength="2" required 
+                               ng-change="cc.patch('emailConfigUsername', cc.church.emailConfigUsername)" />
                         <div ng-messages="churchForm.email.$error">
                             <div ng-message="required">Name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -118,8 +118,8 @@
 
                     <md-input-container class="md-block" flex>
                         <label>Password</label>
-                        <input type="password" name="password" ng-model="cc.church.emailPassword" ng-maxlength="100" ng-minlength="2" required 
-                               ng-change="cc.patch('emailPassword', cc.church.emailPassword)" />
+                        <input type="password" name="password" ng-model="cc.church.emailConfigPassword" ng-maxlength="100" ng-minlength="2" required 
+                               ng-change="cc.patch('emailConfigPassword', cc.church.emailConfigPassword)" />
                         <div ng-messages="churchForm.password.$error">
                             <div ng-message="required">Name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
