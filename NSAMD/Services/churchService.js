@@ -85,14 +85,21 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
         svc.patch = function (churchId, fieldName, fieldValue) {
 
-            var deferred = $q.defer();
-
-            var uri = config.apiUrl + "/Churches?id=" + churchId;
             var patchDocument = [{
                 "op": "replace",
                 "path": "/" + fieldName,
                 "value": fieldValue
             }];
+
+            return svc.patchDoc(churchId, patchDocument);
+        }
+
+
+        svc.patchDoc = function (churchId, patchDocument) {
+
+            var deferred = $q.defer();
+
+            var uri = config.apiUrl + "/Churches?id=" + churchId;
 
             $http.patch(uri, patchDocument).then(function (success) {
 

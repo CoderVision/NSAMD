@@ -18,7 +18,8 @@
                 <md-input-container flex>
                     <label>Church Name</label>
                     <input name="name" ng-model="cc.church.name" ng-maxlength="100" ng-minlength="2" required md-autofocus 
-                           ng-change="cc.patch('name', cc.church.name)"/>
+                           ng-change="cc.patch('name', cc.church.name)"
+                           ng-model-options='{ debounce: 1000 }'/>
                     <div ng-messages="churchForm.name.$error">
                         <div ng-message="required">Name is required</div>
                         <div ng-message="minlength">At least 2 characters required</div>
@@ -52,7 +53,8 @@
                 <md-input-container class="md-block">
                     <label>Comments</label>
                     <textarea ng-model="cc.church.comment" rows="6" md-select-on-focus
-                              ng-blur="cc.patch('comment', cc.church.comment)"></textarea>
+                              ng-change="cc.patch('comment', cc.church.comment)"
+                              ng-model-options='{ debounce: 1000 }'></textarea>
                 </md-input-container>
             </div>
         </div>
@@ -84,15 +86,15 @@
         </md-card>
 
         <!-- Communication -->
-        <md-tabs md-border-bottom md-swipe-content>
+        <md-tabs md-border-bottom md-swipe-content id="churchCommTabs" >
             <md-tab id="emailTab">
                 <md-tab-label>Email Configuration</md-tab-label>
-                <md-tab-body>
+                <md-tab-body style="overflow:hidden;">
                     <div layout="row" layout-align="start center">
                         <md-input-container flex flex-gt-sm="50">
                             <label>Provider</label>
                             <md-select ng-model="cc.church.emailConfigProfileId"
-                                       ng-change="cc.patch('emailConfigProfileId', mc.church.emailConfigProfileId)">
+                                       ng-change="cc.patchEmailConfig()">
                                 <md-option>Select a provider</md-option>
                                 <md-option ng-repeat="item in cc.config.emailProviders | orderBy:'name'" ng-value="{{item.id}}">{{item.name}}</md-option>
                             </md-select>
@@ -108,7 +110,8 @@
                     <md-input-container class="md-block" flex>
                         <label>Email Address</label>
                         <input name="email" type="email" ng-model="cc.church.emailConfigUsername" ng-maxlength="100" ng-minlength="2" required 
-                               ng-change="cc.patch('emailConfigUsername', cc.church.emailConfigUsername)" />
+                               ng-change="cc.patchEmailConfig()"
+                               ng-model-options='{ debounce: 1000 }'/>
                         <div ng-messages="churchForm.email.$error">
                             <div ng-message="required">Name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -119,7 +122,8 @@
                     <md-input-container class="md-block" flex>
                         <label>Password</label>
                         <input type="password" name="password" ng-model="cc.church.emailConfigPassword" ng-maxlength="100" ng-minlength="2" required 
-                               ng-change="cc.patch('emailConfigPassword', cc.church.emailConfigPassword)" />
+                               ng-change="cc.patchEmailConfig()"
+                               ng-model-options='{ debounce: 1000 }'/>
                         <div ng-messages="churchForm.password.$error">
                             <div ng-message="required">Name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -136,7 +140,8 @@
                         <md-input-container class="md-block" flex>
                             <label>Account SID</label>
                             <input type="text" name="smsAccountSID" ng-model="cc.church.smsAccountSID" ng-maxlength="100" ng-minlength="2" required 
-                                   ng-change="cc.patch('smsAccountSID', cc.church.smsAccountSID)" />
+                                   ng-change="cc.patch('smsAccountSID', cc.church.smsAccountSID)"
+                                   ng-model-options='{ debounce: 1000 }'/>
                             <div ng-messages="churchForm.smsAccountSID.$error">
                                 <div ng-message="required">Name is required</div>
                                 <div ng-message="minlength">At least 2 characters required</div>
@@ -147,7 +152,8 @@
                         <md-input-container class="md-block" flex>
                             <label>Account Token</label>
                             <input type="text" name="smsAccountToken" ng-model="cc.church.smsAccountToken" ng-maxlength="100" ng-minlength="2" required 
-                                   ng-change="cc.patch('smsAccountToken', cc.church.smsAccountToken)" />
+                                   ng-change="cc.patch('smsAccountToken', cc.church.smsAccountToken)"
+                                   ng-model-options='{ debounce: 1000 }'/>
                             <div ng-messages="churchForm.smsAccountToken.$error">
                                 <div ng-message="required">Name is required</div>
                                 <div ng-message="minlength">At least 2 characters required</div>
