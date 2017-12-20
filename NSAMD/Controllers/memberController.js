@@ -207,7 +207,7 @@ angular.module('app').controller('memberController',
 
         function GetEditConfiguration(type) {
             var config = {};
-            config.controller = "SimpleDialogController";
+            config.controller = "simpleDialogController";
             if (type == "email") {
                 config.template = './views/app/emailDialog.html';
                 config.ContactInfoType = 2;

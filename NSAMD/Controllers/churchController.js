@@ -29,7 +29,7 @@ angular.module('app').controller('churchController',
 
                         //appNotificationService.openToast("success");
                     }, function (error) {
-                        church
+                        
                         appNotificationService.openToast("Error loading church " + vm.churchId + ":  " + error);
                     }).then(function () {
                         vm.isLoading = false;
@@ -137,7 +137,7 @@ angular.module('app').controller('churchController',
 
             function GetEditConfiguration(type) {
                 var config = {};
-                config.controller = "SimpleDialogController";
+                config.controller = "simpleDialogController";
                 if (type == "email") {
                     config.template = './views/app/emailDialog.html';
                     config.ContactInfoType = 2;

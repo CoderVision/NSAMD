@@ -67,9 +67,9 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/Churches?id=" + id;
+            var uri = config.apiUrl + "/Churches/" + id;
 
-            $http.get(uri).then(function (success) {
+            $http.get(uri, { cache:false}).then(function (success) {
 
                 deferred.resolve(success.data);
 
