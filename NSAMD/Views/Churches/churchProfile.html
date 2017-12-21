@@ -74,13 +74,15 @@
                     </div>
                 </md-subheader>
                 <md-list-item class="md-2-line"
-                              ng-repeat="addy in cc.church.addressList"
-                              ng-click="cc.editAddress('address', addy, $event)">
+                              ng-repeat="teammate in cc.church.pastoralTeamMembers"
+                            >
+                    <!--ng-click="cc.editAddress('address', addy, $event)"-->
                     <div class="md-list-item-text" layout="column">
                         <h3>{{teammate.name}}</h3>
-                        <h3>{{teammate.position}}</h3>
+                        <p>{{teammate.teamPositionEnumDesc}}</p>
                     </div>
                     <md-icon md-svg-icon="content:remove" ng-click="cc.removeTeammate(teammate, $event)" aria-label="Delete Member" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -189,11 +191,12 @@
                         <h3>{{addy.line1}}</h3>
                         <h3 ng-if="addy.line2">{{addy.line2}}</h3>
                         <h3>{{addy.city}}, {{addy.state}}  {{addy.zip}}</h3>
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <md-icon class="md-secondary" ng-click="cc.openMap(addy, $event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('address', addy, $event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -215,11 +218,12 @@
                               ng-click="cc.editAddress('phone', addy, $event)">
                     <div class="md-list-item-text">
                         <h3> {{ addy.phoneNumber | phone}} </h3>
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <md-icon class="md-secondary" ng-click="cc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -241,10 +245,11 @@
                               ng-click="cc.editAddress('email', addy, $event)">
                     <div class="md-list-item-text">
                         <h3>{{addy.emailAddress}}</h3>
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>

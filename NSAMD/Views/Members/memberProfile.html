@@ -239,6 +239,7 @@
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
                     <md-icon class="md-secondary" ng-click="mc.openMap(addy, $event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('address', addy, $event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -262,14 +263,15 @@
                     <div class="md-list-item-text">
                         <h3> {{ addy.phoneNumber | phone}} </h3>
                         <!--<p> Cell </p>-->
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
                     <md-icon class="md-secondary" ng-click="mc.openSms(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
                     <md-icon class="md-secondary" ng-click="mc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -291,11 +293,12 @@
                               ng-click="mc.editAddress('email', addy, $event)">
                     <div class="md-list-item-text">
                         <h3>{{addy.emailAddress}}</h3>
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
