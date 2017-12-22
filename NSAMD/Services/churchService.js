@@ -155,6 +155,30 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
             return deferred.promise;
         }
 
+        svc.removeTeammate = function(teammate){
+
+            var deferred = $q.defer();
+
+            ///teams/{teamId}/teammates/{memberId}
+
+            var uri = config.apiUrl + "/teams/" + teammate.teamId + "/teammates/" + teammate.memberId;
+
+            $http.delete(uri).then(function (success) {
+
+                deferred.resolve();
+
+            }, function (error) {
+
+                var msg = "Error removing teammate: /teams/" + teammate.teamId + "/" + teammate.memberId;
+
+                $log.error(msg);
+
+                deferred.reject(msg);
+            });
+  
+            return deferred.promise;
+        }
+
         svc.saveNew = function (church) {
             var deferred = $q.defer();
 

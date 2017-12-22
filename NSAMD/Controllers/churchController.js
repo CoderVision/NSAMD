@@ -163,6 +163,20 @@ angular.module('app').controller('churchController',
             }
 
 
+            vm.removeTeammate = function(teammate, $event)
+            {
+                churchService.removeTeammate(teammate).then(function (success) {
+
+                    for (var i = vm.church.pastoralTeamMembers.length - 1; i >= 0; i--) {
+                        if (vm.church.pastoralTeamMembers[i].id == teammate.id)
+                            vm.church.pastoralTeamMembers.splice(i, 1);
+                    }
+
+                }, function (error) {
+                    appNotificationService.openToast( error);
+                });
+            }
+
             vm.removeAddress = function (type, addy, $event) {
 
                 churchService.removeAddy(addy).then(function (success) {
