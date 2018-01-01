@@ -18,7 +18,7 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         }, function (error) {
 
-            $log.error("error in teamService.saveTeam:  " + error);
+            $log.error("error in teamService.saveTeam:  " + error.message);
 
             deferred.reject("Error saving team id " + team.id);
         });
@@ -30,7 +30,7 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         var deferred = $q.defer();
 
-        var uri = config.apiUrl + "/teams/" + teammmate.teamId + "/teammates/" + teammmate.memberId;
+        var uri = config.apiUrl + "/teams/" + teammmate.teamId + "/teammates";
 
         $http.post(uri, teammmate).then(function (success) {
 
@@ -38,7 +38,7 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         }, function (error) {
 
-            $log.error("error in teamService.saveTeammate:  " + error);
+            $log.error("error in teamService.saveTeammate:  " + error.data);
 
             deferred.reject("Error saving team id " + teammmate.id);
         });

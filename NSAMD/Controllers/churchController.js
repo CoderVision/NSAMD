@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('churchController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService'
-        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService) {
+    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService', '$q'
+        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService, $q) {
 
             var vm = this;
 
@@ -190,39 +190,67 @@ angular.module('app').controller('churchController',
                 });
             }
 
-            function saveTeammate(editedItem, teammate)
-            {
+            function saveTeam() {
+                var deferred = $q.defer();
+
                 if (vm.church.pastoralTeam == undefined) {
 
                     // save team first
+                    var team = {};
+                    team.id = 0;
+                    team.name = vm.church.name + " Pastoral Team";
+                    team.desc = "Pastoral Team for " + vm.church.name;
+                    team.churchId = vm.church.Id;
+                    team.teamTypeEnumId = 68;
+                    team.teamPositionEnumTypeId = 17;
 
+                    teamService.saveTeam(team).then(function (success) {
+
+                        vm.church.pastoralTeam = success;
+                        deferred.resolve(vm.church.pastoralTeam);
+
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                }
+                else {
+                    deferred.resolve(vm.church.pastoralTeam);
                 }
 
+                return deferred.promise;
+            }
 
-                teamService.saveTeammate(editedItem).then(function (success) {
+            function saveTeammate(editedItem, teammate)
+            {
+                saveTeam().then(function (success) {
 
-                    if (editedItem.isNew) {
-                        success.isNew = false;
-                        vm.church.pastoralTeamMembers.push(success);
-                    }
-                    else
-                        angular.copy(success, teammate);
+                    editedItem.teamId = success.id;
 
-                    $log.info("teammate saved");
-                    appNotificationService.openToast("Save success");
+                    teamService.saveTeammate(editedItem).then(function (success) {
 
-                }, function (error) {
-                    $log.info("Error saving teammate");
-                });
+                        if (editedItem.isNew) {
+                            success.isNew = false;
+                            vm.church.pastoralTeam.teammates.push(success);
+                        }
+                        else
+                            angular.copy(success, teammate);
+
+                        $log.info("teammate saved");
+                        appNotificationService.openToast("Save success");
+
+                    }, function (error) {
+                        $log.info(error);
+                    });
+                })
             }
 
             vm.removeTeammate = function(teammate, $event)
             {
                 teamService.removeTeammate(teammate).then(function (success) {
 
-                    for (var i = vm.church.pastoralTeamMembers.length - 1; i >= 0; i--) {
-                        if (vm.church.pastoralTeamMembers[i].id == teammate.id)
-                            vm.church.pastoralTeamMembers.splice(i, 1);
+                    for (var i = vm.church.pastoralTeam.teammates.length - 1; i >= 0; i--) {
+                        if (vm.church.pastoralTeam.teammates[i].id == teammate.id)
+                            vm.church.pastoralTeam.teammates.splice(i, 1);
                     }
 
                 }, function (error) {
