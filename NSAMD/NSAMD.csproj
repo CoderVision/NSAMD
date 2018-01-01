@@ -157,7 +157,9 @@
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\pagination.min.js" />
     <Content Include="Services\appNotificationService.js" />
+    <Content Include="Services\appService.js" />
     <Content Include="Services\churchService.js" />
+    <Content Include="Services\configService.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
@@ -174,6 +176,7 @@
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
+    <Content Include="Views\Teams\addTeamMemberDialog.html" />
     <Content Include="Views\Teams\teamsIndex.html" />
     <Content Include="Web.config" />
   </ItemGroup>

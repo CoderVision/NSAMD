@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('memberController',
-    ['$scope','$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService'
-    , function ($scope,$routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService) {
+    ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService', 'appService'
+    , function ($scope, $routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService, appService) {
 
         var vm = this;
 
@@ -34,6 +34,9 @@ angular.module('app').controller('memberController',
 
         // init()
         vm.loadMember = function () {
+
+            appService.title = "Members";
+
             vm.isLoading = true;
 
             // get meta data
@@ -207,7 +210,7 @@ angular.module('app').controller('memberController',
 
         function GetEditConfiguration(type) {
             var config = {};
-            config.controller = "SimpleDialogController";
+            config.controller = "simpleDialogController";
             if (type == "email") {
                 config.template = './views/app/emailDialog.html';
                 config.ContactInfoType = 2;

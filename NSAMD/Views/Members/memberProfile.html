@@ -18,7 +18,8 @@
                     <md-input-container class="md-block" >
                         <label>First Name</label>
                         <input name="firstName" ng-model="mc.member.firstName" ng-maxlength="50" ng-minlength="2" required 
-                               ng-blur="mc.patch('firstName', mc.member.firstName)"  />
+                               ng-change="mc.patch('firstName', mc.member.firstName)" 
+                               ng-model-options='{ debounce: 1000 }'/>
                         <div ng-messages="memberForm.firstName.$error">
                             <div ng-message="required">First name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -29,7 +30,8 @@
                     <md-input-container class="md-block" flex>
                         <label>Middle Name</label>
                         <input name="middleName" ng-model="mc.member.middleName" ng-maxlength="50" ng-minlength="1"
-                               ng-blur="mc.patch('middleName', mc.member.middleName)" />
+                               ng-change="mc.patch('middleName', mc.member.middleName)" 
+                               ng-model-options='{ debounce: 1000 }'/>
                         <div ng-messages="memberForm.middleName.$error">
                             <div ng-message="minlength">At least 1 characters required</div>
                             <div ng-message="maxlength">No more that 50 characters</div>
@@ -39,7 +41,8 @@
                     <md-input-container class="md-block" flex>
                         <label>Last Name</label>
                         <input name="lastName" ng-model="mc.member.lastName" ng-maxlength="50" ng-minlength="2" required
-                               ng-blur="mc.patch('lastName', mc.member.lastName)" />
+                               ng-change="mc.patch('lastName', mc.member.lastName)"
+                               ng-model-options='{ debounce: 1000 }'/>
                         <div ng-messages="memberForm.lastName.$error">
                             <div ng-message="required">Last name is required</div>
                             <div ng-message="minlength">At least 2 characters required</div>
@@ -63,7 +66,8 @@
                     <md-input-container class="md-block">
                         <label>Birthdate</label>
                         <md-datepicker ng-model="mc.member.birthDate" md-placeholder="Enter date"
-                                       ng-change="mc.patch('birthDate', mc.member.birthDate)"></md-datepicker>   <!--| date:'M/dd/yyyy'-->
+                                       ng-change="mc.patch('birthDate', mc.member.birthDate)"
+                                       ng-model-options='{ debounce: 1000 }'></md-datepicker>   <!--| date:'M/dd/yyyy'-->
                         <!--mask="1?9/39/3999" clean="true" restrict="reject"-->
                     </md-input-container>
 
@@ -74,19 +78,22 @@
                     <label>Saved</label>
                     <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateSaved" on-change="date = $date"></md-date-picker>-->
                     <md-datepicker ng-model="mc.member.dateSaved" md-placeholder="Enter date"
-                                   ng-change="mc.patch('dateSaved', mc.member.dateSaved)"></md-datepicker>
+                                   ng-change="mc.patch('dateSaved', mc.member.dateSaved)"
+                                   ng-model-options='{ debounce: 1000 }'></md-datepicker>
                 </md-input-container>
 
                 <md-input-container class="md-block">
                     <label>Spirit</label>
                     <md-datepicker ng-model="mc.member.dateBaptizedHolyGhost" md-placeholder="Enter date"
-                                   ng-change="mc.patch('dateBaptizedHolyGhost', mc.member.dateBaptizedHolyGhost)"></md-datepicker>
+                                   ng-change="mc.patch('dateBaptizedHolyGhost', mc.member.dateBaptizedHolyGhost)"
+                                   ng-model-options='{ debounce: 1000 }'></md-datepicker>
                     <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedHolyGhost" on-change="date = $date"></md-date-picker>-->
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Baptized</label>
                     <md-datepicker ng-model="mc.member.dateBaptizedWater" md-placeholder="Enter date"
-                                   ng-change="mc.patch('dateBaptizedWater', mc.member.dateBaptizedWater)"></md-datepicker>
+                                   ng-change="mc.patch('dateBaptizedWater', mc.member.dateBaptizedWater)"
+                                   ng-model-options='{ debounce: 1000 }'></md-datepicker>
                     <!--<md-date-picker type="date" placeholder="Enter date" ng-model="mc.member.dateBaptizedWater" on-change="date = $date"></md-date-picker>-->
                 </md-input-container>
 
@@ -196,7 +203,8 @@
                 <md-input-container class="md-block">
                     <label>Comments</label>
                     <textarea class="fixedTextArea" ng-model="mc.member.comments" rows="6" md-select-on-focus
-                              ng-blur="mc.patch('comments', mc.member.comments)"></textarea>
+                              ng-change="mc.patch('comments', mc.member.comments)"
+                              ng-model-options='{ debounce: 1000 }'></textarea>
                 </md-input-container>
             </div>
         </div>
@@ -231,6 +239,7 @@
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
                     <md-icon class="md-secondary" ng-click="mc.openMap(addy, $event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('address', addy, $event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -254,14 +263,15 @@
                     <div class="md-list-item-text">
                         <h3> {{ addy.phoneNumber | phone}} </h3>
                         <!--<p> Cell </p>-->
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <!--<md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>-->
                     <md-icon class="md-secondary" ng-click="mc.openSms(addy, $event)" aria-label="Text" md-svg-icon="communication:textsms"></md-icon>
                     <md-icon class="md-secondary" ng-click="mc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>
@@ -283,11 +293,12 @@
                               ng-click="mc.editAddress('email', addy, $event)">
                     <div class="md-list-item-text">
                         <h3>{{addy.emailAddress}}</h3>
-                        <h4 ng-if="addy.verified == true">Verified</h4>
-                        <h4 ng-if="addy.preferred == true">Preferred</h4>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
                     </div>
                     <md-icon md-svg-icon="communication:email" ng-click="mc.openEmail(addy, $event)" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
                     <md-icon md-svg-icon="content:remove" ng-click="mc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-card>

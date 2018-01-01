@@ -8,7 +8,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
         var svc = {};
 
         // load configuration info (enums, etc.)
-        svc.getConfig = function () {
+        svc.getConfig = function (churchId) {
 
             var deferred = $q.defer();
 
@@ -23,7 +23,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
             //    }
             //}
 
-            var uri = config.apiUrl + "/churches/metadata";
+            var uri = config.apiUrl + "/Churches/" + churchId + "/metadata";
 
             $http.get(uri).then(function (success) {
 
@@ -47,7 +47,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
             var deferred = $q.defer();
 
             // remove churchId hardcoded value of "3", Graham; and statusIds "49"
-            var uri = config.apiUrl + "/churches?showAll=" + showAll;
+            var uri = config.apiUrl + "/Churches?showAll=" + showAll;
 
             $http.get(uri).then(function (success) {
 
@@ -55,9 +55,9 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
             }, function (error) {
 
-                $log.error("error in memberService.getList:  " + error);
+                $log.error("error in churchService.getList:  " + error);
 
-                deferred.reject("Error retrieving member list");
+                deferred.reject("Error retrieving church list");
             });
 
             return deferred.promise;
@@ -67,9 +67,9 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/churches?id=" + id;
+            var uri = config.apiUrl + "/Churches/" + id;
 
-            $http.get(uri).then(function (success) {
+            $http.get(uri, { cache:false}).then(function (success) {
 
                 deferred.resolve(success.data);
 
@@ -85,14 +85,21 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
         svc.patch = function (churchId, fieldName, fieldValue) {
 
-            var deferred = $q.defer();
-
-            var uri = config.apiUrl + "/churches?id=" + churchId;
             var patchDocument = [{
                 "op": "replace",
                 "path": "/" + fieldName,
                 "value": fieldValue
             }];
+
+            return svc.patchDoc(churchId, patchDocument);
+        }
+
+
+        svc.patchDoc = function (churchId, patchDocument) {
+
+            var deferred = $q.defer();
+
+            var uri = config.apiUrl + "/Churches?id=" + churchId;
 
             $http.patch(uri, patchDocument).then(function (success) {
 
@@ -102,18 +109,17 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
                 $log.error("error in churchService.get:  " + error);
 
-                deferred.reject("Error patching church id " + memberId);
+                deferred.reject("Error patching church id " + churchId);
             });
 
             return deferred.promise;
 
         }
 
-        // setup address save in church controller or use it in the member controller, as it should work the same.
         svc.saveAddy = function (addy) {
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/Members/" + addy.identityId + "/" + addy.type;
+            var uri = config.apiUrl + "/Churches/" + addy.identityId + "/" + addy.type;
 
             $http.post(uri, addy).then(function (success) {
 
@@ -121,7 +127,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
             }, function (error) {
 
-                $log.error("error in memberService.saveAddy:  " + error);
+                $log.error("error in churchService.saveAddy:  " + error);
 
                 deferred.reject("Error saving address id " + addy.id);
             });
@@ -132,7 +138,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
         svc.removeAddy = function (addy) {
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/Members/" + addy.identityId + "/" + addy.contactInfoId;
+            var uri = config.apiUrl + "/Churches/" + addy.identityId + "/" + addy.contactInfoId;
 
             $http.delete(uri).then(function (success) {
 
@@ -140,7 +146,7 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
             }, function (error) {
 
-                $log.error("error in memberService.saveAddy:  " + error);
+                $log.error("error in churchService.saveAddy:  " + error);
 
                 deferred.reject("Error remove address " + addy.id);
             });

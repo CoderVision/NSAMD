@@ -15,6 +15,15 @@ md-toolbar {
         padding: 0px !important;
     }
 
+md-dialog > md-toolbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#churchCommTabs md-tab-content {
+    overflow:hidden;
+}
+
 md-sidenav > md-content > div > .md-button {
     height: 50px;
 }
@@ -119,11 +128,16 @@ svg{
     cursor:pointer;
 }
 
+.pastoralTeamContainer{
+    margin: 18px 0 18px 0;
+}
+
 .fixedTextArea{
     overflow-y: scroll!important;
     height: 125px!important;
     resize: none!important; 
 }
+
 
 .profileLeftPanel{
     margin-right:15px;

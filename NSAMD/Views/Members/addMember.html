@@ -1,6 +1,16 @@
 ﻿
 
 <md-dialog class="addMemberDiag">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{dc.currentItem.isNew ? 'Add' : 'Edit'}} Member</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="dc.cancel()">
+                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
     <form name="newMemberForm" ng-submit="dc.save()">
         <md-dialog-content style="padding:8px;">
             <div layout="row" layout-align="start start">

@@ -1,2 +1,261 @@
 ﻿
-this is the church profile
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="cc.isLoading"></md-progress-linear>
+
+<div ng-init="cc.load()" class="content">
+
+    <form name="churchForm">
+
+        <div layout="column"
+             layout-gt-xs="row"
+             layout-align="start start"
+             flex>
+
+            <!-- left panel -->
+            <div layout="column"
+                 flex flex-gt-xs="50"
+                 class="maxWidth profileLeftPanel">
+
+                <md-input-container flex>
+                    <label>Church Name</label>
+                    <input name="name" ng-model="cc.church.name" ng-maxlength="100" ng-minlength="2" required md-autofocus 
+                           ng-change="cc.patch('name', cc.church.name)"
+                           ng-model-options='{ debounce: 1000 }'/>
+                    <div ng-messages="churchForm.name.$error">
+                        <div ng-message="required">Name is required</div>
+                        <div ng-message="minlength">At least 2 characters required</div>
+                        <div ng-message="maxlength">No more that 100 characters</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Status</label>
+                    <md-select ng-model="cc.church.statusId"
+                               ng-change="cc.patch('statusId', cc.church.statusId)"
+                               placeholder="Select a status">
+                        <md-option>Select a status</md-option>
+                        <md-option ng-repeat="item in cc.config.statusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Time Zone</label>
+                    <md-select ng-model="cc.church.timeZoneOffset"
+                               ng-change="cc.patch('timeZoneOffset', cc.church.timeZoneOffset)">
+                        <md-option>Select a time zone</md-option>
+                        <md-option ng-repeat="item in cc.config.timeZones | orderBy:'name'" ng-value="{{item.offset}}">{{item.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <!-- right panel -->
+            <div layout="column" layout-align="start stretch"
+                 flex flex-gt-sm="50" class="maxWidth">
+                <md-input-container class="md-block">
+                    <label>Comments</label>
+                    <textarea ng-model="cc.church.comment" rows="6" md-select-on-focus
+                              ng-change="cc.patch('comment', cc.church.comment)"
+                              ng-model-options='{ debounce: 1000 }'></textarea>
+                </md-input-container>
+            </div>
+        </div>
+
+        
+        <!-- Pastor Teams -->
+        <md-card class="pastoralTeamContainer">
+            <md-list>  
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Pastoral Team
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="cc.addTeammate($event)" aria-label="Add Team Member" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"
+                              ng-repeat="teammate in cc.church.pastoralTeam.teammates"
+                              ng-click="cc.editTeammate($event, teammate)">
+                    <!--ng-click="cc.editAddress('address', addy, $event)"-->
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{teammate.name}}</h3>
+                        <p>{{teammate.teamPositionEnumDesc}}</p>
+                    </div>
+                    <md-icon md-svg-icon="content:remove" ng-click="cc.removeTeammate(teammate, $event)" aria-label="Delete Member" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <!-- Communication -->
+        <md-tabs md-border-bottom md-swipe-content id="churchCommTabs" >
+            <md-tab id="emailTab">
+                <md-tab-label>Email Configuration</md-tab-label>
+                <md-tab-body style="overflow:hidden;">
+                    <div layout="row" layout-align="start center">
+                        <md-input-container flex flex-gt-sm="50">
+                            <label>Provider</label>
+                            <md-select ng-model="cc.church.emailConfigProfileId"
+                                       ng-change="cc.patchEmailConfig()">
+                                <md-option>Select a provider</md-option>
+                                <md-option ng-repeat="item in cc.config.emailProviders | orderBy:'name'" ng-value="{{item.id}}">{{item.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <div layout="row" flex flex-gt-sm="50">
+                            <div flex>{{cc.server}}</div>
+
+                            <div flex>{{cc.port}}</div>
+                        </div>
+                    </div>
+
+                    <md-input-container class="md-block" flex>
+                        <label>Email Address</label>
+                        <input name="email" type="email" ng-model="cc.church.emailConfigUsername" ng-maxlength="100" ng-minlength="2" required 
+                               ng-change="cc.patchEmailConfig()"
+                               ng-model-options='{ debounce: 1000 }'/>
+                        <div ng-messages="churchForm.email.$error">
+                            <div ng-message="required">Name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 100 characters</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex>
+                        <label>Password</label>
+                        <input type="password" name="password" ng-model="cc.church.emailConfigPassword" ng-maxlength="100" ng-minlength="2" required 
+                               ng-change="cc.patchEmailConfig()"
+                               ng-model-options='{ debounce: 1000 }'/>
+                        <div ng-messages="churchForm.password.$error">
+                            <div ng-message="required">Name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 100 characters</div>
+                        </div>
+                    </md-input-container>
+
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="smsTab">
+                <md-tab-label>Text Configuration</md-tab-label>
+                <md-tab-body>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Account SID</label>
+                            <input type="text" name="smsAccountSID" ng-model="cc.church.smsAccountSID" ng-maxlength="100" ng-minlength="2" required 
+                                   ng-change="cc.patch('smsAccountSID', cc.church.smsAccountSID)"
+                                   ng-model-options='{ debounce: 1000 }'/>
+                            <div ng-messages="churchForm.smsAccountSID.$error">
+                                <div ng-message="required">Name is required</div>
+                                <div ng-message="minlength">At least 2 characters required</div>
+                                <div ng-message="maxlength">No more that 100 characters</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Account Token</label>
+                            <input type="text" name="smsAccountToken" ng-model="cc.church.smsAccountToken" ng-maxlength="100" ng-minlength="2" required 
+                                   ng-change="cc.patch('smsAccountToken', cc.church.smsAccountToken)"
+                                   ng-model-options='{ debounce: 1000 }'/>
+                            <div ng-messages="churchForm.smsAccountToken.$error">
+                                <div ng-message="required">Name is required</div>
+                                <div ng-message="minlength">At least 2 characters required</div>
+                                <div ng-message="maxlength">No more that 100 characters</div>
+                            </div>
+                        </md-input-container>
+
+                    <div class="md-accent" style="height:30px;">
+                        To send text messages to your members, sign up for an account at <a href="https://www.twilio.com/">Twilio</a> and enter the Account SID and Token here.
+                    </div>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+
+
+
+        <md-card class="addressContainer">
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Address
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="cc.addAddress('address', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"
+                              ng-repeat="addy in cc.church.addressList"
+                              ng-click="cc.editAddress('address', addy, $event)">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{addy.line1}}</h3>
+                        <h3 ng-if="addy.line2">{{addy.line2}}</h3>
+                        <h3>{{addy.city}}, {{addy.state}}  {{addy.zip}}</h3>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
+                    </div>
+                    <md-icon class="md-secondary" ng-click="cc.openMap(addy, $event)" aria-label="Map" md-svg-icon="maps:map"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('address', addy, $event)" aria-label="Delete Address" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card class="addressContainer">
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Phone
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="cc.addAddress('phone', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"
+                              ng-repeat="addy in cc.church.phoneList"
+                              ng-click="cc.editAddress('phone', addy, $event)">
+                    <div class="md-list-item-text">
+                        <h3> {{ addy.phoneNumber | phone}} </h3>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
+                    </div>
+                    <md-icon class="md-secondary" ng-click="cc.openPhone(addy, $event)" aria-label="Call" md-svg-icon="communication:phone"></md-icon>
+                    <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('phone', addy, $event)" aria-label="Delete Phone" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card class="addressContainer">
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <div layout="row" layout-align="space-between center">
+                        <span>
+                            Email
+                        </span>
+                        <span>
+                            <md-icon class="md-secondary" ng-click="cc.addAddress('email', $event)" aria-label="Add Address" md-svg-icon="content:add"></md-icon>
+                        </span>
+                    </div>
+                </md-subheader>
+                <md-list-item class="md-2-line"
+                              ng-repeat="addy in cc.church.emailList"
+                              ng-click="cc.editAddress('email', addy, $event)">
+                    <div class="md-list-item-text">
+                        <h3>{{addy.emailAddress}}</h3>
+                        <p ng-if="addy.verified == true">Verified</p>
+                        <p ng-if="addy.preferred == true">Preferred</p>
+                    </div>
+                    <md-icon md-svg-icon="content:remove" ng-click="cc.removeAddress('email', addy, $event)" aria-label="Delete Email" class="md-secondary md-hue-3"></md-icon>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-card>
+    </form>
+
+</div>
+
+
+
