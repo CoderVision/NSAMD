@@ -1,25 +1,36 @@
 ﻿
 <md-dialog class="addTeamMemberDiag">
-    <form name="newMemberForm" ng-submit="dc.save()">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{dc.currentItem.isNew ? 'Add' : 'Edit'}} Team Member</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="dc.cancel()">
+                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form name="newTeamMemberForm" ng-submit="dc.save()">
         <md-dialog-content style="padding:8px;">
 
-            <md-input-container flex>
-                <!-- member dropdown list for selecting a team member -->
-                <md-select ng-model="dc.currentItem.memberId"
-                           placeholder="Select a member">
-                    <md-option>Select a member</md-option>
-                    <md-option ng-repeat="item in mc.churchList" ng-value="{{item.id}}">{{item.desc}}</md-option>
-                </md-select>
-            </md-input-container>
+            <div layout="column">
+                <md-input-container>
+                    <!-- member dropdown list for selecting a team member -->
+                    <md-select ng-model="dc.currentItem.memberId"
+                               placeholder="Select a member">
+                        <md-option>Select a member</md-option>
+                        <md-option ng-repeat="item in dc.config.memberList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
 
-            <md-input-container flex>
-                <md-select ng-model="dc.currentItem.positionTypeEnumId"
-                           placeholder="Select a position">
-                    <md-option>Select a type</md-option>
-                    <md-option ng-repeat="item in mc.memberTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
-                </md-select>
-            </md-input-container>
-
+                <md-input-container flex>
+                    <md-select ng-model="dc.currentItem.positionTypeEnumId"
+                               placeholder="Select a position">
+                        <md-option>Select a type</md-option>
+                        <md-option ng-repeat="item in dc.config.pastoralTeamPositionType" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
@@ -27,7 +38,7 @@
                 Close
             </md-button>
             <md-button type="submit" class="md-primary md-confirm-button"
-                       ng-disabled="newMemberForm.$invalid">
+                       ng-disabled="newTeamMemberForm.$invalid">
                 Save
             </md-button>
         </md-dialog-actions>

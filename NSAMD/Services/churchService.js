@@ -116,7 +116,6 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
 
         }
 
-        // setup address save in church controller or use it in the church controller, as it should work the same.
         svc.saveAddy = function (addy) {
             var deferred = $q.defer();
 
@@ -152,30 +151,6 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
                 deferred.reject("Error remove address " + addy.id);
             });
 
-            return deferred.promise;
-        }
-
-        svc.removeTeammate = function(teammate){
-
-            var deferred = $q.defer();
-
-            ///teams/{teamId}/teammates/{memberId}
-
-            var uri = config.apiUrl + "/teams/" + teammate.teamId + "/teammates/" + teammate.memberId;
-
-            $http.delete(uri).then(function (success) {
-
-                deferred.resolve();
-
-            }, function (error) {
-
-                var msg = "Error removing teammate: /teams/" + teammate.teamId + "/" + teammate.memberId;
-
-                $log.error(msg);
-
-                deferred.reject(msg);
-            });
-  
             return deferred.promise;
         }
 

@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('churchController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService'
-        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService) {
+    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService'
+        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService) {
 
             var vm = this;
 
@@ -11,6 +11,7 @@ angular.module('app').controller('churchController',
             vm.church = {};
             vm.isLoading = true;
             vm.config = {};
+            vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
             vm.load = function () {
                 vm.isLoading = true;
@@ -95,8 +96,6 @@ angular.module('app').controller('churchController',
 
             vm.editAddress = function (type, addy, $event) {
 
-                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
-
                 var config = GetEditConfiguration(type);
 
                 addy.identityId = vm.churchId;
@@ -113,7 +112,7 @@ angular.module('app').controller('churchController',
                     controller: config.controller,
                     controllerAs: 'dc', // dc = dialog controller
                     clickOutsideToClose: true,
-                    fullscreen: useFullScreen
+                    fullscreen: vm.useFullScreen
                 }).then(function (editedItem) {
 
                     churchService.saveAddy(editedItem).then(function (success) {
@@ -162,10 +161,64 @@ angular.module('app').controller('churchController',
                 return config;
             }
 
+            vm.addTeammate = function ($event) {
+
+                var newTeammate = { isNew: true, churchId: vm.churchId, teamId: 0, memberId: 0, positionTypeEnumId: 0 }; // 70=Pastor
+
+                vm.editTeammate($event, newTeammate);
+            }
+
+            vm.editTeammate = function ($event, teammate) {
+
+                var editTeammate = angular.copy(teammate);
+
+                $mdDialog.show({
+                    locals: { currentItem: editTeammate, config: vm.config },
+                    templateUrl: './views/teams/addTeamMemberDialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    controller: "simpleDialogController",
+                    controllerAs: 'dc', // dc = dialog controller
+                    clickOutsideToClose: true,
+                    fullscreen: vm.useFullScreen
+                }).then(function (editedItem) {
+
+                    saveTeammate(editedItem, teammate);
+
+                }, function () {
+                   // $log.info("Edit item cancelled");
+                });
+            }
+
+            function saveTeammate(editedItem, teammate)
+            {
+                if (vm.church.pastoralTeam == undefined) {
+
+                    // save team first
+
+                }
+
+
+                teamService.saveTeammate(editedItem).then(function (success) {
+
+                    if (editedItem.isNew) {
+                        success.isNew = false;
+                        vm.church.pastoralTeamMembers.push(success);
+                    }
+                    else
+                        angular.copy(success, teammate);
+
+                    $log.info("teammate saved");
+                    appNotificationService.openToast("Save success");
+
+                }, function (error) {
+                    $log.info("Error saving teammate");
+                });
+            }
 
             vm.removeTeammate = function(teammate, $event)
             {
-                churchService.removeTeammate(teammate).then(function (success) {
+                teamService.removeTeammate(teammate).then(function (success) {
 
                     for (var i = vm.church.pastoralTeamMembers.length - 1; i >= 0; i--) {
                         if (vm.church.pastoralTeamMembers[i].id == teammate.id)
