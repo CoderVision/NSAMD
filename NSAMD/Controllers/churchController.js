@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('churchController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService', '$q'
-        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService, $q) {
+    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService', '$q', 'appService'
+        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService, $q, appService) {
 
             var vm = this;
 
@@ -14,6 +14,9 @@ angular.module('app').controller('churchController',
             vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
             vm.load = function () {
+
+                appService.title = "Churches";
+
                 vm.isLoading = true;
 
                 // get meta data

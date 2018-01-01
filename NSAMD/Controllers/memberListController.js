@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('memberListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService'
-    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService', 'appService'
+    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService, appService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -41,6 +41,8 @@ angular.module('app').controller('memberListController',
         };
 
         vm.loadData = function () {
+
+            appService.title = "Members";
 
             vm.isLoading = true;
 
