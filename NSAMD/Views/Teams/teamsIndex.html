@@ -5,7 +5,7 @@
     <div layout="row">
         <md-input-container class="md-block" flex-gt-xs>
             <label>Search</label>
-            <input ng-model="tlc.searchText" placeholder="Enter member name"
+            <input ng-model="tlc.searchText" placeholder="Enter team name"
                    filter-by="fullName"
                    filter-type="text"
                    ng-change="tlc.gridActions.filter()" />
@@ -16,7 +16,7 @@
             <md-select ng-model="tlc.churchId">
                 <!--<md-option>Select Church</md-option>
                     ng-disabled="$index === 0"-->
-                <md-option ng-repeat="c in tlc.config.churchList | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
+                <md-option ng-repeat="c in tlc.config.churchList | orderBy:'desc'" ng-value="c.id">{{c.name}}</md-option>
             </md-select>
         </md-input-container>
     </div>
