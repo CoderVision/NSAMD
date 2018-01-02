@@ -1,13 +1,12 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('memberListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService', 'appService'
-    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService, appService) {
+angular.module('app').controller('teamListController',
+    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'teamService', 'appNotificationService', 'appService'
+    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, teamService, appNotificationService, appService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
-        vm.statusIds = "49-50";
 
         vm.isLoading = false;
         vm.config = {};
@@ -18,7 +17,7 @@ angular.module('app').controller('memberListController',
             vm.addItem(event);
         });
 
-        $scope.$watch('mlc.churchId', function (newValue, oldValue) {
+        $scope.$watch('tlc.churchId', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 vm.loadData();
             }
@@ -33,12 +32,6 @@ angular.module('app').controller('memberListController',
             }
         };
 
-        //vm.gridActions = {
-        //    sort: function () { $log.info("sort"); },
-        //    filter: function () { $log.info("filter"); },
-        //    refresh: function () { $log.info("refresh"); }
-        //};
-
         vm.paginationOptions = {
             //maxSize: 5,       //Limit number for pagination size
             totalItems: 0,    // Total number of items in all pages.
@@ -48,23 +41,23 @@ angular.module('app').controller('memberListController',
 
         vm.loadData = function () {
 
-            appService.title = "Members";
+            appService.title = "Teams";
 
             vm.isLoading = true;
 
-            memberService.getConfig(vm.churchId).then(function (success) {
+            teamService.getConfig(vm.churchId).then(function (success) {
 
                 vm.config = success;
 
             }, function (error) {
-                appNotificationService.openToast("Error loading member config ");
+                appNotificationService.openToast("Error loading team config ");
             });
 
-            loadMemberList();
+            loadTeamList();
         }
 
-        function loadMemberList() {
-            memberService.getList(vm.churchId, vm.statusIds).then(function (success) {
+        function loadTeamList() {
+            teamService.getList(vm.churchId).then(function (success) {
 
                 vm.gridOptions.data = success;
 
@@ -79,15 +72,15 @@ angular.module('app').controller('memberListController',
 
         vm.searchText = "";
 
-        vm.openProfile = function (memberId) {
-            $location.path('/member').search({ memberId: memberId });
+        vm.openProfile = function (teamId) {
+            $location.path('/team').search({ teamId: teamId });
         }
 
         vm.addItem = function ($event) {
 
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
-            var member = {
+            var team = {
                 dateCame: new Date(),
                 churchId: vm.churchId
             };
@@ -96,30 +89,18 @@ angular.module('app').controller('memberListController',
             };
 
             $mdDialog.show({
-                locals: { currentItem: member, config: config },
-                templateUrl: './views/Members/addMember.html',
+                locals: { currentItem: team, config: config },
+                templateUrl: './views/Teams/addTeamMemberDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
-                controller: 'addMemberController',
+                controller: 'addTeamController',
                 controllerAs: 'dc', // dc = dialog controller
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen
             }).then(function (editedItem) {
 
                 // reload list
-                loadMemberList();
-
-                // moved to AddMemberController
-                //memberService.saveNewMember(editedItem).then(function (success) {
-
-                //    vm.gridOptions.data.push(success);
-
-                //    $log.info("new member saved");
-                //    appNotificationService.openToast("Save success");
-
-                //}, function (error) {
-                //    $log.info("Error saving new member");
-                //});
+                loadTeamList();
 
             }, function () {
                 $log.info("Edit item cancelled");

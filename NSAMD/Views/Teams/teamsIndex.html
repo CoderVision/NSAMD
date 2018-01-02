@@ -1,6 +1,113 @@
-﻿<div layout="row" layout-padding>
-    <md-input-container class="md-block" flex-gt-xs>
-        <label>Search</label>
-        <input ng-model="searchText" placeholder="Enter team name" />
+﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="tlc.isLoading"></md-progress-linear>
+
+<div class="content">
+    <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs>
+            <label>Search</label>
+            <input ng-model="tlc.searchText" placeholder="Enter member name"
+                   filter-by="fullName"
+                   filter-type="text"
+                   ng-change="tlc.gridActions.filter()" />
+        </md-input-container>
+
+        <md-input-container flex-gt-xs>
+            <label>Church</label>
+            <md-select ng-model="tlc.churchId">
+                <!--<md-option>Select Church</md-option>
+                    ng-disabled="$index === 0"-->
+                <md-option ng-repeat="c in tlc.config.churchList | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <!-- do not remove this grid!  this is the Angular-Material-Design grid that we are going to use
+        https://github.com/angular-data-grid/angular-data-grid.github.io
+        http://angular-data-grid.github.io/demo/material/#!?page=1&code=3747
+        grid-actions="gridActions"
+    -->
+
+    <div id="teamsGrid"
+         grid-data
+         grid-options="tlc.gridOptions"
+         grid-actions="tlc.gridActions"
+         ng-init="tlc.loadData()">
+
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th sortable="name" class="sortable">
+                        Name
+                    </th>
+                    <th sortable="type" class="sortable">
+                        Type
+                    </th>
+                    <th sortable='leader' class="sortable">
+                        Leader
+                    </th>
+                    <th sortable='memberCount' class="sortable">
+                        Member Count
+                    </th>
+                    <th sortable="description" class="sortable">
+                        Description
+                    </th>
+                    <th sortable="status" class="sortable">
+                        Status
+                    </th>
+                    <th sortable='email' class="sortable">
+                        Email
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in filtered | startFrom:(tlc.paginationOptions.currentPage-1)*tlc.paginationOptions.itemsPerPage | limitTo:tlc.paginationOptions.itemsPerPage track by $index">
+                    <td><a href ng-click="tlc.openProfile(item.id)">{{item.fullName}}</a></td>
+                    <td ng-bind="item.status"></td>
+                    <td ng-bind="item.statusChangeType"></td>
+                    <td ng-bind="item.attendance | date:'MM/dd/yyyy'"></td>
+                    <td>
+                        <a class="showDesktopOnly" href="tel:{{item.phone}}">{{item.phone | phone}}</a>
+                        <a class="showMobileOnly" ng-if="item.phone" href="tel:{{item.phone}}">
+                            <ng-md-icon icon="call"></ng-md-icon>
+                        </a>
+                    </td>
+                    <td class="showMobileOnly">
+                        <a ng-if="item.phone" href="sms:{{item.phone}}">
+                            <ng-md-icon icon="sms"></ng-md-icon>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="showDesktopOnly" href="mailto:{{item.email}}">{{item.email}}</a>
+                        <a class="showMobileOnly" ng-if="item.email" href="mailto:{{item.email}}">
+                            <ng-md-icon icon="email"></ng-md-icon>
+                        </a>
+                    </td>
+                    <td>
+                        <a ng-if="item.address" href="https://www.google.com/maps/place/{{item.address.replace(' ', '+')}}" )>
+                            <ng-md-icon icon="map"></ng-md-icon>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <grid-pagination boundary-links="true"
+                     class="pagination"
+                     ng-if="tlc.paginationOptions.totalItems > tlc.paginationOptions.itemsPerPage"
+                     total-items="tlc.paginationOptions.totalItems"
+                     ng-model="tlc.paginationOptions.currentPage"
+                     ng-change="tlc.loadData()"
+                     items-per-page="tlc.paginationOptions.itemsPerPage">
+    </grid-pagination>
+
+    <md-input-container flex-offset-gt-xs="5" class="items-per-page">
+        <md-select ng-model="tlc.paginationOptions.itemsPerPage"
+                   ng-if="tlc.paginationOptions.totalItems > tlc.paginationOptions.itemsPerPage"
+                   ng-change="tlc.loadData()">
+            <md-option ng-value="10">10</md-option>
+            <md-option ng-value="25">25</md-option>
+            <md-option ng-value="50">50</md-option>
+            <md-option ng-value="75">75</md-option>
+        </md-select>
     </md-input-container>
-</div>

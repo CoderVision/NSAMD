@@ -6,6 +6,43 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
     var svc = {};
 
+        // load configuration info (enums, etc.)
+    svc.getConfig = function (churchId) {
+
+        var deferred = $q.defer();
+
+        //var cfg;
+        //if (localStorageService.isSupported) {
+        //    cfg = localStorageService.get("teamConfig");
+
+        //    if (cfg && cfg.churchId == churchId)
+        //    {
+        //        deferred.resolve(cfg.data);
+        //        return deferred.promise;
+        //    }
+        //}
+
+        // remove churchId hardcoded value of "3", Graham; and statusIds "49"
+        //var uri = config.apiUrl + "/Members?churchId=3&statusIds=49";
+        //http://localhost:62428/members/metadata?churchId=3
+        var uri = config.apiUrl + "/teams/metadata/" + churchId;
+
+        $http.get(uri).then(function (success) {
+
+            localStorageService.set("memberConfig", { churchId: churchId, data: success.data });
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.getConfig:  " + error);
+
+            deferred.reject("Error retrieving config list");
+        });
+
+        return deferred.promise;
+    };
+
     svc.saveTeam = function (team) {
 
         var deferred = $q.defer();
