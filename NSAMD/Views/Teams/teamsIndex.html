@@ -51,9 +51,6 @@
                     <th sortable="description" class="sortable">
                         Description
                     </th>
-                    <th sortable="status" class="sortable">
-                        Status
-                    </th>
                     <th sortable='email' class="sortable">
                         Email
                     </th>
@@ -61,30 +58,15 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in filtered | startFrom:(tlc.paginationOptions.currentPage-1)*tlc.paginationOptions.itemsPerPage | limitTo:tlc.paginationOptions.itemsPerPage track by $index">
-                    <td><a href ng-click="tlc.openProfile(item.id)">{{item.fullName}}</a></td>
-                    <td ng-bind="item.status"></td>
-                    <td ng-bind="item.statusChangeType"></td>
-                    <td ng-bind="item.attendance | date:'MM/dd/yyyy'"></td>
-                    <td>
-                        <a class="showDesktopOnly" href="tel:{{item.phone}}">{{item.phone | phone}}</a>
-                        <a class="showMobileOnly" ng-if="item.phone" href="tel:{{item.phone}}">
-                            <ng-md-icon icon="call"></ng-md-icon>
-                        </a>
-                    </td>
-                    <td class="showMobileOnly">
-                        <a ng-if="item.phone" href="sms:{{item.phone}}">
-                            <ng-md-icon icon="sms"></ng-md-icon>
-                        </a>
-                    </td>
+                    <td><a href ng-click="tlc.openProfile(item.id)">{{item.name}}</a></td>
+                    <td ng-bind="item.teamTypeEnumDesc"></td>
+                    <td ng-bind="item.teamLeader"></td>
+                    <td ng-bind="item.teammateCount"></td>
+                    <td ng-bind="item.desc"></td>
                     <td>
                         <a class="showDesktopOnly" href="mailto:{{item.email}}">{{item.email}}</a>
                         <a class="showMobileOnly" ng-if="item.email" href="mailto:{{item.email}}">
                             <ng-md-icon icon="email"></ng-md-icon>
-                        </a>
-                    </td>
-                    <td>
-                        <a ng-if="item.address" href="https://www.google.com/maps/place/{{item.address.replace(' ', '+')}}" )>
-                            <ng-md-icon icon="map"></ng-md-icon>
                         </a>
                     </td>
                 </tr>

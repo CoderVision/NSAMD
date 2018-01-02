@@ -49,11 +49,11 @@ angular.module('app').controller('teamListController',
 
                 vm.config = success;
 
+                loadTeamList();
+
             }, function (error) {
                 appNotificationService.openToast("Error loading team config ");
             });
-
-            loadTeamList();
         }
 
         function loadTeamList() {
@@ -85,12 +85,13 @@ angular.module('app').controller('teamListController',
                 churchId: vm.churchId
             };
             config = {
-                memberList: vm.config.memberList
+                memberList: vm.config.memberList,
+                teamTypes: vm.config.teamTypes
             };
 
             $mdDialog.show({
                 locals: { currentItem: team, config: config },
-                templateUrl: './views/Teams/addTeamMemberDialog.html',
+                templateUrl: './views/Teams/addTeamDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
                 controller: 'addTeamController',

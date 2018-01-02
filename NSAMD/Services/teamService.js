@@ -22,10 +22,8 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
         //    }
         //}
 
-        // remove churchId hardcoded value of "3", Graham; and statusIds "49"
-        //var uri = config.apiUrl + "/Members?churchId=3&statusIds=49";
-        //http://localhost:62428/members/metadata?churchId=3
-        var uri = config.apiUrl + "/teams/metadata/" + churchId;
+        //http://localhost:62428/teams/metadata/3
+        var uri = config.apiUrl + "/church/" + churchId + "/teams/metadata";
 
         $http.get(uri).then(function (success) {
 
@@ -42,6 +40,29 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         return deferred.promise;
     };
+
+    svc.getList = function(churchId){
+
+        var deferred = $q.defer();
+
+        //http://localhost:62428/teams/metadata/3
+        var uri = config.apiUrl + "/church/" + churchId + "/teams";
+
+        $http.get(uri).then(function (success) {
+
+            localStorageService.set("memberConfig", { churchId: churchId, data: success.data });
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.getConfig:  " + error);
+
+            deferred.reject("Error retrieving config list");
+        });
+
+        return deferred.promise;
+    }
 
     svc.saveTeam = function (team) {
 
