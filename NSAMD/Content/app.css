@@ -47,6 +47,11 @@ md-sidenav > md-content > div > .md-button {
 .addChurchDiag{
     width:600px;
 }
+
+.addTeamMemberDiag {
+    width:400px;
+}
+
 /*.md-on{
     background-color:#4a7a5a!important;
 }*/
@@ -135,6 +140,11 @@ svg{
 .pastoralTeamContainer{
     margin: 18px 0 18px 0;
 }
+
+.teamMembersContainer{
+    margin: 18px 0 18px 0;
+}
+
 
 .fixedTextArea{
     overflow-y: scroll!important;
