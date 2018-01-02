@@ -99,6 +99,7 @@
     <Content Include="Content\md-date-picker.min.css" />
     <Content Include="Controllers\addChurchController.js" />
     <Content Include="Controllers\addMemberController.js" />
+    <Content Include="Controllers\addTeamController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\churchListController.js" />
@@ -109,6 +110,7 @@
     <Content Include="Controllers\rootController.js" />
     <Content Include="Controllers\simpleDialogController.js" />
     <Content Include="Controllers\teamController.js" />
+    <Content Include="Controllers\teamListController.js" />
     <Content Include="Filters\mapAddressFilter.js" />
     <Content Include="Filters\phoneFilter.js" />
     <Content Include="index.html" />
@@ -176,7 +178,9 @@
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
+    <Content Include="Views\Teams\addTeamDialog.html" />
     <Content Include="Views\Teams\addTeamMemberDialog.html" />
+    <Content Include="Views\Teams\teamProfile.html" />
     <Content Include="Views\Teams\teamsIndex.html" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -109,7 +109,6 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         });
 
         return deferred.promise;
-
     }
 
     svc.saveAddy = function(addy)

@@ -1,0 +1,58 @@
+﻿
+
+
+<md-dialog class="addTeamDiag">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add Team</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="dc.cancel()">
+                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form name="newTeamForm" ng-submit="dc.save()">
+        <md-dialog-content style="padding:8px;">
+            <div layout="column">
+                <md-input-container class="md-block" flex>
+                    <label>Team Name</label>
+                    <input name="name" ng-model="dc.currentItem.name" ng-maxlength="100" ng-minlength="2" required md-autofocus />
+                    <div ng-messages="newTeamForm.name.$error">
+                        <div ng-message="required">Name is required</div>
+                        <div ng-message="minlength">At least 2 characters required</div>
+                        <div ng-message="maxlength">No more that 100 characters</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex>
+                    <label>Description</label>
+                    <input name="desc" ng-model="dc.currentItem.desc" ng-maxlength="200" />
+                    <div ng-messages="newTeamForm.desc.$error">
+                        <div ng-message="maxlength">No more that 200 characters</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Type</label>
+                    <md-select ng-model="dc.currentItem.teamTypeEnumId">
+                        <md-option>Select a type</md-option>
+                        <md-option ng-repeat="item in dc.config.teamTypes | orderBy:'desc'" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Close
+            </md-button>
+            <md-button type="submit" 
+                       class="md-primary md-confirm-button"
+                       ng-disabled="newTeamForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

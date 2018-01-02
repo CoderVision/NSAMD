@@ -52,9 +52,10 @@
                  flex flex-gt-sm="50" class="maxWidth">
                 <md-input-container class="md-block">
                     <label>Comments</label>
-                    <textarea ng-model="cc.church.comment" rows="6" md-select-on-focus
+                    <textarea ng-model="cc.church.comment" md-select-on-focus
                               ng-change="cc.patch('comment', cc.church.comment)"
-                              ng-model-options='{ debounce: 1000 }'></textarea>
+                              ng-model-options='{ debounce: 1000 }'
+                              style="height:170px;min-height:170px;"></textarea>
                 </md-input-container>
             </div>
         </div>

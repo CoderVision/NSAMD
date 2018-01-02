@@ -8,6 +8,8 @@ angular.module('app').controller('memberController',
 
         var vm = this;
 
+        $scope.$emit('enableAddItemEvent', { enabled: false });
+
         vm.memberId = $routeParams.memberId;
         vm.churchId = 3;
 

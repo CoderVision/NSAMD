@@ -43,9 +43,11 @@ angular.module('app').controller('rootController',
         $scope.$broadcast('addItemEvent');
     }
 
-    $scope.$on('enableAddItemEvent', function (event) {
-
-        vm.isAddItemEventEnabled = true;
+    $scope.$on('enableAddItemEvent', function (event, args) {
+        if (args === undefined)
+            vm.isAddItemEventEnabled = true;
+        else
+            vm.isAddItemEventEnabled = args.enabled;
     });
 
     vm.navigateTo = function (routeName, title) {

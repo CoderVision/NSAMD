@@ -30,6 +30,10 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controllerAs: 'cc'
     }).when('/teams', {
         templateUrl: './Views/Teams/teamsIndex.html',
+        controller: 'teamListController',
+        controllerAs: 'tlc'
+    }).when('/team', {
+        templateUrl: './Views/Teams/teamProfile.html',
         controller: 'teamController',
         controllerAs: 'tc'
     }).when('/admin', {
