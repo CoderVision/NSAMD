@@ -27,13 +27,13 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         $http.get(uri).then(function (success) {
 
-            localStorageService.set("memberConfig", { churchId: churchId, data: success.data });
+            localStorageService.set("teamConfig", { churchId: churchId, data: success.data });
 
             deferred.resolve(success.data);
 
         }, function (error) {
 
-            $log.error("error in memberService.getConfig:  " + error);
+            $log.error("error in teamService.getConfig:  " + error.data);
 
             deferred.reject("Error retrieving config list");
         });
@@ -50,13 +50,34 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         $http.get(uri).then(function (success) {
 
-            localStorageService.set("memberConfig", { churchId: churchId, data: success.data });
+            localStorageService.set("teamConfig", { churchId: churchId, data: success.data });
 
             deferred.resolve(success.data);
 
         }, function (error) {
 
-            $log.error("error in memberService.getConfig:  " + error);
+            $log.error("error in teamService.getConfig:  " + error.data);
+
+            deferred.reject("Error retrieving config list");
+        });
+
+        return deferred.promise;
+    }
+
+    svc.getTeam = function (teamId) {
+
+        var deferred = $q.defer();
+
+        //http://localhost:62428/teams/3/profile
+        var uri = config.apiUrl + "/teams/" + teamId + "/profile";
+
+        $http.get(uri).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in teamService.getTeam:  " + error.data);
 
             deferred.reject("Error retrieving config list");
         });
@@ -76,7 +97,7 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         }, function (error) {
 
-            $log.error("error in teamService.saveTeam:  " + error.message);
+            $log.error("error in teamService.saveTeam:  " + error.data);
 
             deferred.reject("Error saving team id " + team.id);
         });
@@ -116,11 +137,36 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
 
         }, function (error) {
 
-            var msg = "Error removing teammate: /teams/" + teammate.teamId + "/" + teammate.memberId;
+            var msg = "Error removing teammate: /teams/" + teammate.teamId + "/" + teammate.memberId + ":  " + error.data;
 
             $log.error(msg);
 
             deferred.reject(msg);
+        });
+
+        return deferred.promise;
+    }
+
+    svc.patch = function (teamId, fieldName, fieldValue) {
+
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/teams/" + teamId;
+        var patchDocument = [{
+            "op": "replace",
+            "path": "/" + fieldName,
+            "value": fieldValue
+        }];
+
+        $http.patch(uri, patchDocument).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in teamService.patch:  " + error.data);
+
+            deferred.reject("Error patching team id " + teamId);
         });
 
         return deferred.promise;

@@ -2,10 +2,12 @@
 'use strict';
 
 angular.module('app').controller('churchController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService', '$q', 'appService'
-        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService, $q, appService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', '$routeParams', 'churchService', 'configService', 'appNotificationService', 'teamService', '$q', 'appService'
+        , function ($scope, $mdDialog, $mdMedia, $location, $log, $routeParams, churchService, configService, appNotificationService, teamService, $q, appService) {
 
             var vm = this;
+
+            $scope.$emit('enableAddItemEvent', { enabled: false });
 
             vm.churchId = $routeParams.churchId;
             vm.church = {};

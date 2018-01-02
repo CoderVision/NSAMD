@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('teamListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'teamService', 'appNotificationService', 'appService'
-    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, teamService, appNotificationService, appService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'teamService', 'appNotificationService', 'appService'
+    , function ($scope, $mdDialog, $mdMedia, $location, $log, teamService, appNotificationService, appService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -73,7 +73,7 @@ angular.module('app').controller('teamListController',
         vm.searchText = "";
 
         vm.openProfile = function (teamId) {
-            $location.path('/team').search({ teamId: teamId });
+            $location.path('/team').search({ teamId: teamId, churchId: vm.churchId });
         }
 
         vm.addItem = function ($event) {

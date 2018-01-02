@@ -180,6 +180,7 @@
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
     <Content Include="Views\Teams\addTeamDialog.html" />
     <Content Include="Views\Teams\addTeamMemberDialog.html" />
+    <Content Include="Views\Teams\teamProfile.html" />
     <Content Include="Views\Teams\teamsIndex.html" />
     <Content Include="Web.config" />
   </ItemGroup>
