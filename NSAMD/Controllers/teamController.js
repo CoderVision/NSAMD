@@ -83,13 +83,21 @@ angular.module('app').controller('teamController',
 
             // filter members so that members that area already in the list do not appear as an option
             var members = [];
+            if (teammate.isNew == false) {
+
+            }
+
             for (var iml = 0; iml < vm.config.memberList.length; iml++) {
 
                 var found = false;
                 for (var itl = 0; itl < vm.team.teammates.length; itl++) {
                     if (vm.config.memberList[iml].id == vm.team.teammates[itl].memberId) {
-                        found = true;
-                        break;
+
+                        // if this teammate is not the one that is being edited
+                        if (vm.team.teammates[itl].id != teammate.id) {
+                            found = true;
+                            break;
+                        }
                     }
                 }
                 if (found == false)

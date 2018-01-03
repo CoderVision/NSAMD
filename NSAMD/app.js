@@ -48,6 +48,10 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Members/memberProfile.html',
         controller: 'memberController',
         controllerAs: 'mc'
+    }).when('/activity', {
+        templateUrl: './Views/Members/memberActivity.html',
+        controller: 'memberActivityController',
+        controllerAs: 'mac'
     }).otherwise({
         templateUrl: './Views/Members/membersIndex.html',
         controller: 'memberListController',

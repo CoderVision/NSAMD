@@ -103,6 +103,7 @@
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\churchListController.js" />
+    <Content Include="Controllers\memberActivityController.js" />
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\messageDialogController.js" />
@@ -175,6 +176,7 @@
     <Content Include="Views\Churches\churchesIndex.html" />
     <Content Include="Views\Churches\churchProfile.html" />
     <Content Include="Views\Members\addMember.html" />
+    <Content Include="Views\Members\memberActivity.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
