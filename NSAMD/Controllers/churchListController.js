@@ -43,6 +43,7 @@ angular.module('app').controller('churchListController',
         vm.loadData = function () {
 
             appService.title = "Churches";
+            appService.menuItems = [];
 
             vm.isLoading = true;
 

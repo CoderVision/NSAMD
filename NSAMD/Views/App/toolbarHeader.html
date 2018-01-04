@@ -11,7 +11,7 @@
             </h1>
 
             <div layout="row">
-                <md-button>Activity</md-button>
+                <md-button ng-repeat="mnuItem in rootCtrl.menuItems" ng-click="mnuItem.do();">{{mnuItem.text}}</md-button>
 
                 <md-button class="md-fab md-raised md-mini"
                            aria-label="{{ rootCtrl.isLoggedIn ? 'Log out' : 'Log in' }}"

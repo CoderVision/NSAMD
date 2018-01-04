@@ -18,6 +18,7 @@ angular.module('app').controller('teamController',
         vm.load = function () {
 
             appService.title = "Teams";
+            appService.menuItems = [];
 
             teamService.getConfig(vm.churchId).then(function (success) {
 

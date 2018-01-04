@@ -49,6 +49,7 @@ angular.module('app').controller('memberListController',
         vm.loadData = function () {
 
             appService.title = "Members";
+            appService.menuItems = [{ text: "Activity", do: vm.openActivity }];
 
             vm.isLoading = true;
 

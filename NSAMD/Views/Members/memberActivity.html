@@ -1,38 +1,31 @@
-﻿member activity
-
-have a list of members
-
-when they click on a member to edit, expand to show a card with options
-
-maybe show a list of cards like the rental application
-
-
-
+﻿
 <md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mac.isLoading"></md-progress-linear>
 
 <div class="content" ng-init="mac.load()">
     <div layout="row">
         <md-input-container class="md-block" flex-gt-xs>
             <label>Search</label>
+
+            <!--ng-change="mac.filterMembers()"
+            --> 
             <input ng-model="mac.searchText" placeholder="Enter member name"
                    filter-by="fullName"
                    filter-type="text"
-                   ng-change="mac.gridActions.filter()" />
+                   ng-model-options='{ debounce: 500 }'/>
         </md-input-container>
 
         <md-input-container flex-gt-xs>
             <label>Team</label>
             <md-select ng-model="mac.selectedTeamId">
-                <!--<md-option>Select Church</md-option>
-                    ng-disabled="$index === 0"-->
+                <md-option ng-value="0">All Teams</md-option>
                 <md-option ng-repeat="c in mac.config.teamList | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
             </md-select>
         </md-input-container>
     </div>
 
-    <div layout="row" ng-repeat="member in mac.memberList">
+    <div layout="row" ng-repeat="member in mac.memberList | filter: mac.filterMembers">
         <!--mac-{{member.id}}-->
-        <form name="macform{{$index}}" style="width:100%">
+        <form name="macform" style="width:100%">
             <md-card md-theme="default" style="width:100%">
 
                 <md-card-content>
@@ -50,13 +43,13 @@ maybe show a list of cards like the rental application
                             <span class="md-headline">{{member.fullName }}</span>
                             <span class="md-subhead">{{member.address}}</span>
 
-
-
-                            <!--<div>{{member.sponsor}}</div>
-                            <div>{{member.sponsorTeam}}</div>-->
                             <div class="activityContent">
-                                <div>Sponsor:  Phil Kinson</div>
-                                <div>Sponsor Team:  Ambassadors for Christ</div>
+                                <div>Sponsor:  {{member.sponsor}}</div>
+                                <div>Sponsor Team:  {{member.team}}</div>
+                            </div>
+
+                            <div class="activityContent">
+                                <div>Last Attendance:  {{mac.formatDate(member.activityDate)}}</div>
                             </div>
                         </div>
                         <!-- right panel -->
@@ -68,37 +61,82 @@ maybe show a list of cards like the rental application
                                 <md-select ng-model="member.statusId"
                                            placeholder="Select a status"
                                            name="status"
-                                           ng-focus="mac.selectMember(member)">
+                                           ng-focus="mac.selectMember(member)"
+                                           required>
                                     <md-option>Select a status</md-option>
                                     <md-option ng-repeat="item in mac.config.memberStatusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
                                 </md-select>
+                                <div ng-messages="macform.status.$error">
+                                    <div ng-message="required">Status is required</div>
+                                </div>
                             </md-input-container>
 
                             <md-input-container flex>
-                                <label>Reason</label>
+                                <label>Status Reason</label>
                                 <md-select ng-model="member.statusChangeTypeId"
                                            placeholder="Select a reason"
                                            name="reason"
-                                           ng-focus="mac.selectMember(member)">
+                                           ng-focus="mac.selectMember(member)"
+                                           required>
                                     <md-option>Select a reason</md-option>
                                     <md-option ng-repeat="item in mac.config.memberStatusChangeTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                                </md-select>
+                                <div ng-messages="macform.reason.$error">
+                                    <div ng-message="required">Status Reason is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Activity</label>
+                                <md-select ng-model="member.activityTypeEnumID"
+                                           placeholder="Select an activity"
+                                           name="activity"
+                                           ng-focus="mac.selectMember(member)"
+                                           required>
+                                    <md-option>Select a reason</md-option>
+                                    <md-option ng-repeat="item in mac.config.activityTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                                </md-select>
+                                <div ng-messages="macform.activity.$error">
+                                    <div ng-message="required">Activity is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Activity Date</label>
+                                <md-datepicker ng-model="member.newActivityDate" md-placeholder="Enter date"
+                                               name="dateCame"
+                                               ng-focus="mac.selectMember(member)"
+                                               required></md-datepicker>
+                                <div ng-messages="macform.dateCame.$error">
+                                    <div ng-message="required">Date is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Activity Response</label>
+                                <md-select ng-model="member.activityResponseTypeEnumID"
+                                           placeholder="Select a response"
+                                           name="reason"
+                                           ng-focus="mac.selectMember(member)">
+                                    <md-option>Select a reason</md-option>
+                                    <md-option ng-repeat="item in mac.config.activityResponseType" ng-value="{{item.id}}">{{item.desc}}</md-option>
                                 </md-select>
                             </md-input-container>
 
                             <md-input-container class="md-block">
-                                <label>Date Came</label>
-                                <md-datepicker ng-model="member.birthDate" md-placeholder="Enter date"
-                                               name="dateCame"
-                                               ng-focus="mac.selectMember(member)"></md-datepicker>
+                                <label>Comments</label>
+                                <textarea class="activityComment" ng-model="member.comments" md-select-on-focus
+                                          ng-focus="mac.selectMember(member)"></textarea>
                             </md-input-container>
                         </div>
                     </div>
                 </md-card-content>
 
 
-                <md-card-actions layout="row" layout-align="end center" ng-show="macform{{$index}}.$dirty">
+                <md-card-actions layout="row" layout-align="end center" ng-show="macform.$dirty">
                     <md-button ng-click="mac.resetMember(member)">Cancel</md-button>
-                    <md-button ng-click="mac.saveMember(member)">Save</md-button>
+                    <md-button ng-click="mac.saveMember(member)"
+                        ng-disabled="macform.$invalid">Save</md-button>
                 </md-card-actions>
             </md-card>
         </form>
