@@ -92,6 +92,7 @@
     <Content Include="Content\angular-material.layouts.min.css" />
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\app.css" />
+    <Content Include="Content\appReportActiveGuestList.css" />
     <Content Include="Content\images\ntcclogo.png" />
     <Content Include="Content\images\ntcclogo4-sml.png" />
     <Content Include="Content\images\ntccShield-48.png" />
@@ -108,6 +109,7 @@
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\messageDialogController.js" />
     <Content Include="Controllers\perspectivesController.js" />
+    <Content Include="Controllers\Perspectives\activeGuestListController.js" />
     <Content Include="Controllers\rootController.js" />
     <Content Include="Controllers\simpleDialogController.js" />
     <Content Include="Controllers\teamController.js" />
@@ -116,6 +118,8 @@
     <Content Include="Filters\phoneFilter.js" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
+    <Content Include="print.html" />
+    <Content Include="print.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -174,7 +178,9 @@
     <Content Include="Services\appService.js" />
     <Content Include="Services\churchService.js" />
     <Content Include="Services\configService.js" />
+    <Content Include="Services\injectCSS.js" />
     <Content Include="Services\memberService.js" />
+    <Content Include="Services\perspectivesService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
     <Content Include="Views\App\addressDialog.html" />
@@ -190,6 +196,7 @@
     <Content Include="Views\Members\memberActivity.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
+    <Content Include="Views\Perspectives\activeGuestList.html" />
     <Content Include="Views\Perspectives\perspectivesIndex.html" />
     <Content Include="Views\Teams\addTeamDialog.html" />
     <Content Include="Views\Teams\addTeamMemberDialog.html" />

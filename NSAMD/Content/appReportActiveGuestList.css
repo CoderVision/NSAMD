@@ -1,0 +1,92 @@
+﻿
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none!important;
+}
+
+@page {
+    size: letter portrait;
+    margin: 50pt 50pt 50pt 50pt;
+}
+
+@page :left {
+    margin-left: 3cm;
+
+    @bottom-left {
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}
+
+@page :right {
+    margin-left: 4cm;
+
+    @bottom-left {
+        margin: 10pt 0 30pt 0;
+        border-top: .25pt solid #666;
+        font-size: 9pt;
+        color: #333;
+    }
+
+    @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}
+
+
+@media screen {
+    .items {
+        clear: both;
+        display: table;
+        padding: 20px;
+    }
+
+    /* Factor out common styles for all of the "col-" classes.*/
+    div[class^="col-"] {
+        display: table-cell;
+        padding: 7px;
+    }
+}
+
+@media print {
+    .items {
+        clear: both;
+        display: table;
+        padding: 20pt;
+    }
+
+    /* Factor out common styles for all of the "col-" classes.*/
+    div[class^="col-"] {
+        display: table-cell;
+        padding: 7pt;
+    }
+}
+
+
+/*From https://gist.github.com/crowcoder/c4ac49ba30048262db8c*/
+header:before, header:after {
+    content: " ";
+    display: table;
+}
+
+header:before {
+    counter-increment: page;
+    content: counter(page) ". ";
+}
+
+header:after {
+    clear: both;
+}
+
+
+
+.col-1-10 {
+    width: 10%;
+}
+
+.col-1-25 {
+    width: 25%;
+}
+
+.row {
+    display: table-row;
+    page-break-inside: avoid;
+}

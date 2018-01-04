@@ -44,6 +44,10 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Perspectives/perspectivesIndex.html',
         controller: 'perspectivesController',
         controllerAs: 'pc'
+    }).when('/perspectives/type/:type', {
+        templateUrl: './Views/Perspectives/perspectivesIndex.html',
+        controller: 'perspectivesController',
+        controllerAs: 'pc'
     }).when('/member', {
         templateUrl: './Views/Members/memberProfile.html',
         controller: 'memberController',
