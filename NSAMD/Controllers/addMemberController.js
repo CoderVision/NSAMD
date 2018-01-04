@@ -33,6 +33,8 @@ angular.module('app')
             }
             vm.currentItem.sponsorList = list;
 
+            vm.currentItem.dateCame = new Date(vm.currentItem.dateCame).toISOString(); // convert to datetimeoffset
+
             // save member and reset form so it can be used to enter the next member
             memberService.saveNewMember(vm.currentItem).then(function (success) {
 

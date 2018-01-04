@@ -18,6 +18,7 @@ angular.module('app').controller('churchController',
             vm.load = function () {
 
                 appService.title = "Churches";
+                appService.menuItems = [];
 
                 vm.isLoading = true;
 

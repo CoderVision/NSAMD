@@ -52,6 +52,9 @@ md-sidenav > md-content > div > .md-button {
     width:400px;
 }
 
+.activityContent {
+        margin-top: 15px;
+}
 /*.md-on{
     background-color:#4a7a5a!important;
 }*/

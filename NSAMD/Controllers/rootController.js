@@ -11,10 +11,17 @@ angular.module('app').controller('rootController',
     vm.isLoggedIn = false;
     vm.isAddItemEventEnabled = false;
     vm.appService = appService;
+    vm.menuItems = [];
 
     $scope.$watch('rootCtrl.appService.title', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             vm.currentTitle = newValue;
+        }
+    }, true);
+
+    $scope.$watch('rootCtrl.appService.menuItems', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+            vm.menuItems = newValue;
         }
     }, true);
 

@@ -43,6 +43,7 @@ angular.module('app').controller('churchListController',
         vm.loadData = function () {
 
             appService.title = "Churches";
+            appService.menuItems = [];
 
             vm.isLoading = true;
 
@@ -81,7 +82,9 @@ angular.module('app').controller('churchListController',
 
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
-            var church = {};
+            var church = {
+                isNew: true
+            };
 
             config = {
                // memberList: vm.config.memberList

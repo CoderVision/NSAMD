@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('memberListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'appNotificationService', 'appService'
-    , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, appNotificationService, appService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'memberService', 'appNotificationService', 'appService'
+    , function ($scope, $mdDialog, $mdMedia, $location, $log, memberService, appNotificationService, appService) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -49,6 +49,7 @@ angular.module('app').controller('memberListController',
         vm.loadData = function () {
 
             appService.title = "Members";
+            appService.menuItems = [{ text: "Activity", do: vm.openActivity }];
 
             vm.isLoading = true;
 
@@ -83,13 +84,18 @@ angular.module('app').controller('memberListController',
             $location.path('/member').search({ memberId: memberId });
         }
 
+        vm.openActivity = function () {
+            $location.path('/activity').search({ churchId: vm.churchId });
+        }
+
         vm.addItem = function ($event) {
 
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
             var member = {
                 dateCame: new Date(),
-                churchId: vm.churchId
+                churchId: vm.churchId,
+                isNew: true
             };
             config = {
                 memberList: vm.config.memberList

@@ -8,5 +8,7 @@ angular.module('app').factory('appService', ['$q'
 
         svc.title = "Members";
 
+        svc.menuItems = [];
+
        return svc;
     }]);

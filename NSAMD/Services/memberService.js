@@ -169,5 +169,25 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
         return deferred.promise;
     }
 
+
+    svc.saveMemberActivity = function (activity) {
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/members/activity";
+
+        $http.post(uri, activity).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.saveMemberActivity:  " + error);
+
+            deferred.reject("Error saving member activity:  " + activity.targetId);
+        });
+
+        return deferred.promise;
+    }
+
     return svc;
 }]);

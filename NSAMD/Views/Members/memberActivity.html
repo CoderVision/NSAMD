@@ -1,0 +1,144 @@
+﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mac.isLoading"></md-progress-linear>
+
+<div class="content" ng-init="mac.load()">
+    <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs>
+            <label>Search</label>
+
+            <!--ng-change="mac.filterMembers()"
+            --> 
+            <input ng-model="mac.searchText" placeholder="Enter member name"
+                   filter-by="fullName"
+                   filter-type="text"
+                   ng-model-options='{ debounce: 500 }'/>
+        </md-input-container>
+
+        <md-input-container flex-gt-xs>
+            <label>Team</label>
+            <md-select ng-model="mac.selectedTeamId">
+                <md-option ng-value="0">All Teams</md-option>
+                <md-option ng-repeat="c in mac.config.teamList | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <div layout="row" ng-repeat="member in mac.memberList | filter: mac.filterMembers">
+        <!--mac-{{member.id}}-->
+        <form name="macform" style="width:100%">
+            <md-card md-theme="default" style="width:100%">
+
+                <md-card-content>
+                    <div layout="column"
+                         layout-gt-xs="row"
+                         layout-align="start start"
+                         flex>
+
+                        <!-- left panel -->
+                        <div layout="column"
+                             flex flex-gt-xs="50"
+                             class="maxWidth profileLeftPanel">
+
+                            <!-- possible remove title text and put it here-->
+                            <span class="md-headline">{{member.fullName }}</span>
+                            <span class="md-subhead">{{member.address}}</span>
+
+                            <div class="activityContent">
+                                <div>Sponsor:  {{member.sponsor}}</div>
+                                <div>Sponsor Team:  {{member.team}}</div>
+                            </div>
+
+                            <div class="activityContent">
+                                <div>Last Attendance:  {{mac.formatDate(member.activityDate)}}</div>
+                            </div>
+                        </div>
+                        <!-- right panel -->
+                        <div layout="column" layout-align="start stretch"
+                             flex flex-gt-sm="50" class="maxWidth">
+
+                            <md-input-container flex>
+                                <label>Status</label>
+                                <md-select ng-model="member.statusId"
+                                           placeholder="Select a status"
+                                           name="status"
+                                           ng-focus="mac.selectMember(member)"
+                                           required>
+                                    <md-option>Select a status</md-option>
+                                    <md-option ng-repeat="item in mac.config.memberStatusList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                                </md-select>
+                                <div ng-messages="macform.status.$error">
+                                    <div ng-message="required">Status is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Status Reason</label>
+                                <md-select ng-model="member.statusChangeTypeId"
+                                           placeholder="Select a reason"
+                                           name="reason"
+                                           ng-focus="mac.selectMember(member)"
+                                           required>
+                                    <md-option>Select a reason</md-option>
+                                    <md-option ng-repeat="item in mac.config.memberStatusChangeTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                                </md-select>
+                                <div ng-messages="macform.reason.$error">
+                                    <div ng-message="required">Status Reason is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Activity</label>
+                                <md-select ng-model="member.activityTypeEnumID"
+                                           placeholder="Select an activity"
+                                           name="activity"
+                                           ng-focus="mac.selectMember(member)"
+                                           required>
+                                    <md-option>Select a reason</md-option>
+                                    <md-option ng-repeat="item in mac.config.activityTypeList" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                                </md-select>
+                                <div ng-messages="macform.activity.$error">
+                                    <div ng-message="required">Activity is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Activity Date</label>
+                                <md-datepicker ng-model="member.newActivityDate" md-placeholder="Enter date"
+                                               name="dateCame"
+                                               ng-focus="mac.selectMember(member)"
+                                               required></md-datepicker>
+                                <div ng-messages="macform.dateCame.$error">
+                                    <div ng-message="required">Date is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Activity Response</label>
+                                <md-select ng-model="member.activityResponseTypeEnumID"
+                                           placeholder="Select a response"
+                                           name="reason"
+                                           ng-focus="mac.selectMember(member)">
+                                    <md-option>Select a reason</md-option>
+                                    <md-option ng-repeat="item in mac.config.activityResponseType" ng-value="{{item.id}}">{{item.desc}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Comments</label>
+                                <textarea class="activityComment" ng-model="member.comments" md-select-on-focus
+                                          ng-focus="mac.selectMember(member)"></textarea>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </md-card-content>
+
+
+                <md-card-actions layout="row" layout-align="end center" ng-show="macform.$dirty">
+                    <md-button ng-click="mac.resetMember(member)">Cancel</md-button>
+                    <md-button ng-click="mac.saveMember(member)"
+                        ng-disabled="macform.$invalid">Save</md-button>
+                </md-card-actions>
+            </md-card>
+        </form>
+    </div>
+</div>

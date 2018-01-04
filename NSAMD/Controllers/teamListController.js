@@ -42,6 +42,7 @@ angular.module('app').controller('teamListController',
         vm.loadData = function () {
 
             appService.title = "Teams";
+            appService.menuItems = [];
 
             vm.isLoading = true;
 
