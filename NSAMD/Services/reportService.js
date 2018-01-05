@@ -3,7 +3,7 @@
 
 'use strict'
 
-angular.module('print').factory('perspectivesService', ['$http', '$log', '$q', 'config'
+angular.module('app').factory('reportService', ['$http', '$log', '$q', 'config'
     , function ($http, $log, $q, config) {
 
         var svc = {};
@@ -15,7 +15,7 @@ angular.module('print').factory('perspectivesService', ['$http', '$log', '$q', '
 
             //var cfg;
             //if (localStorageService.isSupported) {
-            //    cfg = localStorageService.get("perspectivesConfig");
+            //    cfg = localStorageService.get("reportsConfig");
 
             //    if (cfg && cfg.churchId == churchId)
             //    {
@@ -29,7 +29,7 @@ angular.module('print').factory('perspectivesService', ['$http', '$log', '$q', '
 
             $http.get(uri).then(function (success) {
 
-                //localStorageService.set("teamConfig", { churchId: churchId, data: success.data });
+                //localStorageService.set("reportsConfig", { churchId: churchId, data: success.data });
 
                 deferred.resolve(success.data);
 

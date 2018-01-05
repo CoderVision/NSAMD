@@ -1,0 +1,81 @@
+﻿
+
+<md-dialog class="addMemberDiag">
+    <form name="activeGuestListForm" ng-submit="dc.save()">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Active Guest List Report</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="dc.cancel()">
+                        <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+
+                <div layout="column" class="dialogContent">
+
+                    <md-input-container flex-gt-xs>
+                        <label>Period</label>
+                        <md-select name="period" ng-model="dc.currentItem.period" required>
+                            <md-option ng-value="1">Month</md-option>
+                            <md-option ng-value="2">Week</md-option>
+                        </md-select>
+                        <div ng-messages="activeGuestListForm.period.$error">
+                            <div ng-message="required">Period is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Date</label>
+                        <md-datepicker name="date" ng-model="dc.currentItem.dateCame"
+                                       md-date-filter="dc.config.dateFilter"
+                                       required></md-datepicker>
+                        <div ng-messages="activeGuestListForm.date.$error">
+                            <div ng-message="required">Date is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>Status</label>
+                        <md-select name="status" multiple ng-model="dc.currentItem.statusIds" required>
+                            <md-option ng-value="1">Active</md-option>
+                            <md-option ng-value="2">Faithful</md-option>
+                            <md-option ng-value="3">Inactive</md-option>
+                        </md-select>
+                        <div ng-messages="activeGuestListForm.status.$error">
+                            <div ng-message="required">Status is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex-gt-xs>
+                        <label>Team</label>
+                        <md-select ng-model="dc.currentItem.teamId">
+                            <md-option ng-value="0">All Teams</md-option>
+                            <md-option ng-repeat="c in dc.config.teamList | orderBy:'name'" ng-value="c.id">{{c.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container flex-gt-xs>
+                        <label>Sponsor</label>
+                        <md-select ng-model="dc.currentItem.sponsorId">
+                            <md-option ng-value="0">All Sponsors</md-option>
+                            <md-option ng-repeat="c in dc.config.memberList | orderBy:'name' | filter: dc.config.filterSponsors" ng-value="c.id">{{c.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+</md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                    Close
+                </md-button>
+                <md-button type="submit" class="md-primary md-confirm-button"
+                           ng-disabled="activeGuestListForm.$invalid">
+                    View
+                </md-button>
+            </md-dialog-actions>
+
+    </form>
+</md-dialog>

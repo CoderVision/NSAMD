@@ -2,29 +2,93 @@
 'use strict';
 
 angular.module('app').controller('reportsController',
-    ['$window', '$routeParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'config'
-    , function ($window, $routeParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, config) {
+    ['$scope', '$window', '$routeParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService'
+    , function ($scope, $window, $routeParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService) {
+
+        $scope.$emit('enableAddItemEvent', { enabled: false });
 
         var vm = this;
 
         vm.memberList = [];
-        vm.type = $routeParams.type;
-        vm.churchId = $routeParams.churchId;
-        vm.config = config;
+        vm.churchId = 0;
+        vm.config = {};
+        vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+        vm.reportList = [];
+        vm.reportSearchText = "";
+
+        $scope.$watch('rc.churchId', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                vm.load();
+            }
+        }, false);
 
         vm.load = function () {
 
+            // load config data, such as churches, teams, sponsors, statuses, etc.
+            reportService.getConfig(vm.churchId).then(function (success) {
+
+                vm.config = success;
+
+            }, function (error) {
+                appNotificationService.openToast("Error loading report config ");
+            })
         }
+
+        vm.loadReportList = function () {
+            vm.reportList.push({ id: 1, name: 'Active Guest List', desc: 'A lists of members for follow-up; filtered by team, sponsor, and status.', open: vm.openActiveGuestList })
+        }
+
+        vm.filterReports = function (report) {
+            if (report === undefined) return;
+
+            var criteria = vm.reportSearchText.toLowerCase().trim();
+
+            return (criteria == "" || report.name.toLowerCase().indexOf(criteria) > -1);
+        }
+
 
         vm.openActiveGuestList = function ($event) {
 
-            // temp.  add ddl to select church and remove this
-            if (vm.churchId == undefined)
-                vm.churchId = 3;
+            var item = {
+                churchId: vm.churchId,
+                period: 1
+            }
 
-            var uri = "/print.html#!/activeGuestList/churchId/" + vm.churchId;
+            vm.config.dateFilter = function (date) {
+                if (item.period === 1) {
+                    var dayOfMonth = date.getDate();
+                    return dayOfMonth === 1;  // 1st day of month
+                }
+                else if (item.period === 2) {
+                    var dayOfWeek = date.getDay()
+                    return dayOfWeek === 0; // 0=sunday, 6=saturday
+                }
+            }
 
-            $window.open(uri, '_blank');
+            vm.config.filterSponsors = function(sponsor){
+                return sponsor.teamId == item.teamId;
+            }
+
+            $mdDialog.show({
+                locals: { currentItem: item, config: vm.config },
+                templateUrl: './views/Reports/activeGuestListParamsDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: 'simpleDialogController',
+                controllerAs: 'dc', // dc = dialog controller
+                clickOutsideToClose: true,
+                fullscreen: vm.useFullScreen
+            }).then(function (editedItem) {
+
+                vm.churchId = editedItem.churchId;
+
+                var uri = "/print.html#!/activeGuestList/churchId/" + vm.churchId;
+
+                $window.open(uri, '_blank');
+
+            }, function () {
+                //$log.info("Edit item cancelled");
+            });
         }
 
         return vm;

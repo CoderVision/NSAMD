@@ -181,7 +181,7 @@
     <Content Include="Services\configService.js" />
     <Content Include="Services\injectCSS.js" />
     <Content Include="Services\memberService.js" />
-    <Content Include="Services\perspectivesService.js" />
+    <Content Include="Services\reportService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
     <Content Include="Views\App\addressDialog.html" />
@@ -198,6 +198,7 @@
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Reports\activeGuestList.html" />
+    <Content Include="Views\Reports\activeGuestListParamsDialog.html" />
     <Content Include="Views\Reports\perspectivesIndex.html" />
     <Content Include="Views\Teams\addTeamDialog.html" />
     <Content Include="Views\Teams\addTeamMemberDialog.html" />
