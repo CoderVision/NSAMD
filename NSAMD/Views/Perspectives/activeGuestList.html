@@ -1,17 +1,29 @@
 ﻿
+<!--flexbox:  https://www.w3schools.com/css/css3_flexbox.asp#flex-grow-->
+
 <div ng-init="c.load()">
-    <header></header>
+    <header>
+        <div class="flexRowCenter">
+            Active Guest List
+        </div>
+        <div class="flexRow">
+            <div>
+                Sponsor: Lima, Wei
+            </div>
+            <div></div>
+        </div>
+    </header>
 
     <section class="items">
         <!-- header -->
         <div class="row">
-            <div class="col-1-20 cell">
+            <div class="col-1-15 cell">
                 Guest Name
             </div>
             <div class="col-1-25 cell">
                 Address
             </div>
-            <div class="col-1-10 cell">
+            <div class="col-1-15 cell">
                 Follow-up Dates
             </div>
             <div class="col-1-25 cellLast">
@@ -21,17 +33,18 @@
 
         <!-- data -->
         <div class="row" ng-repeat="g in c.memberList">
-            <div class="col-1-20 cell relative firstCell">
+            <div class="col-1-15 cell relative firstCell">
                     <div class="memberName">{{g.memberName}}</div>
                     <div class="absoluteBottom flexRow" >
                         <div>{{g.status}}</div>
-                        <div>{{g.lastActivityDateFormatted}}</div>
+                        <!--<div>{{g.lastActivityDateFormatted}}</div>-->
+                        <div>12/18/1970</div>
                     </div>
 
             </div>
             <div class="col-1-25 cell flexColumn">
                 <div>{{g.memberAddress}}</div>
-                <div>{{g.memberPhone}}</div>
+                <div>{{g.memberPhone | phone}}</div>
                 <div>{{g.memberEmail}}</div>
             </div>
             <div class="col-1-10 cell">

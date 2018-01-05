@@ -5,18 +5,18 @@
 
 @page {
     size: letter portrait;
-    margin: 50pt 50pt 50pt 50pt;
+    margin: 8pt 8pt 8pt 8pt;
 }
 
-@page :left {
+/*@page :left {
     margin-left: 3cm;
 
     @bottom-left {
         content: "Page " counter(page) " of " counter(pages);
     }
-}
+}*/
 
-@page :right {
+/*@page :right {
     margin-left: 4cm;
 
     @bottom-left {
@@ -29,10 +29,14 @@
     @bottom-right {
         content: "Page " counter(page) " of " counter(pages);
     }
-}
+}*/
 
 
 @media screen {
+    body {
+        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+    }
+
     .items {
         clear: both;
         display: table;
@@ -56,11 +60,23 @@
     }
 
     .firstCell {
-        height: 40px;
+        height: 50px;
+    }
+
+    .absoluteBottom {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        left: 8px;
     }
 }
 
 @media print {
+    body {
+        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+        font-size:12pt
+    }
+
     .items {
         clear: both;
         display: table;
@@ -85,6 +101,13 @@
     .firstCell {
         height: 40pt;
     }
+
+    .absoluteBottom {
+        position: absolute;
+        bottom: 8pt;
+        right: 8pt;
+        left: 8pt;
+    }
 }
 
 
@@ -92,29 +115,24 @@
     position: relative;
 }
 
-.absoluteBottom {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    left: 8px;
-}
+
 
 .memberName {
     font-weight: bolder;
 }
 
 /*From https://gist.github.com/crowcoder/c4ac49ba30048262db8c*/
-header:before, header:after {
+footer:before, header:after {
     content: " ";
     display: table;
 }
 
-header:before {
+footer:before {
     counter-increment: page;
     content: counter(page) ". ";
 }
 
-header:after {
+footer:after {
     clear: both;
 }
 
@@ -128,6 +146,12 @@ header:after {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.flexRowCenter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .floatLeft {
@@ -148,6 +172,10 @@ header:after {
 
 .col-1-10 {
     width: 10%;
+}
+
+.col-1-15 {
+    width: 15%;
 }
 
 .col-1-20 {
