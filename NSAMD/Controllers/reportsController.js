@@ -2,15 +2,15 @@
 'use strict';
 
 angular.module('app').controller('reportsController',
-    ['$scope', '$window', '$routeParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService'
-    , function ($scope, $window, $routeParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService) {
+    ['$scope', '$window', '$routeParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService'
+    , function ($scope, $window, $routeParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService) {
 
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
         var vm = this;
 
         vm.memberList = [];
-        vm.churchId = 0;
+        vm.churchId = 3;
         vm.config = {};
         vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         vm.reportList = [];
@@ -24,6 +24,9 @@ angular.module('app').controller('reportsController',
         }, false);
 
         vm.load = function () {
+
+            appService.title = "Perspectives";
+            appService.menuItems = [];
 
             vm.loadReportList();
 
@@ -97,8 +100,8 @@ angular.module('app').controller('reportsController',
                     + "/period/" + rpt.period
                     + "/date/" + rpt.date
                     + "/statusIds/" + statusIds
-                    + "/teamId/" + rpt.teamId
-                    + "/sponsorId/" + rpt.sponsorId;
+                    + "/teamId/" + rpt.teamId === undefined ? 0 : rpt.teamId
+                    + "/sponsorId/" + rpt.sponsorId === undefined ? 0 : rpt.sponsorId;
 
                 $window.open(uri, '_blank');
 
