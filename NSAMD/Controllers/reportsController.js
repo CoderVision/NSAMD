@@ -1,7 +1,7 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('perspectivesController',
+angular.module('app').controller('reportsController',
     ['$window', '$routeParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'memberService', 'config'
     , function ($window, $routeParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, memberService, config) {
 

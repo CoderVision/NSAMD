@@ -108,8 +108,8 @@
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\messageDialogController.js" />
-    <Content Include="Controllers\perspectivesController.js" />
-    <Content Include="Controllers\Perspectives\activeGuestListController.js" />
+    <Content Include="Controllers\reportsController.js" />
+    <Content Include="Controllers\Reports\activeGuestListController.js" />
     <Content Include="Controllers\rootController.js" />
     <Content Include="Controllers\simpleDialogController.js" />
     <Content Include="Controllers\teamController.js" />
@@ -197,8 +197,8 @@
     <Content Include="Views\Members\memberActivity.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
-    <Content Include="Views\Perspectives\activeGuestList.html" />
-    <Content Include="Views\Perspectives\perspectivesIndex.html" />
+    <Content Include="Views\Reports\activeGuestList.html" />
+    <Content Include="Views\Reports\perspectivesIndex.html" />
     <Content Include="Views\Teams\addTeamDialog.html" />
     <Content Include="Views\Teams\addTeamMemberDialog.html" />
     <Content Include="Views\Teams\teamProfile.html" />
