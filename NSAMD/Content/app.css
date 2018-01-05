@@ -30,6 +30,10 @@ md-dialog > md-toolbar {
     flex-wrap: wrap;
 }
 
+.activeGuestListRptDiag{
+    width: 500px;
+}
+
 .dialogContent{
     padding:8px;
     overflow:hidden;

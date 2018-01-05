@@ -15,10 +15,13 @@ angular.module('app').controller('reportsController',
         vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         vm.reportList = [];
         vm.reportSearchText = "";
+        vm.isLoading = true;
 
         $scope.$watch('rc.churchId', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 vm.load();
+
+                vm.loadReportList();
             }
         }, false);
 
@@ -31,10 +34,13 @@ angular.module('app').controller('reportsController',
 
             }, function (error) {
                 appNotificationService.openToast("Error loading report config ");
-            })
+            }).then(function () {
+                vm.isLoading = false;
+            });
         }
 
         vm.loadReportList = function () {
+            vm.reportList = [];
             vm.reportList.push({ id: 1, name: 'Active Guest List', desc: 'A lists of members for follow-up; filtered by team, sponsor, and status.', open: vm.openActiveGuestList })
         }
 

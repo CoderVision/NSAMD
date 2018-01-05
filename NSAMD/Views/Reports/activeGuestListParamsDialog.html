@@ -1,6 +1,6 @@
 ﻿
 
-<md-dialog class="addMemberDiag">
+<md-dialog class="activeGuestListRptDiag">
     <form name="activeGuestListForm" ng-submit="dc.save()">
             <md-toolbar>
                 <div class="md-toolbar-tools">
@@ -40,9 +40,7 @@
                     <md-input-container flex>
                         <label>Status</label>
                         <md-select name="status" multiple ng-model="dc.currentItem.statusIds" required>
-                            <md-option ng-value="1">Active</md-option>
-                            <md-option ng-value="2">Faithful</md-option>
-                            <md-option ng-value="3">Inactive</md-option>
+                            <md-option ng-repeat="c in dc.config.statusList" ng-value="c.id">{{c.desc}}</md-option>
                         </md-select>
                         <div ng-messages="activeGuestListForm.status.$error">
                             <div ng-message="required">Status is required</div>

@@ -24,8 +24,8 @@ angular.module('app').factory('reportService', ['$http', '$log', '$q', 'config'
             //    }
             //}
 
-            //http://localhost:62428/teams/metadata/3
-            var uri = config.apiUrl + "/church/" + churchId + "/teams/metadata";
+            //http://localhost:62428/reports/metadata/0
+            var uri = config.apiUrl + "/reports/metadata/" + churchId;
 
             $http.get(uri).then(function (success) {
 
@@ -35,7 +35,7 @@ angular.module('app').factory('reportService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                $log.error("error in teamService.getConfig:  " + error.data);
+                $log.error("error in reportService.getConfig:  " + error.data);
 
                 deferred.reject("Error retrieving config list");
             });
