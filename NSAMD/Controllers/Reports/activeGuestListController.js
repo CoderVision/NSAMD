@@ -4,20 +4,25 @@
 'use strict';
 
 angular.module('print').controller('activeGuestListController',
-    ['$http', '$routeParams', '$log', 'perspectivesService'
-    , function ($http, $routeParams, $log, perspectivesService) {
+    ['$http', '$routeParams', '$log', 'reportService'
+    , function ($http, $routeParams, $log, reportService) {
 
         var vm = this;
 
-        vm.churchId = $routeParams.churchId;
-        vm.memberList = [];
-        vm.Title = "Hello World!";
         vm.memberList = [];
 
         vm.load = function()
         {
-            var reportId = 1;  // active guest list report id
-            perspectivesService.getReport(reportId, vm.churchId).then(function (success) {
+            var reportId = 1;
+            var queryOptions = "?"
+                    + "churchId=" + $routeParams.churchId
+                    + "&period=" + $routeParams.period
+                    + "&date=" + $routeParams.date
+                    + "&statusIds=" + $routeParams.statusIds
+                    + "&teamId=" + $routeParams.teamId
+                    + "&sponsorId=" + $routeParams.sponsorId;
+
+            reportService.getReport(reportId, queryOptions).then(function (success) {
                 vm.memberList = success;
 
                 for (var i = 0; i < vm.memberList.length; i++) {

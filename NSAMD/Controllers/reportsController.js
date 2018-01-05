@@ -20,12 +20,12 @@ angular.module('app').controller('reportsController',
         $scope.$watch('rc.churchId', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 vm.load();
-
-                vm.loadReportList();
             }
         }, false);
 
         vm.load = function () {
+
+            vm.loadReportList();
 
             // load config data, such as churches, teams, sponsors, statuses, etc.
             reportService.getConfig(vm.churchId).then(function (success) {
@@ -71,7 +71,7 @@ angular.module('app').controller('reportsController',
                 }
             }
 
-            vm.config.filterSponsors = function(sponsor){
+            vm.config.filterSponsors = function (sponsor) {
                 return sponsor.teamId == item.teamId;
             }
 
@@ -84,11 +84,21 @@ angular.module('app').controller('reportsController',
                 controllerAs: 'dc', // dc = dialog controller
                 clickOutsideToClose: true,
                 fullscreen: vm.useFullScreen
-            }).then(function (editedItem) {
+            }).then(function (rpt) {
 
-                vm.churchId = editedItem.churchId;
+                var statusIds = "";
+                var delimiter = "";
+                for (var i = 0; i < rpt.statusIds.length; i++) {
+                    statusIds = delimiter + rpt.statusIds[i];
+                    delimiter = "-";
+                }
 
-                var uri = "/print.html#!/activeGuestList/churchId/" + vm.churchId;
+                var uri = "/print.html#!/activeGuestList/churchId/" + vm.churchId
+                    + "/period/" + rpt.period
+                    + "/date/" + rpt.date
+                    + "/statusIds/" + statusIds
+                    + "/teamId/" + rpt.teamId
+                    + "/sponsorId/" + rpt.sponsorId;
 
                 $window.open(uri, '_blank');
 

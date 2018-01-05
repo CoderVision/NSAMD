@@ -182,6 +182,7 @@
     <Content Include="Services\injectCSS.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\reportService.js" />
+    <Content Include="Services\Reports\reportService.js" />
     <Content Include="Services\teamService.js" />
     <Content Include="Views\Admin\adminIndex.html" />
     <Content Include="Views\App\addressDialog.html" />

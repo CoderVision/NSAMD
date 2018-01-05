@@ -15,8 +15,8 @@ app.constant('config', config);
 
 app.config(function ($routeProvider) {
 
-    $routeProvider.when('/activeGuestList/churchId/:churchId', {
-        templateUrl: './Views/Perspectives/activeGuestList.html',
+    $routeProvider.when('/activeGuestList/churchId/:churchId/period/:period/date/:date/statusIds/:statusIds/teamId/:teamId/sponsorId/:sponsorId', {
+        templateUrl: './Views/Reports/activeGuestList.html',
         controller: 'activeGuestListController',
         controllerAs: 'c', // controller,
         resolve: {

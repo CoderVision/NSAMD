@@ -29,7 +29,7 @@
                 {{rpt.desc}}
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-click="rpt.open($event)">View Report</md-button>
+                <md-button ng-click="rpt.open($event)" ng-disabled="rc.churchId === 0">View Report</md-button>
             </md-card-actions>
         </md-card>
     </div>
