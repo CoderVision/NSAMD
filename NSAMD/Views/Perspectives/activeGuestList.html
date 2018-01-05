@@ -5,33 +5,40 @@
     <section class="items">
         <!-- header -->
         <div class="row">
-            <div class="col-1-10">
+            <div class="col-1-20 cell">
                 Guest Name
             </div>
-            <div class="col-1-10">
+            <div class="col-1-25 cell">
                 Address
             </div>
-            <div class="col-1-10">
+            <div class="col-1-10 cell">
                 Follow-up Dates
             </div>
-            <div class="col-1-10">
+            <div class="col-1-25 cellLast">
                 Comments
             </div>
         </div>
 
         <!-- data -->
-        <div class="row" ng-repeat="g in c.guestList">
-            <div class="col-1-10">
-                {{g.name}}
-            </div>
-            <div class="col-1-25">
-                {{g.address}}
-            </div>
-            <div class="col-1-10">
+        <div class="row" ng-repeat="g in c.memberList">
+            <div class="col-1-20 cell relative firstCell">
+                    <div class="memberName">{{g.memberName}}</div>
+                    <div class="absoluteBottom flexRow" >
+                        <div>{{g.status}}</div>
+                        <div>{{g.lastActivityDateFormatted}}</div>
+                    </div>
 
             </div>
-            <div class="col-1-25">
-                {{g.email}}
+            <div class="col-1-25 cell flexColumn">
+                <div>{{g.memberAddress}}</div>
+                <div>{{g.memberPhone}}</div>
+                <div>{{g.memberEmail}}</div>
+            </div>
+            <div class="col-1-10 cell">
+
+            </div>
+            <div class="col-1-25 cellLast">
+                {{g.comments}}
             </div>
         </div>
     </section>

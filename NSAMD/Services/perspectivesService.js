@@ -3,8 +3,8 @@
 
 'use strict'
 
-angular.module('app').factory('perspectivesService', ['$http', '$log', '$q', 'config', 'localStorageService'
-    , function ($http, $log, $q, config, localStorageService) {
+angular.module('print').factory('perspectivesService', ['$http', '$log', '$q', 'config'
+    , function ($http, $log, $q, config) {
 
         var svc = {};
 
@@ -29,7 +29,7 @@ angular.module('app').factory('perspectivesService', ['$http', '$log', '$q', 'co
 
             $http.get(uri).then(function (success) {
 
-                localStorageService.set("teamConfig", { churchId: churchId, data: success.data });
+                //localStorageService.set("teamConfig", { churchId: churchId, data: success.data });
 
                 deferred.resolve(success.data);
 

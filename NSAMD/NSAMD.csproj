@@ -116,6 +116,7 @@
     <Content Include="Controllers\teamListController.js" />
     <Content Include="Filters\mapAddressFilter.js" />
     <Content Include="Filters\phoneFilter.js" />
+    <Content Include="Filters\phoneFilterPrint.js" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="print.html" />
