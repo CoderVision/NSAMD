@@ -1,59 +1,84 @@
-﻿
+﻿<!--https://contrivedexample.com/2015/03/08/printable-reports-using-only-css-and-html/-->
 <!--flexbox:  https://www.w3schools.com/css/css3_flexbox.asp#flex-grow-->
 
 <div ng-init="c.load()">
-    <header>
+    <!--<header>
         <div class="flexRowCenter">
-            Active Guest List
+            <h1>Active Guest List</h1>
         </div>
-        <div class="flexRow">
-            <div>
-                Sponsor: {{c.sponsorName}}
-            </div>
-            <div></div>
-        </div>
-    </header>
+    </header>-->
 
-    <section class="items">
-        <!-- header -->
-        <div class="row">
-            <div class="col-1-15 cell">
-                Guest Name
-            </div>
-            <div class="col-1-25 cell">
-                Address
-            </div>
-            <div class="col-1-15 cell">
-                Follow-up Dates
-            </div>
-            <div class="col-1-25 cellLast">
-                Comments
-            </div>
-        </div>
+    <div ng-repeat="team in c.teamGroup | orderBy: 'teamName'">
+        <div class="group" ng-repeat="sponsor in c.sponsorGroup | teamFilter: team | orderBy: 'sponsorName'">
 
-        <!-- data -->
-        <div class="row" ng-repeat="g in c.memberList">
-            <div class="col-1-15 cell relative firstCell">
-                    <div class="memberName">{{g.memberName}}</div>
-                    <div class="absoluteBottom flexRow" >
-                        <div>{{g.status}}</div>
-                        <!--<div>{{g.lastActivityDateFormatted}}</div>-->
-                        <div>12/18/1970</div>
+            <header>
+                <div class="flexRowCenter">
+                    <h1>Active Guest List</h1>
+                </div>
+            </header>
+
+            <div class="boundry flexRow sponsorBox">
+                <div class="labelBottom">
+                    <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
+                    <div><span class="label">Team:</span> {{team.teamName}}</div>
+                </div>
+                <div>
+                    <span class="label">Dated:</span> {{c.runDate}}
+                </div>
+            </div>
+
+            <div class="boundry flexRow">
+                <div>
+                    <div>Please use this legend to show follow-up mode</div>
+                    <div>V-visit C-call T-text -E-email</div>
+                </div>
+                <div>
+                    <div>When you receive a committment for a service,</div>
+                    <div>place a dot in the box for each service promised</div>
+                </div>
+            </div>
+
+            <section class="items">
+                <!-- header -->
+                <div class="row">
+                    <div class="col-1-15 cell">
+                        Guest Name
                     </div>
+                    <div class="col-1-25 cell">
+                        Address
+                    </div>
+                    <div class="col-1-15 cell">
+                        Follow-up Dates
+                    </div>
+                    <div class="col-1-25 cellLast">
+                        Comments
+                    </div>
+                </div>
 
-            </div>
-            <div class="col-1-25 cell flexColumn">
-                <div>{{g.memberAddress}}</div>
-                <div>{{g.memberPhone | phone}}</div>
-                <div>{{g.memberEmail}}</div>
-            </div>
-            <div class="col-1-10 cell">
+                <!-- data -->
+                <div class="row" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
+                    <div class="col-1-15 cell relative firstCell">
+                        <div class="memberName">{{g.memberName}}</div>
+                        <div class="absoluteBottom flexRow">
+                            <div>{{g.status}}</div>
+                            <div>{{g.lastActivityDateFormatted}}</div>
+                        </div>
+                    </div>
+                    <div class="col-1-25 cell flexColumn">
+                        <div>{{g.memberAddress}}</div>
+                        <div>{{g.memberPhone | phone}}</div>
+                        <div>{{g.memberEmail}}</div>
+                    </div>
+                    <div class="col-1-10 cell" style="vertical-align:middle;height:100%;">
+                        <div style="width:10px;height:100%;background-color:lime;">&nbsp;</div>
+                    </div>
+                    <div class="col-1-25 cellLast">
+                        {{g.comments}}
+                    </div>
+                </div>
+            </section>
 
-            </div>
-            <div class="col-1-25 cellLast">
-                {{g.comments}}
-            </div>
         </div>
-    </section>
 
+    </div>
 </div>
