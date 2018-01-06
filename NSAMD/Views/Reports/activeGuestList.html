@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- data -->
-                <div class="row row2" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
+                <div class="row" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
                     <div class="col-1-15 cell relative firstCell">
                         <div class="memberName">{{g.memberName}}</div>
                         <div class="absoluteBottom flexRow">

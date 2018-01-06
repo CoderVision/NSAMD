@@ -5,18 +5,18 @@
     border: 2px solid blue;
 }
 
-.row {
+/*.row {
     display: table-row;
-}
+}*/
 
 .row1 {
     height: 50px;
     background: pink;
 }
 
-.row2 {
+/*.row2 {
     height: 100%;
-}
+}*/
 
 .row3 {
     height: 50px;
@@ -294,11 +294,11 @@ footer:after {
     width: 25%;
 }
 
-/*.row {
+.row {
     display: table-row;
     page-break-inside: avoid;
     height:100%;
-}*/
+}
 
 .group {
     page-break-inside: avoid;
