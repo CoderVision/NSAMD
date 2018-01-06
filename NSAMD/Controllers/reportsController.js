@@ -92,7 +92,7 @@ angular.module('app').controller('reportsController',
                 var statusIds = "";
                 var delimiter = "";
                 for (var i = 0; i < rpt.statusIds.length; i++) {
-                    statusIds = delimiter + rpt.statusIds[i];
+                    statusIds += delimiter + rpt.statusIds[i];
                     delimiter = "-";
                 }
 
@@ -100,8 +100,8 @@ angular.module('app').controller('reportsController',
                     + "/period/" + rpt.period
                     + "/date/" + rpt.date
                     + "/statusIds/" + statusIds
-                    + "/teamId/" + rpt.teamId === undefined ? 0 : rpt.teamId
-                    + "/sponsorId/" + rpt.sponsorId === undefined ? 0 : rpt.sponsorId;
+                    + "/teamId/" + (rpt.teamId === undefined ? 0 : rpt.teamId)
+                    + "/sponsorId/" + (rpt.sponsorId === undefined ? 0 : rpt.sponsorId);
 
                 $window.open(uri, '_blank');
 
