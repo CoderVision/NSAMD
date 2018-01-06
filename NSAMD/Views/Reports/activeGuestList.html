@@ -1,4 +1,5 @@
-﻿<!--https://contrivedexample.com/2015/03/08/printable-reports-using-only-css-and-html/-->
+﻿
+<!--https://contrivedexample.com/2015/03/08/printable-reports-using-only-css-and-html/-->
 <!--flexbox:  https://www.w3schools.com/css/css3_flexbox.asp#flex-grow-->
 
 <div ng-init="c.load()">
@@ -56,7 +57,7 @@
                 </div>
 
                 <!-- data -->
-                <div class="row" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
+                <div class="row row2" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
                     <div class="col-1-15 cell relative firstCell">
                         <div class="memberName">{{g.memberName}}</div>
                         <div class="absoluteBottom flexRow">
@@ -69,8 +70,26 @@
                         <div>{{g.memberPhone | phone}}</div>
                         <div>{{g.memberEmail}}</div>
                     </div>
-                    <div class="col-1-10 cell" style="vertical-align:middle;height:100%;">
-                        <div style="width:10px;height:100%;background-color:lime;">&nbsp;</div>
+
+                    <!--<div class="col-1-10 cell">
+                        <div style="height:100%!important;background: blue;width:20px;">
+                            test
+                        </div>
+                    </div>-->
+
+                    <div class="cell" style="padding-bottom: 1px;">
+                        <div class="container">
+                            <div class="flexRow" style="height:100%;">
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                                <div class="rectangleCell"></div>
+                            </div>
+                            </div>
                     </div>
                     <div class="col-1-25 cellLast">
                         {{g.comments}}
