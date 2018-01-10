@@ -1,0 +1,310 @@
+﻿.table {
+    display: table;
+    width: 600px;
+    height: 300px;
+    border: 2px solid blue;
+}
+
+/*.row {
+    display: table-row;
+}*/
+
+.row1 {
+    height: 50px;
+    background: pink;
+}
+
+/*.row2 {
+    height: 100%;
+}*/
+
+.row3 {
+    height: 50px;
+    background: yellow;
+}
+
+.container {
+    height: 100%;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    display: table;
+    width: 640px;
+    height: 960px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+@page {
+    size: letter portrait;
+    margin: 8pt 8pt 8pt 8pt;
+}
+
+/*@page :left {
+    margin-left: 3cm;
+
+    @bottom-left {
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}*/
+
+/*@page :right {
+    margin-left: 4cm;
+
+    @bottom-left {
+        margin: 10pt 0 30pt 0;
+        border-top: .25pt solid #666;
+        font-size: 9pt;
+        color: #333;
+    }
+
+    @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}*/
+
+
+@media screen {
+    body {
+        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+    }
+
+    header {
+        width: 100%;
+        max-width: 1500px;
+    }
+
+    .items {
+        clear: both;
+        display: table;
+        padding: 20px;
+        width: 100%;
+        max-width: 1500px;
+        height: 1px;
+    }
+
+    .table {
+        display: table;
+        width: 600px;
+        height: 300px;
+        border: 2px solid blue;
+    }
+
+
+    /* Factor out common styles for all of the "col-" classes.*/
+    div[class^="col-"] {
+        display: table-cell;
+        padding: 7px;
+    }
+
+    .cellLast {
+        border-bottom: solid 1px black;
+        display: table-cell;
+        height: 100%;
+    }
+
+    .cell {
+        border-right: solid 1px black;
+        border-bottom: solid 1px black;
+        display: table-cell;
+        height: 100%;
+    }
+
+    .rectangleCell {
+        border-right: solid 1px black;
+        width: 20px;
+        height: 100%;
+    }
+
+    .cellRight {
+        border-right: solid 1px black;
+    }
+
+    .firstCell {
+        height: 50px;
+    }
+
+    .absoluteBottom {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        left: 8px;
+    }
+
+    .boundry {
+        width: 100%;
+        max-width: 1500px;
+        padding-left: 20px;
+    }
+
+    .sponsorBox {
+        margin-bottom: 10px;
+    }
+
+    .label {
+        margin-right: 4px;
+    }
+}
+
+@media print {
+    body {
+        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+        font-size: 12pt;
+    }
+
+    .items {
+        clear: both;
+        display: table;
+        padding: 20pt;
+        width: 100%;
+    }
+
+    /* Factor out common styles for all of the "col-" classes.*/
+    div[class^="col-"] {
+        display: table-cell;
+        padding: 7pt;
+    }
+
+    .cellLast {
+        border-bottom: solid 1pt black;
+    }
+
+    .cell {
+        border-right: solid 1pt black;
+        border-bottom: solid 1pt black;
+    }
+
+    .firstCell {
+        height: 40pt;
+    }
+
+    .absoluteBottom {
+        position: absolute;
+        bottom: 8pt;
+        right: 8pt;
+        left: 8pt;
+    }
+
+    .boundry {
+        width: 100%;
+        padding-left: 20pt;
+    }
+
+    .sponsorBox {
+        margin-bottom: 10pt;
+    }
+
+    .label {
+        margin-right: 4pt;
+    }
+}
+
+
+
+
+.relative {
+    position: relative;
+}
+
+
+.memberName {
+    font-weight: bolder;
+}
+
+/*From https://gist.github.com/crowcoder/c4ac49ba30048262db8c*/
+footer:before, header:after {
+    content: " ";
+    display: table;
+}
+
+footer:before {
+    counter-increment: page;
+    content: counter(page) ". ";
+}
+
+footer:after {
+    clear: both;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flexRowCenter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+
+.floatLeft {
+    float: left;
+}
+
+    .floatLeft:after {
+        float: none;
+    }
+
+.floatRight {
+    float: right;
+}
+
+    .floatRight:after {
+        float: none;
+    }
+
+.col-1-10 {
+    width: 10%;
+}
+
+.col-1-15 {
+    width: 15%;
+}
+
+.col-1-20 {
+    width: 20%;
+}
+
+.col-1-25 {
+    width: 25%;
+}
+
+.row {
+    display: table-row;
+    page-break-inside: avoid;
+    height:100%;
+}
+
+.group {
+    page-break-inside: avoid;
+    page-break-before: always;
+}
+
+    .group:first-child {
+        page-break-before: avoid;
+    }

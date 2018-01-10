@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/moment.min.js"></script>
+    <script src="Scripts/moment-timezone-with-data.min.js"></script>
+
+    <script src="config.js"></script>
+    <script src="print.js"></script>
+    <script src="Services/injectCSS.js"></script>
+    <script src="Services/Reports/reportService.js"></script>
+    <script src="Controllers/Reports/activeGuestListController.js"></script>
+
+    <script src="Filters/Reports/phoneFilter.js"></script>
+    <script src="Filters/Reports/sponsorFilter.js"></script>
+    <script src="Filters/Reports/teamFilter.js"></script>
+</head>
+<body ng-app="print">
+    <ng-view></ng-view>
+</body>
+</html>

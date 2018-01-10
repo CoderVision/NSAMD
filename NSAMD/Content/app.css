@@ -24,8 +24,35 @@ md-dialog > md-toolbar {
     overflow:hidden;
 }
 
+.wrapLayout {
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.activeGuestListRptDiag{
+    width: 500px;
+}
+
+.dialogContent{
+    padding:8px;
+    overflow:hidden;
+}
 md-sidenav > md-content > div > .md-button {
     height: 50px;
+}
+.reportCard {
+    width: 250px;
+}
+.reportCard md-card-title {
+    padding-top: 16px;
+}
+.reportCard md-card-content {
+    padding-top: 16px;
+    word-wrap: break-word;
+}
+.reportCard md-card-title span {
+    font-size: 18px;
 }
 
 .md-toast-content {

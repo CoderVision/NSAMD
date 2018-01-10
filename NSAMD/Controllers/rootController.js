@@ -58,7 +58,7 @@ angular.module('app').controller('rootController',
     });
 
     vm.navigateTo = function (routeName, title) {
-        $location.path(routeName);
+        $location.url(routeName);
         vm.currentTitle = title;
 
         var sidenav = $mdSidenav('left');
