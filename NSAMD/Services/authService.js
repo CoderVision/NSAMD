@@ -6,14 +6,14 @@ angular.module('app').factory('authService', ['$q', 'config'
 
         var svc = {};
         //svc.redirect_uri = "https://localhost:44363/#!/callback?",
-        svc.redirect_uri = "https://localhost:44363/",
+        svc.redirect_uri = window.location.protocol + "//" + window.location.host + "/"; // "https://localhost:44363/",
 
             svc.config = {
             client_id: "NtccStewardImplicit",
             //redirect_uri: window.location.protocol + "//" + window.location.host + "/callback",   // "https://localhost:44363/callback.html",
             redirect_uri: svc.redirect_uri,
             response_type: "id_token token",
-            scope: "openid profile",
+            scope: "openid profile ApplicationAccess",
             authority: config.stsUrl + "identity"
             //filterProtocolClaims: true,
             //loadUserInfo: true

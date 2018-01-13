@@ -11,9 +11,21 @@ var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRou
 
 app.constant('config', config);
 
-app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, localStorageServiceProvider) {
+app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, $httpProvider, localStorageServiceProvider) {
 
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|callto|file|tel):/);
+
+    $httpProvider.interceptors.push(function (config, authService) {
+        return {
+            'request': function (requestConfig) {
+                // if it's a request to the api, we need to provide the access token as bearer token
+                if (requestConfig.url.indexOf(config.apiUrl) === 0) {
+                    requestConfig.headers.Authorization = "Bearer " + authService.OidcTokenManager.access_token;
+                }
+                return requestConfig;
+            }
+        };
+    });
 
     // configuration options: https://www.npmjs.com/package/angular-local-storage
     localStorageServiceProvider.setPrefix('nsamd');
