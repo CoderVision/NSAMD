@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('rootController',
-    ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'appService'
-    , function ($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, appService) {
+    ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'appService', 'authService'
+        , function ($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, appService, authService) {
 
     var vm = this;
     vm.mdSidenav = $mdSidenav;
@@ -12,6 +12,28 @@ angular.module('app').controller('rootController',
     vm.isAddItemEventEnabled = false;
     vm.appService = appService;
     vm.menuItems = [];
+    vm.oidcMgr = authService.OidcTokenManager;
+
+
+    var path = $location.url();
+    if (path.indexOf("id_token") > -1){
+
+        authService.processTokenCallbackAsync().then(function (success) {
+
+            $location.path("member");
+
+        }, function (error) {
+
+            vm.openToast("Error logginng in:  " + error);
+            //alert(error);
+        });
+    }
+    else {
+        if (vm.oidcMgr.expired) {
+            vm.oidcMgr.redirectForToken();
+        }
+    }
+            
 
     $scope.$watch('rootCtrl.appService.title', function (newValue, oldValue) {
         if (newValue !== oldValue) {
@@ -43,8 +65,19 @@ angular.module('app').controller('rootController',
     };
 
     vm.logIn = function () {
+        vm.oidcMgr.redirectForToken();
         vm.isLoggedIn = !vm.isLoggedIn;
     };
+
+    vm.logOut = function () {
+        vm.mgr.removeToken();
+        window.location = "index.html";
+    }
+
+    vm.logOutOfIdSrv = function () {
+        debugger;
+        vm.mgr.redirectForLogout();
+    } 
 
     vm.addItem = function ($event) {
         $scope.$broadcast('addItemEvent');
