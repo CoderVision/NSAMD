@@ -20,10 +20,12 @@ angular.module('app').controller('rootController',
 
         authService.processTokenCallbackAsync().then(function (success) {
 
-            $location.path("member");
+            vm.isLoggedIn = true;
+            $location.url($location.path());
 
         }, function (error) {
 
+            vm.isLoggedIn = false;
             vm.openToast("Error logginng in:  " + error);
             //alert(error);
         });
@@ -31,6 +33,9 @@ angular.module('app').controller('rootController',
     else {
         if (vm.oidcMgr.expired) {
             vm.oidcMgr.redirectForToken();
+        }
+        else {
+            vm.isLoggedIn = true;
         }
     }
             
@@ -65,13 +70,20 @@ angular.module('app').controller('rootController',
     };
 
     vm.logIn = function () {
-        vm.oidcMgr.redirectForToken();
-        vm.isLoggedIn = !vm.isLoggedIn;
+
+        if (vm.isLoggedIn) {
+            vm.logOut();
+        }
+        else {
+            vm.oidcMgr.redirectForToken();
+        }
+       
     };
 
     vm.logOut = function () {
-        vm.mgr.removeToken();
+        vm.oidcMgr.removeToken();
         window.location = "index.html";
+        vm.isLoggedIn = false;
     }
 
     vm.logOutOfIdSrv = function () {
