@@ -146,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="Views\App\callback.html" />
     <Content Include="config.js" />
     <Content Include="Content\angular-data-grid.material.css" />
     <Content Include="Content\angular-material-icons\action.svg" />
@@ -182,7 +181,6 @@
     <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\addTeamController.js" />
     <Content Include="Controllers\adminController.js" />
-    <Content Include="Controllers\callBackController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\churchListController.js" />
     <Content Include="Controllers\memberActivityController.js" />

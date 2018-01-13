@@ -56,10 +56,6 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Members/memberActivity.html',
         controller: 'memberActivityController',
         controllerAs: 'mac'
-    }).when('/callback', {
-        templateUrl: './Views/App/callback.html',
-        controller: 'callbackController',
-        controllerAs: 'cbc'
     }).otherwise({
         templateUrl: './Views/Members/membersIndex.html',
         controller: 'memberListController',

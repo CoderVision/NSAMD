@@ -31,12 +31,12 @@ angular.module('app').controller('rootController',
         });
     }
     else {
+
         if (vm.oidcMgr.expired) {
             vm.oidcMgr.redirectForToken();
         }
-        else {
-            vm.isLoggedIn = true;
-        }
+
+        vm.isLoggedIn = true;
     }
             
 
@@ -59,13 +59,6 @@ angular.module('app').controller('rootController',
 
     vm.init = function () {
 
-        //userService.loadAllUsers().then(function (users) {
-        //    vm.users = users;
-        //    vm.selected = users[0];
-        //    userService.selectedUser = vm.selected;
-        //    console.log(vm.users);
-        //});
-
         $location.path("member");
     };
 
@@ -81,9 +74,10 @@ angular.module('app').controller('rootController',
     };
 
     vm.logOut = function () {
-        vm.oidcMgr.removeToken();
-        window.location = "index.html";
-        vm.isLoggedIn = false;
+        vm.oidcMgr.redirectForLogout();
+        //vm.oidcMgr.removeToken();
+        //vm.isLoggedIn = false;
+        //window.location = "index.html";
     }
 
     vm.logOutOfIdSrv = function () {
