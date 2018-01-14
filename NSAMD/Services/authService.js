@@ -9,15 +9,14 @@ angular.module('app').factory('authService', ['$q', 'config'
         svc.redirect_uri = window.location.protocol + "//" + window.location.host + "/"; // "https://localhost:44363/",
 
             svc.config = {
-            client_id: "NtccStewardImplicit",
-            //redirect_uri: window.location.protocol + "//" + window.location.host + "/callback",   // "https://localhost:44363/callback.html",
-            redirect_uri: svc.redirect_uri,
-            response_type: "id_token token",
-            scope: "openid profile ApplicationAccess",
-            authority: config.stsUrl + "identity"
-            //filterProtocolClaims: true,
-            //loadUserInfo: true
-        };
+                client_id: "NtccStewardImplicit",
+                //redirect_uri: window.location.protocol + "//" + window.location.host + "/callback",   // "https://localhost:44363/callback.html",
+                redirect_uri: svc.redirect_uri,
+                response_type: "id_token token",
+                scope: "openid profile ApplicationAccess roles",
+                authority: config.stsUrl + "identity",
+                post_logout_redirect_uri: svc.redirect_uri + "?logout=true"
+           };
 
 
         svc.OidcTokenManager = new OidcTokenManager(svc.config);

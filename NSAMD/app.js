@@ -18,6 +18,12 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     $httpProvider.interceptors.push(function (config, authService) {
         return {
             'request': function (requestConfig) {
+
+                // if access token is expired, redirect to login page
+                if (authService.OidcTokenManager.expired) {
+                    authService.OidcTokenManager.redirectForToken();
+                }
+
                 // if it's a request to the api, we need to provide the access token as bearer token
                 if (requestConfig.url.indexOf(config.apiUrl) === 0) {
                     requestConfig.headers.Authorization = "Bearer " + authService.OidcTokenManager.access_token;
