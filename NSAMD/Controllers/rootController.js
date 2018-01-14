@@ -31,17 +31,11 @@ angular.module('app').controller('rootController',
         });
     }
     else {
-        if (path.indexOf("logout=true") > -1) {
-            // we would end up here if user has logged out
-            vm.isLoggedIn = false;
-        } else {
             if (vm.oidcMgr.expired) {
                 vm.oidcMgr.redirectForToken();
             }
 
             vm.isLoggedIn = true;
-        }
-
     }
             
 
