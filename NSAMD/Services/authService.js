@@ -15,7 +15,9 @@ angular.module('app').factory('authService', ['$q', 'config'
                 response_type: "id_token token",
                 scope: "openid profile ApplicationAccess roles",
                 authority: config.stsUrl + "identity",
-                post_logout_redirect_uri: svc.redirect_uri
+                post_logout_redirect_uri: svc.redirect_uri,
+                silent_redirect_uri: svc.redirect_uri + "silentRefresh.html",
+                silent_renew: true
            };
 
 
