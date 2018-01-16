@@ -12,8 +12,6 @@ angular.module('app').controller('rootController',
     vm.isAddItemEventEnabled = false;
     vm.appService = appService;
     vm.menuItems = [];
-    vm.oidcMgr = authService.OidcTokenManager;
-    vm.callbackOidcMgr = authService.callbackOidcTokenMmanager;
 
     var path = $location.url();
     var tokenIndex = path.indexOf("id_token");
@@ -39,15 +37,11 @@ angular.module('app').controller('rootController',
         //    });
 
         var query = path.substring(tokenIndex-1, path.length - tokenIndex + 1);
-        vm.callbackOidcMgr.processTokenCallbackAsync(query).then(function (success) {
-
-            if (vm.oidcMgr.expired) {
-                vm.oidcMgr.redirectForToken();
-            } else {
+        authService.oidcManager.processTokenCallbackAsync(query).then(function (success) {
 
             vm.isLoggedIn = true;
             $location.url($location.path());
-            }
+
         }, function (error) {
 
             vm.isLoggedIn = false;
@@ -56,8 +50,9 @@ angular.module('app').controller('rootController',
         });
     }
     else {
-        if (vm.oidcMgr.expired) {
-                vm.oidcMgr.redirectForToken();
+        var mgr = authService.oidcManager;
+        if (mgr.expired) {
+            mgr.redirectForToken();
             }
 
         vm.isLoggedIn = true;
@@ -93,13 +88,13 @@ angular.module('app').controller('rootController',
             vm.logOut();
         }
         else {
-            vm.oidcMgr.redirectForToken();
+            authService.oidcManager.redirectForToken();
         }
        
     };
 
     vm.logOut = function () {
-        vm.oidcMgr.redirectForLogout();
+        authService.oidcManager.redirectForLogout();
         //vm.oidcMgr.removeToken();
         //vm.isLoggedIn = false;
         //window.location = "index.html";
