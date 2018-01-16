@@ -13,16 +13,41 @@ angular.module('app').controller('rootController',
     vm.appService = appService;
     vm.menuItems = [];
     vm.oidcMgr = authService.OidcTokenManager;
-
+    vm.callbackOidcMgr = authService.callbackOidcTokenMmanager;
 
     var path = $location.url();
-    if (path.indexOf("id_token") > -1){
+    var tokenIndex = path.indexOf("id_token");
+    if (tokenIndex > -1) {
 
-        authService.processTokenCallbackAsync().then(function (success) {
+        //var config = {
+        //    client_id: "NtccStewardImplicit",
+        //    //redirectUri: window.location.protocol + "//" + window.location.host + "/callback",
+        //    redirect_uri: svc.redirect_uri,
+        //    authority: window.__config.stsUrl + "identity",
+        //    load_user_profile: false
+        //};
+
+        //var mgr = new OidcTokenManager(config);
+
+        //mgr.processTokenCallbackAsync().then(function () {
+
+
+        //    deferred.resolve();
+        //},
+        //    function (error) {
+        //        deferred.reject("Problem Getting Token : " + (error.message || error));
+        //    });
+
+        var query = path.substring(tokenIndex-1, path.length - tokenIndex + 1);
+        vm.callbackOidcMgr.processTokenCallbackAsync(query).then(function (success) {
+
+            if (vm.oidcMgr.expired) {
+                vm.oidcMgr.redirectForToken();
+            } else {
 
             vm.isLoggedIn = true;
             $location.url($location.path());
-
+            }
         }, function (error) {
 
             vm.isLoggedIn = false;
@@ -31,12 +56,13 @@ angular.module('app').controller('rootController',
         });
     }
     else {
-            if (vm.oidcMgr.expired) {
+        if (vm.oidcMgr.expired) {
                 vm.oidcMgr.redirectForToken();
             }
 
-            vm.isLoggedIn = true;
+        vm.isLoggedIn = true;
     }
+
             
 
     $scope.$watch('rootCtrl.appService.title', function (newValue, oldValue) {
