@@ -7,6 +7,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+/* hide the progress bar that is built in to md-autocomplete because it causes a phantom line to appear.  Add a md-progress-linear above the md-autocomplete instead. */
+md-autocomplete > md-autocomplete-wrap > md-progress-linear {
+    display: none;
+}
+
 md-toolbar {
     padding: 8px;
 }
