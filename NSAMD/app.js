@@ -22,9 +22,9 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
                 var mgr = authService.oidcManager;
 
                 // if access token is expired, redirect to login page
-                if (mgr.expired) {
-                    mgr.redirectForToken();
-                }
+                //if (mgr.expired) {
+                //    mgr.redirectForToken();
+                //}
 
                 // if it's a request to the api, we need to provide the access token as bearer token
                 if (requestConfig.url.indexOf(config.apiUrl) === 0) {
