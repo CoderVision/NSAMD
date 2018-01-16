@@ -31,34 +31,9 @@ angular.module('app').factory('authService', ['$q', 'config'
             load_user_profile: false
         };
 
+        //  NOTE:  The problem seems to be that there are 2 different token managers, and they do not share the local storage.
         svc.callbackOidcTokenMmanager = new OidcTokenManager(svc.callbackconfig);
 
-        // load configuration info (enums, etc.)
-        svc.processTokenCallbackAsync = function () {
-
-            var deferred = $q.defer();
-
-            //var config = {
-            //    client_id: "NtccStewardImplicit",
-            //    //redirectUri: window.location.protocol + "//" + window.location.host + "/callback",
-            //    redirect_uri: svc.redirect_uri, 
-            //    authority: window.__config.stsUrl + "identity",
-            //    load_user_profile: false
-            //};
-
-            //var mgr = new OidcTokenManager(config); 
-            
-            //mgr.processTokenCallbackAsync().then(function () {
-            svc.OidcTokenManager.processTokenCallbackAsync().then(function () {
-
-                deferred.resolve();
-            },
-                function (error) {
-                    deferred.reject("Problem Getting Token : " + (error.message || error));
-                });
-
-            return deferred.promise;
-        };
 
         return svc;
     }]);
