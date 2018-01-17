@@ -11,9 +11,29 @@ var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRou
 
 app.constant('config', config);
 
-app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, localStorageServiceProvider) {
+app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, $httpProvider, localStorageServiceProvider) {
 
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|callto|file|tel):/);
+
+    $httpProvider.interceptors.push(function (config, authService) {
+        return {
+            'request': function (requestConfig) {
+
+                var mgr = authService.oidcManager;
+
+                // if access token is expired, redirect to login page
+                //if (mgr.expired) {
+                //    mgr.redirectForToken();
+                //}
+
+                // if it's a request to the api, we need to provide the access token as bearer token
+                if (requestConfig.url.indexOf(config.apiUrl) === 0) {
+                    requestConfig.headers.Authorization = "Bearer " + mgr.access_token;
+                }
+                return requestConfig;
+            }
+        };
+    });
 
     // configuration options: https://www.npmjs.com/package/angular-local-storage
     localStorageServiceProvider.setPrefix('nsamd');
@@ -61,6 +81,8 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controller: 'memberListController',
         controllerAs: 'mlc'
     });
+
+    
 
     $mdThemingProvider.definePalette('green', {
         '50': 'eaf0ec',

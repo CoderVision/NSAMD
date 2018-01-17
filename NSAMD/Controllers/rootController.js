@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('rootController',
-    ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'appService'
-    , function ($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, appService) {
+    ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'appService', 'authService'
+        , function ($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, appService, authService) {
 
     var vm = this;
     vm.mdSidenav = $mdSidenav;
@@ -12,6 +12,53 @@ angular.module('app').controller('rootController',
     vm.isAddItemEventEnabled = false;
     vm.appService = appService;
     vm.menuItems = [];
+
+    var path = $location.url();
+    var tokenIndex = path.indexOf("id_token");
+    if (tokenIndex > -1) {
+
+        //var config = {
+        //    client_id: "NtccStewardImplicit",
+        //    //redirectUri: window.location.protocol + "//" + window.location.host + "/callback",
+        //    redirect_uri: svc.redirect_uri,
+        //    authority: window.__config.stsUrl + "identity",
+        //    load_user_profile: false
+        //};
+
+        //var mgr = new OidcTokenManager(config);
+
+        //mgr.processTokenCallbackAsync().then(function () {
+
+
+        //    deferred.resolve();
+        //},
+        //    function (error) {
+        //        deferred.reject("Problem Getting Token : " + (error.message || error));
+        //    });
+
+        var query = path.substring(tokenIndex-1, path.length - tokenIndex + 1);
+        authService.oidcManager.processTokenCallbackAsync(query).then(function (success) {
+
+            vm.isLoggedIn = true;
+            $location.url($location.path());
+
+        }, function (error) {
+
+            vm.isLoggedIn = false;
+            vm.openToast("Error logginng in:  " + error);
+            //alert(error);
+        });
+    }
+    else {
+        var mgr = authService.oidcManager;
+        if (mgr.expired) {
+            mgr.redirectForToken();
+            }
+
+        vm.isLoggedIn = true;
+    }
+
+            
 
     $scope.$watch('rootCtrl.appService.title', function (newValue, oldValue) {
         if (newValue !== oldValue) {
@@ -32,19 +79,26 @@ angular.module('app').controller('rootController',
 
     vm.init = function () {
 
-        //userService.loadAllUsers().then(function (users) {
-        //    vm.users = users;
-        //    vm.selected = users[0];
-        //    userService.selectedUser = vm.selected;
-        //    console.log(vm.users);
-        //});
-
         $location.path("member");
     };
 
     vm.logIn = function () {
-        vm.isLoggedIn = !vm.isLoggedIn;
+
+        if (vm.isLoggedIn) {
+            vm.logOut();
+        }
+        else {
+            authService.oidcManager.redirectForToken();
+        }
+       
     };
+
+    vm.logOut = function () {
+        authService.oidcManager.redirectForLogout();
+        //vm.oidcMgr.removeToken();
+        //vm.isLoggedIn = false;
+        //window.location = "index.html";
+    }
 
     vm.addItem = function ($event) {
         $scope.$broadcast('addItemEvent');
