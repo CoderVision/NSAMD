@@ -35,9 +35,11 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
         }, function (error) {
 
-            $log.error("error in memberService.getConfig:  " + error);
+            var err = error | err.message;
 
-            deferred.reject("Error retrieving config list");
+            $log.error("error in memberService.getConfig:  " + err);
+
+            deferred.reject("Error retrieving config list" + err);
         });
 
         return deferred.promise;
@@ -58,7 +60,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
         }, function (error) {
 
-            $log.error("error in memberService.getList:  " + error);
+            $log.error("error in memberService.getList:  " + error | error.message);
 
             deferred.reject("Error retrieving member list for church " + churchId);
         });
@@ -78,7 +80,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
         }, function (error) {
 
-            $log.error("error in memberService.get:  " + error);
+            $log.error("error in memberService.get:  " + error | error.message);
 
             deferred.reject("Error retrieving member id " + id);
         });
@@ -103,7 +105,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
         }, function (error) {
 
-            $log.error("error in memberService.get:  " + error);
+            $log.error("error in memberService.get:  " + error | error.message);
 
             deferred.reject("Error retrieving member id " + memberId);
         });
