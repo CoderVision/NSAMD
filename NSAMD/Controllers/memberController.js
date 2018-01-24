@@ -3,14 +3,14 @@
 'use strict';
 
 angular.module('app').controller('memberController',
-    ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService', 'appService'
-    , function ($scope, $routeParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService, appService) {
+    ['$scope', '$stateParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService', 'appService'
+        , function ($scope, $stateParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService, appService) {
 
         var vm = this;
 
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
-        vm.memberId = $routeParams.memberId;
+        vm.memberId = $stateParams.memberId;
         vm.churchId = 3;
 
         vm.member = {};

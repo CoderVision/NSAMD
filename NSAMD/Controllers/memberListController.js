@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('memberListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'memberService', 'appNotificationService', 'appService'
-    , function ($scope, $mdDialog, $mdMedia, $location, $log, memberService, appNotificationService, appService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$log', 'memberService', 'appNotificationService', 'appService', '$state'
+        , function ($scope, $mdDialog, $mdMedia, $log, memberService, appNotificationService, appService, $state) {
 
         var vm = this;
         vm.churchId = 3; // default to the first one that they have access to
@@ -82,11 +82,11 @@ angular.module('app').controller('memberListController',
         vm.searchText = "";
 
         vm.openProfile = function (memberId) {
-            $location.path('/member').search({ memberId: memberId });
+            $state.go('member', { memberId: memberId });
         }
 
         vm.openActivity = function () {
-            $location.path('/activity').search({ churchId: vm.churchId });
+            $state.go('activity', { churchId: vm.churchId });
         }
 
         vm.addItem = function ($event) {

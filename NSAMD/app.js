@@ -7,11 +7,11 @@ if (window) {
     Object.assign(config, window.__config);
 }
 
-var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination', 'ngMask', 'LocalStorageModule']);  // , 'md-date-picker' - not using
+var app = angular.module('app', ['ngMaterial', 'ngMdIcons', 'ngMessages', 'ngRoute', 'dataGrid', 'pagination', 'ngMask', 'LocalStorageModule', 'ui.router']);  // , 'md-date-picker' - not using
 
 app.constant('config', config);
 
-app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, $httpProvider, localStorageServiceProvider) {
+app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compileProvider, $httpProvider, localStorageServiceProvider, $stateProvider, $urlRouterProvider) {
 
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|callto|file|tel):/);
 
@@ -40,49 +40,117 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     localStorageServiceProvider.setStorageType('localStorage');
     localStorageServiceProvider.setDefaultToCookie(true);
 
-    $routeProvider.when('/churches', {
+
+    // new angular-ur-route is more flexible and supports nested routing
+    $urlRouterProvider.otherwise("/Members");
+
+    //https://ui-router.github.io/ng1/
+    https://stackoverflow.com/questions/26138140/angularjs-ui-router-location-or-state
+    $stateProvider.state('churches', {
+        url: '/churches',
         templateUrl: './Views/Churches/churchesIndex.html',
         controller: 'churchListController',
         controllerAs: 'clc'
-    }).when('/church', {
+    }).state('church', {
+        url: '/church/:churchId',
         templateUrl: './Views/Churches/churchProfile.html',
         controller: 'churchController',
         controllerAs: 'cc'
-    }).when('/teams', {
+    }).state('teams', {
+        url: '/teams',
         templateUrl: './Views/Teams/teamsIndex.html',
         controller: 'teamListController',
         controllerAs: 'tlc'
-    }).when('/team', {
+    }).state('team', {
+        url: '/team/:teamId/:churchId',
         templateUrl: './Views/Teams/teamProfile.html',
         controller: 'teamController',
         controllerAs: 'tc'
-    }).when('/admin', {
+    }).state('admin', {
+        url: '/admin',
         templateUrl: './Views/Admin/adminIndex.html',
         controller: 'adminController',
         controllerAs: 'ac'
-    }).when('/perspectives', {
+        }).state('admin.users', {
+            url: '/users',
+            templateUrl: './Views/Admin/users.html',
+            controller: 'adminUsersController',
+            controllerAs: 'ac'
+        })
+
+        .state('perspectives', {
+        url: '/perspectives',
         templateUrl: './Views/Reports/perspectivesIndex.html',
         controller: 'reportsController',
         controllerAs: 'rc'
-    }).when('/perspectives/type/:type', {
-        templateUrl: './Views/Reports/perspectivesIndex.html',
-        controller: 'reportsController',
-        controllerAs: 'rc'
-    }).when('/member', {
+    })
+    //.state('/perspectives/type/:type', {
+    //    url: '/churches',
+    //templateUrl: './Views/Reports/perspectivesIndex.html',
+    //controller: 'reportsController',
+    //controllerAs: 'rc'
+    //})
+    .state('member', {
+        url: '/member/:memberId',
         templateUrl: './Views/Members/memberProfile.html',
         controller: 'memberController',
         controllerAs: 'mc'
-    }).when('/activity', {
+    }).state('activity', {
+        url: '/activity/:churchId',
         templateUrl: './Views/Members/memberActivity.html',
         controller: 'memberActivityController',
         controllerAs: 'mac'
-    }).otherwise({
+    }).state("Members", {
+        url: '/Members',
         templateUrl: './Views/Members/membersIndex.html',
         controller: 'memberListController',
         controllerAs: 'mlc'
     });
 
-    
+    // old angularjs ngRoute
+    //$routeProvider.when('/churches', {
+    //    templateUrl: './Views/Churches/churchesIndex.html',
+    //    controller: 'churchListController',
+    //    controllerAs: 'clc'
+    //}).when('/church', {
+    //    templateUrl: './Views/Churches/churchProfile.html',
+    //    controller: 'churchController',
+    //    controllerAs: 'cc'
+    //}).when('/teams', {
+    //    templateUrl: './Views/Teams/teamsIndex.html',
+    //    controller: 'teamListController',
+    //    controllerAs: 'tlc'
+    //}).when('/team', {
+    //    templateUrl: './Views/Teams/teamProfile.html',
+    //    controller: 'teamController',
+    //    controllerAs: 'tc'
+    //}).when('/admin', {
+    //    templateUrl: './Views/Admin/adminIndex.html',
+    //    controller: 'adminController',
+    //    controllerAs: 'ac'
+    //}).when('/perspectives', {
+    //    templateUrl: './Views/Reports/perspectivesIndex.html',
+    //    controller: 'reportsController',
+    //    controllerAs: 'rc'
+    //}).when('/perspectives/type/:type', {
+    //    templateUrl: './Views/Reports/perspectivesIndex.html',
+    //    controller: 'reportsController',
+    //    controllerAs: 'rc'
+    //}).when('/member', {
+    //    templateUrl: './Views/Members/memberProfile.html',
+    //    controller: 'memberController',
+    //    controllerAs: 'mc'
+    //}).when('/activity', {
+    //    templateUrl: './Views/Members/memberActivity.html',
+    //    controller: 'memberActivityController',
+    //    controllerAs: 'mac'
+    //}).otherwise({
+    //    templateUrl: './Views/Members/membersIndex.html',
+    //    controller: 'memberListController',
+    //    controllerAs: 'mlc'
+    //});
+
+
 
     $mdThemingProvider.definePalette('green', {
         '50': 'eaf0ec',
@@ -101,22 +169,22 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         'A700': '1aff5d',
         'contrastDefaultColor': 'light',
         'contrastDarkColors': [
-          '50',
-          '100',
-          '200',
-          '300',
-          '400',
-          'A100',
-          'A200',
-          'A400',
-          'A700'
+            '50',
+            '100',
+            '200',
+            '300',
+            '400',
+            'A100',
+            'A200',
+            'A400',
+            'A700'
         ],
         'contrastLightColors': [
-          '500',
-          '600',
-          '700',
-          '800',
-          '900'
+            '500',
+            '600',
+            '700',
+            '800',
+            '900'
         ]
     });
     $mdThemingProvider.definePalette('gray', {
@@ -136,20 +204,20 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         'A700': 'ffffff',
         'contrastDefaultColor': 'light',
         'contrastDarkColors': [
-          '50',
-          '100',
-          '200',
-          '300',
-          '400',
-          '500',
-          '600',
-          '700',
-          '800',
-          '900',
-          'A100',
-          'A200',
-          'A400',
-          'A700'
+            '50',
+            '100',
+            '200',
+            '300',
+            '400',
+            '500',
+            '600',
+            '700',
+            '800',
+            '900',
+            'A100',
+            'A200',
+            'A400',
+            'A700'
         ],
         'contrastLightColors': []
     });
@@ -170,33 +238,33 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         'A700': 'ffa6a6',
         'contrastDefaultColor': 'light',
         'contrastDarkColors': [
-          '50',
-          '100',
-          '200',
-          '300',
-          'A100',
-          'A200',
-          'A400',
-          'A700'
+            '50',
+            '100',
+            '200',
+            '300',
+            'A100',
+            'A200',
+            'A400',
+            'A700'
         ],
         'contrastLightColors': [
-          '400',
-          '500',
-          '600',
-          '700',
-          '800',
-          '900'
+            '400',
+            '500',
+            '600',
+            '700',
+            '800',
+            '900'
         ]
     });
 
     $mdThemingProvider.theme('default')
-            //.backgroundPalette('gray')
-            .primaryPalette('green')
-            .accentPalette('gray')
-            .warnPalette('red');
-        //.primaryPalette('grayprimary')
-        //.accentPalette('greenaccent')
-        //.warnPalette('redwarn');
+        //.backgroundPalette('gray')
+        .primaryPalette('green')
+        .accentPalette('gray')
+        .warnPalette('red');
+    //.primaryPalette('grayprimary')
+    //.accentPalette('greenaccent')
+    //.warnPalette('redwarn');
 
     $mdIconProvider
         .iconSet("action", "/Content/angular-material-icons/action.svg")

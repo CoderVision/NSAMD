@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('reportsController',
-    ['$scope', '$window', '$routeParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService'
-    , function ($scope, $window, $routeParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService) {
+    ['$scope', '$window', '$stateParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService'
+        , function ($scope, $window, $stateParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService) {
 
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
