@@ -57,11 +57,12 @@ angular.module('app').controller('memberListController',
 
                 vm.config = success;
 
-            }, function (error) {
-                appNotificationService.openToast("Error loading member config ");
-            });
+                loadMemberList();
 
-            loadMemberList();
+            }, function (error) {
+               // appNotificationService.openToast("Error loading member config ");
+                $log.log(error);
+            });
         }
 
         function loadMemberList() {
