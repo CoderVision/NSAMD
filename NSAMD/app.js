@@ -41,7 +41,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     localStorageServiceProvider.setDefaultToCookie(true);
 
 
-    // new angular-ur-route
+    // new angular-ur-route is more flexible and supports nested routing
     $urlRouterProvider.otherwise("/Members");
 
     //https://ui-router.github.io/ng1/
@@ -71,7 +71,14 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Admin/adminIndex.html',
         controller: 'adminController',
         controllerAs: 'ac'
-    }).state('perspectives', {
+        }).state('admin.users', {
+            url: '/users',
+            templateUrl: './Views/Admin/users.html',
+            controller: 'adminUsersController',
+            controllerAs: 'ac'
+        })
+
+        .state('perspectives', {
         url: '/perspectives',
         templateUrl: './Views/Reports/perspectivesIndex.html',
         controller: 'reportsController',
