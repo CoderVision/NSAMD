@@ -2,15 +2,15 @@
 'use strict';
 
 angular.module('app').controller('teamController',
-    ['$scope', '$routeParams', '$mdDialog', '$mdMedia', '$log', 'teamService', 'appNotificationService', 'appService'
-    , function ($scope, $routeParams, $mdDialog, $mdMedia, $log, teamService, appNotificationService, appService) {
+    ['$scope', '$stateParams', '$mdDialog', '$mdMedia', '$log', 'teamService', 'appNotificationService', 'appService'
+        , function ($scope, $stateParams, $mdDialog, $mdMedia, $log, teamService, appNotificationService, appService) {
 
         var vm = this;
 
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
-        vm.teamId = $routeParams.teamId;
-        vm.churchId = $routeParams.churchId;
+        vm.teamId = $stateParams.teamId;
+        vm.churchId = $stateParams.churchId;
         vm.team = {};
         vm.config = {}
         vm.isLoading = true;

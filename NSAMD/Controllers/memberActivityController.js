@@ -3,11 +3,11 @@
 'use strict';
 
 angular.module('app').controller('memberActivityController',
-    ['$scope', '$mdDialog', '$routeParams', '$mdMedia', '$location', '$log', 'memberService', 'appNotificationService', 'appService'
-    , function ($scope, $mdDialog, $routeParams, $mdMedia, $location, $log, memberService, appNotificationService, appService) {
+    ['$scope', '$mdDialog', '$stateParams', '$mdMedia', '$state', '$log', 'memberService', 'appNotificationService', 'appService'
+        , function ($scope, $mdDialog, $stateParams, $mdMedia, $state, $log, memberService, appNotificationService, appService) {
 
         var vm = this;
-        vm.churchId = $routeParams.churchId;
+        vm.churchId = $stateParams.churchId;
         vm.statusIds = "49-50";
         vm.memberList = [];
         vm.selectedTeamId = 0; // do a watch on this

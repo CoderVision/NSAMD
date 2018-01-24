@@ -1,4 +1,26 @@
 ﻿
-<div layout="row" layout-padding>
+<div layout="column" layout-padding>
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button aria-label="Go Back">
+                Go Back
+            </md-button>
+
+            <md-truncate style="position: absolute; left: 90px; right: 170px; top: 13px; bottom: 13px;">Toolbar with Standard Buttons</md-truncate>
+
+            <span flex></span>
+            <md-button class="md-raised" aria-label="Learn More">
+                Learn More
+            </md-button>
+            <md-button class="md-fab md-mini" aria-label="Favorite">
+                Favorite
+                <!--<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>-->
+            </md-button>
+        </div>
+    </md-toolbar>
+
     <h4>Admin Index Page</h4>
+
+    <div data-ui-view=""></div>
 </div>

@@ -181,6 +181,7 @@
     <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\addTeamController.js" />
     <Content Include="Controllers\adminController.js" />
+    <Content Include="Controllers\adminUsersController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\churchListController.js" />
     <Content Include="Controllers\memberActivityController.js" />
@@ -218,6 +219,7 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -271,6 +273,7 @@
     <Content Include="Services\teamService.js" />
     <Content Include="silentRefresh.html" />
     <Content Include="Views\Admin\adminIndex.html" />
+    <Content Include="Views\Admin\users.html" />
     <Content Include="Views\App\addressDialog.html" />
     <Content Include="Views\App\emailDialog.html" />
     <Content Include="Views\App\messageDialog.html" />
