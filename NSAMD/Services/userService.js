@@ -21,15 +21,36 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                var err = error | err.message;
+                var err = "error in userService.getList:  " +  (error | err.message);
 
-                $log.error("error in memberService.getList:  " + err);
+                $log.error(err);
 
-                deferred.reject("error in memberService.getList:  " + err);
+                deferred.reject(err);
             });
 
             return deferred.promise;
         };
+
+        svc.processAcctRequest = function (acctReq) {
+            var deferred = $q.defer();
+
+            var uri = config.apiUrl + "/account/processAccountRequest";
+
+            $http.post(uri, acctReq).then(function (success) {
+
+                deferred.resolve(success.data);
+
+            }, function (error) {
+
+                var msg = "error in userService.processAcctRequest:  " + (error | error.message);
+
+                $log.error(msg);
+
+                deferred.reject(msg);
+            });
+
+            return deferred.promise;
+        }
 
         //svc.patch = function (memberId, churchId, fieldName, fieldValue) {
 

@@ -12,17 +12,20 @@ angular.module('app').controller('adminUsersController',
             vm.acctRequests = [];
             vm.config = {};
             vm.users = [];
+            vm.isLoading = true;
 
             vm.load = function ()
             {
                 userService.getList().then(function (success) {
 
                     vm.config = success.config;
-                    vm.acctRequests = success.acctRequests;  
+                    vm.acctRequests = success.acctRequests;
                     vm.users = success.users;
 
                 }, function (error) {
                     appNotificationService.openToast("Error loading member config:  " + error);
+                    }).then(function () {
+                        vm.isLoading = false;
                 });
             }
 
@@ -38,6 +41,19 @@ angular.module('app').controller('adminUsersController',
                 return moment.tz(utcDate, moment.tz.guess()).format("L LT");
             }
 
+            vm.submitRequest = function (acctReq, isApproved)
+            {
+                acctReq.isApproved = isApproved;
+
+                userService.processAcctRequest(acctReq).then(function (success) {
+
+                    const index = vm.acctRequests.indexOf(acctReq);
+                    vm.acctRequests.splice(index, 1);
+
+                }, function (error) {
+                    appNotificationService.openToast("Error processing account request:  " + error);
+               });
+            }
 
             return vm;
         }]);

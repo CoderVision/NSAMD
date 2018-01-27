@@ -1,7 +1,7 @@
 ﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="uc.isLoading"></md-progress-linear>
 
-
-<div layout="column" ng-init="uc.load()">
+<div layout="column" ng-init="uc.load()" layout-padding>
 
     <div ng-if="uc.acctRequests.length > 0">
         <md-toolbar class="userToolbar" layout="column" md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
@@ -19,7 +19,6 @@
                         </div>
 
                         <div>
-                            <!--<ng-md-icon icon="expand_more"></ng-md-icon>-->
                             <ng-md-icon icon="{{ acctReq.isExpanded === true ? 'expand_less' : 'expand_more'}}" ng-click="uc.expand(acctReq)"></ng-md-icon>
                         </div>
                     </div>
@@ -132,11 +131,13 @@
                     </div>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button" aria-label="Reject">
+                    <md-button class="md-icon-button" aria-label="Reject"
+                               ng-click="uc.submitRequest(acctReq, false)">
                         Reject
                     </md-button>
-                    <md-button class="md-icon-button" aria-label="Approve"
-                               ng-disabled="acctReqForm.$invalid">
+                    <md-button class="md-icon-button md-primary" aria-label="Approve" type="submit"
+                               ng-disabled="acctReqForm.$invalid"
+                               ng-click="uc.submitRequest(acctReq, true)">
                         Approve
                     </md-button>
                 </md-card-actions>
