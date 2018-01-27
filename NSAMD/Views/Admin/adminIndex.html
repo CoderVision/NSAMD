@@ -1,27 +1,31 @@
 ﻿
 <div layout="column" ng-init="ac.init()">
 
-    <md-toolbar>
+    <md-toolbar class="adminToolbar">
         <div class="md-toolbar-tools">
             <!--<span style="width:100px" ui-sref=".Page1"><a href="">Page-1</a></span>-->
-            <md-button aria-label="Go Back" ui-sref=".users">
-                Go Back
+            <md-button aria-label="Users" ui-sref=".users" >
+                <ng-md-icon icon="people" ></ng-md-icon>
+                <md-tooltip md-direction="bottom">Users</md-tooltip>
             </md-button>
 
-            <md-truncate style="position: absolute; left: 90px; right: 170px; top: 13px; bottom: 13px;">Toolbar with Standard Buttons</md-truncate>
+            <md-button aria-label="Settings" ui-sref=".settings">
+                <ng-md-icon icon="settings"></ng-md-icon>
+                <md-tooltip md-direction="bottom">Settings</md-tooltip>
+            </md-button>
 
-            <span flex></span>
+            <!--settings icon for lists that can be managed
+                md-colors="::{fill: 'default-accent-500-1'}"-->
+
+            <!--<span flex></span>
             <md-button class="md-raised" aria-label="Learn More">
                 Learn More
-            </md-button>
-            <md-button class="md-fab md-mini" aria-label="Favorite">
-                Favorite
-                <!--<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>-->
-            </md-button>
+            </md-button>-->
         </div>
     </md-toolbar>
 
-    <h4>Admin Index Page</h4>
+   <div layout-padding>
+       <div data-ui-view=""></div>
+   </div>
 
-    <div data-ui-view=""></div>
 </div>

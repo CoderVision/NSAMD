@@ -270,8 +270,10 @@
     <Content Include="Services\reportService.js" />
     <Content Include="Services\Reports\reportService.js" />
     <Content Include="Services\teamService.js" />
+    <Content Include="Services\userService.js" />
     <Content Include="silentRefresh.html" />
     <Content Include="Views\Admin\adminIndex.html" />
+    <Content Include="Views\Admin\settings.html" />
     <Content Include="Views\Admin\users.html" />
     <Content Include="Views\App\addressDialog.html" />
     <Content Include="Views\App\emailDialog.html" />

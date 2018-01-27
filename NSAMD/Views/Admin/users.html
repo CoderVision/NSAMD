@@ -1,10 +1,33 @@
 ﻿
 
 
-<div layout="row" layout-padding>
+<div layout="column" ng-init="uc.load()">
 
+    <div ng-if="uc.acctRequests.length > 0">
+        <md-toolbar class="userToolbar" layout="column" md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
+            <div>
+                <span>Review user account requests</span>
+            </div>
+        </md-toolbar>
 
-    <h4>users view.  review account requests, and manage users</h4>
-
+        <md-card class="accountRequestCard" ng-repeat="acctReq in uc.acctRequests">
+            <md-card-contet>
+                <div>
+                    {{acctReq.firstName}}
+                </div>
+                <div>
+                    {{acctReq.lastName}}
+                </div>
+            </md-card-contet>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-icon-button" aria-label="Reject">
+                    Reject
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Approve">
+                    Approve
+                </md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
 
 </div>

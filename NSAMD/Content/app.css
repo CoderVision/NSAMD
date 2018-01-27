@@ -25,10 +25,20 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
-#churchCommTabs md-tab-content {
-    overflow:hidden;
+.userToolbar {
+    min-height:32px;
+}
+.accountRequestCard > md-card-actions > button.md-button {
+    width:auto;
 }
 
+#churchCommTabs md-tab-content {
+    overflow: hidden;
+}
+.adminToolbar {
+    height: 48px;
+    margin-top:1px;
+}
 .wrapLayout {
     -webkit-flex-wrap: wrap; /* Safari 6.1+ */
     display: flex;
@@ -170,6 +180,12 @@ svg{
     fill:#4a7a5a;
     vertical-align:middle;
     cursor:pointer;
+}
+
+.adminToolbar > div > a.md-button > ng-md-icon > svg {
+    fill: #f5f5f5 !important;
+    vertical-align: middle;
+    cursor: pointer;
 }
 
 .pastoralTeamContainer{
