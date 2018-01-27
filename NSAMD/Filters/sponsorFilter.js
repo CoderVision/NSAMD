@@ -1,10 +1,9 @@
 ﻿
-
-angular.module('print').filter('teamFilter', function () {
-    return function (items, team) {
+angular.module('app').filter('sponsorFilter', function () {
+    return function (items, sponsor) {
         var filtered = [];
         for (var i = 0; i < items.length; i++) {
-            if (items[i].teamId == team.teamId) {
+            if (items[i].sponsorId == sponsor.sponsorId) {
                 filtered.push(items[i]);
             }
         }

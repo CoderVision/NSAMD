@@ -1,5 +1,5 @@
 ﻿
-angular.module('print').factory("injectCSS", ['$q', function ($q) {
+angular.module('app').factory("injectCSS", ['$q', function ($q) {
     var injectCSS = {};
 
     var createLink = function(id, url) {
