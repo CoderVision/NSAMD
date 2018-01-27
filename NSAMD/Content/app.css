@@ -25,6 +25,12 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
+.acctReqTitle {
+    font-weight: bold;
+}
+.acctReqDateSubmitted {
+    color: lightgray;
+}
 .userToolbar {
     min-height:32px;
 }

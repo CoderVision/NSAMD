@@ -26,5 +26,18 @@ angular.module('app').controller('adminUsersController',
                 });
             }
 
+            vm.expand = function (item)
+            {
+                if (!item.isExpanded)
+                    item.isExpanded = true; 
+                else
+                    item.isExpanded = false;
+            }
+
+            vm.formatDate = function (utcDate) {
+                return moment.tz(utcDate, moment.tz.guess()).format("L LT");
+            }
+
+
             return vm;
         }]);

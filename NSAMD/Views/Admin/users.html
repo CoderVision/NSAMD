@@ -10,24 +10,139 @@
             </div>
         </md-toolbar>
 
-        <md-card class="accountRequestCard" ng-repeat="acctReq in uc.acctRequests">
-            <md-card-contet>
-                <div>
-                    {{acctReq.firstName}}
-                </div>
-                <div>
-                    {{acctReq.lastName}}
-                </div>
-            </md-card-contet>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-icon-button" aria-label="Reject">
-                    Reject
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Approve">
-                    Approve
-                </md-button>
-            </md-card-actions>
-        </md-card>
+        <form name="acctReqForm" ng-repeat="acctReq in uc.acctRequests">
+            <md-card class="accountRequestCard" >
+                <md-card-header>
+                    <div layout="row" layout-align="space-between center" flex>
+                        <div class="acctReqTitle">
+                            {{acctReq.firstName}} {{acctReq.lastName}}
+                        </div>
+
+                        <div>
+                            <!--<ng-md-icon icon="expand_more"></ng-md-icon>-->
+                            <ng-md-icon icon="{{ acctReq.isExpanded === true ? 'expand_less' : 'expand_more'}}" ng-click="uc.expand(acctReq)"></ng-md-icon>
+                        </div>
+                    </div>
+                </md-card-header>
+
+                <md-card-content ng-if="acctReq.isExpanded">
+                    <div layout="column" flex>
+                        <md-input-container class="md-block">
+                            <label>First Name</label>
+                            <input name="firstName" ng-model="acctReq.firstName" ng-maxlength="50" ng-minlength="2" required />
+                            <div ng-messages="acctReqForm.firstName.$error">
+                                <div ng-message="required">First name is required</div>
+                                <div ng-message="minlength">At least 2 characters required</div>
+                                <div ng-message="maxlength">No more that 50 characters</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Last Name</label>
+                            <input name="lastName" ng-model="acctReq.lastName" ng-maxlength="50" ng-minlength="2" required />
+                            <div ng-messages="acctReqForm.lastName.$error">
+                                <div ng-message="required">Last name is required</div>
+                                <div ng-message="minlength">At least 2 characters required</div>
+                                <div ng-message="maxlength">No more that 50 characters</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Line 1</label>
+                            <input type="text" ng-model="acctReq.line1" name="line1" min="0" ng-maxlength="50" />
+                            <div ng-messages="acctReqForm.line1.$error">
+                                <div ng-message="maxlength">50 characters max</div>
+                            </div>
+                        </md-input-container>
+
+
+                        <div layout="row">
+                            <md-input-container flex>
+                                <label>City</label>
+                                <input type="text" ng-model="acctReq.city" name="city" min="0" ng-maxlength="50" />
+                                <div ng-messages="acctReqForm.city.$error">
+                                    <div ng-message="maxlength">50 characters max</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex="15">
+                                <label>State</label>
+                                <input type="text" ng-model="acctReq.state" name="state" min="0" ng-maxlength="2"
+                                       mask="AA" clean="true" restrict="reject" />
+                                <div ng-messages="acctReqForm.state.$error">
+                                    <div ng-message="maxlength">2 characters max</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex="30">
+                                <label>Zip Code</label>
+                                <input type="text" ng-model="acctReq.zip" name="zip" min="0" ng-maxlength="10" ng-pattern="/^(\d{5}-\d{4}|\d{5})$/" />
+                                <div class="hint" ng-show="showHints">99999-9999</div>
+                                <div ng-messages="acctReqForm.zip.$error">
+                                    <div ng-message="maxlength">10 characters max</div>
+                                    <div ng-message="pattern">Invalid zip code (99999-9999)</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <md-input-container>
+                            <label>Email Address</label>
+                            <!-- http://emailregex.com/ -->
+                            <input type="email" ng-model="acctReq.email" name="email" min="0" ng-maxlength="50" required
+                                   ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/" />
+                            <div class="hint" ng-show="showHints">user@email.com</div>
+                            <div ng-messages="acctReqForm.email.$error">
+                                <div ng-message="required">Email is required</div>
+                                <div ng-message="maxlength">50 characters max</div>
+                                <div ng-message="pattern">Invalid email address</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Church</label>
+                            <md-select ng-model="acctReq.churchId"
+                                       placeholder="Select a church" required
+                                       name="church">
+                                <md-option>Select a church</md-option>
+                                <md-option ng-repeat="item in uc.config.churches" ng-value="{{item.id}}">{{item.name}}</md-option>
+                            </md-select>
+                            <div ng-messages="acctReqForm.church.$error">
+                                <div ng-message="required">Church is required</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Comments</label>
+                            <textarea class="fixedTextArea" ng-model="acctReq.comments" rows="6" md-select-on-focus></textarea>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Role</label>
+                            <md-select ng-model="acctReq.roleId"
+                                       placeholder="Select a role" required
+                                       name="role">
+                                <md-option ng-repeat="item in uc.config.roles" ng-value="{{item.roleId}}">{{item.roleDesc}}</md-option>
+                            </md-select>
+                            <div ng-messages="acctReqForm.role.$error">
+                                <div ng-message="required">Role is required</div>
+                            </div>
+                        </md-input-container>
+
+                        <div class="acctReqDateSubmitted">Date Submitted:  {{uc.formatDate(acctReq.dateSubmitted) }}</div>
+                    </div>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-icon-button" aria-label="Reject">
+                        Reject
+                    </md-button>
+                    <md-button class="md-icon-button" aria-label="Approve"
+                               ng-disabled="acctReqForm.$invalid">
+                        Approve
+                    </md-button>
+                </md-card-actions>
+
+            </md-card>
+        </form>
     </div>
 
 </div>
