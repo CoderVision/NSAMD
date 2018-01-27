@@ -3,7 +3,7 @@
 
 'use strict'
 
-angular.module('print').factory('reportService', ['$http', '$log', '$q', 'config'
+angular.module('app').factory('reportService', ['$http', '$log', '$q', 'config'
     , function ($http, $log, $q, config) {
 
         var svc = {};

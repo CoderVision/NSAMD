@@ -3,7 +3,7 @@
 
 'use strict';
 
-angular.module('print').controller('activeGuestListController',
+angular.module('app').controller('activeGuestListController',
     ['$http', '$routeParams', '$log', 'reportService'
     , function ($http, $routeParams, $log, reportService) {
 
