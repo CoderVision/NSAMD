@@ -9,11 +9,11 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
         var svc = {};
 
       
-        svc.getList = function () {
+        svc.getList = function (active) {
 
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/account/GetUsers";
+            var uri = config.apiUrl + "/account/GetUsers/" + active;
 
             $http.get(uri).then(function (success) {
 

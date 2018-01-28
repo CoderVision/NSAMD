@@ -3,7 +3,7 @@
 
 <div layout="column" ng-init="uc.load()" layout-padding>
 
-    <div ng-if="uc.acctRequests.length > 0">
+    <div ng-if="uc.acctRequests.length > 0" layout-padding>
         <md-toolbar class="userToolbar" layout="column" md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
             <div>
                 <span>Review user account requests</span>
@@ -146,4 +146,42 @@
         </form>
     </div>
 
+
+    <!-- Add user panel.  should have list of users on left, with search box at top.   and user detail on right with save/cancel buttons-->
+    <div layout="row">
+        <div layout="column" flex="50" layout-padding>
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Search</label>
+                <input ng-model="uc.searchText" placeholder="Enter user name" />
+            </md-input-container>
+
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="user in uc.getUsers()" ng-click="uc.edit(user)">
+                    <div class="md-list-item-text">
+                        <h3>{{user.fullName}}</h3>
+                        <h4>{{user.email}}</h4>
+                        <p>{{user.address}}</p>
+                    </div>
+                    <!--<md-button class="md-secondary">Respond</md-button>-->
+                    <div>{{user.role}}</div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </div> 
+        <div layout="column" flex="50" layout-padding>
+            <h3>{{uc.selectedUser.fullName}}</h3>
+
+            <div>
+                
+                {{uc.selectedUser.roleDesc}}
+
+                make this a dropdown list
+            </div>
+
+            <div>
+                church list - make this a multi-select 
+            </div>
+            <!-- no buttons, save automatically using patch -->
+        </div> 
+    </div>
 </div>

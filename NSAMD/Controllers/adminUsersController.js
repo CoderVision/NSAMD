@@ -13,14 +13,24 @@ angular.module('app').controller('adminUsersController',
             vm.config = {};
             vm.users = [];
             vm.isLoading = true;
+            vm.searchText = "";
+            vm.selectedUser = {};
+            vm.filterActive = true;
+
+            vm.edit = function (user) {
+                vm.selectedUser = user;
+            }
 
             vm.load = function ()
             {
-                userService.getList().then(function (success) {
+                userService.getList(vm.filterActive).then(function (success) {
 
                     vm.config = success.config;
                     vm.acctRequests = success.acctRequests;
                     vm.users = success.users;
+
+                    if (vm.users.length > 0)
+                        vm.selectedUser = vm.users[0]; // select the first one in the list
 
                 }, function (error) {
                     appNotificationService.openToast("Error loading member config:  " + error);
@@ -53,6 +63,25 @@ angular.module('app').controller('adminUsersController',
                 }, function (error) {
                     appNotificationService.openToast("Error processing account request:  " + error);
                });
+            }
+
+            vm.getUsers = function ()
+            {
+                var searchCriteria = vm.searchText.trim();
+                if (searchCriteria.length == 0)
+                    return vm.users;
+                else
+                {
+                    searchCriteria = searchCriteria.toLowerCase();
+                    var users = [];
+                    for (var i = 0; i < vm.users.length; i++) {
+                        var user = vm.users[i];
+                        if (user.fullName.toLowerCase().indexOf(searchCriteria) > -1) {
+                            users.push(user);
+                        }
+                    }
+                    return users;
+                }
             }
 
             return vm;
