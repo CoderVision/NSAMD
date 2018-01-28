@@ -24,8 +24,8 @@ angular.module('app').controller('adminUsersController',
 
                 }, function (error) {
                     appNotificationService.openToast("Error loading member config:  " + error);
-                    }).then(function () {
-                        vm.isLoading = false;
+                }).then(function () {
+                    vm.isLoading = false;
                 });
             }
 

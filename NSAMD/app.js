@@ -45,7 +45,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     $urlRouterProvider.otherwise("/Members");
 
     //https://ui-router.github.io/ng1/
-    https://stackoverflow.com/questions/26138140/angularjs-ui-router-location-or-state
+    //https://stackoverflow.com/questions/26138140/angularjs-ui-router-location-or-state
     $stateProvider.state('churches', {
         url: '/churches',
         templateUrl: './Views/Churches/churchesIndex.html',

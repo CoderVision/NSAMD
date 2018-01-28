@@ -11,11 +11,17 @@ angular.module('app').controller('memberListController',
 
         vm.isLoading = false;
         vm.config = {};
+        vm.appService = appService;
 
         // handle add item event from root scope
         $scope.$emit('enableAddItemEvent');
         $scope.$on('addItemEvent', function (event) {
             vm.addItem(event);
+        });
+
+       // required, because the async call causes the member list to load below before the token is parsed.
+        $scope.$on('tokenParsed', function (event) {
+            vm.loadData();
         });
 
         $scope.$watch('mlc.churchId', function (newValue, oldValue) {
@@ -51,6 +57,9 @@ angular.module('app').controller('memberListController',
             appService.title = "Members";
             appService.menuItems = [{ text: "Activity", do: vm.openActivity }];
 
+            if (vm.appService.isLoggedIn === false)
+                return;
+
             vm.isLoading = true;
 
             memberService.getConfig(vm.churchId).then(function (success) {
@@ -60,7 +69,9 @@ angular.module('app').controller('memberListController',
                 loadMemberList();
 
             }, function (error) {
-               // appNotificationService.openToast("Error loading member config ");
+
+                vm.isLoading = false;
+                appNotificationService.openToast("Error loading member config ");
                 $log.log(error);
             });
         }

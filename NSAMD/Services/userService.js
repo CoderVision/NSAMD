@@ -21,7 +21,7 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                var err = "error in userService.getList:  " +  (error | err.message);
+                var err = "error in userService.getList:  " + (error | error.message);
 
                 $log.error(err);
 
