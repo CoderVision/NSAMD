@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('adminUsersController',
-    ['$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'userService', 'appNotificationService'
-        , function ($mdDialog, $mdMedia, $mdBottomSheet, $location, $log, userService, appNotificationService) {
+    ['$scope','$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'userService', 'appNotificationService'
+        , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, userService, appNotificationService) {
 
             var vm = this;
 
@@ -19,10 +19,9 @@ angular.module('app').controller('adminUsersController',
 
             vm.edit = function (user) {
                 vm.selectedUser = user;
-            }
+            }           
 
-            vm.load = function ()
-            {
+            vm.load = function () {
                 userService.getList(vm.filterActive).then(function (success) {
 
                     vm.config = success.config;
@@ -30,7 +29,7 @@ angular.module('app').controller('adminUsersController',
                     vm.users = success.users;
 
                     if (vm.users.length > 0)
-                        vm.selectedUser = vm.users[0]; // select the first one in the list
+                        vm.edit(vm.users[0]); // select the first one in the list
 
                 }, function (error) {
                     appNotificationService.openToast("Error loading member config:  " + error);
@@ -39,10 +38,9 @@ angular.module('app').controller('adminUsersController',
                 });
             }
 
-            vm.expand = function (item)
-            {
+            vm.expand = function (item) {
                 if (!item.isExpanded)
-                    item.isExpanded = true; 
+                    item.isExpanded = true;
                 else
                     item.isExpanded = false;
             }
@@ -51,8 +49,7 @@ angular.module('app').controller('adminUsersController',
                 return moment.tz(utcDate, moment.tz.guess()).format("L LT");
             }
 
-            vm.submitRequest = function (acctReq, isApproved)
-            {
+            vm.submitRequest = function (acctReq, isApproved) {
                 acctReq.isApproved = isApproved;
 
                 userService.processAcctRequest(acctReq).then(function (success) {
@@ -62,16 +59,14 @@ angular.module('app').controller('adminUsersController',
 
                 }, function (error) {
                     appNotificationService.openToast("Error processing account request:  " + error);
-               });
+                });
             }
 
-            vm.getUsers = function ()
-            {
+            vm.getUsers = function () {
                 var searchCriteria = vm.searchText.trim();
                 if (searchCriteria.length == 0)
                     return vm.users;
-                else
-                {
+                else {
                     searchCriteria = searchCriteria.toLowerCase();
                     var users = [];
                     for (var i = 0; i < vm.users.length; i++) {
@@ -84,5 +79,16 @@ angular.module('app').controller('adminUsersController',
                 }
             }
 
+            vm.patch = function (propertyName, value) {
+                return;
+            }
+
+            vm.resetForm = function () {
+                if (vm.selectedUser.roleId == 2)
+                {
+                    $scope.userfrm.$setPristine();
+                    $scope.userfrm.$setUntouched();
+                }
+            }
             return vm;
         }]);

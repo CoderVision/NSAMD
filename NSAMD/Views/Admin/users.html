@@ -1,7 +1,7 @@
 ﻿
 <md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="uc.isLoading"></md-progress-linear>
 
-<div layout="column" ng-init="uc.load()" layout-padding>
+<div layout="column" ng-init="uc.load()" layout-padding ng-cloak>
 
     <div ng-if="uc.acctRequests.length > 0" layout-padding>
         <md-toolbar class="userToolbar" layout="column" md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
@@ -160,7 +160,6 @@
                     <div class="md-list-item-text">
                         <h3>{{user.fullName}}</h3>
                         <h4>{{user.email}}</h4>
-                        <p>{{user.address}}</p>
                     </div>
                     <!--<md-button class="md-secondary">Respond</md-button>-->
                     <div>{{user.role}}</div>
@@ -169,19 +168,50 @@
             </md-list>
         </div> 
         <div layout="column" flex="50" layout-padding>
-            <h3>{{uc.selectedUser.fullName}}</h3>
-
-            <div>
-                
-                {{uc.selectedUser.roleDesc}}
-
-                make this a dropdown list
+            <div class="userDetail">
+                <h3>{{uc.selectedUser.fullName}}</h3>
+                <p>{{uc.selectedUser.email}}</p>
+                <p>{{uc.selectedUser.city}}, {{uc.selectedUser.state}}  {{uc.selectedUser.zip}}</p>
             </div>
 
-            <div>
-                church list - make this a multi-select 
-            </div>
-            <!-- no buttons, save automatically using patch -->
+            <form name="userfrm" flex>
+                <div layout="column" flex>
+
+                    <md-input-container flex>
+                        <label>Role</label>
+                        <md-select ng-model="uc.selectedUser.roleId"
+                                   placeholder="Select a role" required
+                                   name="role"
+                                   ng-change="uc.patch('roleId', uc.selectedUser.roleId);uc.resetForm();"
+                                   ng-model-options='{ debounce: 1000 }'>
+                            <md-option ng-repeat="item in uc.config.roles" ng-value="{{item.roleId}}">{{item.roleDesc}}</md-option>
+                        </md-select>
+                        <div ng-messages="userfrm.role.$error">
+                            <div ng-message="required">Role is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="userAdminNote" ng-if="uc.selectedUser.roleId == 2">
+                        Admins have access to all churches
+                    </div>
+                    <md-input-container flex>
+                        <label>Church(s)</label>
+                        <md-select multiple ng-model="uc.selectedUser.churchIds"
+                                   placeholder="Select a church" 
+                                   required
+                                   name="churches"
+                                   ng-disabled="uc.selectedUser.roleId == 2"
+                                   ng-change="uc.patch('roleId', uc.selectedUser.roleId)"
+                                   ng-model-options='{ debounce: 1000 }'>
+                            <md-option ng-value="[]" ng-if="uc.selectedUser.roleId == 2">All Churches</md-option>
+                            <md-option ng-repeat="item in uc.config.churches" ng-value="{{item.id}}">{{item.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="userfrm.churches.$error" ng-if="uc.selectedUser.roleId != 2 && userfrm.churches.$touched">
+                            <div ng-message="required">Church is required</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </form>
         </div> 
     </div>
-</div>
+</div>.

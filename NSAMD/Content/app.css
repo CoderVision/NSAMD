@@ -25,6 +25,25 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
+.userAdminNote {
+    font-style: italic;
+    color: rgba(0,0,0,0.38);
+}
+
+.userDetail > p {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.userDetail > h3 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 .acctReqTitle {
     font-weight: bold;
 }
