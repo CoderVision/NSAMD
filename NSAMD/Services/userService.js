@@ -52,30 +52,27 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
             return deferred.promise;
         }
 
-        //svc.patch = function (memberId, churchId, fieldName, fieldValue) {
+        svc.patch = function (userId, patchDocument) {
 
-        //    var deferred = $q.defer();
+            var deferred = $q.defer();
 
-        //    var uri = config.apiUrl + "/Members?id=" + memberId + "&churchId=" + churchId;
-        //    var patchDocument = [{
-        //        "op": "replace",
-        //        "path": "/" + fieldName,
-        //        "value": fieldValue
-        //    }];
+            var uri = config.apiUrl + "/account/" + userId;
 
-        //    $http.patch(uri, patchDocument).then(function (success) {
+            $http.patch(uri, patchDocument).then(function (success) {
 
-        //        deferred.resolve(success.data);
+                deferred.resolve(success.data);
 
-        //    }, function (error) {
+            }, function (error) {
 
-        //        $log.error("error in memberService.get:  " + error | error.message);
+                var x = "error in userService.patch:  " + error | error.message;
 
-        //        deferred.reject("Error retrieving member id " + memberId);
-        //    });
+                $log.error(x);
 
-        //    return deferred.promise;
-        //}
+                deferred.reject(x);
+            });
+
+            return deferred.promise;
+        }
 
         //svc.save = function (addy) {
         //    var deferred = $q.defer();

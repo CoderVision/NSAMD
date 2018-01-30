@@ -160,6 +160,7 @@
                     <div class="md-list-item-text">
                         <h3>{{user.fullName}}</h3>
                         <h4>{{user.email}}</h4>
+                        <p>{{user.roleDesc}}</p>
                     </div>
                     <!--<md-button class="md-secondary">Respond</md-button>-->
                     <div>{{user.role}}</div>
@@ -182,7 +183,7 @@
                         <md-select ng-model="uc.selectedUser.roleId"
                                    placeholder="Select a role" required
                                    name="role"
-                                   ng-change="uc.patch('roleId', uc.selectedUser.roleId);uc.resetForm();"
+                                   ng-change="uc.patch('roleId', uc.selectedUser.roleId);"
                                    ng-model-options='{ debounce: 1000 }'>
                             <md-option ng-repeat="item in uc.config.roles" ng-value="{{item.roleId}}">{{item.roleDesc}}</md-option>
                         </md-select>
@@ -201,7 +202,7 @@
                                    required
                                    name="churches"
                                    ng-disabled="uc.selectedUser.roleId == 2"
-                                   ng-change="uc.patch('roleId', uc.selectedUser.roleId)"
+                                   ng-change="uc.patch('churchIds', uc.selectedUser.churchIds)"
                                    ng-model-options='{ debounce: 1000 }'>
                             <md-option ng-value="[]" ng-if="uc.selectedUser.roleId == 2">All Churches</md-option>
                             <md-option ng-repeat="item in uc.config.churches" ng-value="{{item.id}}">{{item.name}}</md-option>

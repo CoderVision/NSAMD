@@ -79,13 +79,47 @@ angular.module('app').controller('adminUsersController',
                 }
             }
 
+
             vm.patch = function (propertyName, value) {
-                return;
+
+                var patchDocument = [];
+
+                if (propertyName == "roleId" && value == 2)
+                {
+                    // if the user is an admin
+                    patchDocument = [{
+                        "op": "replace",
+                        "path": "/roleId",
+                        "value": "2"
+                    },
+                    {
+                        "op": "replace",
+                        "path": "/churchIds",
+                        "value": []
+                    }];
+                }
+                else {
+                    patchDocument = [{
+                        "op": "replace",
+                        "path": "/" + propertyName,
+                        "value": value
+                    }];
+                }
+
+                userService.patch(vm.selectedUser.userId, patchDocument).then(function (success) {
+                    // do nothing
+                    //var s = success;
+                    vm.resetForm();
+
+                }, function (error) {
+                    appNotificationService.openToast("Error saving user:  " + error);
+                })
             }
 
             vm.resetForm = function () {
                 if (vm.selectedUser.roleId == 2)
                 {
+                    vm.selectedUser.churchIds = [];
                     $scope.userfrm.$setPristine();
                     $scope.userfrm.$setUntouched();
                 }
