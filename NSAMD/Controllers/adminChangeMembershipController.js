@@ -12,6 +12,8 @@ angular.module('app')
             vm.currentItem = currentItem;
             vm.memberSearchText = "";
             vm.selectedMember;
+            vm.mergeMember = true;
+            vm.changeMember = false;
 
             vm.memberSearch = function (searchText) {
 

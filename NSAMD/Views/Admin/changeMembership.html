@@ -48,50 +48,12 @@
                 </md-autocomplete>
 
 
-
-
-                <!--<md-autocomplete ng-if="dc.currentItem.SourceId <= 1"
-                                 md-search-text="dc.searchText"
-                                 md-items="part in dc.searchParts()"
-                                 md-item-text="part.Desc"
-                                 md-input-minlength="1"
-                                 placeholder="Search for parts"
-                                 md-selected-item-change="dc.getPartPrice()"
-                                 md-no-cache="true"
-                                 md-delay="500"
-                                 md-autoselect="false"
-                                 md-floating-label="Part"
-                                 required
-                                 md-input-name="name"
-                                 md-selected-item="dc.searchSelectedItem"
-                                 md-autofocus
-                                 md-clear-button="true"
-                                 md-require-match="true"
-                                 ng-disabled="dc.isEnabled == false">
-                    <md-item-template>
-                        
-                        <div layout="column" layout-align="start start">
-                            <span class="item-title" md-highlight-text="vm.searchText" md-highlight-flags="^i">{{part.Desc}}</span>
-                            <span class="item-metadata" style="color:lightgray;">{{part.ManufacturerName}} part number:  {{part.PartNumber}}</span>
-                        </div>
-                    </md-item-template>
-                    <md-not-found>
-                        No parts matching "{{dc.searchText}}" were found.
-                    </md-not-found>
-                    <div ng-messages="partForm.name.$error">
-                        <div ng-message="required">Part name is required</div>
-                        <div ng-message="minlength">3 or more characters are required</div>
-                    </div>
-                </md-autocomplete>-->
-
-
-                <!--example:
-                    <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item}}</span>
-                    </md-item-template>
-                </md-autocomplete>-->
-
+                <md-switch class="md-primary" name="married" ng-model="dc.changeMember">
+                    <span ng-if="dc.changeMember == false">Do NOT </span>Change to this member and delete the current one
+                </md-switch>
+                <md-switch class="md-primary" name="veteran" ng-model="dc.mergeMember">
+                    <span ng-if="dc.mergeMember == false">Do NOT </span>Merge with this member and combine together
+                </md-switch>
             </div>
         </md-dialog-content>
 
@@ -100,7 +62,7 @@
                 Cancel
             </md-button>
             <md-button type="submit" class="md-primary md-confirm-button"
-                       ng-disabled="emailForm.$invalid">
+                       ng-disabled="chgMbrForm.$invalid">
                 Save
             </md-button>
         </md-dialog-actions>
