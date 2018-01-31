@@ -159,7 +159,7 @@
                 <md-list-item class="md-3-line" ng-repeat="user in uc.getUsers()" ng-click="uc.edit(user)">
                     <div class="md-list-item-text">
                         <h3>{{user.fullName}}</h3>
-                        <h4>{{user.email}}</h4>
+                        <h4>{{user.church}}</h4>
                         <p>{{user.roleDesc}}</p>
                     </div>
                     <!--<md-button class="md-secondary">Respond</md-button>-->
@@ -171,6 +171,7 @@
         <div layout="column" flex="50" layout-padding>
             <div class="userDetail">
                 <h3>{{uc.selectedUser.fullName}}</h3>
+                <p>{{uc.selectedUser.church}}</p>
                 <p>{{uc.selectedUser.email}}</p>
                 <p>{{uc.selectedUser.city}}, {{uc.selectedUser.state}}  {{uc.selectedUser.zip}}</p>
             </div>
@@ -211,6 +212,13 @@
                             <div ng-message="required">Church is required</div>
                         </div>
                     </md-input-container>
+                    <div flex>
+                        <md-button class="md-icon-button" aria-label="Change Membership"
+                                   ng-click="uc.changeMembership($event)"
+                                   style="width:auto;">
+                            Change Membership
+                        </md-button>
+                    </div>
                 </div>
             </form>
         </div> 

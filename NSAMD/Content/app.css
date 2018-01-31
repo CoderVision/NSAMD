@@ -103,8 +103,33 @@ md-sidenav > md-content > div > .md-button {
     width:600px;
 }
 
-.addMemberDiag{
-    width:600px;
+.changeMembershipDiag {
+    width: 400px;
+}
+
+md-autocomplete .md-show-clear-button button md-icon {
+    top: -10px;
+}
+
+
+md-autocomplete {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+    md-autocomplete > md-autocomplete-wrap > md-input-container {
+        margin-top: 0px !important;
+    }
+
+.item-title,
+.item-metadata {
+    display: block!important;
+    line-height: 20px!important;
+}
+
+
+.addMemberDiag {
+    width: 600px;
 }
 
 .addTeamDiag {

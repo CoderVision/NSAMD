@@ -74,6 +74,28 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
             return deferred.promise;
         }
 
+        svc.getMembers = function (searchText) {
+
+            var deferred = $q.defer();
+
+            var uri = config.apiUrl + "/members/criteria/" + searchText;
+
+            $http.get(uri).then(function (success) {
+
+                deferred.resolve(success.data);
+
+            }, function (error) {
+
+                var ex = "error in userService.getMembers:  " + (error | error.message);
+
+                $log.error(ex);
+
+                deferred.reject(ex);
+            });
+
+            return deferred.promise;
+        };
+
         //svc.save = function (addy) {
         //    var deferred = $q.defer();
 

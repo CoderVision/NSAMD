@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('app').controller('adminUsersController',
-    ['$scope','$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'userService', 'appNotificationService'
-        , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, userService, appNotificationService) {
+    ['$scope','$mdDialog', '$mdMedia', '$location', '$log', 'userService', 'appNotificationService'
+        , function ($scope, $mdDialog, $mdMedia, $location, $log, userService, appNotificationService) {
 
             var vm = this;
 
@@ -123,6 +123,35 @@ angular.module('app').controller('adminUsersController',
                     $scope.userfrm.$setPristine();
                     $scope.userfrm.$setUntouched();
                 }
+            }
+
+            vm.changeMembership = function ($event)
+            {
+                // open a dialog with the following:
+                // a member search box  - md auto complete?
+                // dropdown list of members
+                // checkbox to merge member profiles
+                // checkbox to change member profiles - delete one associated with user and assign to new
+                // 
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+                $mdDialog.show({
+                    locals: { currentItem: vm.selectedUser },
+                    templateUrl: './views/admin/changeMembership.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    controller: "adminChangeMembershipController",
+                    controllerAs: 'dc', // dc = dialog controller
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen
+                }).then(function (editedItem) {
+
+                    vm.selectedUser.churchId = editedItem.churchId;
+                    vm.selectedUser.church = editedItem.church;
+
+                }, function () {
+                    $log.info("change membership cancelled");
+                });
             }
             return vm;
         }]);
