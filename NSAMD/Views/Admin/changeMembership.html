@@ -62,8 +62,9 @@
                 Cancel
             </md-button>
             <md-button type="submit" class="md-primary md-confirm-button"
-                       ng-disabled="chgMbrForm.$invalid">
-                Save
+                       ng-disabled="chgMbrForm.$invalid || (dc.changeMember == false && dc.mergeMember == false)">
+                <span ng-if="dc.changeMember == true && dc.mergeMember == false">Change</span>
+                <span ng-if="dc.mergeMember == true || dc.changeMember == false">Merge</span>
             </md-button>
         </md-dialog-actions>
     </form>
