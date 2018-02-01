@@ -1,6 +1,6 @@
 ﻿<
 
-<md-dialog class="changeMembershipDiag" ng-init="dc.load()">
+<md-dialog class="changeMembershipDiag">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Change User Membership</h2>
@@ -14,7 +14,9 @@
     <form name="chgMbrForm" ng-submit="dc.save()">
         <md-dialog-content>
             <div layout="column" layout-padding>
-
+                <span>
+                    Merge this user with a different member profile when a user has two member profiles:  an existing one, and one that was created when they requested a user account.
+                </span>
                 <md-autocomplete md-selected-item="dc.selectedMember"
                                  md-search-text="dc.memberSearchText"
                                  md-items="member in dc.memberSearch(dc.memberSearchText)"
@@ -47,13 +49,6 @@
                     </div>
                 </md-autocomplete>
 
-
-                <md-switch class="md-primary" name="married" ng-model="dc.changeMember">
-                    <span ng-if="dc.changeMember == false">Do NOT </span>Change to this member and delete the current one
-                </md-switch>
-                <md-switch class="md-primary" name="veteran" ng-model="dc.mergeMember">
-                    <span ng-if="dc.mergeMember == false">Do NOT </span>Merge with this member and combine together
-                </md-switch>
             </div>
         </md-dialog-content>
 
@@ -62,9 +57,8 @@
                 Cancel
             </md-button>
             <md-button type="submit" class="md-primary md-confirm-button"
-                       ng-disabled="chgMbrForm.$invalid || (dc.changeMember == false && dc.mergeMember == false)">
-                <span ng-if="dc.changeMember == true && dc.mergeMember == false">Change</span>
-                <span ng-if="dc.mergeMember == true || dc.changeMember == false">Merge</span>
+                       ng-disabled="chgMbrForm.$invalid">
+                Merge
             </md-button>
         </md-dialog-actions>
     </form>

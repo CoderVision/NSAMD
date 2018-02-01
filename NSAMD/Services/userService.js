@@ -74,46 +74,27 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
             return deferred.promise;
         }
 
-        svc.getMembers = function (searchText) {
 
+        svc.save = function (user) {
             var deferred = $q.defer();
 
-            var uri = config.apiUrl + "/members/criteria/" + searchText;
+            var uri = config.apiUrl + "/account";
 
-            $http.get(uri).then(function (success) {
+            $http.post(uri, user).then(function (success) {
 
                 deferred.resolve(success.data);
 
             }, function (error) {
 
-                var ex = "error in userService.getMembers:  " + (error | error.message);
+                var err = "error in userService.save:  " + (error | error.message);
 
-                $log.error(ex);
+                $log.error(err);
 
-                deferred.reject(ex);
+                deferred.reject(err);
             });
 
             return deferred.promise;
-        };
-
-        //svc.save = function (addy) {
-        //    var deferred = $q.defer();
-
-        //    var uri = config.apiUrl + "/Members/" + addy.identityId + "/" + addy.type;
-
-        //    $http.post(uri, addy).then(function (success) {
-
-        //        deferred.resolve(success.data);
-
-        //    }, function (error) {
-
-        //        $log.error("error in memberService.saveAddy:  " + error);
-
-        //        deferred.reject("Error retrieving address id " + addy.id);
-        //    });
-
-        //    return deferred.promise;
-        //}
+        }
 
         return svc;
     }]);
