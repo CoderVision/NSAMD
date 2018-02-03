@@ -1,10 +1,226 @@
 ﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="uc.isLoading"></md-progress-linear>
+
+<div layout="column" ng-init="uc.load()" layout-padding ng-cloak>
+
+    <div ng-if="uc.acctRequests.length > 0" layout-padding>
+        <md-toolbar class="userToolbar" layout="column" md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
+            <div>
+                <span>Review user account requests</span>
+            </div>
+        </md-toolbar>
+
+        <form name="acctReqForm" ng-repeat="acctReq in uc.acctRequests">
+            <md-card class="accountRequestCard" >
+                <md-card-header>
+                    <div layout="row" layout-align="space-between center" flex>
+                        <div class="acctReqTitle">
+                            {{acctReq.firstName}} {{acctReq.lastName}}
+                        </div>
+
+                        <div>
+                            <ng-md-icon icon="{{ acctReq.isExpanded === true ? 'expand_less' : 'expand_more'}}" ng-click="uc.expand(acctReq)"></ng-md-icon>
+                        </div>
+                    </div>
+                </md-card-header>
+
+                <md-card-content ng-if="acctReq.isExpanded">
+                    <div layout="column" flex>
+                        <md-input-container class="md-block">
+                            <label>First Name</label>
+                            <input name="firstName" ng-model="acctReq.firstName" ng-maxlength="50" ng-minlength="2" required />
+                            <div ng-messages="acctReqForm.firstName.$error">
+                                <div ng-message="required">First name is required</div>
+                                <div ng-message="minlength">At least 2 characters required</div>
+                                <div ng-message="maxlength">No more that 50 characters</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex>
+                            <label>Last Name</label>
+                            <input name="lastName" ng-model="acctReq.lastName" ng-maxlength="50" ng-minlength="2" required />
+                            <div ng-messages="acctReqForm.lastName.$error">
+                                <div ng-message="required">Last name is required</div>
+                                <div ng-message="minlength">At least 2 characters required</div>
+                                <div ng-message="maxlength">No more that 50 characters</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Line 1</label>
+                            <input type="text" ng-model="acctReq.line1" name="line1" min="0" ng-maxlength="50" />
+                            <div ng-messages="acctReqForm.line1.$error">
+                                <div ng-message="maxlength">50 characters max</div>
+                            </div>
+                        </md-input-container>
 
 
-<div layout="row" layout-padding>
+                        <div layout="row">
+                            <md-input-container flex>
+                                <label>City</label>
+                                <input type="text" ng-model="acctReq.city" name="city" min="0" ng-maxlength="50" />
+                                <div ng-messages="acctReqForm.city.$error">
+                                    <div ng-message="maxlength">50 characters max</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex="15">
+                                <label>State</label>
+                                <input type="text" ng-model="acctReq.state" name="state" min="0" ng-maxlength="2"
+                                       mask="AA" clean="true" restrict="reject" />
+                                <div ng-messages="acctReqForm.state.$error">
+                                    <div ng-message="maxlength">2 characters max</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex="30">
+                                <label>Zip Code</label>
+                                <input type="text" ng-model="acctReq.zip" name="zip" min="0" ng-maxlength="10" ng-pattern="/^(\d{5}-\d{4}|\d{5})$/" />
+                                <div class="hint" ng-show="showHints">99999-9999</div>
+                                <div ng-messages="acctReqForm.zip.$error">
+                                    <div ng-message="maxlength">10 characters max</div>
+                                    <div ng-message="pattern">Invalid zip code (99999-9999)</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <md-input-container>
+                            <label>Email Address</label>
+                            <!-- http://emailregex.com/ -->
+                            <input type="email" ng-model="acctReq.email" name="email" min="0" ng-maxlength="50" required
+                                   ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/" />
+                            <div class="hint" ng-show="showHints">user@email.com</div>
+                            <div ng-messages="acctReqForm.email.$error">
+                                <div ng-message="required">Email is required</div>
+                                <div ng-message="maxlength">50 characters max</div>
+                                <div ng-message="pattern">Invalid email address</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Church</label>
+                            <md-select ng-model="acctReq.churchId"
+                                       placeholder="Select a church" required
+                                       name="church">
+                                <md-option>Select a church</md-option>
+                                <md-option ng-repeat="item in uc.config.churches" ng-value="{{item.id}}">{{item.name}}</md-option>
+                            </md-select>
+                            <div ng-messages="acctReqForm.church.$error">
+                                <div ng-message="required">Church is required</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Comments</label>
+                            <textarea class="fixedTextArea" ng-model="acctReq.comments" rows="6" md-select-on-focus></textarea>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Role</label>
+                            <md-select ng-model="acctReq.roleId"
+                                       placeholder="Select a role" required
+                                       name="role">
+                                <md-option ng-repeat="item in uc.config.roles" ng-value="{{item.roleId}}">{{item.roleDesc}}</md-option>
+                            </md-select>
+                            <div ng-messages="acctReqForm.role.$error">
+                                <div ng-message="required">Role is required</div>
+                            </div>
+                        </md-input-container>
+
+                        <div class="acctReqDateSubmitted">Date Submitted:  {{uc.formatDate(acctReq.dateSubmitted) }}</div>
+                    </div>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-icon-button" aria-label="Reject"
+                               ng-click="uc.submitRequest(acctReq, false)">
+                        Reject
+                    </md-button>
+                    <md-button class="md-icon-button md-primary" aria-label="Approve" type="submit"
+                               ng-disabled="acctReqForm.$invalid"
+                               ng-click="uc.submitRequest(acctReq, true)">
+                        Approve
+                    </md-button>
+                </md-card-actions>
+
+            </md-card>
+        </form>
+    </div>
 
 
-    <h4>users view.  review account requests, and manage users</h4>
+    <!-- Add user panel.  should have list of users on left, with search box at top.   and user detail on right with save/cancel buttons-->
+    <div layout="row">
+        <div layout="column" flex="50" layout-padding>
+            <md-input-container class="md-block" >
+                <label>Search</label>
+                <input ng-model="uc.searchText" placeholder="Enter user name" />
+            </md-input-container>
 
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="user in uc.getUsers()" ng-click="uc.edit(user)">
+                    <div class="md-list-item-text">
+                        <h3>{{user.fullName}}</h3>
+                        <h4>{{user.church}}</h4>
+                        <p>{{user.roleDesc}}</p>
+                    </div>
+                    <!--<md-button class="md-secondary">Respond</md-button>-->
+                    <div>{{user.role}}</div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </div> 
+        <div layout="column" flex="50" layout-padding>
+            <div class="userDetail">
+                <h3>{{uc.selectedUser.fullName}}</h3>
+                <p>{{uc.selectedUser.church}}</p>
+                <p>{{uc.selectedUser.email}}</p>
+                <p>{{uc.selectedUser.city}}, {{uc.selectedUser.state}}  {{uc.selectedUser.zip}}</p>
+            </div>
 
-</div>
+            <form name="userfrm" flex>
+                <div layout="column" flex>
+
+                    <md-input-container flex>
+                        <label>Role</label>
+                        <md-select ng-model="uc.selectedUser.roleId"
+                                   placeholder="Select a role" required
+                                   name="role"
+                                   ng-change="uc.patch('roleId', uc.selectedUser.roleId);"
+                                   ng-model-options='{ debounce: 1000 }'>
+                            <md-option ng-repeat="item in uc.config.roles" ng-value="{{item.roleId}}">{{item.roleDesc}}</md-option>
+                        </md-select>
+                        <div ng-messages="userfrm.role.$error">
+                            <div ng-message="required">Role is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="userAdminNote" ng-if="uc.selectedUser.roleId == 2">
+                        Admins have access to all churches
+                    </div>
+                    <md-input-container flex>
+                        <label>Church(s)</label>
+                        <md-select multiple ng-model="uc.selectedUser.churchIds"
+                                   placeholder="Select a church" 
+                                   required
+                                   name="churches"
+                                   ng-disabled="uc.selectedUser.roleId == 2"
+                                   ng-change="uc.patch('churchIds', uc.selectedUser.churchIds)"
+                                   ng-model-options='{ debounce: 1000 }'>
+                            <md-option ng-value="[]" ng-if="uc.selectedUser.roleId == 2">All Churches</md-option>
+                            <md-option ng-repeat="item in uc.config.churches" ng-value="{{item.id}}">{{item.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="userfrm.churches.$error" ng-if="uc.selectedUser.roleId != 2 && userfrm.churches.$touched">
+                            <div ng-message="required">Church is required</div>
+                        </div>
+                    </md-input-container>
+                    <div flex>
+                        <md-button class="md-icon-button" aria-label="Change Membership"
+                                   ng-click="uc.changeMembership($event)"
+                                   style="width:auto;">
+                            Change Membership
+                        </md-button>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </div>
+</div>.

@@ -45,7 +45,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     $urlRouterProvider.otherwise("/Members");
 
     //https://ui-router.github.io/ng1/
-    https://stackoverflow.com/questions/26138140/angularjs-ui-router-location-or-state
+    //https://stackoverflow.com/questions/26138140/angularjs-ui-router-location-or-state
     $stateProvider.state('churches', {
         url: '/churches',
         templateUrl: './Views/Churches/churchesIndex.html',
@@ -71,25 +71,23 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Admin/adminIndex.html',
         controller: 'adminController',
         controllerAs: 'ac'
-        }).state('admin.users', {
-            url: '/users',
-            templateUrl: './Views/Admin/users.html',
-            controller: 'adminUsersController',
-            controllerAs: 'ac'
-        })
-
-        .state('perspectives', {
+    }).state('admin.users', {
+        url: '/users',
+        templateUrl: './Views/Admin/users.html',
+        controller: 'adminUsersController',
+        controllerAs: 'uc'
+    }).state('admin.settings', {
+            url: '/settings',
+            templateUrl: './Views/Admin/settings.html'
+            //controller: 'adminUsersController',
+            //controllerAs: 'uc'
+    })
+    .state('perspectives', {
         url: '/perspectives',
         templateUrl: './Views/Reports/perspectivesIndex.html',
         controller: 'reportsController',
         controllerAs: 'rc'
     })
-    //.state('/perspectives/type/:type', {
-    //    url: '/churches',
-    //templateUrl: './Views/Reports/perspectivesIndex.html',
-    //controller: 'reportsController',
-    //controllerAs: 'rc'
-    //})
     .state('member', {
         url: '/member/:memberId',
         templateUrl: './Views/Members/memberProfile.html',
@@ -106,50 +104,6 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controller: 'memberListController',
         controllerAs: 'mlc'
     });
-
-    // old angularjs ngRoute
-    //$routeProvider.when('/churches', {
-    //    templateUrl: './Views/Churches/churchesIndex.html',
-    //    controller: 'churchListController',
-    //    controllerAs: 'clc'
-    //}).when('/church', {
-    //    templateUrl: './Views/Churches/churchProfile.html',
-    //    controller: 'churchController',
-    //    controllerAs: 'cc'
-    //}).when('/teams', {
-    //    templateUrl: './Views/Teams/teamsIndex.html',
-    //    controller: 'teamListController',
-    //    controllerAs: 'tlc'
-    //}).when('/team', {
-    //    templateUrl: './Views/Teams/teamProfile.html',
-    //    controller: 'teamController',
-    //    controllerAs: 'tc'
-    //}).when('/admin', {
-    //    templateUrl: './Views/Admin/adminIndex.html',
-    //    controller: 'adminController',
-    //    controllerAs: 'ac'
-    //}).when('/perspectives', {
-    //    templateUrl: './Views/Reports/perspectivesIndex.html',
-    //    controller: 'reportsController',
-    //    controllerAs: 'rc'
-    //}).when('/perspectives/type/:type', {
-    //    templateUrl: './Views/Reports/perspectivesIndex.html',
-    //    controller: 'reportsController',
-    //    controllerAs: 'rc'
-    //}).when('/member', {
-    //    templateUrl: './Views/Members/memberProfile.html',
-    //    controller: 'memberController',
-    //    controllerAs: 'mc'
-    //}).when('/activity', {
-    //    templateUrl: './Views/Members/memberActivity.html',
-    //    controller: 'memberActivityController',
-    //    controllerAs: 'mac'
-    //}).otherwise({
-    //    templateUrl: './Views/Members/membersIndex.html',
-    //    controller: 'memberListController',
-    //    controllerAs: 'mlc'
-    //});
-
 
 
     $mdThemingProvider.definePalette('green', {

@@ -1,0 +1,65 @@
+﻿<
+
+<md-dialog class="changeMembershipDiag">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Change User Membership</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="dc.cancel()">
+                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form name="chgMbrForm" ng-submit="dc.save()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+                <span>
+                    Merge this user with a different member profile when a user has two member profiles:  an existing one, and one that was created when they requested a user account.
+                </span>
+                <md-autocomplete md-selected-item="dc.selectedMember"
+                                 md-search-text="dc.memberSearchText"
+                                 md-items="member in dc.memberSearch(dc.memberSearchText)"
+                                 md-item-text="member.fullName"
+                                 md-input-minlength="1"
+                                 md-no-cache="true"
+                                 md-delay="500"
+                                 md-autoselect="false"
+                                 md-floating-label="Search for a member"
+                                 flex
+                                 required
+                                 md-input-name="members"
+                                 md-autofocus
+                                 md-clear-button="true"
+                                 md-require-match="true">
+
+                    <md-item-template>
+                        <div layout="column" layout-align="start start">
+                            <span class="item-title" md-highlight-text="dc.memberSearchText">{{member.fullName}}</span>
+                            <span class="item-metadata" style="color:lightgray;">{{member.churchName}}</span>
+                        </div>
+                    </md-item-template>
+
+                    <md-not-found>
+                        No members matching "{{dc.memberSearchText}}" were found.
+                    </md-not-found>
+                    <div ng-messages="chgMbrForm.members.$error">
+                        <div ng-message="required">Member name is required</div>
+                        <div ng-message="minlength">3 or more characters are required</div>
+                    </div>
+                </md-autocomplete>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="chgMbrForm.$invalid">
+                Merge
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

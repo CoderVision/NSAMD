@@ -180,6 +180,7 @@
     <Content Include="Controllers\addChurchController.js" />
     <Content Include="Controllers\addMemberController.js" />
     <Content Include="Controllers\addTeamController.js" />
+    <Content Include="Controllers\adminChangeMembershipController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\adminUsersController.js" />
     <Content Include="Controllers\churchController.js" />
@@ -270,8 +271,11 @@
     <Content Include="Services\reportService.js" />
     <Content Include="Services\Reports\reportService.js" />
     <Content Include="Services\teamService.js" />
+    <Content Include="Services\userService.js" />
     <Content Include="silentRefresh.html" />
     <Content Include="Views\Admin\adminIndex.html" />
+    <Content Include="Views\Admin\changeMembership.html" />
+    <Content Include="Views\Admin\settings.html" />
     <Content Include="Views\Admin\users.html" />
     <Content Include="Views\App\addressDialog.html" />
     <Content Include="Views\App\emailDialog.html" />

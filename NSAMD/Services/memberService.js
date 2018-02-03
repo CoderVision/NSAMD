@@ -35,7 +35,7 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
 
         }, function (error) {
 
-            var err = error | err.message;
+            var err = error | error.message;
 
             $log.error("error in memberService.getConfig:  " + err);
 
@@ -63,6 +63,28 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
             $log.error("error in memberService.getList:  " + error | error.message);
 
             deferred.reject("Error retrieving member list for church " + churchId);
+        });
+
+        return deferred.promise;
+    };
+
+    svc.getMembers = function (searchText) {
+
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/members/criteria/" + searchText;
+
+        $http.get(uri).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            var ex = "error in userService.getMembers:  " + (error | error.message);
+
+            $log.error(ex);
+
+            deferred.reject(ex);
         });
 
         return deferred.promise;
@@ -108,6 +130,32 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
             $log.error("error in memberService.get:  " + error | error.message);
 
             deferred.reject("Error retrieving member id " + memberId);
+        });
+
+        return deferred.promise;
+    }
+
+    svc.mergeMember = function (sourceMemberId, targetMemberId) {
+
+        var deferred = $q.defer();
+
+        var uri = config.apiUrl + "/members/merge";
+
+        var item = 
+        {
+            "SourceMemberId": sourceMemberId,
+            "TargetMemberId": targetMemberId
+        }
+
+        $http.post(uri, item).then(function (success) {
+
+            deferred.resolve(success.data);
+
+        }, function (error) {
+
+            $log.error("error in memberService.mergeMember:  " + error | error.message);
+
+            deferred.reject("Error merging members. Target: " + targetMemberId, ", Source:" + sourceMemberId);
         });
 
         return deferred.promise;

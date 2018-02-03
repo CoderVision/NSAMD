@@ -16,7 +16,7 @@
             <md-select ng-model="mlc.churchId">
                 <!--<md-option>Select Church</md-option>
                     ng-disabled="$index === 0"-->
-                <md-option ng-repeat="c in mlc.config.churchList | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
+                <md-option ng-repeat="c in mlc.config.userChurches | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
             </md-select>
         </md-input-container>
     </div>

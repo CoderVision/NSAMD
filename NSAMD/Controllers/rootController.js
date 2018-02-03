@@ -12,6 +12,7 @@ angular.module('app').controller('rootController',
     vm.isAddItemEventEnabled = false;
     vm.appService = appService;
     vm.menuItems = [];
+    
 
     var path = $location.url();
     var tokenIndex = path.indexOf("id_token");
@@ -40,11 +41,14 @@ angular.module('app').controller('rootController',
         authService.oidcManager.processTokenCallbackAsync(query).then(function (success) {
 
             vm.isLoggedIn = true;
-            $location.url($location.path());
+            vm.appService.isLoggedIn = true;
+
+            $scope.$broadcast('tokenParsed');
 
         }, function (error) {
 
             vm.isLoggedIn = false;
+            vm.appService.isLoggedIn = false;
             vm.openToast("Error logginng in:  " + error);
             //alert(error);
         });
@@ -56,6 +60,7 @@ angular.module('app').controller('rootController',
             }
 
         vm.isLoggedIn = true;
+        vm.appService.isLoggedIn = true;
     }
 
             
@@ -94,10 +99,8 @@ angular.module('app').controller('rootController',
     };
 
     vm.logOut = function () {
+        vm.appService.isLoggedIn = false; 
         authService.oidcManager.redirectForLogout();
-        //vm.oidcMgr.removeToken();
-        //vm.isLoggedIn = false;
-        //window.location = "index.html";
     }
 
     vm.addItem = function ($event) {
