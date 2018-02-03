@@ -56,6 +56,11 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Churches/churchProfile.html',
         controller: 'churchController',
         controllerAs: 'cc'
+    }).state('messages', {
+        url: '/messages',
+        templateUrl: './Views/Messages/messagesIndex.html',
+        controller: 'messagesController',
+        controllerAs: 'mc'
     }).state('teams', {
         url: '/teams',
         templateUrl: './Views/Teams/teamsIndex.html',

@@ -189,6 +189,7 @@
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\messageDialogController.js" />
+    <Content Include="Controllers\messagesController.js" />
     <Content Include="Controllers\reportsController.js" />
     <Content Include="Controllers\Reports\activeGuestListController.js" />
     <Content Include="Controllers\rootController.js" />
@@ -291,6 +292,7 @@
     <Content Include="Views\Members\memberActivity.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
+    <Content Include="Views\Messages\messagesIndex.html" />
     <Content Include="Views\Reports\activeGuestList.html" />
     <Content Include="Views\Reports\activeGuestListParamsDialog.html" />
     <Content Include="Views\Reports\perspectivesIndex.html" />
