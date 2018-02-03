@@ -11,9 +11,9 @@
             </h1>
 
             <div layout="row">
-                <md-button ng-repeat="mnuItem in rootCtrl.menuItems" ng-click="mnuItem.do();">{{mnuItem.text}}</md-button>
+                <md-button class="toolBarMenuButton" ng-repeat="mnuItem in rootCtrl.menuItems" ng-click="mnuItem.do();">{{mnuItem.text}}</md-button>
 
-                <md-button class="md-fab md-raised md-mini"
+                <md-button class="md-fab md-raised md-mini loginButton"
                            aria-label="{{ rootCtrl.isLoggedIn ? 'Log out' : 'Log in' }}"
                            ng-click="rootCtrl.logIn()">
                     <ng-md-icon icon="{{ rootCtrl.isLoggedIn ? 'logout' : 'login' }}"></ng-md-icon>

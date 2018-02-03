@@ -25,6 +25,15 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
+.loginButton {
+    margin-left: 16px;
+}
+
+.toolBarMenuButton{
+    margin-left:0px;
+    margin-right:0px;
+}
+
 .userAdminNote {
     font-style: italic;
     color: rgba(0,0,0,0.38);

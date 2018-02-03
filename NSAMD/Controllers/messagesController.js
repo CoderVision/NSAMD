@@ -13,7 +13,6 @@ angular.module('app').controller('messagesController',
             vm.config = {};
             vm.appService = appService;
 
-            vm.hello = "Hello from the messagesController!";
 
             // handle add item event from root scope
             $scope.$emit('enableAddItemEvent', { enabled: false });
@@ -23,10 +22,10 @@ angular.module('app').controller('messagesController',
             //});
 
 
-            vm.loadData = function () {
+            vm.init = function () {
 
                 appService.title = "Messages";
-                //appService.menuItems = [{ text: "Activity", do: vm.openActivity }];
+                appService.menuItems = [{ text: "Email", do: vm.openMail }, { text: "SMS", do: vm.openSms }];
 
                 if (vm.appService.isLoggedIn === false)
                     return;
@@ -45,6 +44,17 @@ angular.module('app').controller('messagesController',
                 //    appNotificationService.openToast("Error loading member config ");
                 //    $log.log(error);
                 //});
+            }
+
+            vm.openSms = function()
+            {
+                //$state.go('.sms', { memberId: memberId });
+                $state.go('messages.sms');
+            }
+
+            vm.openMail = function()
+            {
+                $state.go('messages.mail');
             }
 
             function loadMemberList() {
