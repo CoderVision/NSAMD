@@ -1,7 +1,24 @@
 ﻿
 <div class="content">
-    <div layout="column">
-        this is the sms page
-        {{ smc.message }}
+    <div layout="row">
+        <div layout="column" flex="50">
+            <md-list>
+                <md-list-item class="md-3-line" 
+                              ng-repeat="user in uc.getMessages(user)" ng-click="mc.viewMessages(user)">
+                    <div class="md-list-item-text">
+                        <h3>{{user.fullName}}</h3>
+                        <h4>{{user.church}}</h4>
+                        <p>{{user.roleDesc}}</p>
+                    </div>
+                    <!--<md-button class="md-secondary">Respond</md-button>-->
+                    <div>{{user.role}}</div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div layout="column" flex="50">
+            this is the text dialog list.
+            just append new messages at the bottom of the div
+        </div>
     </div>
 </div>

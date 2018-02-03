@@ -1,5 +1,23 @@
 ﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mlc.isLoading"></md-progress-linear>
+
 <div layout="column" ng-init="mc.init()">
+
+    <div class="content" layout="row">
+        <md-input-container class="md-block" flex-gt-xs>
+            <label>Search</label>
+            <input ng-model="mlc.searchText" placeholder="Enter member name"
+                   ng-change="mc.filter()"
+                   ng-model-options='{ debounce: 500 }'/>
+        </md-input-container>
+
+        <md-input-container flex-gt-xs>
+            <label>Church</label>
+            <md-select ng-model="mlc.churchId">
+                <md-option ng-repeat="c in mc.config.userChurches | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
 
     <div data-ui-view=""></div>
 
