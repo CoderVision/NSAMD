@@ -8,6 +8,7 @@ angular.module('app').factory('appService', ['$q'
 
         svc.title = "Members";
         svc.isLoggedIn = false;
+        svc.roleId = 0;
 
         svc.menuItems = [];
 

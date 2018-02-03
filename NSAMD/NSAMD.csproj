@@ -266,6 +266,7 @@
     <Content Include="Services\authService.js" />
     <Content Include="Services\churchService.js" />
     <Content Include="Services\configService.js" />
+    <Content Include="Services\errorService.js" />
     <Content Include="Services\injectCSS.js" />
     <Content Include="Services\memberService.js" />
     <Content Include="Services\reportService.js" />

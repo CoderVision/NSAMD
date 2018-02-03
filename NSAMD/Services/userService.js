@@ -3,12 +3,11 @@
 
 'use strict'
 
-angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
-    , function ($http, $log, $q, config) {
+angular.module('app').factory('userService', ['$http', '$log', '$q', 'config', 'errorService', 'localStorageService'
+    , function ($http, $log, $q, config, errorService, localStorageService) {
 
         var svc = {};
 
-      
         svc.getList = function (active) {
 
             var deferred = $q.defer();
@@ -21,7 +20,42 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                var err = "error in userService.getList:  " + (error | error.message);
+                var err = "Error getting list:  " + errorService.getErrorMessage(error);
+
+                $log.error(err);
+
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+
+        svc.get = function () {
+
+            var deferred = $q.defer();
+
+            if (localStorageService.isSupported) {
+
+                var cfg = localStorageService.get("user");
+
+                if (cfg)
+                {
+                    deferred.resolve(cfg);
+                    return deferred.promise;
+                }
+            }
+
+            var uri = config.apiUrl + "/account";
+
+            $http.get(uri).then(function (success) {
+
+                localStorageService.set("user", success.data);
+
+                deferred.resolve(success.data);
+
+            }, function (error) {
+
+                var err = "Error getting user:  " + errorService.getErrorMessage(error);
 
                 $log.error(err);
 
@@ -42,7 +76,7 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                var msg = "error in userService.processAcctRequest:  " + (error | error.message);
+                var err = "Error processing account request:  " + errorService.getErrorMessage(error);
 
                 $log.error(msg);
 
@@ -64,11 +98,11 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                var x = "error in userService.patch:  " + error | error.message;
+                var err = "Error saving user:  " + errorService.getErrorMessage(error);
 
-                $log.error(x);
+                $log.error(err);
 
-                deferred.reject(x);
+                deferred.reject(err);
             });
 
             return deferred.promise;
@@ -86,7 +120,7 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config'
 
             }, function (error) {
 
-                var err = "error in userService.save:  " + (error | error.message);
+                var err = "Error saving user:  " + errorService.getErrorMessage(error);
 
                 $log.error(err);
 

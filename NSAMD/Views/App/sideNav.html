@@ -24,7 +24,8 @@
             <md-button ng-click="rootCtrl.navigateTo('perspectives', 'Perspectives')">
                 Perspectives
             </md-button>
-            <md-button ng-click="rootCtrl.navigateTo('admin', 'Admin')">
+            <md-button ng-click="rootCtrl.navigateTo('admin', 'Admin')" 
+                       ng-show="rootCtrl.roleId == 2">
                 Admin
             </md-button>
         </div>
