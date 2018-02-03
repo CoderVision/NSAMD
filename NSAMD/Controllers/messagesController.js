@@ -24,6 +24,10 @@ angular.module('app').controller('messagesController',
 
             vm.init = function () {
 
+                if ($state.current.url == "/messages") {
+                    $state.go('messages.sms');
+                }
+
                 appService.title = "Messages";
                 appService.menuItems = [{ text: "Email", do: vm.openMail }, { text: "SMS", do: vm.openSms }];
 

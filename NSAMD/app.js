@@ -64,13 +64,13 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
     }).state('messages.sms', {
         url: '/sms',
         templateUrl: './Views/Messages/sms.html',
-        controller: 'messagesController',
-        controllerAs: 'mc'
+        controller: 'smsController',
+        controllerAs: 'smc'
     }).state('messages.mail', {
         url: '/mail',
         templateUrl: './Views/Messages/mail.html',
-        controller: 'messagesController',
-        controllerAs: 'mc'
+        controller: 'mailController',
+        controllerAs: 'mmc'
     }).state('teams', {
         url: '/teams',
         templateUrl: './Views/Teams/teamsIndex.html',
