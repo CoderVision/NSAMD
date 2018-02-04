@@ -16,8 +16,16 @@ angular.module('app').controller('adminUsersController',
             vm.searchText = "";
             vm.selectedUser = {};
             vm.filterActive = true;
+            vm.selectedIndex = 0;
+            vm.usersOrdered = [];
 
-            vm.edit = function (user) {
+            $scope.$watch("uc.usersOrdered", function (value) {
+                if (value && value.length > 0)
+                    vm.edit(0, vm.usersOrdered[0]);
+            });
+
+            vm.edit = function (index, user) {
+                vm.selectedIndex = index;
                 vm.selectedUser = user;
             }           
 

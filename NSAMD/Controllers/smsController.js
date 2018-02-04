@@ -13,6 +13,13 @@ angular.module('app').controller('smsController',
             vm.correspondences = [];
             vm.selectedItem = null;
             vm.selectedIndex = 0;
+            vm.correspondencesOrdered = [];
+
+            $scope.$watch("smc.correspondences2", function (value) {
+                if (value && value.length > 0)
+                    vm.viewMessages(0, vm.correspondencesOrdered[0]);
+            });
+        
 
             vm.init = function () {
                 var correspondence1 = {
@@ -54,14 +61,13 @@ angular.module('app').controller('smsController',
 
  
                 vm.correspondences = [correspondence1, correspondence2, correspondence3, correspondence4, correspondence5];
-
-                vm.selectedItem = correspondence1;
-
             }
 
             vm.viewMessages = function (index, correspondence) {
                 vm.selectedIndex = index;
                 vm.selectedItem = correspondence;
             }
+
+
             return vm;
         }]);
