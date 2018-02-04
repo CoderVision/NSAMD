@@ -19,10 +19,19 @@ angular.module('app').controller('adminUsersController',
             vm.selectedIndex = 0;
             vm.usersOrdered = [];
 
-            $scope.$watch("uc.usersOrdered", function (value) {
-                if (value && value.length > 0)
+            //$scope.$watch("uc.usersOrdered", function (value) {
+            //    if (value && value.length > 0)
+            //        vm.edit(0, vm.usersOrdered[0]);
+            //});
+
+            // order the list when it changes and set it to the array
+            $scope.$watch("uc.getUsers() | orderBy : 'fullName'", function (newValue) {
+
+                if (newValue && newValue.length) {
+                    vm.usersOrdered = newValue;
                     vm.edit(0, vm.usersOrdered[0]);
-            });
+                }
+            }, true);
 
             vm.edit = function (index, user) {
                 vm.selectedIndex = index;

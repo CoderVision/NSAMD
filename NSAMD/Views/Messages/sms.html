@@ -3,8 +3,8 @@
     <div layout="row">
         <div layout="column" flex="50">
             <md-list>
-                <!--class="md-2-line"-->
-                <md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" 
+                <!--<md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" -->
+                <md-list-item ng-repeat="user in smc.correspondencesOrdered" 
                               class="md-2-line"
                               ng-click="smc.viewMessages($index, user)"
                               ng-class="{'selected': $index==smc.selectedIndex}">

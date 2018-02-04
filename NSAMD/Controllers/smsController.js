@@ -15,11 +15,13 @@ angular.module('app').controller('smsController',
             vm.selectedIndex = 0;
             vm.correspondencesOrdered = [];
 
-            $scope.$watch("smc.correspondences2", function (value) {
-                if (value && value.length > 0)
-                    vm.viewMessages(0, vm.correspondencesOrdered[0]);
-            });
-        
+            // order the list when it changes and set it to the array
+            $scope.$watch("smc.correspondences | orderBy : '-LastMessageDate'", function (newValue) {
+
+                vm.correspondencesOrdered = newValue;
+                vm.viewMessages(0, vm.correspondencesOrdered[0]);
+
+            }, true);
 
             vm.init = function () {
                 var correspondence1 = {
@@ -28,7 +30,7 @@ angular.module('app').controller('smsController',
                     LastMessageDate: '01/27/2018',
                     LastMessageText: 'Hi there!  this is a test.  :)',
                     Read: true,                                                     // does this message have any unread messages?
-                    Messages: [{ id: 1, content:'Hi there!  this is a test.  :)', direction: 'Received'}]
+                    Messages: [{ id: 1, content: 'Hi there!  this is a test.  :)', direction: 'Received' }]
                 };
                 var correspondence2 = {
                     id: 2,
@@ -59,7 +61,7 @@ angular.module('app').controller('smsController',
                     Read: false
                 };
 
- 
+
                 vm.correspondences = [correspondence1, correspondence2, correspondence3, correspondence4, correspondence5];
             }
 

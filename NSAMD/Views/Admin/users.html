@@ -156,7 +156,7 @@
             </md-input-container>
 
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="user in uc.usersOrdered = (uc.getUsers() | orderBy : 'fullName')" 
+                <md-list-item class="md-3-line" ng-repeat="user in uc.usersOrdered" 
                               ng-click="uc.edit($index,user)"
                               ng-class="{'selected': $index==uc.selectedIndex}">
                     <div class="md-list-item-text">
