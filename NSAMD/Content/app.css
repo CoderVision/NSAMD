@@ -25,8 +25,38 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
+.correspondenceDate {
+    font-size: 14px;
+    font-weight: lighter;
+    letter-spacing: 0.010em;
+    font-weight: 400;
+    line-height: 1.2em;
+    white-space: nowrap;
+}
+.correspondenceFrom {
+    /*line-height: 24px;*/
+    font-size: 14px;
+    font-weight: lighter;
+    letter-spacing: 0.010em;
+    font-weight: 400;
+    line-height: 1.2em;
+    white-space: nowrap;
+}
+.correspondenceUnread {
+    font-weight: 600;
+}
+.correspondencePrimary {
+    margin-bottom: 4px;
+}
+.correspondenceSecondary {
+    color: gray;
+}
 .loginButton {
     margin-left: 16px;
+}
+
+.selected {
+    background-color: #f5f5f5;
 }
 
 .toolBarMenuButton{

@@ -1,24 +1,46 @@
 ﻿
-<div class="content">
+<div class="content" ng-init="smc.init()">
     <div layout="row">
         <div layout="column" flex="50">
             <md-list>
-                <md-list-item class="md-3-line" 
-                              ng-repeat="user in uc.getMessages(user)" ng-click="mc.viewMessages(user)">
-                    <div class="md-list-item-text">
-                        <h3>{{user.fullName}}</h3>
-                        <h4>{{user.church}}</h4>
-                        <p>{{user.roleDesc}}</p>
+                <!--class="md-2-line"-->
+                <md-list-item ng-repeat="user in smc.correspondences | orderBy : '-LastMessageDate'" 
+                              class="md-2-line"
+                              ng-click="smc.viewMessages($index, user)"
+                              ng-class="{'selected': $index==smc.selectedIndex}">
+
+                    <div layout="row" layout-align="space-between start" style="width:100%;">
+                        <div class="md-list-item-text correspondenceFrom" layout="column" layout-align="start start" flex>
+                            <span class="correspondencePrimary">{{user.Name}}</span>
+                            <span class="correspondenceSecondary">{{user.LastMessageText}}</span>
+                        </div>
+
+                        <div class="correspondenceDate correspondenceSecondary">
+                            {{user.LastMessageDate}} 
+                        </div>
                     </div>
-                    <!--<md-button class="md-secondary">Respond</md-button>-->
-                    <div>{{user.role}}</div>
+
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </div>
         <div layout="column" flex="50">
-            this is the text dialog list.
-            just append new messages at the bottom of the div
+            
+                <!--<div layout="row" layout-align="center center">
+                    <div>Gary Lima</div>
+                </div>-->
+            <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
+                        md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
+                <div>
+                    <span>{{smc.selectedItem.Name}}</span>
+                </div>
+            </md-toolbar>
+
+            <div layout-padding>
+                this is the text dialog list.
+                just append new messages at the bottom of the div
+            </div>
+
         </div>
     </div>
 </div>
