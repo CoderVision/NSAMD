@@ -25,6 +25,38 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
+
+.smsReceivevd {
+    align-self: flex-end !important;
+    background-color: #9AFFB7;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 75%;
+}
+
+.smsSent {
+    align-self: flex-start;
+    background-color: lightyellow;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 75%;
+}
+.smsSendContainer {
+    height: 50px;
+}
+.smsDate {
+    font-size: xx-small;
+    color: gray;
+}
+
+.smsContent {
+    height: 100%;
+    padding-top:0px;
+}
+.smsRow {
+    height: 100%;
+    overflow: hidden;
+}
 .correspondenceDate {
     font-size: 14px;
     font-weight: lighter;

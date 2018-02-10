@@ -15,6 +15,14 @@ angular.module('app').controller('smsController',
             vm.selectedIndex = 0;
             vm.correspondencesOrdered = [];
 
+            /*
+                8	MessageType		    46	Email Message
+                8	MessageType		    47	Text Message
+                8	MessageType		    48	Application Message
+                11	MessageDirection	53	Received
+                11	MessageDirection	54	Sent
+            */
+
             // order the list when it changes and set it to the array
             $scope.$watch("smc.correspondences | orderBy : '-LastMessageDate'", function (newValue) {
 
@@ -30,7 +38,9 @@ angular.module('app').controller('smsController',
                     LastMessageDate: '01/27/2018',
                     LastMessageText: 'Hi there!  this is a test.  :)',
                     Read: true,                                                     // does this message have any unread messages?
-                    Messages: [{ id: 1, content: 'Hi there!  this is a test.  :)', direction: 'Received' }]
+                    messages: [{ id: 1, content: 'Hi there!  this is a test.  :)', directionEnumId: 53, messageDate: '2/9/18 6:45 PM' },
+                        { id: 2, content: 'Yes!  I got your test  Let me know if you receive mine from NtccSteward.', directionEnumId: 54, messageDate: '2/9/18 6:46 PM' },
+                        { id: 3, content: 'Yup, I got it!', directionEnumId: 53, messageDate: '2/9/18 6:47 PM' }]
                 };
                 var correspondence2 = {
                     id: 2,

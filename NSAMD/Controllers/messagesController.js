@@ -34,7 +34,7 @@ angular.module('app').controller('messagesController',
                 if (vm.appService.isLoggedIn === false)
                     return;
 
-                vm.isLoading = true;
+               // vm.isLoading = true;
 
                 //memberService.getConfig(vm.churchId).then(function (success) {
 

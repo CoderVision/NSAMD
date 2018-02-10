@@ -1,7 +1,7 @@
 ﻿
-<div class="content" ng-init="smc.init()">
-    <div layout="row">
-        <div layout="column" flex="50">
+<div class="smsContent" ng-init="smc.init()" flex>
+    <div layout="row" class="smsRow">
+        <div layout="column" flex="40">
             <md-list>
                 <!--<md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" -->
                 <md-list-item ng-repeat="user in smc.correspondencesOrdered" 
@@ -24,7 +24,7 @@
                 </md-list-item>
             </md-list>
         </div>
-        <div layout="column" flex="50">
+        <div layout="column" flex>
             
                 <!--<div layout="row" layout-align="center center">
                     <div>Gary Lima</div>
@@ -36,11 +36,24 @@
                 </div>
             </md-toolbar>
 
-            <div layout-padding>
-                this is the text dialog list.
-                just append new messages at the bottom of the div
+            <div layout="column" layout-align="end start" layout-padding flex>
+                <div  style="align-self:flex-start;" ng-repeat="msg in smc.selectedItem.messages | orderBy: 'messageDate'" layout-padding
+                     class="{{ msg.directionEnumId == 53 ? 'smsSent' : 'smsReceivevd'}}">
+                    <div>
+                        {{msg.content}}
+                    </div>
+                    <div class="smsDate">
+                        {{msg.messageDate}}
+                     </div>
+                </div>
             </div>
-
+            <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer"> 
+                <!--<ng-md-icon icon="sms"></ng-md-icon>-->
+                <md-input-container flex>
+                    <input ng-model="user.title">
+                </md-input-container>
+                <ng-md-icon icon="send"></ng-md-icon>
+            </div>
         </div>
     </div>
 </div>
