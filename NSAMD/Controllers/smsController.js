@@ -14,6 +14,7 @@ angular.module('app').controller('smsController',
             vm.selectedItem = null;
             vm.selectedIndex = 0;
             vm.correspondencesOrdered = [];
+            vm.smsContent = "";
 
             /*
                 8	MessageType		    46	Email Message
@@ -78,6 +79,13 @@ angular.module('app').controller('smsController',
             vm.viewMessages = function (index, correspondence) {
                 vm.selectedIndex = index;
                 vm.selectedItem = correspondence;
+            }
+
+            vm.sendSms = function () {
+
+                var msg = vm.smsContent;
+
+                // send message, add to message list of vm.selectedItem
             }
 
 

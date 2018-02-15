@@ -4,7 +4,7 @@
         <div layout="column" flex="40">
             <md-list>
                 <!--<md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" -->
-                <md-list-item ng-repeat="user in smc.correspondencesOrdered" 
+                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: mc.filterMessageGroups"
                               class="md-2-line"
                               ng-click="smc.viewMessages($index, user)"
                               ng-class="{'selected': $index==smc.selectedIndex}">
@@ -50,9 +50,9 @@
             <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer"> 
                 <!--<ng-md-icon icon="sms"></ng-md-icon>-->
                 <md-input-container flex>
-                    <input ng-model="user.title">
+                    <input ng-model="smc.smsContent">
                 </md-input-container>
-                <ng-md-icon icon="send"></ng-md-icon>
+                <ng-md-icon icon="send" ng-click="smc.sendSms()"></ng-md-icon>
             </div>
         </div>
     </div>

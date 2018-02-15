@@ -12,6 +12,7 @@ angular.module('app').controller('messagesController',
             vm.isLoading = false;
             vm.config = {};
             vm.appService = appService;
+            vm.searchText = "";
 
 
             // handle add item event from root scope
@@ -34,7 +35,7 @@ angular.module('app').controller('messagesController',
                 if (vm.appService.isLoggedIn === false)
                     return;
 
-               // vm.isLoading = true;
+                // vm.isLoading = true;
 
                 //memberService.getConfig(vm.churchId).then(function (success) {
 
@@ -50,14 +51,12 @@ angular.module('app').controller('messagesController',
                 //});
             }
 
-            vm.openSms = function()
-            {
+            vm.openSms = function () {
                 //$state.go('.sms', { memberId: memberId });
                 $state.go('messages.sms');
             }
 
-            vm.openMail = function()
-            {
+            vm.openMail = function () {
                 $state.go('messages.mail');
             }
 
@@ -75,6 +74,14 @@ angular.module('app').controller('messagesController',
                 });
             }
 
+            vm.filterMessageGroups = function (grp) {
+
+                if (vm.searchText === undefined) return;
+
+                var criteria = vm.searchText.toLowerCase().trim();
+
+                return (criteria == "" || grp.Name.toLowerCase().indexOf(criteria) > -1);
+            }
 
             return vm;
         }]);
