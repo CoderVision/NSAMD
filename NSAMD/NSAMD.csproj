@@ -272,6 +272,7 @@
     <Content Include="Services\errorService.js" />
     <Content Include="Services\injectCSS.js" />
     <Content Include="Services\memberService.js" />
+    <Content Include="Services\messageService.js" />
     <Content Include="Services\reportService.js" />
     <Content Include="Services\Reports\reportService.js" />
     <Content Include="Services\teamService.js" />
