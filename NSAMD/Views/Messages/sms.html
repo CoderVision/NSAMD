@@ -25,10 +25,6 @@
             </md-list>
         </div>
         <div layout="column" flex>
-            
-                <!--<div layout="row" layout-align="center center">
-                    <div>Gary Lima</div>
-                </div>-->
             <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
                         md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
                 <div>
@@ -38,21 +34,22 @@
 
             <div layout="column" layout-align="end start" layout-padding flex>
                 <div  style="align-self:flex-start;" ng-repeat="msg in smc.selectedItem.messages | orderBy: 'messageDate'" layout-padding
-                     class="{{ msg.directionEnumId == 53 ? 'smsSent' : 'smsReceivevd'}}">
+                     class="{{ msg.directionEnumId == 53 ? 'smsSent' : 'smsReceived'}}">
                     <div>
-                        {{msg.content}}
+                        {{msg.body}}
                     </div>
                     <div class="smsDate">
-                        {{msg.messageDate}}
+                        {{ smc.formatDate(msg.messageDate) }}
                      </div>
                 </div>
             </div>
-            <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer"> 
-                <!--<ng-md-icon icon="sms"></ng-md-icon>-->
-                <md-input-container flex>
-                    <input ng-model="smc.smsContent">
-                </md-input-container>
-                <ng-md-icon icon="send" ng-click="smc.sendSms()"></ng-md-icon>
+            <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer" flex> 
+                <form ng-submit="smc.sendSms()" flex style="display:flex;flex-direction:row;align-items:center;">
+                    <md-input-container flex>
+                        <input ng-model="smc.smsContent">
+                    </md-input-container>
+                    <ng-md-icon icon="send" ng-click="smc.sendSms()"></ng-md-icon>
+                </form>
             </div>
         </div>
     </div>

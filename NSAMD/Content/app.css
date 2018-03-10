@@ -26,15 +26,15 @@ md-dialog > md-toolbar {
 }
 
 
-.smsReceivevd {
+.smsSent {
     align-self: flex-end !important;
-    background-color: #9AFFB7;
+    background-color: #B7E7C7;
     margin-top: 8px;
     margin-bottom: 8px;
     max-width: 75%;
 }
 
-.smsSent {
+.smsReceived {
     align-self: flex-start;
     background-color: lightyellow;
     margin-top: 8px;

@@ -89,5 +89,27 @@ angular.module('app').factory('messageService', ['$http', '$log', '$q', 'config'
         }
 
 
+        svc.sendMessage = function (message) {
+            var deferred = $q.defer();
+
+            ////https://localhost:44352/message/sendSms
+            var uri = config.apiUrl + "/message/sendSms";
+
+            $http.post(uri, message).then(function (success) {
+
+                deferred.resolve(success.data);
+
+            }, function (error) {
+
+                var err = errorService.getErrorMessage(error);
+
+                $log.error(err);
+
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        }
+
         return svc;
     }]);
