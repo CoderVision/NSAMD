@@ -2,21 +2,21 @@
 <div class="smsContent" ng-init="smc.init()" flex>
     <div layout="row" class="smsRow">
         <div layout="column" flex="40">
-            <md-list>
+            <md-list class="smsList">
                 <!--<md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" -->
-                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: mc.filterMessageGroups"
+                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: smc.filterMessageGroups"
                               class="md-2-line"
                               ng-click="smc.viewMessages($index, user)"
                               ng-class="{'selected': $index==smc.selectedIndex}">
 
                     <div layout="row" layout-align="space-between start" style="width:100%;">
                         <div class="md-list-item-text correspondenceFrom" layout="column" layout-align="start start" flex>
-                            <span class="correspondencePrimary">{{user.Name}}</span>
-                            <span class="correspondenceSecondary">{{user.LastMessageText}}</span>
+                            <span class="correspondencePrimary">{{user.description}}</span>
+                            <span class="correspondenceSecondary">{{ mc.formatDate(user.lastMessageDate)}}</span>
                         </div>
 
                         <div class="correspondenceDate correspondenceSecondary">
-                            {{user.LastMessageDate}} 
+                            {{mc.formatDate(user.lastMessageDate)}} 
                         </div>
                     </div>
 
@@ -28,13 +28,13 @@
             <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
                         md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
                 <div>
-                    <span>{{smc.selectedItem.Name}}</span>
+                    <span>{{smc.selectedItem.description}}</span>
                 </div>
             </md-toolbar>
 
             <div layout="column" layout-align="end start" layout-padding flex>
                 <div  style="align-self:flex-start;" ng-repeat="msg in smc.selectedItem.messages | orderBy: 'messageDate'" layout-padding
-                     class="{{ msg.directionEnumId == 53 ? 'smsSent' : 'smsReceived'}}">
+                     class="{{ msg.messageDirectionEnumID == 53 ? 'smsSent' : 'smsReceived'}}">
                     <div>
                         {{msg.body}}
                     </div>
@@ -43,7 +43,7 @@
                      </div>
                 </div>
             </div>
-            <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer" flex> 
+            <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer"> 
                 <form ng-submit="smc.sendSms()" flex style="display:flex;flex-direction:row;align-items:center;">
                     <md-input-container flex>
                         <input ng-model="smc.smsContent">

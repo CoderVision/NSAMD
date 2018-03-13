@@ -4,8 +4,8 @@
 
 //'messageService'
 angular.module('app').controller('messagesController',
-    ['$scope', '$mdDialog', '$mdMedia', '$log', 'appNotificationService', 'appService', '$state'
-        , function ($scope, $mdDialog, $mdMedia, $log, appNotificationService, appService, $state) {
+    ['$scope', '$mdDialog', '$mdMedia', '$log', 'appNotificationService', 'appService', '$state', 'messageService'
+        , function ($scope, $mdDialog, $mdMedia, $log, appNotificationService, appService, $state, messageService) {
 
             var vm = this;
 
@@ -35,20 +35,20 @@ angular.module('app').controller('messagesController',
                 if (vm.appService.isLoggedIn === false)
                     return;
 
-                // vm.isLoading = true;
+                vm.isLoading = true;
 
-                //memberService.getConfig(vm.churchId).then(function (success) {
+                messageService.getConfig().then(function (data) {
 
-                //    vm.config = success;
+                    vm.config = data;
 
-                //    loadMemberList();
-
-                //}, function (error) {
-
-                //    vm.isLoading = false;
-                //    appNotificationService.openToast("Error loading member config ");
-                //    $log.log(error);
-                //});
+                    vm.churchId = data.churches[0].id; // get the first church in the list
+                },
+                function (error) {
+                    vm.error = error;
+                    appNotificationService.openToast(error);
+                }).then(function () {
+                    vm.isLoading = false;
+                })
             }
 
             vm.openSms = function () {
@@ -58,29 +58,6 @@ angular.module('app').controller('messagesController',
 
             vm.openMail = function () {
                 $state.go('messages.mail');
-            }
-
-            function loadMemberList() {
-                memberService.getList(vm.churchId, vm.statusIds).then(function (success) {
-
-                    vm.gridOptions.data = success;
-
-                    vm.paginationOptions.totalItems = success.length;
-
-                }, function (error) {
-                    $log.error(error);
-                }).then(function () {
-                    vm.isLoading = false;
-                });
-            }
-
-            vm.filterMessageGroups = function (grp) {
-
-                if (vm.searchText === undefined) return;
-
-                var criteria = vm.searchText.toLowerCase().trim();
-
-                return (criteria == "" || grp.Name.toLowerCase().indexOf(criteria) > -1);
             }
 
             return vm;

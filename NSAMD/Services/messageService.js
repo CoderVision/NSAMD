@@ -44,6 +44,29 @@ angular.module('app').factory('messageService', ['$http', '$log', '$q', 'config'
             return deferred.promise;
         };
 
+        svc.getMessages = function (recipientGroupId, maxRows) {
+
+            var deferred = $q.defer();
+
+            var uri = config.apiUrl + "/message/list?recipientGroupId=" + recipientGroupId + "&maxRows=" + maxRows;
+
+            $http.get(uri).then(function (success) {
+
+                deferred.resolve(success.data);
+
+            }, function (error) {
+
+                var err = errorService.getErrorMessage(error);
+
+                $log.error(err);
+
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+
+        }
+
         svc.getRecipientGroups = function (churchId, messageTypeEnumId) {
             var deferred = $q.defer();
 

@@ -14,7 +14,7 @@
         <md-input-container flex-gt-xs>
             <label>Church</label>
             <md-select ng-model="mc.churchId">
-                <md-option ng-repeat="c in mc.config.userChurches | orderBy:'desc'" ng-value="c.id">{{c.desc}}</md-option>
+                <md-option ng-repeat="c in mc.config.churches | orderBy:'name'" ng-value="c.id">{{c.name}}</md-option>
             </md-select>
         </md-input-container>
     </div>
