@@ -21,10 +21,6 @@ angular.module('app').controller('smsController',
             vm.messageTypeEnumId = 47; //47 = text messages
             vm.searchText;
 
-            vm.formatDate = function (utcDate) {
-                return moment.tz(utcDate, moment.tz.guess()).format("L LT");
-            }
-
             /*
                 8	MessageType		    46	Email Message
                 8	MessageType		    47	Text Message

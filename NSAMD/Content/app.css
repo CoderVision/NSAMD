@@ -25,6 +25,13 @@ md-dialog > md-toolbar {
     padding-bottom: 0px;
 }
 
+.truncate {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .smsList {
     padding-top: 0px;
 }

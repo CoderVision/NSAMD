@@ -12,7 +12,7 @@
                     <div layout="row" layout-align="space-between start" style="width:100%;">
                         <div class="md-list-item-text correspondenceFrom" layout="column" layout-align="start start" flex>
                             <span class="correspondencePrimary">{{user.description}}</span>
-                            <span class="correspondenceSecondary">{{ mc.formatDate(user.lastMessageDate)}}</span>
+                            <span class="correspondenceSecondary truncate">{{ user.lastMessageBody}}</span>
                         </div>
 
                         <div class="correspondenceDate correspondenceSecondary">

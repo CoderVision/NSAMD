@@ -60,5 +60,9 @@ angular.module('app').controller('messagesController',
                 $state.go('messages.mail');
             }
 
+            vm.formatDate = function (utcDate) {
+                return moment.tz(utcDate, moment.tz.guess()).format("L LT");
+            }
+
             return vm;
         }]);
