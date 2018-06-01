@@ -7,9 +7,21 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.md-chips .md-chip-input-container {
+    width: 100%;
+}
+
+    .md-chips .md-chip-input-container md-autocomplete md-autocomplete-wrap {
+        width: 100%;
+    }
+
 /* hide the progress bar that is built in to md-autocomplete because it causes a phantom line to appear.  Add a md-progress-linear above the md-autocomplete instead. */
 md-autocomplete > md-autocomplete-wrap > md-progress-linear {
     display: none;
+}
+
+md-content.autocomplete {
+    min-height: 250px;
 }
 
 md-toolbar {
@@ -221,8 +233,12 @@ md-autocomplete {
     width:600px;
 }
 
+.addMessageGroupDiag {
+    width: 600px;
+}
+
 .addTeamMemberDiag {
-    width:400px;
+    width: 400px;
 }
 
 .activityContent {

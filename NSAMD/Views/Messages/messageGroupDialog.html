@@ -1,0 +1,61 @@
+﻿
+<md-dialog class="addMessageGroupDiag" ng-init="dc.load()">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{dc.currentItem.isNew ? 'Add' : 'Edit'}} Recipient Group</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="dc.cancel()">
+                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form name="newGroupForm" ng-submit="dc.save()">
+        <md-dialog-content style="padding:8px;">
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>Group Name</label>
+                    <input name="name" ng-model="dc.currentItem.name" ng-maxlength="100" ng-minlength="2" required md-autofocus />
+                    <div ng-messages="newGroupForm.name.$error">
+                        <div ng-message="required">Name is required</div>
+                        <div ng-message="minlength">At least 2 characters required</div>
+                        <div ng-message="maxlength">No more that 100 characters</div>
+                    </div>
+                </md-input-container>
+            </div>
+            
+            <div layout="column">
+                <md-content id="messageGroupChips" class="autocomplete">
+                    <md-chips ng-model="dc.selectedRecipients"
+                              md-autocomplete-snap
+                              md-require-match="true">
+                        <md-autocomplete md-selected-item="dc.selectedRecipient"
+                                         md-search-text="dc.recipientSearchText"
+                                         md-items="item in dc.recipientSearch(dc.recipientSearchText)"
+                                         md-item-text="item.name"
+                                         placeholder="Search for a recipient"
+                                         ng-model-options='{ debounce: 500 }'>
+                            <span ng-if="dc.messageType == 2" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address | phone}})</span>
+                            <span ng-if="dc.messageType == 1" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address}})</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span ng-if="dc.messageType == 2">{{$chip.name}} ({{$chip.address  | phone}})</span>
+                            <span ng-if="dc.messageType == 1">{{$chip.name}} ({{$chip.address}})</span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-content>
+            </div> 
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="dc.cancel()" class="md-cancel-button">
+                Close
+            </md-button>
+            <md-button type="submit" class="md-primary md-confirm-button"
+                       ng-disabled="newGroupForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -183,6 +183,7 @@
     <Content Include="Controllers\adminChangeMembershipController.js" />
     <Content Include="Controllers\adminController.js" />
     <Content Include="Controllers\mailController.js" />
+    <Content Include="Controllers\messageGroupDialogController.js" />
     <Content Include="Controllers\smsController.js" />
     <Content Include="Controllers\adminUsersController.js" />
     <Content Include="Controllers\churchController.js" />
@@ -296,6 +297,7 @@
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
     <Content Include="Views\Messages\mail.html" />
+    <Content Include="Views\Messages\messageGroupDialog.html" />
     <Content Include="Views\Messages\messagesIndex.html" />
     <Content Include="Views\Messages\sms.html" />
     <Content Include="Views\Reports\activeGuestList.html" />

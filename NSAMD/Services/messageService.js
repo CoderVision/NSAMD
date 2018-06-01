@@ -67,6 +67,28 @@ angular.module('app').factory('messageService', ['$http', '$log', '$q', 'config'
 
         }
 
+        svc.getRecipients = function (churchId, messageTypeEnumId, criteria) {
+            var deferred = $q.defer();
+
+            ////https://localhost:44352/message/recipientGroups?churchId=3&messageTypeEnumId=47&criteria=Gary
+            var uri = config.apiUrl + "/message/recipients?churchId=" + churchId + "&messageTypeEnumId=" + messageTypeEnumId + "&criteria=" + criteria;
+
+            $http.get(uri).then(function (success) {
+
+                deferred.resolve(success.data);
+
+            }, function (error) {
+
+                var err = errorService.getErrorMessage(error);
+
+                $log.error(err);
+
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        }
+
         svc.getRecipientGroups = function (churchId, messageTypeEnumId) {
             var deferred = $q.defer();
 

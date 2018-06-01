@@ -13,7 +13,8 @@ angular.module('app').controller('messagesController',
             vm.config = {};
             vm.appService = appService;
             vm.searchText = "";
-
+            vm.messageType = 2;    // 1 = Email, 2 = Sms
+            vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
             // handle add item event from root scope
             $scope.$emit('enableAddItemEvent', { enabled: false });
@@ -53,15 +54,59 @@ angular.module('app').controller('messagesController',
 
             vm.openSms = function () {
                 //$state.go('.sms', { memberId: memberId });
+                vm.messageType = 2; 
                 $state.go('messages.sms');
             }
 
             vm.openMail = function () {
+                vm.messageType = 1; 
                 $state.go('messages.mail');
             }
 
             vm.formatDate = function (utcDate) {
                 return moment.tz(utcDate, moment.tz.guess()).format("L LT");
+            }
+
+            vm.addGroup = function ($event) {
+
+                //vm.currentItem.churchId, vm.currentItem.messageTypeEnumId
+                var group = { churchId: vm.churchId, messageType: vm.messageType, isNew: true};
+
+                vm.editGroup($event, group);
+            }
+
+            vm.editGroup = function ($event, group) {
+                var config = {};
+
+                $mdDialog.show({
+                    locals: { currentItem: group, config: config },
+                    templateUrl: './views/Messages/messageGroupDialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    controller: 'messageGroupDialogController',
+                    controllerAs: 'dc', // dc = dialog controller
+                    clickOutsideToClose: false,
+                    fullscreen: vm.useFullScreen
+                }).then(function (editedItem) {
+
+                    // reload list
+                    // loadMemberList();
+
+                    // moved to AddMemberController
+                    //memberService.saveNewMember(editedItem).then(function (success) {
+
+                    //    vm.gridOptions.data.push(success);
+
+                    //    $log.info("new member saved");
+                    //    appNotificationService.openToast("Save success");
+
+                    //}, function (error) {
+                    //    $log.info("Error saving new member");
+                    //});
+
+                }, function () {
+                    $log.info("Edit item cancelled");
+                });
             }
 
             return vm;
