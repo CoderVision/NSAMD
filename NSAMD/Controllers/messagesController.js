@@ -69,44 +69,10 @@ angular.module('app').controller('messagesController',
 
             vm.addGroup = function ($event) {
 
-                //vm.currentItem.churchId, vm.currentItem.messageTypeEnumId
-                var group = { churchId: vm.churchId, messageType: vm.messageType, isNew: true};
+                var group = { id: 0, churchId: vm.churchId, messageType: vm.messageType, messages: [], recipients: [], isNew: true};
+                var params = { event: $event, group: group }
 
-                vm.editGroup($event, group);
-            }
-
-            vm.editGroup = function ($event, group) {
-                var config = {};
-
-                $mdDialog.show({
-                    locals: { currentItem: group, config: config },
-                    templateUrl: './views/Messages/messageGroupDialog.html',
-                    parent: angular.element(document.body),
-                    targetEvent: $event,
-                    controller: 'messageGroupDialogController',
-                    controllerAs: 'dc', // dc = dialog controller
-                    clickOutsideToClose: false,
-                    fullscreen: vm.useFullScreen
-                }).then(function (editedItem) {
-
-                    // reload list
-                    // loadMemberList();
-
-                    // moved to AddMemberController
-                    //memberService.saveNewMember(editedItem).then(function (success) {
-
-                    //    vm.gridOptions.data.push(success);
-
-                    //    $log.info("new member saved");
-                    //    appNotificationService.openToast("Save success");
-
-                    //}, function (error) {
-                    //    $log.info("Error saving new member");
-                    //});
-
-                }, function () {
-                    $log.info("Edit item cancelled");
-                });
+                $scope.$broadcast('addMessageGroup', params);
             }
 
             return vm;

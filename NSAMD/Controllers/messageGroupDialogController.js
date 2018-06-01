@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app')
-    .controller('messageGroupDialogController', ['$scope', '$mdDialog', '$q', 'messageService', 'currentItem',
-        function ($scope, $mdDialog, $q, messageService, currentItem) {
+    .controller('messageGroupDialogController', ['$scope', '$mdDialog', '$q', '$log', 'messageService', 'appNotificationService', 'currentItem',
+        function ($scope, $mdDialog, $q, $log, messageService, appNotificationService, currentItem) {
 
             var vm = this;
 
@@ -46,9 +46,28 @@ angular.module('app')
 
             vm.save = function () {
 
-                // call the message service to save this group with all of it's members.
+                vm.currentItem.messageTypeEnumID = vm.messageType == 1 ? 46 : 47;
 
-                $mdDialog.hide(vm.currentItem);
+                vm.currentItem.recipients = []; // clear array
+
+                for (var i = 0; i < vm.selectedRecipients.length; i++) {
+                    var recipient = vm.selectedRecipients[i];
+                    recipient.messageRecipientGroupId = vm.currentItem.id;
+                    vm.currentItem.recipients.push(recipient);
+                }
+
+                messageService.saveRecipientGroups(vm.currentItem).then(function (success) {
+
+                    $mdDialog.hide(success);
+
+                }, function (failure) {
+
+                    var errMsg = "error saving group:  " + failure
+                    $log.error(errMsg);
+
+                    // show error notification
+                    appNotificationService.openToast(errMsg);
+                });
             }
 
             vm.load = function () {

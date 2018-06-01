@@ -20,6 +20,11 @@ angular.module('app').controller('smsController',
             vm.config = {};
             vm.messageTypeEnumId = 47; //47 = text messages
             vm.searchText;
+            vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            $scope.$on('addMessageGroup', function (event, params) {
+                vm.editGroup(params.event, params.group);
+            });
 
             /*
                 8	MessageType		    46	Email Message
@@ -53,6 +58,28 @@ angular.module('app').controller('smsController',
                     vm.searchText = newValue;
                 }
             }, false);
+
+            // have to think about how we are going to handle this
+            vm.editGroup = function ($event, group) {
+                var config = {};
+
+                $mdDialog.show({
+                    locals: { currentItem: group, config: config },
+                    templateUrl: './views/Messages/messageGroupDialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    controller: 'messageGroupDialogController',
+                    controllerAs: 'dc', // dc = dialog controller
+                    clickOutsideToClose: false,
+                    fullscreen: vm.useFullScreen
+                }).then(function (editedItem) {
+
+                    vm.correspondences.push(editedItem);
+
+                }, function () {
+                    $log.info("Edit item cancelled");
+                });
+            }
 
             vm.filterMessageGroups = function (grp) {
 
