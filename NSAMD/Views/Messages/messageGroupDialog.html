@@ -36,8 +36,8 @@
                                          md-item-text="item.name"
                                          placeholder="Search for a recipient"
                                          ng-model-options='{ debounce: 500 }'>
-                            <span ng-if="dc.messageType == 2" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address | phone}})</span>
-                            <span ng-if="dc.messageType == 1" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address}})</span>
+                            <span ng-if="dc.messageType == 2" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address | phone}}) {{ item.preferredAddress ? '*Preferred' : ''}}</span>
+                            <span ng-if="dc.messageType == 1" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address}}) {{ item.preferredAddress ? '*Preferred' : ''}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                             <span ng-if="dc.messageType == 2">{{$chip.name}} ({{$chip.address  | phone}})</span>

@@ -140,30 +140,43 @@
                 <md-tab-label>Text Configuration</md-tab-label>
                 <md-tab-body>
 
-                        <md-input-container class="md-block" flex>
-                            <label>Account SID</label>
-                            <input type="text" name="smsAccountSID" ng-model="cc.church.smsAccountSID" ng-maxlength="100" ng-minlength="2" required 
-                                   ng-change="cc.patch('smsAccountSID', cc.church.smsAccountSID)"
-                                   ng-model-options='{ debounce: 1000 }'/>
-                            <div ng-messages="churchForm.smsAccountSID.$error">
-                                <div ng-message="required">Name is required</div>
-                                <div ng-message="minlength">At least 2 characters required</div>
-                                <div ng-message="maxlength">No more that 100 characters</div>
-                            </div>
-                        </md-input-container>
+                    <md-input-container class="md-block" flex>
+                        <label>Account SID</label>
+                        <input type="text" name="smsAccountSID" ng-model="cc.church.smsAccountSID" ng-maxlength="100" ng-minlength="2" required
+                               ng-change="cc.patch('smsAccountSID', cc.church.smsAccountSID)"
+                               ng-model-options='{ debounce: 1000 }' />
+                        <div ng-messages="churchForm.smsAccountSID.$error">
+                            <div ng-message="required">Name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 100 characters</div>
+                        </div>
+                    </md-input-container>
 
-                        <md-input-container class="md-block" flex>
-                            <label>Account Token</label>
-                            <input type="text" name="smsAccountToken" ng-model="cc.church.smsAccountToken" ng-maxlength="100" ng-minlength="2" required 
-                                   ng-change="cc.patch('smsAccountToken', cc.church.smsAccountToken)"
-                                   ng-model-options='{ debounce: 1000 }'/>
-                            <div ng-messages="churchForm.smsAccountToken.$error">
-                                <div ng-message="required">Name is required</div>
-                                <div ng-message="minlength">At least 2 characters required</div>
-                                <div ng-message="maxlength">No more that 100 characters</div>
-                            </div>
-                        </md-input-container>
+                    <md-input-container class="md-block" flex>
+                        <label>Account Token</label>
+                        <input type="text" name="smsAccountToken" ng-model="cc.church.smsAccountToken" ng-maxlength="100" ng-minlength="2" required
+                               ng-change="cc.patch('smsAccountToken', cc.church.smsAccountToken)"
+                               ng-model-options='{ debounce: 1000 }' />
+                        <div ng-messages="churchForm.smsAccountToken.$error">
+                            <div ng-message="required">Name is required</div>
+                            <div ng-message="minlength">At least 2 characters required</div>
+                            <div ng-message="maxlength">No more that 100 characters</div>
+                        </div>
+                    </md-input-container>
 
+                    <md-input-container class="md-block" flex>
+                        <label>Account Phone Number</label>
+                        <input type="text" name="smsPhoneNumber" ng-model="cc.church.smsPhoneNumber" ng-maxlength="20" ng-minlength="10" required
+                               ng-change="cc.patch('smsPhoneNumber', cc.church.smsPhoneNumber)"
+                               ng-model-options='{ debounce: 1000 }' />
+                        <div ng-messages="churchForm.smsPhoneNumber.$error">
+                            <div ng-message="required">Phone Number is required</div>
+                            <div ng-message="minlength">At least 10 characters required</div>
+                            <div ng-message="maxlength">No more that 20 characters</div>
+                        </div>
+                    </md-input-container>
+
+                    
                     <div class="md-accent" style="height:30px;">
                         To send text messages to your members, sign up for an account at <a href="https://www.twilio.com/">Twilio</a> and enter the Account SID and Token here.
                     </div>
