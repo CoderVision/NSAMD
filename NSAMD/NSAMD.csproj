@@ -242,6 +242,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\ngMask.min.map" />
     <Content Include="Scripts\angular-local-storage.min.js.map" />
+    <None Include="Properties\PublishProfiles\Site.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
