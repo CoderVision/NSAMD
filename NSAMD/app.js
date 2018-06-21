@@ -96,29 +96,33 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Admin/settings.html'
         //controller: 'adminUsersController',
         //controllerAs: 'uc'
+    }).state('admin.uploads', {
+        url: '/uploads',
+        templateUrl: './Views/Admin/uploads.html'
+        //controller: 'adminUsersController',
+        //controllerAs: 'uc'
+    }).state('perspectives', {
+        url: '/perspectives',
+        templateUrl: './Views/Reports/perspectivesIndex.html',
+        controller: 'reportsController',
+        controllerAs: 'rc'
     })
-        .state('perspectives', {
-            url: '/perspectives',
-            templateUrl: './Views/Reports/perspectivesIndex.html',
-            controller: 'reportsController',
-            controllerAs: 'rc'
-        })
-        .state('member', {
-            url: '/member/:memberId',
-            templateUrl: './Views/Members/memberProfile.html',
-            controller: 'memberController',
-            controllerAs: 'mc'
-        }).state('activity', {
-            url: '/activity/:churchId',
-            templateUrl: './Views/Members/memberActivity.html',
-            controller: 'memberActivityController',
-            controllerAs: 'mac'
-        }).state("Members", {
-            url: '/Members',
-            templateUrl: './Views/Members/membersIndex.html',
-            controller: 'memberListController',
-            controllerAs: 'mlc'
-        });
+    .state('member', {
+        url: '/member/:memberId',
+        templateUrl: './Views/Members/memberProfile.html',
+        controller: 'memberController',
+        controllerAs: 'mc'
+    }).state('activity', {
+        url: '/activity/:churchId',
+        templateUrl: './Views/Members/memberActivity.html',
+        controller: 'memberActivityController',
+        controllerAs: 'mac'
+    }).state("Members", {
+        url: '/Members',
+        templateUrl: './Views/Members/membersIndex.html',
+        controller: 'memberListController',
+        controllerAs: 'mlc'
+    });
 
 
     $mdThemingProvider.definePalette('green', {

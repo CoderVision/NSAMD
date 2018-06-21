@@ -283,6 +283,7 @@
     <Content Include="Views\Admin\adminIndex.html" />
     <Content Include="Views\Admin\changeMembership.html" />
     <Content Include="Views\Admin\settings.html" />
+    <Content Include="Views\Admin\uploads.html" />
     <Content Include="Views\Admin\users.html" />
     <Content Include="Views\App\addressDialog.html" />
     <Content Include="Views\App\emailDialog.html" />
