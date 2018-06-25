@@ -98,9 +98,9 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         //controllerAs: 'uc'
     }).state('admin.uploads', {
         url: '/uploads',
-        templateUrl: './Views/Admin/uploads.html'
-        //controller: 'adminUsersController',
-        //controllerAs: 'uc'
+        templateUrl: './Views/Admin/uploads.html',
+        controller: 'adminUploadsController',
+        controllerAs: 'uc'
     }).state('perspectives', {
         url: '/perspectives',
         templateUrl: './Views/Reports/perspectivesIndex.html',

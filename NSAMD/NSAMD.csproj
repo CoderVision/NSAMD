@@ -182,6 +182,7 @@
     <Content Include="Controllers\addTeamController.js" />
     <Content Include="Controllers\adminChangeMembershipController.js" />
     <Content Include="Controllers\adminController.js" />
+    <Content Include="Controllers\adminUploadsController.js" />
     <Content Include="Controllers\mailController.js" />
     <Content Include="Controllers\messageGroupDialogController.js" />
     <Content Include="Controllers\smsController.js" />

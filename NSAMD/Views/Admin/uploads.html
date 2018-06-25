@@ -1,3 +1,21 @@
-﻿<div layout="row" layout-padding>
-    This is the uploads page, where admins will be able to upload MS Access databases.
+﻿<div layout="column" layout-padding flex>
+
+    <md-button ng-click="uc.selectFile($event)">Select an Access database file to import</md-button>
+
+    <input type="text" ng-model="uc.selectedFile.name" name="file" id="file" required readonly
+           ng-pattern="/^.+\.mdb$/"
+           md-autofocus />
+
+    <input id="fileUpload" type="file"
+           accept=".mdb"
+           onchange="angular.element(this).scope().uc.fileSelected(this.files[0]); angular.element(this).scope().$digest();"
+           style="visibility:collapse">
+
+    <md-button ng-click="uc.upload()">Import</md-button>
+
+    <div layout-padding ng-if="uc.progressBarVisible === true">
+        <md-progress-linear md-mode="determinate" value="{{uc.progressBarValue}}" style="padding-left: 0px;"></md-progress-linear>
+    </div>
+    <div>{{ uc.progressMessage }}</div>
+
 </div>
