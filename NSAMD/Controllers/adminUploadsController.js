@@ -45,10 +45,7 @@ angular.module('app').controller('adminUploadsController',
 
                     $scope.$apply(function () { 
                         var value = (e.loaded / e.total) * 100;
-                        //vm.progressBarValue = 50;
                         vm.progressBarValue = value;
-                    //vm.progressBarValue = e.loaded;
-                    //vm.progressBarMax = e.total;
                     });
                 }
 
