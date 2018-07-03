@@ -58,6 +58,9 @@ angular.module('app').controller('teamListController',
 
                 vm.config = success;
 
+                if (vm.churchId == 0)
+                    vm.churchId = success.churchList[0].id;
+
                 loadTeamList();
 
             }, function (error) {
