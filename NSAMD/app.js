@@ -62,12 +62,12 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controller: 'messagesController',
         controllerAs: 'mc'
     }).state('messages.sms', {
-        url: '/sms',
+        url: '/sms/:churchId',
         templateUrl: './Views/Messages/sms.html',
         controller: 'smsController',
         controllerAs: 'smc'
     }).state('messages.mail', {
-        url: '/mail',
+        url: '/mail/:churchId',
         templateUrl: './Views/Messages/mail.html',
         controller: 'mailController',
         controllerAs: 'mmc'
@@ -108,7 +108,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controllerAs: 'rc'
     })
     .state('member', {
-        url: '/member/:memberId',
+        url: '/member/:memberId/:churchId',
         templateUrl: './Views/Members/memberProfile.html',
         controller: 'memberController',
         controllerAs: 'mc'

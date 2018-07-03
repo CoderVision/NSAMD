@@ -11,7 +11,7 @@
            onchange="angular.element(this).scope().uc.fileSelected(this.files[0]); angular.element(this).scope().$digest();"
            style="visibility:collapse">
 
-    <md-button ng-click="uc.upload()">Import</md-button>
+    <md-button ng-click="uc.upload()" ng-disabled="uc.selectedFile === null">Import</md-button>
 
     <div layout-padding ng-if="uc.progressBarVisible === true">
         <md-progress-linear md-mode="determinate" value="{{uc.progressBarValue}}" style="padding-left: 0px;"></md-progress-linear>

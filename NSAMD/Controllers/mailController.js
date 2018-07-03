@@ -3,13 +3,14 @@
 'use strict';
 
 angular.module('app').controller('mailController',
-    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService'
-        , function ($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', '$stateParams'
+        , function ($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, $stateParams) {
 
             var vm = this;
 
             vm.message = "Hello from the mailController!";
             vm.correspondences = [];
+            vm.churchId = $stateParams.churchId;
 
             vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 

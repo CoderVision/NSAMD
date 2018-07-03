@@ -53,7 +53,7 @@ angular.module('app').controller('adminUploadsController',
 
                 xhr.upload.onloadend = function (e) {
                     $scope.$apply(function () { 
-                        vm.progressMessage = 'Uploading complete!';
+                        vm.progressMessage = 'Uploading complete!  The import may take a while to complete depending on the size of the database.';
                         appNotificationService.openToast("File uploaded!");
                     });
                 }
