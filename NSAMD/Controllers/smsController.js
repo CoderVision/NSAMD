@@ -4,8 +4,8 @@
 'use strict';
 
 angular.module('app').controller('smsController',
-    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService'
-        , function ($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$stateParams'
+        , function ($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService, $stateParams) {
 
             var vm = this;
 
@@ -15,7 +15,7 @@ angular.module('app').controller('smsController',
             vm.selectedIndex = 0;
             vm.correspondencesOrdered = [];
             vm.smsContent = "";
-            vm.churchId = 3; // 3 = Graham
+            vm.churchId = $stateParams.churchId;
             vm.maxRows = 20;
             vm.config = {};
             vm.messageTypeEnumId = 47; //47 = text messages

@@ -18,7 +18,9 @@
         <md-input-container flex-gt-xs>
             <label>Church</label>
             <md-select ng-model="mc.churchId">
-                <md-option ng-repeat="c in mc.config.churches | orderBy:'name'" ng-value="c.id">{{c.name}}</md-option>
+                <!--| orderBy:'name'-->
+                <md-option ng-repeat="c in mc.config.churches track by c.id " ng-value="c.id">{{c.name}}</md-option>
+                <!--<md-option ng-repeat="certificationType in addEditSupplierCtrl.certificationTypes track by certificationType.id" value="{{ certificationType.id }}">-->
             </md-select>
         </md-input-container>
     </div>

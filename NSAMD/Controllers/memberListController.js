@@ -2,11 +2,11 @@
 'use strict';
 
 angular.module('app').controller('memberListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$log', 'memberService', 'appNotificationService', 'appService', '$state'
-        , function ($scope, $mdDialog, $mdMedia, $log, memberService, appNotificationService, appService, $state) {
+    ['$scope', '$mdDialog', '$mdMedia', '$log', 'memberService', 'appNotificationService', 'appService', '$state', 'localStorageService'
+        , function ($scope, $mdDialog, $mdMedia, $log, memberService, appNotificationService, appService, $state, localStorageService) {
 
         var vm = this;
-        vm.churchId = 3; // default to the first one that they have access to
+        vm.churchId = 0; // default to the first one that they have access to
         vm.statusIds = "49-50";
 
         vm.isLoading = false;
@@ -62,9 +62,20 @@ angular.module('app').controller('memberListController',
 
             vm.isLoading = true;
 
+            if (vm.churchId == 0) {
+                var id = localStorageService.get("memberListChurchId");
+                if (id !== null)
+                    vm.churchId = id;
+            } else {
+                localStorageService.set("memberListChurchId", vm.churchId);
+            }
+
             memberService.getConfig(vm.churchId).then(function (success) {
 
                 vm.config = success;
+
+                if (vm.churchId == 0)
+                    vm.churchId = vm.config.userChurches[0].id;
 
                 loadMemberList();
 
@@ -93,7 +104,7 @@ angular.module('app').controller('memberListController',
         vm.searchText = "";
 
         vm.openProfile = function (memberId) {
-            $state.go('member', { memberId: memberId });
+            $state.go('member', { memberId: memberId, churchId: vm.churchId });
         }
 
         vm.openActivity = function () {

@@ -2,11 +2,11 @@
 'use strict';
 
 angular.module('app').controller('teamListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$state', '$log', 'teamService', 'appNotificationService', 'appService'
-        , function ($scope, $mdDialog, $mdMedia, $state, $log, teamService, appNotificationService, appService) {
+    ['$scope', '$mdDialog', '$mdMedia', '$state', '$log', 'teamService', 'appNotificationService', 'appService', 'localStorageService'
+        , function ($scope, $mdDialog, $mdMedia, $state, $log, teamService, appNotificationService, appService, localStorageService) {
 
         var vm = this;
-        vm.churchId = 3; // default to the first one that they have access to
+        vm.churchId = 0; // default to the first one that they have access to
 
         vm.isLoading = false;
         vm.config = {};
@@ -46,9 +46,20 @@ angular.module('app').controller('teamListController',
 
             vm.isLoading = true;
 
+            if (vm.churchId == 0) {
+                var id = localStorageService.get("teamListChurchId");
+                if (id !== null)
+                    vm.churchId = id;
+            } else {
+                localStorageService.set("teamListChurchId", vm.churchId);
+            }
+
             teamService.getConfig(vm.churchId).then(function (success) {
 
                 vm.config = success;
+
+                if (vm.churchId == 0)
+                    vm.churchId = success.churchList[0].id;
 
                 loadTeamList();
 

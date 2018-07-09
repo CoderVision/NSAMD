@@ -11,7 +11,7 @@ angular.module('app').controller('memberController',
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
         vm.memberId = $stateParams.memberId;
-        vm.churchId = 3;
+        vm.churchId = $stateParams.churchId;
 
         vm.member = {};
         vm.memberList = [];
