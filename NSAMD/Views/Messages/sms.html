@@ -1,0 +1,56 @@
+﻿
+<div class="smsContent" ng-init="smc.init()" flex>
+    <div layout="row" class="smsRow">
+        <div layout="column" flex="40">
+            <md-list class="smsList">
+                <!--<md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" -->
+                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: smc.filterMessageGroups | orderBy: '-lastMessageDate'"
+                              class="md-2-line"
+                              ng-click="smc.viewMessages($index, user)"
+                              ng-class="{'selected': $index==smc.selectedIndex}">
+
+                    <div layout="row" layout-align="space-between start" style="width:100%;">
+                        <div class="md-list-item-text correspondenceFrom" layout="column" layout-align="start start" flex>
+                            <span class="correspondencePrimary">{{user.description}}</span>
+                            <span class="correspondenceSecondary truncate">{{ user.lastMessageBody}}</span>
+                        </div>
+
+                        <div class="correspondenceDate correspondenceSecondary">
+                            {{mc.formatDate(user.lastMessageDate)}} 
+                        </div>
+                    </div>
+
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div layout="column" flex>
+            <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
+                        md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
+                <div>
+                    <span>{{smc.selectedItem.description}}</span>
+                </div>
+            </md-toolbar>
+
+            <div layout="column" layout-align="end start" layout-padding flex>
+                <div  style="align-self:flex-start;" ng-repeat="msg in smc.selectedItem.messages | orderBy: 'messageDate'" layout-padding
+                     class="{{ msg.messageDirectionEnumID == 53 ? 'smsSent' : 'smsReceived'}}">
+                    <div>
+                        {{msg.body}}
+                    </div>
+                    <div class="smsDate">
+                        {{ smc.formatDate(msg.messageDate) }}
+                     </div>
+                </div>
+            </div>
+            <div layout="row" layout-align="space-between center" layout-padding class="smsSendContainer"> 
+                <form ng-submit="smc.sendSms()" flex style="display:flex;flex-direction:row;align-items:center;">
+                    <md-input-container flex>
+                        <input ng-model="smc.smsContent">
+                    </md-input-container>
+                    <ng-md-icon icon="send" ng-click="smc.sendSms()"></ng-md-icon>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

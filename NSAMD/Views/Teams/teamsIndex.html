@@ -36,19 +36,19 @@
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
                 <tr>
-                    <th sortable="name" class="sortable">
+                    <th sortable="name">
                         Name
                     </th>
-                    <th sortable="type" class="sortable">
+                    <th sortable="type" class="showDesktopOnly">
                         Type
                     </th>
-                    <th sortable='leader' class="sortable">
+                    <th sortable='leader'>
                         Leader
                     </th>
-                    <th sortable='memberCount' class="sortable">
+                    <th sortable='memberCount' class="showDesktopOnly">
                         Member Count
                     </th>
-                    <th sortable="description" class="sortable">
+                    <th sortable="description" class="showDesktopOnly">
                         Description
                     </th>
                     <!--<th sortable='email' class="sortable">
@@ -59,10 +59,10 @@
             <tbody>
                 <tr ng-repeat="item in filtered | startFrom:(tlc.paginationOptions.currentPage-1)*tlc.paginationOptions.itemsPerPage | limitTo:tlc.paginationOptions.itemsPerPage track by $index">
                     <td><a href ng-click="tlc.openProfile(item.id)">{{item.name}}</a></td>
-                    <td ng-bind="item.teamTypeEnumDesc"></td>
+                    <td class="showDesktopOnly" ng-bind="item.teamTypeEnumDesc"></td>
                     <td ng-bind="item.teamLeader"></td>
-                    <td ng-bind="item.teammateCount"></td>
-                    <td ng-bind="item.desc"></td>
+                    <td class="showDesktopOnly" ng-bind="item.teammateCount"></td>
+                    <td class="showDesktopOnly" ng-bind="item.desc"></td>
                     <!--<td>
                         <a class="showDesktopOnly" href="mailto:{{item.email}}">{{item.email}}</a>
                         <a class="showMobileOnly" ng-if="item.email" href="mailto:{{item.email}}">

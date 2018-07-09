@@ -182,6 +182,9 @@
     <Content Include="Controllers\addTeamController.js" />
     <Content Include="Controllers\adminChangeMembershipController.js" />
     <Content Include="Controllers\adminController.js" />
+    <Content Include="Controllers\mailController.js" />
+    <Content Include="Controllers\messageGroupDialogController.js" />
+    <Content Include="Controllers\smsController.js" />
     <Content Include="Controllers\adminUsersController.js" />
     <Content Include="Controllers\churchController.js" />
     <Content Include="Controllers\churchListController.js" />
@@ -189,6 +192,7 @@
     <Content Include="Controllers\memberController.js" />
     <Content Include="Controllers\memberListController.js" />
     <Content Include="Controllers\messageDialogController.js" />
+    <Content Include="Controllers\messagesController.js" />
     <Content Include="Controllers\reportsController.js" />
     <Content Include="Controllers\Reports\activeGuestListController.js" />
     <Content Include="Controllers\rootController.js" />
@@ -238,6 +242,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\ngMask.min.map" />
     <Content Include="Scripts\angular-local-storage.min.js.map" />
+    <None Include="Properties\PublishProfiles\Site.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -269,6 +274,7 @@
     <Content Include="Services\errorService.js" />
     <Content Include="Services\injectCSS.js" />
     <Content Include="Services\memberService.js" />
+    <Content Include="Services\messageService.js" />
     <Content Include="Services\reportService.js" />
     <Content Include="Services\Reports\reportService.js" />
     <Content Include="Services\teamService.js" />
@@ -291,6 +297,10 @@
     <Content Include="Views\Members\memberActivity.html" />
     <Content Include="Views\Members\memberProfile.html" />
     <Content Include="Views\Members\membersIndex.html" />
+    <Content Include="Views\Messages\mail.html" />
+    <Content Include="Views\Messages\messageGroupDialog.html" />
+    <Content Include="Views\Messages\messagesIndex.html" />
+    <Content Include="Views\Messages\sms.html" />
     <Content Include="Views\Reports\activeGuestList.html" />
     <Content Include="Views\Reports\activeGuestListParamsDialog.html" />
     <Content Include="Views\Reports\perspectivesIndex.html" />

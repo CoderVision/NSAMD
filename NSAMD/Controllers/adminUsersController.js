@@ -16,8 +16,25 @@ angular.module('app').controller('adminUsersController',
             vm.searchText = "";
             vm.selectedUser = {};
             vm.filterActive = true;
+            vm.selectedIndex = 0;
+            vm.usersOrdered = [];
 
-            vm.edit = function (user) {
+            //$scope.$watch("uc.usersOrdered", function (value) {
+            //    if (value && value.length > 0)
+            //        vm.edit(0, vm.usersOrdered[0]);
+            //});
+
+            // order the list when it changes and set it to the array
+            $scope.$watch("uc.getUsers() | orderBy : 'fullName'", function (newValue) {
+
+                if (newValue && newValue.length) {
+                    vm.usersOrdered = newValue;
+                    vm.edit(0, vm.usersOrdered[0]);
+                }
+            }, true);
+
+            vm.edit = function (index, user) {
+                vm.selectedIndex = index;
                 vm.selectedUser = user;
             }           
 

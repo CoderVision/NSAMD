@@ -1,7 +1,7 @@
 ﻿
 <md-sidenav class="md-sidenav-left"
             md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')"
+            md-is-locked-open="$mdMedia('gt-md')"
             md-whiteframe="4"
             >
     <md-toolbar> 
@@ -23,6 +23,9 @@
             </md-button>
             <md-button ng-click="rootCtrl.navigateTo('perspectives', 'Perspectives')">
                 Perspectives
+            </md-button>
+            <md-button ng-click="rootCtrl.navigateTo('messages', 'Messages')">
+                Messages
             </md-button>
             <md-button ng-click="rootCtrl.navigateTo('admin', 'Admin')" 
                        ng-show="rootCtrl.roleId == 2">

@@ -32,22 +32,22 @@
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
                 <tr>
-                    <th sortable="name" class="sortable">
+                    <th sortable="name">
                         Name
                     </th>
-                    <th sortable="statusDesc" class="sortable">
+                    <th sortable="statusDesc" class="showDesktopOnly">
                         Status
                     </th>
-                    <th sortable="pastor" class="sortable">
+                    <th sortable="pastor" class="showDesktopOnly">
                         Pastor
                     </th>
-                    <th sortable='phone' class="sortable">
+                    <th sortable='phone'>
                         Phone
                     </th>
-                    <th class="showMobileOnly sortable" sortable='phone'>
+                    <th class="showMobileOnly" sortable='phone'>
                         Text
                     </th>
-                    <th sortable='email' class="sortable">
+                    <th sortable='email'>
                         Email
                     </th>
                     <th>
@@ -59,8 +59,8 @@
                 <tr ng-repeat="item in filtered | startFrom:(clc.paginationOptions.currentPage-1)*clc.paginationOptions.itemsPerPage | limitTo:clc.paginationOptions.itemsPerPage track by $index">
 
                     <td><a href ng-click="clc.openProfile(item.id)">{{item.name}}</a></td>
-                    <td ng-bind="item.statusDesc"></td>
-                    <td ng-bind="item.pastor"></td>
+                    <td class="showDesktopOnly" ng-bind="item.statusDesc"></td>
+                    <td class="showDesktopOnly" ng-bind="item.pastor"></td>
                     <td>
                         <a class="showDesktopOnly" href="tel:{{item.phone}}">{{item.phone | phone}}</a>
                         <a class="showMobileOnly" ng-if="item.phone" href="tel:{{item.phone}}">

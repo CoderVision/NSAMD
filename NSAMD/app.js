@@ -56,6 +56,21 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Churches/churchProfile.html',
         controller: 'churchController',
         controllerAs: 'cc'
+    }).state('messages', {
+        url: '/messages',
+        templateUrl: './Views/Messages/messagesIndex.html',
+        controller: 'messagesController',
+        controllerAs: 'mc'
+    }).state('messages.sms', {
+        url: '/sms',
+        templateUrl: './Views/Messages/sms.html',
+        controller: 'smsController',
+        controllerAs: 'smc'
+    }).state('messages.mail', {
+        url: '/mail',
+        templateUrl: './Views/Messages/mail.html',
+        controller: 'mailController',
+        controllerAs: 'mmc'
     }).state('teams', {
         url: '/teams',
         templateUrl: './Views/Teams/teamsIndex.html',
@@ -77,33 +92,33 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         controller: 'adminUsersController',
         controllerAs: 'uc'
     }).state('admin.settings', {
-            url: '/settings',
-            templateUrl: './Views/Admin/settings.html'
-            //controller: 'adminUsersController',
-            //controllerAs: 'uc'
+        url: '/settings',
+        templateUrl: './Views/Admin/settings.html'
+        //controller: 'adminUsersController',
+        //controllerAs: 'uc'
     })
-    .state('perspectives', {
-        url: '/perspectives',
-        templateUrl: './Views/Reports/perspectivesIndex.html',
-        controller: 'reportsController',
-        controllerAs: 'rc'
-    })
-    .state('member', {
-        url: '/member/:memberId',
-        templateUrl: './Views/Members/memberProfile.html',
-        controller: 'memberController',
-        controllerAs: 'mc'
-    }).state('activity', {
-        url: '/activity/:churchId',
-        templateUrl: './Views/Members/memberActivity.html',
-        controller: 'memberActivityController',
-        controllerAs: 'mac'
-    }).state("Members", {
-        url: '/Members',
-        templateUrl: './Views/Members/membersIndex.html',
-        controller: 'memberListController',
-        controllerAs: 'mlc'
-    });
+        .state('perspectives', {
+            url: '/perspectives',
+            templateUrl: './Views/Reports/perspectivesIndex.html',
+            controller: 'reportsController',
+            controllerAs: 'rc'
+        })
+        .state('member', {
+            url: '/member/:memberId',
+            templateUrl: './Views/Members/memberProfile.html',
+            controller: 'memberController',
+            controllerAs: 'mc'
+        }).state('activity', {
+            url: '/activity/:churchId',
+            templateUrl: './Views/Members/memberActivity.html',
+            controller: 'memberActivityController',
+            controllerAs: 'mac'
+        }).state("Members", {
+            url: '/Members',
+            templateUrl: './Views/Members/membersIndex.html',
+            controller: 'memberListController',
+            controllerAs: 'mlc'
+        });
 
 
     $mdThemingProvider.definePalette('green', {

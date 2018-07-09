@@ -1,0 +1,28 @@
+﻿
+<md-progress-linear md-mode="indeterminate" style="margin-top:1px;" ng-if="mc.isLoading"></md-progress-linear>
+
+<div class="content" layout="column" ng-init="mc.init()" layout-fill>
+
+    <div layout="row">
+        <div layout="row" layout-align="start center" flex-gt-xs>
+            <md-input-container class="md-block" flex>
+                <label>Search</label>
+                <input ng-model="mc.searchText" placeholder="Enter group name"
+                       ng-change="mc.filter()"
+                       ng-model-options='{ debounce: 500 }' />
+            </md-input-container>
+
+            <ng-md-icon icon="add" style="padding-right:16px;padding-left:0px;" ng-click="mc.addGroup($event)"></ng-md-icon>
+        </div>
+
+        <md-input-container flex-gt-xs>
+            <label>Church</label>
+            <md-select ng-model="mc.churchId">
+                <md-option ng-repeat="c in mc.config.churches | orderBy:'name'" ng-value="c.id">{{c.name}}</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <div data-ui-view="" flex></div>
+
+</div>

@@ -1,7 +1,7 @@
 ﻿
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button hide-gt-sm class="md-icon-button" ng-click="rootCtrl.toggleSideNav()" aria-label="menu">
+        <md-button hide-gt-md class="md-icon-button" ng-click="rootCtrl.toggleSideNav()" aria-label="menu">
             <ng-md-icon class="menuIcon" icon="menu" style="fill: white" size="24"></ng-md-icon>
         </md-button>
 
@@ -11,9 +11,9 @@
             </h1>
 
             <div layout="row">
-                <md-button ng-repeat="mnuItem in rootCtrl.menuItems" ng-click="mnuItem.do();">{{mnuItem.text}}</md-button>
+                <md-button class="toolBarMenuButton" ng-repeat="mnuItem in rootCtrl.menuItems" ng-click="mnuItem.do();">{{mnuItem.text}}</md-button>
 
-                <md-button class="md-fab md-raised md-mini"
+                <md-button class="md-fab md-raised md-mini loginButton"
                            aria-label="{{ rootCtrl.isLoggedIn ? 'Log out' : 'Log in' }}"
                            ng-click="rootCtrl.logIn()">
                     <ng-md-icon icon="{{ rootCtrl.isLoggedIn ? 'logout' : 'login' }}"></ng-md-icon>

@@ -36,25 +36,25 @@
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
                 <tr>
-                    <th sortable="fullName" class="sortable">
+                    <th sortable="fullName">
                         Name
                     </th>
-                    <th sortable="status" class="sortable">
+                    <th sortable="status" class="showDesktopOnly">
                         Status
-                    </th>
-                    <th sortable="statusChangeType" class="sortable">
+                    </th> 
+                    <th sortable="statusChangeType" class="showDesktopOnly">
                         Description
                     </th>
-                    <th sortable='attendance' class="sortable">
+                    <th sortable='attendance' class="showDesktopOnly">
                         Last Attendance
                     </th>
-                    <th sortable='phone' class="sortable">
+                    <th sortable='phone'>
                         Phone
                     </th>
-                    <th class="showMobileOnly sortable" sortable='phone'>
+                    <th class="showMobileOnly" sortable='phone'>
                         Text
                     </th>
-                    <th sortable='email' class="sortable">
+                    <th sortable='email'>
                         Email
                     </th>
                     <th>
@@ -65,9 +65,9 @@
             <tbody>
                 <tr ng-repeat="item in filtered | startFrom:(mlc.paginationOptions.currentPage-1)*mlc.paginationOptions.itemsPerPage | limitTo:mlc.paginationOptions.itemsPerPage track by $index">
                     <td><a href ng-click="mlc.openProfile(item.id)">{{item.fullName}}</a></td>
-                    <td ng-bind="item.status"></td>
-                    <td ng-bind="item.statusChangeType"></td>
-                    <td ng-bind="item.attendance | date:'MM/dd/yyyy'"></td>
+                    <td class="showDesktopOnly" ng-bind="item.status"></td>
+                    <td class="showDesktopOnly" ng-bind="item.statusChangeType"></td>
+                    <td class="showDesktopOnly" ng-bind="item.attendance | date:'MM/dd/yyyy'"></td>
                     <td>
                         <a class="showDesktopOnly" href="tel:{{item.phone}}">{{item.phone | phone}}</a>
                         <a class="showMobileOnly" ng-if="item.phone" href="tel:{{item.phone}}">
