@@ -50,16 +50,24 @@ angular.module('app').controller('teamListController',
                 var id = localStorageService.get("teamListChurchId");
                 if (id !== null)
                     vm.churchId = id;
-            } else {
-                localStorageService.set("teamListChurchId", vm.churchId);
             }
 
             teamService.getConfig(vm.churchId).then(function (success) {
 
                 vm.config = success;
 
-                if (vm.churchId == 0)
+                var found = false;
+                for (var i = 0; i < success.churchList.length; i++) {
+                    if (success.churchList[i].id == vm.churchId) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
                     vm.churchId = success.churchList[0].id;
+
+                localStorageService.set("teamListChurchId", vm.churchId);
 
                 loadTeamList();
 

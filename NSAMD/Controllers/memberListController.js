@@ -66,16 +66,24 @@ angular.module('app').controller('memberListController',
                 var id = localStorageService.get("memberListChurchId");
                 if (id !== null)
                     vm.churchId = id;
-            } else {
-                localStorageService.set("memberListChurchId", vm.churchId);
-            }
+            } 
 
             memberService.getConfig(vm.churchId).then(function (success) {
 
                 vm.config = success;
 
-                if (vm.churchId == 0)
-                    vm.churchId = vm.config.userChurches[0].id;
+                var found = false;
+                for (var i = 0; i < vm.config.userChurches.length; i++) {
+                    if (vm.config.userChurches[i].id == vm.churchId) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                    vm.churchId = m.config.userChurches[0].id;
+
+                localStorageService.set("memberListChurchId", vm.churchId);
 
                 loadMemberList();
 
