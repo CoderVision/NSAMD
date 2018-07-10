@@ -51,8 +51,19 @@ angular.module('app').controller('messagesController',
 
                     vm.config = data;
 
-                    (vm.churchId == 0)
-                        vm.churchId = data.churches[0].id; // get the first church in the list
+                    var found = false;
+                    for (var i = 0; i < vm.config.churches.length; i++) {
+                        if (vm.config.churches[i].id == vm.churchId) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found == false)
+                        vm.churchId = vm.config.churches[0].id;
+
+                    localStorageService.set("messagesChurchId", vm.churchId);
+
 
                     if ($state.current.url == "/messages") {
                         vm.openSms();
@@ -67,8 +78,6 @@ angular.module('app').controller('messagesController',
             }
 
             vm.loadData = function () {
-
-                localStorageService.set("messagesChurchId", vm.churchId);
 
                 if (vm.messageType == 2)
                     vm.openSms();
