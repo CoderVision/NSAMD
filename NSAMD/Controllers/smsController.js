@@ -39,7 +39,20 @@ angular.module('app').controller('smsController',
 
                 //if (vm.selectedItem === undefined) {
                     vm.correspondencesOrdered = newValue;
-                    vm.viewMessages(0, vm.correspondencesOrdered[0]);
+                vm.viewMessages(0, vm.correspondencesOrdered[0]);
+
+                /* 
+                 tried this, didn't work:
+                                 var idx = 0
+                for (var i = 0; i < vm.correspondencesOrdered.length; i++) {
+                    if (vm.correspondencesOrdered[i].id == vm.selectedItem.id) {
+                        idx = i;
+                        break;
+                    }
+                }
+
+                vm.viewMessages(idx, vm.correspondencesOrdered[0]);
+                 * */
                // }
             }, true);
 

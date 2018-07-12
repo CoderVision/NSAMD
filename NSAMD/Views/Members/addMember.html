@@ -6,7 +6,7 @@
             <h2>{{dc.currentItem.isNew ? 'Add' : 'Edit'}} Member</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="dc.cancel()">
-                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24"></ng-md-icon>
+                <ng-md-icon class="menuIcon" icon="close" style="fill: white" size="24" ng-click="dc.cancel()"></ng-md-icon>
             </md-button>
         </div>
     </md-toolbar>
@@ -71,7 +71,7 @@
 
                         <md-input-container flex="15">
                             <input type="text" ng-model="dc.currentItem.state" name="state" min="0" ng-minlength="2" ng-maxlength="2"
-                                   mask="AA" clean="true" restrict="reject" placeholder="State" />
+                                   mask="@@" clean="true" restrict="reject" placeholder="State" />
                             <div ng-messages="newMemberForm.state.$error">
                                 <div ng-message="maxlength">2 characters required</div>
                                 <div ng-message="minlength">2 characters required</div>

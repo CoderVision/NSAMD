@@ -4,7 +4,10 @@
         <div layout="column" flex="40">
             <md-list class="smsList">
                 <!--<md-list-item ng-repeat="user in smc.correspondencesOrdered = (smc.correspondences | orderBy : '-LastMessageDate')" -->
-                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: smc.filterMessageGroups | orderBy: '-lastMessageDate'"
+                <!--| orderBy: '-lastMessageDate'-->
+                <!--track by user.id-->
+
+                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: smc.filterMessageGroups"
                               class="md-2-line"
                               ng-click="smc.viewMessages($index, user)"
                               ng-class="{'selected': $index==smc.selectedIndex}">
@@ -16,7 +19,7 @@
                         </div>
 
                         <div class="correspondenceDate correspondenceSecondary">
-                            {{mc.formatDate(user.lastMessageDate)}} 
+                            {{mc.formatDate(user.lastMessageDate)}}
                         </div>
                     </div>
 

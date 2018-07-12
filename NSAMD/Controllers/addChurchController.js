@@ -14,7 +14,7 @@ angular.module('app')
             }
 
             vm.cancel = function () {
-                $mdDialog.cancel();
+                $mdDialog.hide();
             }
 
             vm.save = function () {

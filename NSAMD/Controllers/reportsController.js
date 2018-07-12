@@ -63,7 +63,7 @@ angular.module('app').controller('reportsController',
 
         vm.loadReportList = function () {
             vm.reportList = [];
-            vm.reportList.push({ id: 1, name: 'Active Guest List', desc: 'A lists of members for follow-up; filtered by team, sponsor, and status.', open: vm.openActiveGuestList })
+            vm.reportList.push({ id: 1, name: 'Guest List', desc: 'A lists of members for follow-up; filtered by team, sponsor, and status.', open: vm.openActiveGuestList })
         }
 
         vm.filterReports = function (report) {

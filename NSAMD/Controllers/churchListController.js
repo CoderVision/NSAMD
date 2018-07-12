@@ -6,7 +6,7 @@ angular.module('app').controller('churchListController',
         , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $state, $log, churchService, appNotificationService, appService) {
 
         var vm = this;
-        vm.churchId = 3; // default to the first one that they have access to
+        vm.churchId = 0; // default to the first one that they have access to
         vm.showAll = false; // true to show all, false to hide archived
 
         vm.isLoading = false;

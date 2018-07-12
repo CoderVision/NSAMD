@@ -43,7 +43,7 @@
                     <md-input-container flex="15">
                         <label>State</label>
                         <input type="text" ng-model="dc.currentItem.state" name="state" min="0" ng-maxlength="2" 
-                               mask="AA" clean="true" restrict="reject"/>
+                               mask="@@" clean="true" restrict="reject"/>
                         <div ng-messages="addyForm.state.$error">
                             <div ng-message="maxlength">2 characters max</div>
                         </div>
