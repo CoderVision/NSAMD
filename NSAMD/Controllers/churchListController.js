@@ -47,13 +47,13 @@ angular.module('app').controller('churchListController',
 
             vm.isLoading = true;
 
-            //churchService.getConfig().then(function (success) {
+            churchService.getConfig(vm.churchId).then(function (success) {
 
-            //    vm.config = success;
+                vm.config = success;
 
-            //}, function (error) {
-            //    appNotificationService.openToast("Error loading church config ");
-            //});
+            }, function (error) {
+                appNotificationService.openToast("Error loading church config ");
+            });
 
             loadChurchList();
         }

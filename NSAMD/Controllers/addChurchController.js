@@ -10,7 +10,7 @@ angular.module('app')
             vm.currentItem = currentItem;
 
             vm.load = function () {
-                vm.config = configService.getTimeZones();
+                vm.config.timeZones = configService.getTimeZones();
             }
 
             vm.cancel = function () {
