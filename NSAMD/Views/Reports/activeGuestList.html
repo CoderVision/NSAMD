@@ -48,7 +48,7 @@
                     <div class="cell" style="width:350px;">
                         Address
                     </div>
-                    <div class="cell" style="width:167px;">
+                    <div class="cell" style="width:160px!important;">
                         Follow-up Dates
                     </div>
                     <div class="cellLast">
@@ -71,9 +71,9 @@
                         <div>{{g.memberEmail}}</div>
                     </div>
 
-                    <div class="cell" style="padding: 0px;width:167px;" >
-                        <div class="container">
-                            <div style="height:100%;"><!--
+                    <div class="cell" style="padding: 0px;max-width:167px!important;" >
+                        <div class="container" style="max-width:167px!important;">
+                            <div style="height:100%;max-width:167px!important;"><!--
                                 --><div class="rectangleCell"></div><!--
                                 --><div class="rectangleCell"></div><!--
                                 --><div class="rectangleCell"></div><!--
@@ -85,21 +85,6 @@
                         </div>
                     </div>
 
-                    <!-- this didn't look good in print preview, and I wasn't satisfied with it on screen either. -->
-                    <!--<div class="cell" style="padding-bottom: 1px;">
-                        <div class="container">
-                            <div style="height:100%;">
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                                <div class="rectangleCell"></div>
-                            </div>
-                            </div>
-                    </div>-->
                     <div class="cellLast">
                         {{g.comments}}
                     </div>

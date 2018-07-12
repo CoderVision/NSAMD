@@ -119,6 +119,8 @@ html, body {
         height: 100%;
         padding: 4px;
         min-height: 59px;
+        text-align: left;
+        vertical-align: top;
     }
 
     .cell {
@@ -191,6 +193,8 @@ html, body {
     .cellLast {
         border-bottom: solid 1pt black;
         padding: 4px;
+        text-align: left;
+        vertical-align: top;
     }
 
     .cell {
