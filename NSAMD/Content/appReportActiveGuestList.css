@@ -117,6 +117,8 @@ html, body {
         border-bottom: solid 1px black;
         display: table-cell;
         height: 100%;
+        padding: 4px;
+        min-height: 59px;
     }
 
     .cell {
@@ -124,12 +126,16 @@ html, body {
         border-bottom: solid 1px black;
         display: table-cell;
         height: 100%;
+        border-spacing: 0px;
+        padding: 4px;
+        min-height: 59px;
     }
 
     .rectangleCell {
         border-right: solid 1px black;
         width: 20px;
         height: 100%;
+        display: inline-block;
     }
 
     .cellRight {
@@ -138,13 +144,14 @@ html, body {
 
     .firstCell {
         height: 50px;
+        min-height: 59px;
     }
 
     .absoluteBottom {
         position: absolute;
-        bottom: 8px;
-        right: 8px;
-        left: 8px;
+        bottom: 4px;
+        right: 6px;
+        left: 6px;
     }
 
     .boundry {
@@ -183,6 +190,7 @@ html, body {
 
     .cellLast {
         border-bottom: solid 1pt black;
+        padding: 4px;
     }
 
     .cell {
@@ -265,13 +273,13 @@ footer:after {
 .floatLeft {
     float: left;
 }
-
-    .floatLeft:after {
-        float: none;
-    }
+col-1-15
+.floatLeft:after {
+    float: none;
+}
 
 .floatRight {
-    float: right;
+    float: rightrow
 }
 
     .floatRight:after {
@@ -298,6 +306,7 @@ footer:after {
     display: table-row;
     page-break-inside: avoid;
     height:100%;
+    min-height:59px;
 }
 
 .group {

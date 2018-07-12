@@ -42,45 +42,53 @@
             <section class="items">
                 <!-- header -->
                 <div class="row">
-                    <div class="col-1-15 cell">
+                    <div class="cell" style="width:350px;">
                         Guest Name
                     </div>
-                    <div class="col-1-25 cell">
+                    <div class="cell" style="width:350px;">
                         Address
                     </div>
-                    <div class="col-1-15 cell">
+                    <div class="cell" style="width:167px;">
                         Follow-up Dates
                     </div>
-                    <div class="col-1-25 cellLast">
+                    <div class="cellLast">
                         Comments
                     </div>
                 </div>
 
                 <!-- data -->
                 <div class="row" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
-                    <div class="col-1-15 cell relative firstCell">
-                        <div class="memberName">{{g.memberName}}</div>
+                    <div class="cell relative firstCell" style="width:350px;">
+                        <div class="memberName" style="padding-left:1px;">{{g.memberName}}</div>
                         <div class="absoluteBottom flexRow">
                             <div>{{g.status}}</div>
                             <div>{{g.lastActivityDateFormatted}}</div>
                         </div>
                     </div>
-                    <div class="col-1-25 cell flexColumn">
+                    <div class="cell" relative style="width:350px;">
                         <div>{{g.memberAddress}}</div>
                         <div>{{g.memberPhone | phone}}</div>
                         <div>{{g.memberEmail}}</div>
                     </div>
 
-                    <div class="col-1-10 cell">
-                        <!--<div style="height:100%!important;background: blue;width:20px;">
-                            test
-                        </div>-->
+                    <div class="cell" style="padding: 0px;width:167px;" >
+                        <div class="container">
+                            <div style="height:100%;"><!--
+                                --><div class="rectangleCell"></div><!--
+                                --><div class="rectangleCell"></div><!--
+                                --><div class="rectangleCell"></div><!--
+                                --><div class="rectangleCell"></div><!--
+                                --><div class="rectangleCell"></div><!--
+                                --><div class="rectangleCell"></div><!--
+                                --><div class="rectangleCell"></div><!--
+                            --></div>
+                        </div>
                     </div>
 
                     <!-- this didn't look good in print preview, and I wasn't satisfied with it on screen either. -->
                     <!--<div class="cell" style="padding-bottom: 1px;">
                         <div class="container">
-                            <div class="flexRow" style="height:100%;">
+                            <div style="height:100%;">
                                 <div class="rectangleCell"></div>
                                 <div class="rectangleCell"></div>
                                 <div class="rectangleCell"></div>
@@ -92,7 +100,7 @@
                             </div>
                             </div>
                     </div>-->
-                    <div class="col-1-25 cellLast">
+                    <div class="cellLast">
                         {{g.comments}}
                     </div>
                 </div>
