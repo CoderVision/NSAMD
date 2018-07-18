@@ -9,19 +9,21 @@
 
         <header>
             <div class="flexRowCenter">
-                <h1>Guest List</h1>
+                <h1 class="title">Guest List</h1>
             </div>
         </header>
 
-        <div class="boundry flexRow sponsorBox">
-            <div class="labelBottom">
-                <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
-                <div><span class="label">Team:</span> {{sponsor.teamName}}</div>
-            </div>
-            <div>
-                <span class="label">Dated:</span> {{c.runDate}}
-            </div>
-        </div>
+        <table class="sponsorTable">
+            <tr>
+                <td valign="top">
+                    <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
+                    <div><span class="label">Team:</span> {{sponsor.teamName}}</div>
+                </td>
+                <td valign="top" align="right">
+                    <span class="label">Dated:</span> {{c.runDate}}
+                </td>
+            </tr>
+        </table>
 
         <div class="boundry flexRow">
             <div>
@@ -63,15 +65,15 @@
                     </div>
                         -->
                 </td>
-                <td class="cell">
+                <td class="cell" valign="top">
                     <div>
                         <div>{{g.memberAddress}}</div>
                         <div>{{g.memberPhone | phone}}</div>
                         <div>{{g.memberEmail}}</div>
                     </div>
                 </td>
-                <td class="cell">&nbsp;</td>
-                <td class="cell lastCell">{{g.comments}}</td>
+                <td class="cell" valign="top">&nbsp;</td>
+                <td class="cell lastCell" valign="top">{{g.comments}}</td>
             </tr>
         </table>
     </div>

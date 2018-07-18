@@ -17,34 +17,29 @@ html, body {
 }
 
 
+.title {
+    text-align: center;
+}
 
-/*@page :left {
-    margin-left: 3cm;
+.memberName {
+    font-weight: bolder;
+}
 
-    @bottom-left {
-        content: "Page " counter(page) " of " counter(pages);
-    }
-}*/
 
-/*@page :right {
-    margin-left: 4cm;
-
-    @bottom-left {
-        margin: 10pt 0 30pt 0;
-        border-top: .25pt solid #666;
-        font-size: 9pt;
-        color: #333;
-    }
-
-    @bottom-right {
-        content: "Page " counter(page) " of " counter(pages);
-    }
-}*/
 
 
 @media screen {
+    body {
+        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+    }
+
     .guestTable {
-        
+        width: 100%
+    }
+
+    .sponsorTable {
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .group {
@@ -82,9 +77,18 @@ html, body {
     .lastCell {
         border-right: none;
     }
+
+    .label {
+        margin-right: 4px;
+    }
 }
 
 @media print {
+    body {
+        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+        font-size: 12pt;
+    }
+
     @page {
         size: letter portrait;
         /* 1/4" margin each side */
@@ -94,6 +98,11 @@ html, body {
     .guestTable {
         /* 8" */
         width: 576pt; 
+    }
+
+    .sponsorTable {
+        width: 576pt;
+        margin-bottom: 6pt;
     }
 
     .guestNameColumnHeader {
@@ -138,12 +147,16 @@ html, body {
 
     .group {
         page-break-before: always;
-        page-break-inside: avoid;
+        /*   page-break-inside: avoid; */
     }
 
     /* this is supposed to prevent it from doing a page break on the first page */
         .group:first-child {
             page-break-before: avoid;
         }
+
+    .label {
+        margin-right: 1pt;
+    }
 }
 
