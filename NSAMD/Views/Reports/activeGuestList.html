@@ -1,97 +1,79 @@
-﻿
-<!--https://contrivedexample.com/2015/03/08/printable-reports-using-only-css-and-html/-->
+﻿<!--https://contrivedexample.com/2015/03/08/printable-reports-using-only-css-and-html/-->
 <!--flexbox:  https://www.w3schools.com/css/css3_flexbox.asp#flex-grow-->
 
 <div ng-init="c.load()" style="max-width:1200px;">
-    <!--<header>
-        <div class="flexRowCenter">
-            <h1>Active Guest List</h1>
+    <!--<div ng-repeat="team in c.teamGroup | orderBy: 'teamName'">-->
+    <!--     | teamFilter: team | orderBy: 'sponsorName'" -->
+    <!-- order by team, sponsor name -->
+    <div class="group" ng-repeat="sponsor in c.sponsorGroup">
+
+        <header>
+            <div class="flexRowCenter">
+                <h1>Guest List</h1>
+            </div>
+        </header>
+
+        <div class="boundry flexRow sponsorBox">
+            <div class="labelBottom">
+                <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
+                <div><span class="label">Team:</span> {{sponsor.teamName}}</div>
+            </div>
+            <div>
+                <span class="label">Dated:</span> {{c.runDate}}
+            </div>
         </div>
-    </header>-->
 
-    <div ng-repeat="team in c.teamGroup | orderBy: 'teamName'">
-        <div class="group" ng-repeat="sponsor in c.sponsorGroup | teamFilter: team | orderBy: 'sponsorName'">
-
-            <header>
-                <div class="flexRowCenter">
-                    <h1>Guest List</h1>
-                </div>
-            </header>
-
-            <div class="boundry flexRow sponsorBox">
-                <div class="labelBottom">
-                    <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
-                    <div><span class="label">Team:</span> {{team.teamName}}</div>
-                </div>
-                <div>
-                    <span class="label">Dated:</span> {{c.runDate}}
-                </div>
+        <div class="boundry flexRow">
+            <div>
+                <div>Please use this legend to show follow-up mode</div>
+                <div>V-visit C-call T-text -E-email</div>
             </div>
-
-            <div class="boundry flexRow">
-                <div>
-                    <div>Please use this legend to show follow-up mode</div>
-                    <div>V-visit C-call T-text -E-email</div>
-                </div>
-                <div>
-                    <div>When you receive a committment for a service,</div>
-                    <div>place a dot in the box for each service promised</div>
-                </div>
+            <div>
+                <div>When you receive a committment for a service,</div>
+                <div>place a dot in the box for each service promised</div>
             </div>
-
-            <section class="items">
-                <!-- header -->
-                <div class="row">
-                    <div class="cell" style="width:350px;">
+        </div>
+        <table class="guestTable">
+            <thead>
+                <tr>
+                    <th class="guestNameColumnHeader">
                         Guest Name
-                    </div>
-                    <div class="cell" style="width:350px;">
+                    </th>
+                    <th class="addressColumnHeader">
                         Address
-                    </div>
-                    <div class="cell" style="width:160px!important;">
+                    </th>
+                    <th class="followUpColumnHeader">
                         Follow-up Dates
-                    </div>
-                    <div class="cellLast">
+                    </th>
+                    <th class="commentsColumnHeader">
                         Comments
-                    </div>
-                </div>
+                    </th>
+                </tr>
+            </thead>
 
-                <!-- data -->
-                <div class="row" ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
-                    <div class="cell relative firstCell" style="width:350px;">
-                        <div class="memberName" style="padding-left:1px;">{{g.memberName}}</div>
-                        <div class="absoluteBottom flexRow">
-                            <div>{{g.status}}</div>
-                            <div>{{g.lastActivityDateFormatted}}</div>
-                        </div>
+            <tr ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
+
+                <td class="cell" valign="top">
+                    {{g.memberName}}
+                    <!--
+                    <div class="memberName" style="padding-left:1px;">{{g.memberName}}</div>
+                    <div class="absoluteBottom flexRow">
+                        <div>{{g.status}}</div>
+                        <div>{{g.lastActivityDateFormatted}}</div>
                     </div>
-                    <div class="cell" relative style="width:350px;">
+                        -->
+                </td>
+                <td class="cell">
+                    <div>
                         <div>{{g.memberAddress}}</div>
                         <div>{{g.memberPhone | phone}}</div>
                         <div>{{g.memberEmail}}</div>
                     </div>
-
-                    <div class="cell" style="padding: 0px;max-width:167px!important;" >
-                        <div class="container" style="max-width:167px!important;">
-                            <div style="height:100%;max-width:167px!important;"><!--
-                                --><div class="rectangleCell"></div><!--
-                                --><div class="rectangleCell"></div><!--
-                                --><div class="rectangleCell"></div><!--
-                                --><div class="rectangleCell"></div><!--
-                                --><div class="rectangleCell"></div><!--
-                                --><div class="rectangleCell"></div><!--
-                                --><div class="rectangleCell"></div><!--
-                            --></div>
-                        </div>
-                    </div>
-
-                    <div class="cellLast">
-                        {{g.comments}}
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
+                </td>
+                <td class="cell">&nbsp;</td>
+                <td class="cell lastCell">{{g.comments}}</td>
+            </tr>
+        </table>
     </div>
+    <!--</div>-->
 </div>

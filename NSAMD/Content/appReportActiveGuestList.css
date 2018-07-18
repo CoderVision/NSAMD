@@ -1,27 +1,5 @@
-﻿.table {
-    display: table;
-    width: 600px;
-    height: 300px;
-    border: 2px solid blue;
-}
+﻿
 
-/*.row {
-    display: table-row;
-}*/
-
-.row1 {
-    height: 50px;
-    background: pink;
-}
-
-/*.row2 {
-    height: 100%;
-}*/
-
-.row3 {
-    height: 50px;
-    background: yellow;
-}
 
 .container {
     height: 100%;
@@ -34,27 +12,11 @@ html, body {
     padding: 0;
 }
 
-#wrapper {
-    display: table;
-    width: 640px;
-    height: 960px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-
-
-
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
 
-@page {
-    size: letter portrait;
-    margin: 8pt 8pt 8pt 8pt;
-}
+
 
 /*@page :left {
     margin-left: 3cm;
@@ -81,243 +43,107 @@ html, body {
 
 
 @media screen {
-    body {
-        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
+    .guestTable {
+        
     }
 
-    header {
-        width: 100%;
-        max-width: 1500px;
+    .group {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1000px;
     }
 
-    .items {
-        clear: both;
-        display: table;
-        padding: 20px;
-        width: 100%;
-        max-width: 1500px;
-        height: 1px;
+    .guestNameColumnHeader {
+        width: 350px;
     }
 
-    .table {
-        display: table;
-        width: 600px;
-        height: 300px;
-        border: 2px solid blue;
+    .addressColumnHeader {
+        width: 350px;
     }
 
-
-    /* Factor out common styles for all of the "col-" classes.*/
-    div[class^="col-"] {
-        display: table-cell;
-        padding: 7px;
+    .followUpColumnHeader {
+        width: 160px;
     }
 
-    .cellLast {
-        border-bottom: solid 1px black;
-        display: table-cell;
-        height: 100%;
-        padding: 4px;
-        min-height: 59px;
-        text-align: left;
-        vertical-align: top;
+    .commentsColumnHeader {
+
     }
 
     .cell {
         border-right: solid 1px black;
         border-bottom: solid 1px black;
-        display: table-cell;
-        height: 100%;
+        /* height: 100%;
+            min-height: 59px;
+        */
         border-spacing: 0px;
         padding: 4px;
-        min-height: 59px;
     }
 
-    .rectangleCell {
-        border-right: solid 1px black;
-        width: 20px;
-        height: 100%;
-        display: inline-block;
-    }
-
-    .cellRight {
-        border-right: solid 1px black;
-    }
-
-    .firstCell {
-        height: 50px;
-        min-height: 59px;
-    }
-
-    .absoluteBottom {
-        position: absolute;
-        bottom: 4px;
-        right: 6px;
-        left: 6px;
-    }
-
-    .boundry {
-        width: 100%;
-        max-width: 1500px;
-        padding-left: 20px;
-    }
-
-    .sponsorBox {
-        margin-bottom: 10px;
-    }
-
-    .label {
-        margin-right: 4px;
+    .lastCell {
+        border-right: none;
     }
 }
 
 @media print {
-    body {
-        font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
-        font-size: 12pt;
+    @page {
+        size: letter portrait;
+        /* 1/4" margin each side */
+        margin: 18pt 18pt 18pt 18pt;  
     }
 
-    .items {
-        clear: both;
-        display: table;
-        padding: 20pt;
-        width: 100%;
+    .guestTable {
+        /* 8" */
+        width: 576pt; 
     }
 
-    /* Factor out common styles for all of the "col-" classes.*/
-    div[class^="col-"] {
-        display: table-cell;
-        padding: 7pt;
+    .guestNameColumnHeader {
+        width: 175pt;
     }
 
-    .cellLast {
-        border-bottom: solid 1pt black;
-        padding: 4px;
-        text-align: left;
-        vertical-align: top;
+    .addressColumnHeader {
+        width: 175pt;
+    }
+
+    .followUpColumnHeader {
+        width: 90pt;
+    }
+
+    .commentsColumnHeader {
+        width: 136pt;
     }
 
     .cell {
-        border-right: solid 1pt black;
-        border-bottom: solid 1pt black;
+        border-right: solid .5pt black;
+        border-bottom: solid .5pt black;
+        /* height: 100%;
+            min-height: 59px;
+        */
+        border-spacing: 0px;
+        padding: 4px;
     }
 
-    .firstCell {
-        height: 40pt;
+    .lastCell {
+        border-right: none;
     }
 
-    .absoluteBottom {
-        position: absolute;
-        bottom: 8pt;
-        right: 8pt;
-        left: 8pt;
+    footer:before, header:after {
+        content: " ";
     }
 
-    .boundry {
-        width: 100%;
-        padding-left: 20pt;
+    footer:before {
+        counter-increment: page;
+        content: counter(page) ". ";
     }
 
-    .sponsorBox {
-        margin-bottom: 10pt;
+
+    .group {
+        page-break-before: always;
+        page-break-inside: avoid;
     }
 
-    .label {
-        margin-right: 4pt;
-    }
+    /* this is supposed to prevent it from doing a page break on the first page */
+        .group:first-child {
+            page-break-before: avoid;
+        }
 }
 
-
-
-
-.relative {
-    position: relative;
-}
-
-
-.memberName {
-    font-weight: bolder;
-}
-
-/*From https://gist.github.com/crowcoder/c4ac49ba30048262db8c*/
-footer:before, header:after {
-    content: " ";
-    display: table;
-}
-
-footer:before {
-    counter-increment: page;
-    content: counter(page) ". ";
-}
-
-footer:after {
-    clear: both;
-}
-
-.flexColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.flexRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.flexRowCenter {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-
-
-.floatLeft {
-    float: left;
-}
-col-1-15
-.floatLeft:after {
-    float: none;
-}
-
-.floatRight {
-    float: rightrow
-}
-
-    .floatRight:after {
-        float: none;
-    }
-
-.col-1-10 {
-    width: 10%;
-}
-
-.col-1-15 {
-    width: 15%;
-}
-
-.col-1-20 {
-    width: 20%;
-}
-
-.col-1-25 {
-    width: 25%;
-}
-
-.row {
-    display: table-row;
-    page-break-inside: avoid;
-    height:100%;
-    min-height:59px;
-}
-
-.group {
-    page-break-inside: avoid;
-    page-break-before: always;
-}
-
-    .group:first-child {
-        page-break-before: avoid;
-    }

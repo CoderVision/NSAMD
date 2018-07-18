@@ -58,7 +58,7 @@ angular.module('app').controller('activeGuestListController',
                 }
             }
             if (contains === false) {
-                vm.sponsorGroup.push({ sponsorId: member.sponsorId, sponsorName: member.sponsorName, teamId: member.teamId });
+                vm.sponsorGroup.push({ sponsorId: member.sponsorId, sponsorName: member.sponsorName, teamId: member.teamId, teamName: member.teamName });
             }
         }
 
