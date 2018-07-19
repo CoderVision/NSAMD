@@ -75,7 +75,7 @@ html, body {
     }
 
     .lastCell {
-        border-right: none;
+        border-right: none!important;
     }
 
     .label {
@@ -90,12 +90,28 @@ html, body {
     .guestNameTd {
         height: 1px;
     }
+
+    .rectangleTableTd {
+        height: 1px;
+        padding: 0px;
+    }
+
+    .rectangleTable {
+        height: 100%;
+        width: 100%;
+    }
+
+    .rectangleCell {
+        border-right: solid 1px black;
+        width: 20px;
+        height: 100%;
+    }
 }
 
 @media print {
     body {
         font-family: 'Segoe UI','Microsoft Sans Serif',sans-serif;
-        font-size: 12pt;
+        font-size: 11pt;
     }
 
     @page {
@@ -148,8 +164,25 @@ html, body {
         padding: 4px;
     }
 
+    .rectangleTableTd {
+        height: 1pt;
+        padding: 0pt;
+    }
+
+
+    .rectangleTable {
+        height: 100%;
+        width: 100%;
+    }
+
+    .rectangleCell {
+        border-right: solid .5pt black;
+        width: 11.25pt;
+        height: 100%;
+    }
+
     .lastCell {
-        border-right: none;
+        border-right: none!important;
     }
 
     footer:before, header:after {
