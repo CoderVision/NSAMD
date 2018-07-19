@@ -34,16 +34,17 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config', '
 
             var deferred = $q.defer();
 
-            if (localStorageService.isSupported) {
+            // don't store this in local storage because permissions may change and this won't update them (e.g., someone may lose access)
+            //if (localStorageService.isSupported) {
 
-                var cfg = localStorageService.get("user");
+            //    var cfg = localStorageService.get("user");
 
-                if (cfg)
-                {
-                    deferred.resolve(cfg);
-                    return deferred.promise;
-                }
-            }
+            //    if (cfg)
+            //    {
+            //        deferred.resolve(cfg);
+            //        return deferred.promise;
+            //    }
+            //}
 
             var uri = config.apiUrl + "/account";
 

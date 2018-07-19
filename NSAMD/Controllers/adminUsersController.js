@@ -71,8 +71,18 @@ angular.module('app').controller('adminUsersController',
 
                 userService.processAcctRequest(acctReq).then(function (success) {
 
+                    // remove 
                     const index = vm.acctRequests.indexOf(acctReq);
                     vm.acctRequests.splice(index, 1);
+
+                    if (success !== null) {
+                        if (vm.users === undefined)
+                            vm.users = [];
+
+                        vm.users.push(success);
+
+                        vm.edit(success); // select the first one in the list
+                    }
 
                 }, function (error) {
                     appNotificationService.openToast("Error processing account request:  " + error);

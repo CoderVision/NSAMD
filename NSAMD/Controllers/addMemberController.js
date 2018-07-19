@@ -14,7 +14,8 @@ angular.module('app')
         vm.sponsorSearchText = null;
 
         vm.cancel = function () {
-            $mdDialog.cancel();
+            // $mdDialog.cancel();
+            $mdDialog.hide();
         }
 
         vm.save = function () {

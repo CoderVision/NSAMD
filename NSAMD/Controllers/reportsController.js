@@ -2,15 +2,15 @@
 'use strict';
 
 angular.module('app').controller('reportsController',
-    ['$scope', '$window', '$stateParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService'
-        , function ($scope, $window, $stateParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService) {
+    ['$scope', '$window', '$stateParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService', 'localStorageService'
+        , function ($scope, $window, $stateParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService, localStorageService) {
 
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
         var vm = this;
 
         vm.memberList = [];
-        vm.churchId = 3;
+        vm.churchId = 0;
         vm.config = {};
         vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         vm.reportList = [];
@@ -30,10 +30,29 @@ angular.module('app').controller('reportsController',
 
             vm.loadReportList();
 
+            if (vm.churchId == 0) {
+                var id = localStorageService.get("reportListChurchId");
+                if (id !== null)
+                    vm.churchId = id;
+            } 
+
             // load config data, such as churches, teams, sponsors, statuses, etc.
             reportService.getConfig(vm.churchId).then(function (success) {
 
                 vm.config = success;
+
+                var found = false;
+                for (var i = 0; i < vm.config.churchList.length; i++) {
+                    if (vm.config.churchList[i].id == vm.churchId) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                    vm.churchId = vm.config.churchList[0].id;
+
+                localStorageService.set("reportListChurchId", vm.churchId);
 
             }, function (error) {
                 appNotificationService.openToast("Error loading report config ");
@@ -44,7 +63,7 @@ angular.module('app').controller('reportsController',
 
         vm.loadReportList = function () {
             vm.reportList = [];
-            vm.reportList.push({ id: 1, name: 'Active Guest List', desc: 'A lists of members for follow-up; filtered by team, sponsor, and status.', open: vm.openActiveGuestList })
+            vm.reportList.push({ id: 1, name: 'Guest List', desc: 'A lists of members for follow-up; filtered by team, sponsor, and status.', open: vm.openActiveGuestList })
         }
 
         vm.filterReports = function (report) {

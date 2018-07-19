@@ -6,7 +6,7 @@ angular.module('app').controller('churchListController',
         , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $state, $log, churchService, appNotificationService, appService) {
 
         var vm = this;
-        vm.churchId = 3; // default to the first one that they have access to
+        vm.churchId = 0; // default to the first one that they have access to
         vm.showAll = false; // true to show all, false to hide archived
 
         vm.isLoading = false;
@@ -47,13 +47,13 @@ angular.module('app').controller('churchListController',
 
             vm.isLoading = true;
 
-            //churchService.getConfig().then(function (success) {
+            churchService.getConfig(vm.churchId).then(function (success) {
 
-            //    vm.config = success;
+                vm.config = success;
 
-            //}, function (error) {
-            //    appNotificationService.openToast("Error loading church config ");
-            //});
+            }, function (error) {
+                appNotificationService.openToast("Error loading church config ");
+            });
 
             loadChurchList();
         }
