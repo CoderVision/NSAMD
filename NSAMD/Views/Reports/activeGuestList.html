@@ -5,81 +5,105 @@
     <!--<div ng-repeat="team in c.teamGroup | orderBy: 'teamName'">-->
     <!--     | teamFilter: team | orderBy: 'sponsorName'" -->
     <!-- order by team, sponsor name -->
-    <div class="group" ng-repeat="sponsor in c.sponsorGroup">
-
-        <header>
-            <div class="flexRowCenter">
-                <h1 class="title">Guest List</h1>
-            </div>
-        </header>
-
-        <table class="sponsorTable">
+    <table class="group" ng-repeat="sponsor in c.sponsorGroup">
+        <thead>
             <tr>
-                <td valign="top">
-                    <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
-                    <div><span class="label">Team:</span> {{sponsor.teamName}}</div>
-                </td>
-                <td valign="top" align="right">
-                    <span class="label">Dated:</span> {{c.runDate}}
-                </td>
+                <th align="center">
+                    <h1>Guest List</h1>
+                </th>
             </tr>
-        </table>
+        </thead>
 
-        <table class="sponsorTable">
+        <tbody>
             <tr>
-                <td valign="top">
-                    <div>Please use this legend to show follow-up mode</div>
-                    <div>V-visit C-call T-text -E-email</div>
-                </td>
-                <td valign="top" align="right">
-                    <div>When you receive a committment for a service,</div>
-                    <div>place a dot in the box for each service promised</div>
-                </td>
-            </tr>
-        </table>
+                <td>
+                    <div>
+                        <table class="sponsorTable">
+                            <tr>
+                                <td valign="top">
+                                    <div><span class="label">Sponsor:</span> <span class="memberName">{{sponsor.sponsorName}}</span></div>
+                                    <div><span class="label">Team:</span> {{sponsor.teamName}}</div>
+                                </td>
+                                <td valign="top" align="right">
+                                    <span class="label">Dated:</span> {{c.runDate}}
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="sponsorTable">
+                            <tr>
+                                <td valign="top">
+                                    <div>Please use this legend to show follow-up mode</div>
+                                    <div>V-visit C-call T-text -E-email</div>
+                                </td>
+                                <td valign="top" align="right">
+                                    <div>When you receive a committment for a service,</div>
+                                    <div>place a dot in the box for each service promised</div>
+                                </td>
+                            </tr>
+                        </table>
 
 
-        <table class="guestTable">
-            <thead>
-                <tr>
-                    <th class="guestNameColumnHeader">
-                        Guest Name
-                    </th>
-                    <th class="addressColumnHeader">
-                        Address
-                    </th>
-                    <th class="followUpColumnHeader">
-                        Follow-up Dates
-                    </th>
-                    <th class="commentsColumnHeader">
-                        Comments
-                    </th>
-                </tr>
-            </thead>
+                        <table class="guestTable" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th class="thCell guestNameColumnHeader">
+                                        Guest Name
+                                    </th>
+                                    <th class="thCell addressColumnHeader">
+                                        Address
+                                    </th>
+                                    <th class="thCell followUpColumnHeader">
+                                        Follow-up Dates
+                                    </th>
+                                    <th class="thCell commentsColumnHeader">
+                                        Comments
+                                    </th>
+                                </tr>
+                            </thead>
 
-            <tr ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
+                            <tr ng-repeat="g in c.memberList | sponsorFilter:sponsor | orderBy: 'memberName'">
 
-                <td class="cell" valign="top">
-                    {{g.memberName}}
-                    <!--
-                <div class="memberName" style="padding-left:1px;">{{g.memberName}}</div>
+                                <td class="cell guestNameTd" valign="top">
+                                    <table class="guestNameTable">
+                                        <tr>
+                                            <td valign="top" align="left">
+                                                <span class="memberName" style="padding-left:1px;">{{g.memberName}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="bottom" align="left">
+                                                <div>{{g.status}}</div>
+                                            </td>
+                                            <td valign="bottom" align="right">
+                                                <div>{{g.lastActivityDateFormatted}}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <!--
+                
                 <div class="absoluteBottom flexRow">
-                    <div>{{g.status}}</div>
+                  
                     <div>{{g.lastActivityDateFormatted}}</div>
                 </div>
                     -->
-                </td>
-                <td class="cell" valign="top">
-                    <div>
-                        <div>{{g.memberAddress}}</div>
-                        <div>{{g.memberPhone | phone}}</div>
-                        <div>{{g.memberEmail}}</div>
+                                </td>
+                                <td class="cell" valign="top">
+                                    <div>
+                                        <div>{{g.memberAddress}}</div>
+                                        <div>{{g.memberPhone | phone}}</div>
+                                        <div>{{g.memberEmail}}</div>
+                                    </div>
+                                </td>
+                                <td class="cell" valign="top">&nbsp;</td>
+                                <td class="cell lastCell" valign="top">{{g.comments}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </td>
-                <td class="cell" valign="top">&nbsp;</td>
-                <td class="cell lastCell" valign="top">{{g.comments}}</td>
             </tr>
-        </table>
-    </div>
-    <!--</div>-->
+        </tbody>
+
+    </table>
 </div>
