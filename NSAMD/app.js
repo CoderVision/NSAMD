@@ -60,12 +60,14 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         url: '/messages',
         templateUrl: './Views/Messages/messagesIndex.html',
         controller: 'messagesController',
-        controllerAs: 'mc'
+        controllerAs: 'mc',
+        cache: false
     }).state('messages.sms', {
         url: '/sms/:churchId',
         templateUrl: './Views/Messages/sms.html',
         controller: 'smsController',
-        controllerAs: 'smc'
+        controllerAs: 'smc',
+        cache: false
     }).state('messages.mail', {
         url: '/mail/:churchId',
         templateUrl: './Views/Messages/mail.html',
