@@ -120,6 +120,10 @@ angular.module('app').controller('rootController',
     };
 
     vm.openToast = function (message) {
+
+        if (vm.isLoggedIn === false)
+            return;
+
         $mdToast.show(
             $mdToast.simple()
                 .textContent(message)

@@ -18,9 +18,15 @@
                             <span class="correspondenceSecondary truncate">{{ user.lastMessageBody}}</span>
                         </div>
 
-                        <div class="correspondenceDate correspondenceSecondary">
-                            {{mc.formatDate(user.lastMessageDate)}}
+                        <div class="correspondenceDate correspondenceSecondary" layout="column" layout-align="center end">
+                            <div>
+                                {{mc.formatDate(user.lastMessageDate)}}
+                            </div>
+                            <div class="correspondenceEdit">
+                                <ng-md-icon icon="edit"></ng-md-icon>
+                            </div>
                         </div>
+
                     </div>
 
                     <md-divider ng-if="!$last"></md-divider>

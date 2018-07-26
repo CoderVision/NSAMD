@@ -16,22 +16,30 @@
     <link href="Content/app.css" rel="stylesheet" />
 
 </head>
-<body layout="row" ng-app="app" ng-controller="rootController as rootCtrl" init="init()">
-    <div ng-include="'views/app/sidenav.html'" layout="vertical"></div>
+<body ng-app="app" ng-controller="rootController as rootCtrl" init="init()" style="height:100%;">
 
-    <div layout="column" flex id="wrapper">
+    <div layout="row" style="height:100%;">
 
-        <div ng-include="'views/app/toolbarHeader.html'"></div>
+        <div class="overlay" ng-if="rootCtrl.isLoggedIn === false">
+            <!--<h1 style="color:red;">Please log in</h1>-->
+        </div>
 
-        <md-button class="md-fab md-fab-bottom-right addFab"
-                   aria-label="Add" ng-click="rootCtrl.addItem($event)"
-                   ng-hide="rootCtrl.isAddItemEventEnabled === false">
-            <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
-        </md-button>
+        <div ng-include="'views/app/sidenav.html'" layout="vertical" style="height:100%;"></div>
 
-        <md-content flex id="content">
-            <div data-ui-view="" layout-fill></div>
-        </md-content>
+        <div layout="column" flex id="wrapper">
+
+            <div ng-include="'views/app/toolbarHeader.html'"></div>
+
+            <md-button class="md-fab md-fab-bottom-right addFab"
+                       aria-label="Add" ng-click="rootCtrl.addItem($event)"
+                       ng-hide="rootCtrl.isAddItemEventEnabled === false">
+                <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
+            </md-button>
+
+            <md-content flex id="content" ng-if="rootCtrl.isLoggedIn === true">
+                <div data-ui-view="" layout-fill></div>
+            </md-content>
+        </div>
     </div>
 
     <script src="Scripts/angular.min.js"></script>
@@ -98,6 +106,7 @@
 
     <script src="Filters/phoneFilter.js"></script>
     <script src="Filters/mapAddressFilter.js"></script>
+
 
 </body>
 </html>
