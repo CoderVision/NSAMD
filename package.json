@@ -1,0 +1,26 @@
+{
+    "name": "nsamd",
+    "version": "1.0.0",
+    "description": "AngularJs Material Application",
+    "main": "app.js",
+    "private": true,
+    "dependencies": {
+        "webpack-cli": "^3.1.0"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CoderVision/NSAMD.git"
+    },
+    "author": "Gary A Lima",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/CoderVision/NSAMD/issues"
+    },
+    "homepage": "https://github.com/CoderVision/NSAMD#readme"
+}
