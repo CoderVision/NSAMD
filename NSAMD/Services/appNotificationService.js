@@ -1,9 +1,14 @@
 ﻿
-angular.module('app').factory('appNotificationService', ['$mdToast', '$mdDialog', function ($mdToast, $mdDialog) {
+angular.module('app').factory('appNotificationService', ['$mdToast', '$mdDialog', 'appService', function ($mdToast, $mdDialog, appService) {
 
     var svc = {};
+    svc.appService = appService;
 
     svc.openToast = function (message) {
+
+        if (svc.appService.isLoggedIn === false)
+            return;
+
         $mdToast.show(
             $mdToast.simple()
                 .textContent(message)

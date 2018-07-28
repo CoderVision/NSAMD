@@ -4,11 +4,11 @@
 'use strict';
 
 angular.module('app').controller('smsController',
-    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$stateParams'
-        , function ($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService, $stateParams) {
+    ['$rootScope', '$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$state', '$stateParams'
+        , function ($rootScope, $scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService, $state, $stateParams) {
 
             var vm = this;
-
+            
             vm.message = "Hello from the smsController!";
             vm.correspondences = [];
             vm.selectedItem;
@@ -34,34 +34,13 @@ angular.module('app').controller('smsController',
                 11	MessageDirection	54	Sent
             */
 
-            // order the list when it changes and set it to the array
-            $scope.$watch("smc.correspondences | orderBy : '-LastMessageDate'", function (newValue) {
-
-                //if (vm.selectedItem === undefined) {
-                    vm.correspondencesOrdered = newValue;
-                vm.viewMessages(0, vm.correspondencesOrdered[0]);
-
-                /* 
-                 tried this, didn't work:
-                                 var idx = 0
-                for (var i = 0; i < vm.correspondencesOrdered.length; i++) {
-                    if (vm.correspondencesOrdered[i].id == vm.selectedItem.id) {
-                        idx = i;
-                        break;
-                    }
-                }
-
-                vm.viewMessages(idx, vm.correspondencesOrdered[0]);
-                 * */
-               // }
-            }, true);
-
             // message controller churchId
             $scope.$watch('mc.churchId', function (newValue, oldValue) {
                 if (newValue !== oldValue
                     && vm.churchId !== newValue) {
                     vm.churchId = newValue;
                     vm.selectedItem = undefined;
+
                     vm.loadData();
                 }
             }, false);
@@ -87,7 +66,9 @@ angular.module('app').controller('smsController',
                     fullscreen: vm.useFullScreen
                 }).then(function (editedItem) {
 
-                    vm.correspondences.push(editedItem);
+                    vm.correspondences.unshift(editedItem);
+
+                    vm.selectedItem = editedItem;
 
                 }, function () {
                     $log.info("Edit item cancelled");
@@ -106,8 +87,14 @@ angular.module('app').controller('smsController',
             }
 
             vm.init = function () {
-         
-                vm.loadData();
+
+                //$state.go("main.products", {}, { reload: true })
+               // var rootId = $rootScope.churchId;
+
+                if (this.churchId === undefined)
+                    $state.go('messages', {}, { reload: true });  // the church list is not loaded.  this occurs on refresh or if someone uses a bookmark to get here.
+                else
+                    vm.loadData();
             }
 
             vm.loadData = function () {
@@ -118,6 +105,11 @@ angular.module('app').controller('smsController',
                 messageService.getRecipientGroups(vm.churchId, vm.messageTypeEnumId).then(function (data) {
 
                     vm.correspondences = data;
+
+                    if (data.length > 0) {
+
+                        vm.viewMessages(0, data[0]);
+                    }
                 }
                 , function (error) {
                     vm.error = error;
@@ -143,6 +135,41 @@ angular.module('app').controller('smsController',
                 }
             }
 
+            /// shuffle when sending and receiving messages
+            vm.shuffleCorrespondence = function (itemZero) {
+
+                if (vm.correspondences === undefined
+                    || itemZero === undefined)
+                    return;
+
+                if (vm.correspondences.length === 0)
+                    vm.correspondences.push(itemZero);
+
+                else  {
+                    var indexOfItem = -1;
+                    for (var i = 0; i < vm.correspondences.length; i++) {
+                        if (Object.is(itemZero, vm.correspondences[i])) {
+                            indexOfItem = i;
+                            break;
+                        }
+                    }
+
+                    var swapItem = itemZero;
+                    for (var i = 0; i < vm.correspondences.length; i++) {
+
+                        var itm = vm.correspondences[i];
+                        vm.correspondences[i] = swapItem;
+                        swapItem = itm;
+
+                        if (i === indexOfItem) // only shuffle up to the original index of the item
+                            break;
+                    }
+
+                    vm.selectedIndex = 0;
+                    vm.selectedItem = itemZero;
+                }
+            }
+
             vm.sendSms = function () {
 
                 var msg = CreateMessage(vm.smsContent);
@@ -155,6 +182,8 @@ angular.module('app').controller('smsController',
                     vm.selectedItem.messages.push(msg);
 
                     vm.smsContent = '';
+
+                    vm.shuffleCorrespondence(vm.selectedItem);
 
                 }, function (error) {
                     msg.error = error;

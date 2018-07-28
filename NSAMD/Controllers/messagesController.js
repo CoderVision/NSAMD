@@ -26,6 +26,9 @@ angular.module('app').controller('messagesController',
 
             $scope.$watch('mc.churchId', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
+
+                    localStorageService.set("messagesChurchId", newValue);
+
                     vm.loadData();
                 }
             }, false);
@@ -41,29 +44,23 @@ angular.module('app').controller('messagesController',
 
                 vm.isLoading = true;
 
-                if (vm.churchId == 0) {
-                    var id = localStorageService.get("messagesChurchId");
-                    if (id !== null)
-                        vm.churchId = id;
-                } 
-
+                // Always load the list of churches
                 messageService.getConfig().then(function (data) {
 
                     vm.config = data;
 
-                    var found = false;
+                    var id = localStorageService.get("messagesChurchId");
                     for (var i = 0; i < vm.config.churches.length; i++) {
-                        if (vm.config.churches[i].id == vm.churchId) {
-                            found = true;
+                        if (vm.config.churches[i].id == id) {
+                            vm.churchId = id;
                             break;
                         }
                     }
 
-                    if (found == false)
+                    if (vm.churchId === 0)
                         vm.churchId = vm.config.churches[0].id;
 
                     localStorageService.set("messagesChurchId", vm.churchId);
-
 
                     if ($state.current.url == "/messages") {
                         vm.openSms();

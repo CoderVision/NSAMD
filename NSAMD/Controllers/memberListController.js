@@ -81,7 +81,7 @@ angular.module('app').controller('memberListController',
                 }
 
                 if (found == false)
-                    vm.churchId = m.config.userChurches[0].id;
+                    vm.churchId = vm.config.userChurches[0].id;
 
                 localStorageService.set("memberListChurchId", vm.churchId);
 

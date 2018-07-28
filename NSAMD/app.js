@@ -15,21 +15,28 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
 
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|callto|file|tel):/);
 
-    $httpProvider.interceptors.push(function (config, authService) {
+    $httpProvider.interceptors.push(function (config, authService, localStorageService) {
         return {
             'request': function (requestConfig) {
 
                 var mgr = authService.oidcManager;
 
                 // if access token is expired, redirect to login page
-                //if (mgr.expired) {
-                //    mgr.redirectForToken();
-                //}
+                if (mgr.expired) {
+                    var wasTokenRequested = localStorageService.get('tokenRequested');
+                    if (wasTokenRequested !== true) {
+                        localStorageService.set('tokenRequested', true);
+                        mgr.redirectForToken();
+                    }
+                } else {
+                    localStorageService.set('tokenRequested', false);
 
-                // if it's a request to the api, we need to provide the access token as bearer token
-                if (requestConfig.url.indexOf(config.apiUrl) === 0) {
-                    requestConfig.headers.Authorization = "Bearer " + mgr.access_token;
+                    // if it's a request to the api, we need to provide the access token as bearer token
+                    if (requestConfig.url.indexOf(config.apiUrl) === 0) {
+                        requestConfig.headers.Authorization = "Bearer " + mgr.access_token;
+                    }
                 }
+
                 return requestConfig;
             }
         };
@@ -60,12 +67,14 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         url: '/messages',
         templateUrl: './Views/Messages/messagesIndex.html',
         controller: 'messagesController',
-        controllerAs: 'mc'
+        controllerAs: 'mc',
+        cache: false
     }).state('messages.sms', {
         url: '/sms/:churchId',
         templateUrl: './Views/Messages/sms.html',
         controller: 'smsController',
-        controllerAs: 'smc'
+        controllerAs: 'smc',
+        cache: false
     }).state('messages.mail', {
         url: '/mail/:churchId',
         templateUrl: './Views/Messages/mail.html',

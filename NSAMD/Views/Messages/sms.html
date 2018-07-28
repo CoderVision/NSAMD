@@ -7,7 +7,7 @@
                 <!--| orderBy: '-lastMessageDate'-->
                 <!--track by user.id-->
 
-                <md-list-item ng-repeat="user in smc.correspondencesOrdered | filter: smc.filterMessageGroups"
+                <md-list-item ng-repeat="user in smc.correspondences | filter: smc.filterMessageGroups"
                               class="md-2-line"
                               ng-click="smc.viewMessages($index, user)"
                               ng-class="{'selected': $index==smc.selectedIndex}">
@@ -18,9 +18,13 @@
                             <span class="correspondenceSecondary truncate">{{ user.lastMessageBody}}</span>
                         </div>
 
-                        <div class="correspondenceDate correspondenceSecondary">
-                            {{mc.formatDate(user.lastMessageDate)}}
+                        <div class="correspondenceDate correspondenceSecondary" layout="column" layout-align="center end">
+                                {{mc.formatDate(user.lastMessageDate)}}
+                            <!-- div class="correspondenceEdit">
+                                <ng-md-icon icon="edit"></ng-md-icon>
+                            </div-->
                         </div>
+
                     </div>
 
                     <md-divider ng-if="!$last"></md-divider>
