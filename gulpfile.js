@@ -6,6 +6,7 @@ var log = require('fancy-log');
 var colors = require('ansi-colors');
 var del = require('del');
 var uuid = require('uuid/v4');
+//var uglify = require('gulp-uglify'); // minify javascript:  $.uglify
 
 var $ = require('gulp-load-plugins')({ lazy: true });
 // use $. with the name of the plugin without gulp- in front of it, e.g.:  $.print instead of gulp-print
@@ -29,6 +30,7 @@ gulp.task('styles', ['clean-styles'], function () {
         .pipe($.concat(uuid() + '.scss'))
         .pipe($.sass())
         .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%']})) // get only the last 2 versions of browsers that have more than 5% of the market.
+        .pipe($.csso())  // minify css output
         .pipe(gulp.dest(config.temp));
 });
 
