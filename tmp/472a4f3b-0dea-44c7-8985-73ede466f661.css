@@ -1,0 +1,391 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important; }
+
+body {
+  font-family: 'Roboto', sans-serif; }
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1; }
+
+.md-chips .md-chip-input-container {
+  width: 100%; }
+
+.md-chips .md-chip-input-container md-autocomplete md-autocomplete-wrap {
+  width: 100%; }
+
+/* hide the progress bar that is built in to md-autocomplete because it causes a phantom line to appear.  Add a md-progress-linear above the md-autocomplete instead. */
+md-autocomplete > md-autocomplete-wrap > md-progress-linear {
+  display: none; }
+
+md-content.autocomplete {
+  min-height: 250px; }
+
+md-toolbar {
+  padding: 8px; }
+
+md-toolbar > div > a {
+  padding: 0px !important; }
+
+md-dialog > md-toolbar {
+  padding-top: 0px;
+  padding-bottom: 0px; }
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.smsList {
+  padding-top: 0px; }
+
+.smsReceived {
+  -ms-flex-item-align: end !important;
+      align-self: flex-end !important;
+  background-color: #B7E7C7;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  max-width: 75%; }
+
+.smsSent {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  background-color: lightyellow;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  max-width: 75%; }
+
+.smsSendContainer {
+  height: 50px; }
+
+.smsDate {
+  font-size: xx-small;
+  color: gray; }
+
+.smsContent {
+  height: 100%;
+  padding-top: 0px; }
+
+.smsRow {
+  height: 100%;
+  overflow: hidden; }
+
+.correspondenceDate {
+  font-size: 14px;
+  font-weight: lighter;
+  letter-spacing: 0.010em;
+  font-weight: 400;
+  line-height: 1.2em;
+  white-space: nowrap; }
+
+.correspondenceFrom {
+  /*line-height: 24px;*/
+  font-size: 14px;
+  font-weight: lighter;
+  letter-spacing: 0.010em;
+  font-weight: 400;
+  line-height: 1.2em;
+  white-space: nowrap; }
+
+.correspondenceUnread {
+  font-weight: 600; }
+
+.correspondencePrimary {
+  margin-bottom: 4px; }
+
+.correspondenceSecondary {
+  color: gray; }
+
+.correspondenceEdit {
+  margin-left: 8px; }
+
+.loginButton {
+  margin-left: 16px; }
+
+.selected {
+  background-color: #f5f5f5; }
+
+.toolBarMenuButton {
+  margin-left: 0px;
+  margin-right: 0px; }
+
+.userAdminNote {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.38); }
+
+.userDetail > p {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 8px;
+  margin-bottom: 8px; }
+
+.userDetail > h3 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 8px;
+  margin-bottom: 8px; }
+
+.acctReqTitle {
+  font-weight: bold; }
+
+.acctReqDateSubmitted {
+  color: lightgray; }
+
+.userToolbar {
+  min-height: 32px; }
+
+.accountRequestCard > md-card-actions > button.md-button {
+  width: auto; }
+
+#churchCommTabs md-tab-content {
+  overflow: hidden; }
+
+.adminToolbar {
+  height: 48px;
+  margin-top: 1px; }
+
+.wrapLayout {
+  -webkit-flex-wrap: wrap;
+  /* Safari 6.1+ */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+.activeGuestListRptDiag {
+  width: 500px; }
+
+.dialogContent {
+  padding: 8px;
+  overflow: hidden; }
+
+md-sidenav > md-content > div > .md-button {
+  height: 50px; }
+
+.reportCard {
+  width: 250px; }
+
+.reportCard md-card-title {
+  padding-top: 16px; }
+
+.reportCard md-card-content {
+  padding-top: 16px;
+  word-wrap: break-word; }
+
+.reportCard md-card-title span {
+  font-size: 18px; }
+
+.md-toast-content {
+  background-color: #4a7a5a !important; }
+
+.messageDiag {
+  width: 600px; }
+
+.changeMembershipDiag {
+  width: 500px; }
+
+/*md-autocomplete .md-show-clear-button button md-icon {
+    top: -10px;
+}*/
+md-autocomplete {
+  padding-left: 0px !important;
+  padding-right: 0px !important; }
+
+/*md-autocomplete > md-autocomplete-wrap > md-input-container {
+        margin-top: 0px !important;
+    }*/
+.item-title,
+.item-metadata {
+  display: block !important;
+  line-height: 20px !important; }
+
+.addMemberDiag {
+  width: 600px; }
+
+.addTeamDiag {
+  width: 600px; }
+
+.addChurchDiag {
+  width: 600px; }
+
+.addMessageGroupDiag {
+  width: 600px; }
+
+.addTeamMemberDiag {
+  width: 400px; }
+
+.activityContent {
+  margin-top: 15px; }
+
+/*.md-on{
+    background-color:#4a7a5a!important;
+}*/
+/*md-radio-button.md-checked ._md-off{
+      border-color: green;
+    }
+    md-radio-button.md-checked ._md-on{
+      background-color: red;
+    }*/
+md-radio-button.md-default-theme .md-off, md-radio-button .md-on {
+  border-color: rgba(0, 0, 0, 0.54) !important;
+  background-color: rgba(0, 0, 0, 0.54) !important; }
+
+md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off {
+  border-color: rgba(0, 0, 0, 0.54) !important; }
+
+.md-datepicker-button {
+  display: none; }
+
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
+  right: 0px;
+  left: 0px;
+  width: calc(100% - 0px); }
+
+.md-button.md-fab.md-fab-bottom-right {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+  background-color: #4a7a5a !important;
+  /*line-height:3px;*/
+  color: white !important;
+  fill: white !important; }
+
+.md-button.md-fab.md-fab-bottom-center {
+  top: auto;
+  /*right: 20px;*/
+  bottom: 20px;
+  left: auto;
+  right: auto;
+  position: fixed;
+  background-color: #4a7a5a !important;
+  /*line-height:3px;*/
+  color: white !important;
+  fill: white !important; }
+
+.maxWidth {
+  width: 100%; }
+
+.md-fab {
+  fill: white; }
+
+button.md-fab.md-mini {
+  line-height: 0px !important; }
+
+th {
+  text-align: left; }
+
+.content {
+  padding: 15px; }
+
+tr {
+  line-height: 24px; }
+
+svg {
+  fill: #4a7a5a;
+  vertical-align: middle;
+  cursor: pointer; }
+
+.adminToolbar > div > a.md-button > ng-md-icon > svg {
+  fill: #f5f5f5 !important;
+  vertical-align: middle;
+  cursor: pointer; }
+
+.pastoralTeamContainer {
+  margin: 18px 0 18px 0; }
+
+.teamMembersContainer {
+  margin: 18px 0 18px 0; }
+
+.fixedTextArea {
+  overflow-y: scroll !important;
+  height: 125px !important;
+  resize: none !important; }
+
+.profileLeftPanel {
+  margin-right: 15px; }
+
+.menuIcon > svg {
+  fill: white; }
+
+md-icon {
+  cursor: pointer; }
+
+md-icon[md-svg-icon="content:remove"] > svg {
+  fill: red !important; }
+
+md-subheader > div > span > md-icon[md-svg-icon="content:add"] {
+  cursor: pointer; }
+
+button.addFab > ng-md-icon > svg {
+  fill: white; }
+
+md-datepicker {
+  position: relative;
+  left: -16px; }
+
+.md-datepicker-input-container {
+  margin-left: 1px;
+  width: 100%; }
+
+.md-datepicker-button.md-icon-button {
+  margin-right: 0; }
+
+.md-datepicker-input {
+  width: 100%;
+  max-width: 1000px;
+  margin-left: 2px; }
+
+.addressContainer {
+  margin-left: 0px;
+  margin-right: 0px; }
+
+@media (max-width: 600px) {
+  .profileLeftPanel {
+    margin-right: 0px !important; } }
+
+@media (max-width: 961px) {
+  .showMobileOnly {
+    display: normal; }
+  .showDesktopOnly {
+    display: none; } }
+
+@media (min-width: 962px) {
+  .showDesktopOnly {
+    display: normal; }
+  .showMobileOnly {
+    display: none; } }
+
+/*
+body {
+    background-color: $background!important;
+}
+    */
