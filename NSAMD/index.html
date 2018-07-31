@@ -12,8 +12,29 @@
     <link href="Content/angular-material.layout-attributes.css" rel="stylesheet" />
     <link href="Content/angular-material.layouts.css" rel="stylesheet" />
     <link href="Content/angular-data-grid.material.css" rel="stylesheet" />
-    <!--<link href="Content/md-date-picker.min.css" rel="stylesheet" />-->
-    <link href="Content/app.css" rel="stylesheet" />
+    <!--<link href="Content/app.css" rel="stylesheet" />-->
+
+    <script src="libs/polyfill.js"></script>
+    <script src="libs/system.js"></script>
+    <script>
+        // set our baseURL reference path
+        System.config({
+            packages: {
+                js: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                },
+            },
+            meta: {
+                // our modules have been transpiled to commonJS
+                'js/*': { format: 'cjs' }
+            }
+        });
+
+        System.import('js/more-codes.js')
+            .then(null, console.error.bind(console));
+    </script>
+
 
 </head>
 <body ng-app="app" ng-controller="rootController as rootCtrl" init="init()" style="height:100%;">
@@ -66,7 +87,7 @@
     <script src="Scripts/oidc-token-manager.min.js"></script>
     <!--<script src="Scripts/oidc-token-manager.js"></script>-->
 
-    <script src="config.js"></script>
+    <!--<script src="config.js"></script>
     <script src="app.js"></script>
 
     <script src="Services/appService.js"></script>
@@ -105,7 +126,7 @@
     <script src="Controllers/mailController.js"></script>
 
     <script src="Filters/phoneFilter.js"></script>
-    <script src="Filters/mapAddressFilter.js"></script>
+    <script src="Filters/mapAddressFilter.js"></script>-->
 
 
 </body>
