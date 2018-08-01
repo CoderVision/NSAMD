@@ -22,6 +22,8 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 
 gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
 
+    log('Running build.  Need to inject js into print.html');
+
     var temp = gulp.src(['tmp/**/*.*'])
         .pipe(gulp.dest(config.dist));
 
