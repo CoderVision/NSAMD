@@ -7,6 +7,7 @@ module.exports = function () {
         alljs: [
             src + 'config.js',
             src + 'app.js',
+            src + 'print.js',
             src + 'Services/appService.js',
             src + 'Services/appNotificationService.js',
             src + 'Services/errorService.js',

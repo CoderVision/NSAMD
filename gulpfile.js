@@ -1,6 +1,8 @@
 
 var gulp = require('gulp');
 var args = require('yargs').argv;
+var merge = require('merge-stream');
+
 var config = require('./gulp.config')();
 var log = require('fancy-log');
 var colors = require('ansi-colors');
@@ -19,11 +21,16 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 
 
 gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
-    // 'NSAMD/**/*.html'
-    return gulp
-        .src(['NSAMD/**/*.html', 'NSAMD/Content/**/*.*', 'NSAMD/Scripts/**/*.*', config.temp + '**/*.*'])
+
+    var temp = gulp.src(['tmp/**/*.*'])
+        .pipe(gulp.dest(config.dist));
+
+    var app = gulp
+        .src(['NSAMD/**/*.html', 'NSAMD/**/*.css', 'NSAMD/**/*.svg', 'NSAMD/**/*.png', 'NSAMD/Scripts/**/*.*', 'tmp/**/*.*'], { base: 'NSAMD' })
         .pipe(print())
         .pipe(gulp.dest(config.dist));
+
+    return merge(temp, app);
 })
 
 gulp.task('serve', ['build'], function () {
@@ -34,11 +41,11 @@ gulp.task('serve', ['build'], function () {
 gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
     log("Wireup our custom css in the html and call wiredep")
 
+    // addPrefix: '.'
     var injectOptions = {
         relative: false,
         addRootSlash: false,
-        ignorePath: 'tmp/',
-        addPrefix: '.'
+        ignorePath: 'tmp/'
     };
 
     return gulp
