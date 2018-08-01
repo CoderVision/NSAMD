@@ -18,16 +18,36 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 //.pipe(gulpif(args.verbose, gulpPrint()))  // run gulp task with --verbose to trigger the gulpPrint
 
 
-gulp.task('build', ['scripts', 'libs', 'styles'], function () {
+gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
+    // 'NSAMD/**/*.html'
     return gulp
-        .src(['NSAMD/**/*.html', config.temp + '/**/*.*'])
+        .src(['NSAMD/**/*.html', 'NSAMD/Content/**/*.*', 'NSAMD/Scripts/**/*.*', config.temp + '**/*.*'])
         .pipe(print())
-        .pipe(gulp.dest(config.dist))
+        .pipe(gulp.dest(config.dist));
 })
 
 gulp.task('serve', ['build'], function () {
-    gulp.src('dist').pipe(webserver({ open: true }))
+    gulp.src('dist').pipe(webserver({ open: true }));
 })
+
+// test that injects JavaScript and css
+gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
+    log("Wireup our custom css in the html and call wiredep")
+
+    var injectOptions = {
+        relative: false,
+        addRootSlash: false,
+        ignorePath: 'tmp/',
+        addPrefix: '.'
+    };
+
+    return gulp
+        .src(config.index)
+        .pipe($.inject(gulp.src(config.temp + 'Content/*.css', { read: false }), injectOptions))
+        .pipe($.inject(gulp.src(config.temp + 'Scripts/*.js', { read: false }), injectOptions))
+        .pipe(print())
+        .pipe(gulp.dest(config.temp)); // he used client here (same as config.src)
+});
 
 // add gulp-polyfill also
 gulp.task('scripts', ['clean-scripts'], function () {
@@ -37,10 +57,10 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .src(config.alljs)
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())      // #2. print each file in the stream
-        .pipe($.concat(uuid() + '.js'))
+        .pipe($.concat(uuid() + '.min.js'))
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
         .pipe($.uglify())
-        .pipe(gulp.dest(config.temp));
+        .pipe(gulp.dest(config.temp + 'Scripts/'));
 });
 
 gulp.task('libs', function () {
@@ -50,7 +70,7 @@ gulp.task('libs', function () {
             'node_modules/babel-polyfill/dist/polyfill.js',
         ])
         .pipe(print())
-        .pipe(gulp.dest(config.dist + 'libs'))
+        .pipe(gulp.dest(config.temp + 'libs'))
 })
 
 gulp.task('styles', ['clean-styles'], function () {
@@ -59,29 +79,35 @@ gulp.task('styles', ['clean-styles'], function () {
     return gulp
         .src([config.css, config.sass])
         .pipe($.plumber())  // gracefully handles errors
-        .pipe(print()) 
-        .pipe($.concat(uuid() + '.scss'))
+        .pipe(print())
+        .pipe($.concat(uuid() + '.min.css'))
         .pipe($.sass())
-        .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%']})) // get only the last 2 versions of browsers that have more than 5% of the market.
+        .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
         .pipe($.csso())  // minify css output
-        .pipe(gulp.dest(config.temp));
+        .pipe(gulp.dest(config.temp + 'Content/'));
+});
+
+gulp.task('clean-build', function () {
+    del.sync([config.dist + '**', '!' + config.dist]);
+});
+
+gulp.task('clean-html', function () {
+    del.sync([config.temp + '**/*.html', '!' + config.temp]);
 });
 
 // this is a dependency of styles
-gulp.task('clean-styles', function () {
-    var files = config.temp + '**/*.css';
-    clean(files);
+gulp.task('clean-styles', function () { 
+    del.sync([config.temp + '**/*.css', '!' + config.temp]);
 });
 
 gulp.task('clean-scripts', function () {
-    var files = config.temp + '**/*.js';
-    clean(files);
+    del.sync([config.temp + '**/*.js', '!' + config.temp]);
 });
 
-function clean(path) {
-    log('Cleaning ' + path);
-    del(path);
-}
+//function clean(path) {
+//    log('Cleaning ' + path);
+//    del(path);
+//}
 
 gulp.task('sass-watcher', function () {
     gulp.watch([config.sass], ['styles']); // run the 'styles' task whenever sass files change.
