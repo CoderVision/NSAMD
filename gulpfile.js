@@ -19,9 +19,12 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 
 
 //// Instructions:
+///     Set "config.isProductionPublish = false;" to the correct state
 ///     To Use:`Open command window, cd to C:\Source\Repos\NSAMD
 ///     To Build:  type "gulp build"  (outputs to dist folder)
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
+
+config.isProductionPublish = false;
 
 
 gulp.task('publish', ['build'], function () {
@@ -35,6 +38,7 @@ gulp.task('publish', ['build'], function () {
     });
 
     return gulp.src('**/*.*', { base: 'dist', buffer: false })
+        .pipe($.if(config.isProductionPublish === false, $.exit()))
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())
         .pipe(conn.newer('/site')) // only upload newer files
