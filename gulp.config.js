@@ -1,11 +1,14 @@
 
 module.exports = function () {
+
+    var isProductionPublish = false;
+
     var src = './NSAMD/'
     let config = {
         temp: './tmp/',
         // temp: './dist/',
         alljs: [
-            src + 'config.js',
+            src + isProductionPublish ? 'config.publish.js' : 'config.js',
             src + 'app.js',
             src + 'print.js',
             src + 'Services/appService.js',

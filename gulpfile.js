@@ -2,23 +2,36 @@
 var gulp = require('gulp');
 var args = require('yargs').argv;
 var merge = require('merge-stream');
-
+var ftp = require('vinyl-ftp');
+var print = require('gulp-print').default;
 var config = require('./gulp.config')();
+var configPublish = require('./gulp.publish.config')();
 var log = require('fancy-log');
 var colors = require('ansi-colors');
 var del = require('del');
 var uuid = require('uuid/v4');
-//var uglify = require('gulp-uglify'); // minify javascript:  $.uglify
 
-var print = require('gulp-print').default;
-
-var $ = require('gulp-load-plugins')({ lazy: true });
 // use $. with the name of the plugin without gulp- in front of it, e.g.:  $.print instead of gulp-print
+var $ = require('gulp-load-plugins')({ lazy: true });
 
-// .pipe(gulpPrint())  // see all of the files you are touching
-// var gulpif = require('gulp-if');
-//.pipe(gulpif(args.verbose, gulpPrint()))  // run gulp task with --verbose to trigger the gulpPrint
+// To-Do:  Add injection for print.html
 
+gulp.task('publish', function () {
+
+    var conn = ftp.create({
+        host: 'ftp.smarterasp.net',
+        user: configPublish.username,
+        password: configPublish.password,
+        parallel: 10,
+        log: log
+    });
+
+    return gulp.src('**/*.*', { base: 'dist', buffer: false })
+        .pipe($.plumber())  // gracefully handles errors
+        .pipe(print())
+        .pipe(conn.newer('/site')) // only upload newer files
+        .pipe(conn.dest('/site'));
+});
 
 gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
 
@@ -112,11 +125,6 @@ gulp.task('clean-styles', function () {
 gulp.task('clean-scripts', function () {
     del.sync([config.temp + '**/*.js', '!' + config.temp]);
 });
-
-//function clean(path) {
-//    log('Cleaning ' + path);
-//    del(path);
-//}
 
 gulp.task('sass-watcher', function () {
     gulp.watch([config.sass], ['styles']); // run the 'styles' task whenever sass files change.

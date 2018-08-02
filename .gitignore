@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 /tmp
 /dist
+/gupl.publish.config.js
