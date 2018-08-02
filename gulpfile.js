@@ -17,6 +17,13 @@ var printJsFileName = "";
 // use $. with the name of the plugin without gulp- in front of it, e.g.:  $.print instead of gulp-print
 var $ = require('gulp-load-plugins')({ lazy: true });
 
+
+//// Instructions:
+///     To Use:`Open command window, cd to C:\Source\Repos\NSAMD
+///     To Build:  type "gulp build"  (outputs to dist folder)
+///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
+
+
 gulp.task('publish', ['build'], function () {
 
     var conn = ftp.create({
