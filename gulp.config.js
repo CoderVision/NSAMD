@@ -6,7 +6,7 @@ module.exports = function () {
     var src = './NSAMD/'
     let config = {
         temp: './tmp/',
-        isProductionPublish: isProductionPublish
+        isProductionPublish: isProductionPublish,
         // temp: './dist/',
         alljs: [
             src + isProductionPublish ? 'config.publish.js' : 'config.js',
