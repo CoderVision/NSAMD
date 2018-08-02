@@ -17,7 +17,7 @@ var printJsFileName = "";
 // use $. with the name of the plugin without gulp- in front of it, e.g.:  $.print instead of gulp-print
 var $ = require('gulp-load-plugins')({ lazy: true });
 
-gulp.task('publish', function () {
+gulp.task('publish', ['build'], function () {
 
     var conn = ftp.create({
         host: 'ftp.smarterasp.net',
