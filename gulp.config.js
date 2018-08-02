@@ -10,7 +10,6 @@ module.exports = function () {
         alljs: [
             src + isProductionPublish ? 'config.publish.js' : 'config.js',
             src + 'app.js',
-            src + 'print.js',
             src + 'Services/appService.js',
             src + 'Services/appNotificationService.js',
             src + 'Services/errorService.js',
@@ -29,7 +28,18 @@ module.exports = function () {
         sass: src + 'Content/appSass.scss',
         dist: './dist/',
         index: src + 'index.html',
-        src: src
+        printIndex: src + 'print.html',
+        src: src,
+
+        printjs: [
+            src + isProductionPublish ? 'config.publish.js' : 'config.js',
+            src + 'print.js',
+            src + 'Services/injectCSS.js',
+            src + 'Services/Reports/reportService.js',
+            src + 'Services/authService.js',
+            src + 'Controllers/Reports/activeGuestListController.js',
+            src + 'Filters/**/*.js'
+        ]
 
         // replace bower with Yarn 
         //yarn: {
