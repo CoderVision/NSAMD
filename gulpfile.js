@@ -74,7 +74,6 @@ gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
     // removed 'NSAMD/**/*.html', 'NSAMD/**/*.css', 
     var app = gulp
         .src([
-      //      'NSAMD/config.js',
             'NSAMD/**/*.html',
             'NSAMD/**/*.svg',
             'NSAMD/**/*.png',
