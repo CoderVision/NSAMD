@@ -2,6 +2,10 @@
 //https://www.jvandemo.com/how-to-configure-your-angularjs-application-using-environment-variables/
 (function (window) {
 
+    if (location.protocol != 'https:') {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+
     window.__config = window.__env || {};
 
     window.__config.apiUrl = 'https://www.hissteward.com/api';

@@ -21,20 +21,26 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
 
                 var mgr = authService.oidcManager;
 
+                // this is commented out here, because we are using a refesh token and we do not to immediately redirect, but let it handle it silently
                 // if access token is expired, redirect to login page
-                if (mgr.expired) {
-                    var wasTokenRequested = localStorageService.get('tokenRequested');
-                    if (wasTokenRequested !== true) {
-                        localStorageService.set('tokenRequested', true);
-                        mgr.redirectForToken();
-                    }
-                } else {
-                    localStorageService.set('tokenRequested', false);
+                //if (mgr.expired) {
+                //    var wasTokenRequested = localStorageService.get('tokenRequested');
+                //    if (wasTokenRequested !== true) {
+                //        localStorageService.set('tokenRequested', true);
+                //        mgr.redirectForToken();
+                //    }
+                //} else {
+                //    localStorageService.set('tokenRequested', false);
 
-                    // if it's a request to the api, we need to provide the access token as bearer token
-                    if (requestConfig.url.indexOf(config.apiUrl) === 0) {
-                        requestConfig.headers.Authorization = "Bearer " + mgr.access_token;
-                    }
+                //    // if it's a request to the api, we need to provide the access token as bearer token
+                //    if (requestConfig.url.indexOf(config.apiUrl) === 0) {
+                //        requestConfig.headers.Authorization = "Bearer " + mgr.access_token;
+                //    }
+                //}
+
+                // if it's a request to the api, we need to provide the access token as bearer token
+                if (requestConfig.url.indexOf(config.apiUrl) === 0) {
+                    requestConfig.headers.Authorization = "Bearer " + mgr.access_token;
                 }
 
                 return requestConfig;
