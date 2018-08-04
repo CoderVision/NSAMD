@@ -12,13 +12,12 @@
     <link href="Content/angular-material.layout-attributes.css" rel="stylesheet" />
     <link href="Content/angular-material.layouts.css" rel="stylesheet" />
     <link href="Content/angular-data-grid.material.css" rel="stylesheet" />
-    
+
     <!-- inject:css -->
     <!-- endinject -->
-
-    <script src="libs/polyfill.js"></script>
-    <script src="libs/system.js"></script>
-    <script>
+    <!--<script src="libs/polyfill.js"></script>
+    <script src="libs/system.js"></script>-->
+    <!--<script>
         // set our baseURL reference path
         System.config({
             packages: {
@@ -35,8 +34,9 @@
 
         System.import('js/more-codes.js')
             .then(null, console.error.bind(console));
-    </script>
+    </script>-->
 
+    <script src="config.js"></script>
 
 </head>
 <body ng-app="app" ng-controller="rootController as rootCtrl" init="init()" style="height:100%;">
