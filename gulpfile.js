@@ -54,7 +54,7 @@ gulp.task('serve', ['build'], function () {
     var options = {
         https: true,
         port: 44363,
-       // livereload: true,
+        livereload: true,
       //  directoryListing: true,
         open: true
     };
