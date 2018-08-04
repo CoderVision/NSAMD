@@ -64,7 +64,6 @@ gulp.task('connect', ['build'], function () {
         port: 44363,
         root: 'dist',
         //   livereload: true
-
     };
 
     $.connect.server(options);
