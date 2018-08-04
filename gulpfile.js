@@ -11,6 +11,7 @@ var colors = require('ansi-colors');
 var del = require('del');
 var uuid = require('uuid/v4');
 var ngAnnotate = require('gulp-ng-annotate')
+var fs = require('fs');
 
 var appJsFileName = "";
 var printJsFileName = "";
@@ -24,6 +25,7 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 ///     Set "config.isProductionPublish = false;" to the correct state
 ///     To Use:`Open command window, cd to C:\Source\Repos\NSAMD
 ///     To Build:  type "gulp build"  (outputs to dist folder)
+///     To Serve the website:  type "gulp connect", then open https://localhost:44363 in Chrome, etc.
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
 
 config.isProductionPublish = false;
@@ -49,18 +51,24 @@ gulp.task('publish', ['build'], function () {
         .pipe(conn.dest('/site'));
 });
 
-gulp.task('serve', ['build'], function () {
+gulp.task('connect', ['build'], function () {
+
+    //var cert = {
+    //    pfx: fs.readFileSync('localhost.pfx')
+    //   // passphrase: 'sample'
+    //};
 
     var options = {
         https: true,
+       // https: cert,
         port: 44363,
-        livereload: true,
-      //  directoryListing: true,
-        open: true
+        root: 'dist',
+        //   livereload: true
+
     };
 
-    gulp.src('dist').pipe($.webserver(options));
-})
+    $.connect.server(options);
+});
 
 gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
 
@@ -107,7 +115,7 @@ gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
     var appInject = gulp
         .src(cfg.index)
         .pipe($.inject(gulp.src(cfg.temp + 'Content/*.css', { read: false }), injectOptions))
-        .pipe($.inject(gulp.src([cfg.temp + 'Scripts/' + this.configFileName, cfg.temp + 'Scripts/' + appJsFileName], { read: false }), injectOptions))
+        .pipe($.inject(gulp.src([cfg.temp + this.configFileName, cfg.temp + appJsFileName], { read: false }), injectOptions))
         .pipe(print())
         .pipe(gulp.dest(cfg.temp)); // he used client here (same as config.src)
 
@@ -121,7 +129,7 @@ gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
 
     var printInject = gulp
         .src(cfg.printIndex)
-        .pipe($.inject(gulp.src(cfg.temp + 'Scripts/' + printJsFileName, { read: false }), injectOptions))
+        .pipe($.inject(gulp.src(cfg.temp + printJsFileName, { read: false }), injectOptions))
         .pipe(print())
         .pipe(gulp.dest(cfg.temp)); 
 
@@ -145,7 +153,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .src('NSAMD/' + this.configFileName, { base: 'NSAMD' })
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())      // #2. print each file in the stream
-        .pipe(gulp.dest(cfg.temp + 'Scripts/'));
+        .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(configProcess);
 
@@ -160,7 +168,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
         .pipe(ngAnnotate())
         .pipe($.uglify())
-        .pipe(gulp.dest(cfg.temp + 'Scripts/'));
+        .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(appProcess);
 
@@ -175,7 +183,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
         .pipe(ngAnnotate())
         .pipe($.uglify())
-        .pipe(gulp.dest(cfg.temp + 'Scripts/'));
+        .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(printProcess);
 

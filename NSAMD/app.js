@@ -49,7 +49,8 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
 
 
     // new angular-ur-route is more flexible and supports nested routing
-    $urlRouterProvider.otherwise("/Members");
+   // $urlRouterProvider.otherwise("/Members");
+    $urlRouterProvider.when("", "/members");
 
     //https://ui-router.github.io/ng1/
     //https://stackoverflow.com/questions/26138140/angularjs-ui-router-location-or-state
@@ -126,8 +127,8 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
         templateUrl: './Views/Members/memberActivity.html',
         controller: 'memberActivityController',
         controllerAs: 'mac'
-    }).state("Members", {
-        url: '/Members',
+    }).state("members", {
+        url: '/members',
         templateUrl: './Views/Members/membersIndex.html',
         controller: 'memberListController',
         controllerAs: 'mlc'
