@@ -1,8 +1,7 @@
 ﻿ 
 'use strict'
 
-angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', 'localStorageService'
-    , function ($http, $log, $q, config, localStorageService) {
+    function TeamService($http, $log, $q, config, localStorageService) {
 
     var svc = {};
 
@@ -173,4 +172,9 @@ angular.module('app').factory('teamService', ['$http', '$log', '$q', 'config', '
     }
 
     return svc;
-}]);
+};
+
+
+angular.module('app').factory('teamService', TeamService);
+
+TeamService.$inject = ['$http', '$log', '$q', 'config', 'localStorageService'];

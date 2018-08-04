@@ -2,9 +2,8 @@
 
 'use strict';
 
-angular.module('app').controller('memberController',
-    ['$scope', '$stateParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService', 'appService'
-        , function ($scope, $stateParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService, appService) {
+
+        function MemberController($scope, $stateParams, $mdMedia, $mdDialog, $mdBottomSheet, $location, $log, $window, memberService, appNotificationService, localStorageService, appService) {
 
         var vm = this;
 
@@ -367,4 +366,10 @@ angular.module('app').controller('memberController',
             $window.location.href = "mailto:" + email;
         }
         return vm;
-    }]);
+};
+
+MemberController.$inject = ['$scope', '$stateParams', '$mdMedia', '$mdDialog', '$mdBottomSheet', '$location', '$log', '$window', 'memberService', 'appNotificationService', 'localStorageService', 'appService'];
+
+angular.module('app').controller('memberController', MemberController);
+
+

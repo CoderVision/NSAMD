@@ -1,8 +1,7 @@
 ﻿
 'use strict'
 
-angular.module('app').factory('authService', ['$q', 'config'
-    , function ($q, pConfig) {
+    function AuthService($q, pConfig) {
 
         var svc = {};
         //svc.redirect_uri = "https://localhost:44363/#!/callback?",
@@ -44,4 +43,7 @@ angular.module('app').factory('authService', ['$q', 'config'
  
 
         return svc;
-    }]);
+    };
+
+angular.module('app').factory('authService', AuthService);
+AuthService.$inject = ['$q', 'config'];

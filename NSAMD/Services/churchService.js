@@ -2,8 +2,7 @@
 
 'use strict'
 
-angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config', 'localStorageService'
-    , function ($http, $log, $q, config, localStorageService) {
+    function ChurchService($http, $log, $q, config, localStorageService) {
 
         var svc = {};
 
@@ -174,4 +173,8 @@ angular.module('app').factory('churchService', ['$http', '$log', '$q', 'config',
         }
 
         return svc;
-    }]);
+};
+
+angular.module('app').factory('churchService', ChurchService);
+
+ChurchService.$inject = ['$http', '$log', '$q', 'config', 'localStorageService'];

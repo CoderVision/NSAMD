@@ -3,8 +3,7 @@
 
 'use strict'
 
-angular.module('app').factory('reportService', ['$http', '$log', '$q', 'config'
-    , function ($http, $log, $q, config) {
+    function ReportService($http, $log, $q, config) {
 
         var svc = {};
 
@@ -90,4 +89,8 @@ angular.module('app').factory('reportService', ['$http', '$log', '$q', 'config'
 
 
         return svc;
-    }]);
+};
+
+angular.module('app').factory('reportService', ReportService);
+
+ReportService.$inject = ['$http', '$log', '$q', 'config'];

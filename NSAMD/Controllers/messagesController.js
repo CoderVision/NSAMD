@@ -3,9 +3,8 @@
 'use strict';
 
 //'messageService'
-angular.module('app').controller('messagesController',
-    ['$scope', '$mdDialog', '$mdMedia', '$log', 'appNotificationService', 'appService', '$state', 'messageService', 'localStorageService'
-        , function ($scope, $mdDialog, $mdMedia, $log, appNotificationService, appService, $state, messageService, localStorageService) {
+
+        function MessagesController($scope, $mdDialog, $mdMedia, $log, appNotificationService, appService, $state, messageService, localStorageService) {
 
             var vm = this;
 
@@ -107,4 +106,11 @@ angular.module('app').controller('messagesController',
             }
 
             return vm;
-        }]);
+};
+
+MessagesController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$log', 'appNotificationService', 'appService', '$state', 'messageService', 'localStorageService'];
+
+angular.module('app').controller('messagesController', MessagesController);
+
+
+

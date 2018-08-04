@@ -1,5 +1,7 @@
 ﻿
-angular.module('app').factory("injectCSS", ['$q', function ($q) {
+
+
+    function InjectCSS($q) {
     var injectCSS = {};
 
     var createLink = function(id, url) {
@@ -40,4 +42,8 @@ angular.module('app').factory("injectCSS", ['$q', function ($q) {
     };
 
     return injectCSS;
-}])
+};
+
+angular.module('app').factory("injectCSS", InjectCSS);
+
+InjectCSS.$inject = ['$q'];

@@ -1,9 +1,8 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('teamListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$state', '$log', 'teamService', 'appNotificationService', 'appService', 'localStorageService'
-        , function ($scope, $mdDialog, $mdMedia, $state, $log, teamService, appNotificationService, appService, localStorageService) {
+
+        function TeamListController($scope, $mdDialog, $mdMedia, $state, $log, teamService, appNotificationService, appService, localStorageService) {
 
         var vm = this;
         vm.churchId = 0; // default to the first one that they have access to
@@ -129,4 +128,11 @@ angular.module('app').controller('teamListController',
         }
 
         return vm;
-    }]);
+};
+
+TeamListController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$state', '$log', 'teamService', 'appNotificationService', 'appService', 'localStorageService'];
+
+angular.module('app').controller('teamListController', TeamListController);
+
+
+

@@ -1,7 +1,8 @@
 ﻿'use strict';
 
-angular.module('app')
-    .controller('simpleDialogController', ['$mdDialog', 'currentItem', 'config', function ($mdDialog, currentItem, config) {
+
+        
+    function SimpleDialogController($mdDialog, currentItem, config) {
         var vm = this;
 
         vm.currentItem = currentItem;
@@ -16,4 +17,10 @@ angular.module('app')
         }
 
         return vm;
-}]);
+};
+
+SimpleDialogController.$inject = ['$mdDialog', 'currentItem', 'config'];
+
+angular.module('app').controller('simpleDialogController', SimpleDialogController);
+
+

@@ -2,9 +2,8 @@
 
 'use strict';
 
-angular.module('app').controller('adminUsersController',
-    ['$scope','$mdDialog', '$mdMedia', '$location', '$log', 'userService', 'appNotificationService'
-        , function ($scope, $mdDialog, $mdMedia, $location, $log, userService, appNotificationService) {
+
+        function AdminUsersController($scope, $mdDialog, $mdMedia, $location, $log, userService, appNotificationService) {
 
             var vm = this;
 
@@ -72,7 +71,7 @@ angular.module('app').controller('adminUsersController',
                 userService.processAcctRequest(acctReq).then(function (success) {
 
                     // remove 
-                    const index = vm.acctRequests.indexOf(acctReq);
+                    var index = vm.acctRequests.indexOf(acctReq);
                     vm.acctRequests.splice(index, 1);
 
                     if (success !== null) {
@@ -181,4 +180,9 @@ angular.module('app').controller('adminUsersController',
                 });
             }
             return vm;
-        }]);
+};
+
+AdminUsersController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'userService', 'appNotificationService'];
+
+angular.module('app').controller('adminUsersController', AdminUsersController);
+

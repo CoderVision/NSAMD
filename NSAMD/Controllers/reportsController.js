@@ -1,9 +1,7 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('reportsController',
-    ['$scope', '$window', '$stateParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService', 'localStorageService'
-        , function ($scope, $window, $stateParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService, localStorageService) {
+        function ReportsController($scope, $window, $stateParams, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, reportService, appNotificationService, appService, localStorageService) {
 
         $scope.$emit('enableAddItemEvent', { enabled: false });
 
@@ -130,4 +128,11 @@ angular.module('app').controller('reportsController',
         }
 
         return vm;
-    }]);
+};
+
+ReportsController.$inject = ['$scope', '$window', '$stateParams', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'reportService', 'appNotificationService', 'appService', 'localStorageService'];
+
+angular.module('app').controller('reportsController', ReportsController);
+
+
+

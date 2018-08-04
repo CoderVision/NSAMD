@@ -3,9 +3,7 @@
 
 'use strict';
 
-angular.module('app')
-    .controller('adminChangeMembershipController', ['$mdDialog', '$log', 'userService', 'memberService', 'appNotificationService', 'config', 'currentItem'
-        , function ($mdDialog, $log, userService, memberService, appNotificationService, config, currentItem) {
+        function AdminChangeMembershipController($mdDialog, $log, userService, memberService, appNotificationService, config, currentItem) {
 
             var vm = this;
             vm.config = config;
@@ -44,4 +42,10 @@ angular.module('app')
             }
 
             return vm;
-        }]);
+};
+
+AdminChangeMembershipController.$inject = ['$mdDialog', '$log', 'userService', 'memberService', 'appNotificationService', 'config', 'currentItem'];
+
+angular.module('app').controller('adminChangeMembershipController', AdminChangeMembershipController);
+
+

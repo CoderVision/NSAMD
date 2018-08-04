@@ -1,9 +1,7 @@
 ﻿
 'use strict';
 
-angular.module('app')
-    .controller('addChurchController', ['$mdDialog', '$log', 'churchService', 'appNotificationService', 'currentItem', 'config', 'configService'
-        , function ($mdDialog, $log, churchService, appNotificationService, currentItem, config, configService) {
+        function AddChurchController($mdDialog, $log, churchService, appNotificationService, currentItem, config, configService) {
 
             var vm = this;
             vm.config = config;
@@ -41,4 +39,9 @@ angular.module('app')
             }
 
             return vm;
-        }]);
+};
+
+AddChurchController.$inject = ['$mdDialog', '$log', 'churchService', 'appNotificationService', 'currentItem', 'config', 'configService'];
+
+angular.module('app').controller('addChurchController', AddChurchController);
+

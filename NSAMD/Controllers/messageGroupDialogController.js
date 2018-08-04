@@ -1,9 +1,8 @@
 ﻿
 'use strict';
 
-angular.module('app')
-    .controller('messageGroupDialogController', ['$scope', '$mdDialog', '$q', '$log', 'messageService', 'appNotificationService', 'currentItem',
-        function ($scope, $mdDialog, $q, $log, messageService, appNotificationService, currentItem) {
+
+        function MessageGroupDialogController($scope, $mdDialog, $q, $log, messageService, appNotificationService, currentItem) {
 
             var vm = this;
 
@@ -105,4 +104,9 @@ angular.module('app')
 
 
             return vm;
-        }]);
+};
+
+MessageGroupDialogController.$inject = ['$scope', '$mdDialog', '$q', '$log', 'messageService', 'appNotificationService', 'currentItem'];
+
+angular.module('app').controller('messageGroupDialogController', MessageGroupDialogController);
+

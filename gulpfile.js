@@ -10,6 +10,7 @@ var log = require('fancy-log');
 var colors = require('ansi-colors');
 var del = require('del');
 var uuid = require('uuid/v4');
+var ngAnnotate = require('gulp-ng-annotate')
 
 var appJsFileName = "";
 var printJsFileName = "";
@@ -108,8 +109,6 @@ gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
         .src(cfg.index)
         .pipe($.inject(gulp.src(cfg.temp + 'Content/*.css', { read: false }), injectOptions))
         .pipe($.inject(gulp.src([cfg.temp + 'Scripts/' + this.configFileName, cfg.temp + 'Scripts/' + appJsFileName], { read: false }), injectOptions))
-        //cfg.temp + 'Scripts/' + this.configFileName
-      //  .pipe($.inject(gulp.src(cfg.temp + 'Scripts/' + appJsFileName, { read: false }), injectOptions))
         .pipe(print())
         .pipe(gulp.dest(cfg.temp)); // he used client here (same as config.src)
 
@@ -147,8 +146,6 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .src('NSAMD/' + this.configFileName, { base: 'NSAMD' })
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())      // #2. print each file in the stream
-     //   .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
-        //    .pipe($.uglify())
         .pipe(gulp.dest(cfg.temp + 'Scripts/'));
 
     mergedStream.add(configProcess);
@@ -162,7 +159,8 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .pipe(print())      // #2. print each file in the stream
         .pipe($.concat(appJsFileName))
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
-      //  .pipe($.uglify())
+        .pipe(ngAnnotate())
+        .pipe($.uglify())
         .pipe(gulp.dest(cfg.temp + 'Scripts/'));
 
     mergedStream.add(appProcess);
@@ -175,8 +173,9 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())      // #2. print each file in the stream
         .pipe($.concat(printJsFileName))
-    //    .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
-    //    .pipe($.uglify())
+        .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
+        .pipe(ngAnnotate())
+        .pipe($.uglify())
         .pipe(gulp.dest(cfg.temp + 'Scripts/'));
 
     mergedStream.add(printProcess);
@@ -213,8 +212,8 @@ gulp.task('styles', ['clean-styles'], function () {
         .pipe(print())
         .pipe($.concat(uuid() + '.min.css'))
         .pipe($.sass())
-    //    .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
-   //     .pipe($.csso())  // minify css output
+        .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
+        .pipe($.csso())  // minify css output
         .pipe(gulp.dest(cfg.temp + 'Content/'));
 
     var vendorCss = gulp

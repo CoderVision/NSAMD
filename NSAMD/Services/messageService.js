@@ -2,8 +2,7 @@
 
 'use strict'
 
-angular.module('app').factory('messageService', ['$http', '$log', '$q', 'config', 'errorService'
-    , function ($http, $log, $q, config, errorService) {
+    function MessageService($http, $log, $q, config, errorService) {
 
         var svc = {};
 
@@ -157,4 +156,8 @@ angular.module('app').factory('messageService', ['$http', '$log', '$q', 'config'
         }
 
         return svc;
-    }]);
+};
+
+angular.module('app').factory('messageService', MessageService);
+
+MessageService.$inject = ['$http', '$log', '$q', 'config', 'errorService'];

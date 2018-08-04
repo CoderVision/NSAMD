@@ -3,9 +3,7 @@
 
 'use strict';
 
-angular.module('app').controller('smsController',
-    ['$rootScope', '$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$state', '$stateParams'
-        , function ($rootScope, $scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService, $state, $stateParams) {
+        function SmsController($rootScope, $scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService, $state, $stateParams) {
 
             var vm = this;
             
@@ -204,4 +202,11 @@ angular.module('app').controller('smsController',
             }
 
             return vm;
-        }]);
+};
+
+
+SmsController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$state', '$stateParams'];
+
+angular.module('app').controller('smsController', SmsController);
+
+

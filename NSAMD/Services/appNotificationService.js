@@ -1,5 +1,7 @@
 ﻿
-angular.module('app').factory('appNotificationService', ['$mdToast', '$mdDialog', 'appService', function ($mdToast, $mdDialog, appService) {
+
+
+    function AppNotificationService($mdToast, $mdDialog, appService) {
 
     var svc = {};
     svc.appService = appService;
@@ -18,4 +20,8 @@ angular.module('app').factory('appNotificationService', ['$mdToast', '$mdDialog'
     }
 
     return svc;
-}]);
+};
+
+angular.module('app').factory('appNotificationService', AppNotificationService);
+
+AppNotificationService.$inject = ['$mdToast', '$mdDialog', 'appService'];

@@ -1,9 +1,7 @@
 ﻿
 'use strict';
-
-angular.module('app').controller('rootController',
-    ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'appService', 'authService', 'userService'
-        , function ($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, appService, authService, userService) {
+    
+ function RootController($scope, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, appService, authService, userService) {
 
     var vm = this;
     vm.mdSidenav = $mdSidenav;
@@ -133,4 +131,8 @@ angular.module('app').controller('rootController',
     };
 
     return vm;
-}]);
+};
+
+RootController.$inject = ['$scope', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', 'appService', 'authService', 'userService'];
+
+angular.module('app').controller('rootController', RootController);
