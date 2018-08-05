@@ -156,7 +156,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
     var cfg = config.getConfig();
 
     // config script
-    this.configFileName = this.isProductionPublish ? 'config.publish.js' : 'config.js';
+    this.configFileName = config.isProductionPublish === true ? 'config.publish.js' : 'config.js';
 
     var configProcess = gulp
         .src('NSAMD/' + this.configFileName, { base: 'NSAMD' })
