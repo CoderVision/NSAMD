@@ -28,10 +28,10 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 ///     To Serve the website:  type "gulp connect", then open https://localhost:44363 in Chrome, etc.
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
 
-config.isProductionPublish = false;
+config.isProductionPublish = true;
 
-
-gulp.task('publish', ['build'], function () {
+// ['build'],
+gulp.task('publish',  function () {
 
     log('Running publish...');
 
@@ -40,15 +40,25 @@ gulp.task('publish', ['build'], function () {
         user: configPublish.username,
         password: configPublish.password,
         parallel: 10,
+        port: 21,
         log: log
+      //  debug: log
     });
 
-    return gulp.src('**/*.*', { base: 'dist', buffer: false })
+
+    var path = '/Site';  // <-- this worked!  It's case sensitive
+   // var path = '/site/UploadTest';  // <- this one worked
+    //var path = 'hissteward.com/site/UploadTest';
+
+    return gulp.src('dist/**', { base: './dist/', buffer: false })
         .pipe($.if(config.isProductionPublish === false, $.exit()))
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())
-        .pipe(conn.newer('/site')) // only upload newer files
-        .pipe(conn.dest('/site'));
+        .pipe(conn.newer(path)) // only upload newer files
+        .pipe(conn.dest(path));
+
+    // this was his path:
+    // theartboy.com/stuff/tests/webProject
 });
 
 gulp.task('connect', ['build'], function () {
@@ -90,7 +100,7 @@ gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
             '!NSAMD/print.html',
             '!NSAMD/silentRefresh.html',
             ], { base: 'NSAMD' })
-        .pipe(print())
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.dist));
 
     return merge(temp, app);
@@ -115,7 +125,7 @@ gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
         .src(cfg.index)
         .pipe($.inject(gulp.src(cfg.temp + 'Content/*.css', { read: false }), injectOptions))
         .pipe($.inject(gulp.src([cfg.temp + this.configFileName, cfg.temp + appJsFileName], { read: false }), injectOptions))
-        .pipe(print())
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp)); // he used client here (same as config.src)
 
     mergedStream.add(appInject);
@@ -129,7 +139,7 @@ gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
     var printInject = gulp
         .src(cfg.printIndex)
         .pipe($.inject(gulp.src(cfg.temp + printJsFileName, { read: false }), injectOptions))
-        .pipe(print())
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp)); 
 
     mergedStream.add(printInject);
@@ -151,7 +161,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
     var configProcess = gulp
         .src('NSAMD/' + this.configFileName, { base: 'NSAMD' })
         .pipe($.plumber())  // gracefully handles errors
-        .pipe(print())      // #2. print each file in the stream
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(configProcess);
@@ -162,7 +172,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
     var appProcess = gulp
         .src(cfg.alljs)
         .pipe($.plumber())  // gracefully handles errors
-        .pipe(print())      // #2. print each file in the stream
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe($.concat(appJsFileName))
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
         .pipe(ngAnnotate())
@@ -177,7 +187,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
     var printProcess = gulp
         .src(cfg.printjs)
         .pipe($.plumber())  // gracefully handles errors
-        .pipe(print())      // #2. print each file in the stream
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe($.concat(printJsFileName))
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
         .pipe(ngAnnotate())
@@ -189,7 +199,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
     // vendor scripts (angular, etc.)
     var vendorScripts = gulp
         .src(['NSAMD/Scripts/**/*.min.js'], { base: 'NSAMD' })
-        .pipe(print()) 
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(vendorScripts);
@@ -204,7 +214,7 @@ gulp.task('libs', function () {
             'node_modules/systemjs/dist/system.js',
             'node_modules/babel-polyfill/dist/polyfill.js',
         ])
-        .pipe(print())
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp + 'libs'))
 })
 
@@ -215,7 +225,7 @@ gulp.task('styles', ['clean-styles'], function () {
     var appCss = gulp
         .src([cfg.css, cfg.sass])
         .pipe($.plumber())  // gracefully handles errors
-        .pipe(print())
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe($.concat(uuid() + '.min.css'))
         .pipe($.sass())
         .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
@@ -224,7 +234,7 @@ gulp.task('styles', ['clean-styles'], function () {
 
     var vendorCss = gulp
         .src(['NSAMD/Content/**/*.css', '!NSAMD/Content/app.css', '!NSAMD/Content/appReportActiveGuestList.css'], { base: 'NSAMD' })
-        .pipe(print()) 
+        .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp));
 
     return merge(appCss, vendorCss);
