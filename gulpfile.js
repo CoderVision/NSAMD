@@ -30,8 +30,8 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 
 config.isProductionPublish = true;
 
-// ['build'],
-gulp.task('publish',  function () {
+// 
+gulp.task('publish', ['build'], function () {
 
     log('Running publish...');
 
