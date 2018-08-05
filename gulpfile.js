@@ -28,7 +28,7 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 ///     To Serve the website:  type "gulp connect", then open https://localhost:44363 in Chrome, etc.
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
 
-config.isProductionPublish = true;
+config.isProductionPublish = false;
 
 // 
 gulp.task('publish', ['build'], function () {
