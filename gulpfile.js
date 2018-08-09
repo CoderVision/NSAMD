@@ -63,17 +63,23 @@ gulp.task('publish', ['build'], function () {
 
 gulp.task('connect', ['build'], function () {
 
-    //var cert = {
-    //    pfx: fs.readFileSync('localhost.pfx')
-    //   // passphrase: 'sample'
-    //};
+    var cert = {
+        pfx: fs.readFileSync('LocalDevServer.pfx'),
+        passphrase: 'Journal1!'
+    };
 
     var options = {
         https: true,
-       // https: cert,
+      //  https: cert,
         port: 44363,
         root: 'dist',
-        //   livereload: true
+     //   livereload: true  // to use livereload you may have to use node 8.1.2:
+       /* 
+          https://github.com/intesso/connect-livereload/issues/79
+          This is likely because of lack of http2 support, where the request sends authority header instead of host, 
+          the short term solution is to use up to node 8.1.2 and to uninstall the http2 module which causes gulp-connect to favour it, 
+          actual solution is to support http2 by pulling from the authority header instead of host
+        */
     };
 
     $.connect.server(options);

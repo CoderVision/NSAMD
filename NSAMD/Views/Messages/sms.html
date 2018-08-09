@@ -20,9 +20,6 @@
 
                         <div class="correspondenceDate correspondenceSecondary" layout="column" layout-align="center end">
                                 {{mc.formatDate(user.lastMessageDate)}}
-                            <!-- div class="correspondenceEdit">
-                                <ng-md-icon icon="edit"></ng-md-icon>
-                            </div-->
                         </div>
 
                     </div>
@@ -34,8 +31,10 @@
         <div layout="column" flex>
             <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
                         md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
-                <div>
-                    <span>{{smc.selectedItem.description}}</span>
+                <div layout="row" layout-align="space-between">
+                    <div>{{smc.selectedItem.description}}</span>
+                        <!-- add icons:  maybe a hamburger icon, or a edit and delete icon, or maybe hide this conversation icon, etc. -->
+                        <div><ng-md-icon icon="edit"></ng-md-icon></div>
                 </div>
             </md-toolbar>
 
