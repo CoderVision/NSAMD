@@ -73,7 +73,7 @@ gulp.task('connect', ['build'], function () {
       //  https: cert,
         port: 44363,
         root: 'dist',
-     //   livereload: true  // to use livereload you may have to use node 8.1.2:
+        livereload: true  // to use livereload you may have to use node 8.1.2:
        /* 
           https://github.com/intesso/connect-livereload/issues/79
           This is likely because of lack of http2 support, where the request sends authority header instead of host, 

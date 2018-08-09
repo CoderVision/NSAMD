@@ -3,7 +3,7 @@
 
 'use strict';
 
-        function SmsController($rootScope, $scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, messageService, $state, $stateParams) {
+        function SmsController($rootScope, $scope, $mdDialog, $mdMenu, $mdMedia, $location, $log, appNotificationService, messageService, $state, $stateParams) {
 
             var vm = this;
             
@@ -48,6 +48,13 @@
                     vm.searchText = newValue;
                 }
             }, false);
+
+            var originatorEv;
+
+            vm.openMenu = function($mdMenu, ev) {
+              originatorEv = ev;
+              $mdMenu.open(ev);
+            };
 
             // have to think about how we are going to handle this
             vm.editGroup = function ($event, group) {
@@ -205,7 +212,7 @@
 };
 
 
-SmsController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$state', '$stateParams'];
+SmsController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdMenu', '$mdMedia', '$location', '$log', 'appNotificationService', 'messageService', '$state', '$stateParams'];
 
 angular.module('app').controller('smsController', SmsController);
 

@@ -32,9 +32,42 @@
             <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
                         md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
                 <div layout="row" layout-align="space-between">
-                    <div>{{smc.selectedItem.description}}</span>
+                    <div>{{smc.selectedItem.description}}</div>
                         <!-- add icons:  maybe a hamburger icon, or a edit and delete icon, or maybe hide this conversation icon, etc. -->
-                        <div><ng-md-icon icon="edit"></ng-md-icon></div>
+                    <div style="width: auto;">                    
+                        <md-menu md-position-mode="target-right target">
+                            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="smc.openMenu($mdMenu, $event)">
+                                <ng-md-icon icon="more_horiz" md-menu-origin></ng-md-icon>
+                            </md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item>
+                                <md-button ng-click="smc.edit($event)">
+                                    <div layout="row" flex>
+                                            <p flex>Edit</p>
+                                            <ng-md-icon icon="edit" md-menu-align-target style="margin: auto 3px auto 0;"></ng-md-icon>  
+                                    </div>
+                                </md-button>
+                              </md-menu-item>
+                              <md-menu-item>
+                                <md-button ng-click="smc.hide(smc.selectedItem)">
+                                    <div layout="row" flex>
+                                        <p flex>Hide</p>
+                                        <ng-md-icon icon="remove_circle_outline" md-menu-align-target style="margin: auto 3px auto 0;"></ng-md-icon>  
+                                    </div>
+                                </md-button>
+                              </md-menu-item>
+                              <md-menu-divider></md-menu-divider>
+                              <md-menu-item>
+                                <md-button ng-click="smc.delete(smc.selectedItem)">
+                                    <div layout="row" flex>
+                                        <p flex>Delete</p>
+                                        <ng-md-icon icon="delete" md-menu-align-target style="margin: auto 3px auto 0;"></ng-md-icon>  
+                                    </div>
+                                </md-button>
+                              </md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
+                    </div>
                 </div>
             </md-toolbar>
 
