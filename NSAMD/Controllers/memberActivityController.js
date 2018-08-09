@@ -2,9 +2,7 @@
 
 'use strict';
 
-angular.module('app').controller('memberActivityController',
-    ['$scope', '$mdDialog', '$stateParams', '$mdMedia', '$state', '$log', 'memberService', 'appNotificationService', 'appService'
-        , function ($scope, $mdDialog, $stateParams, $mdMedia, $state, $log, memberService, appNotificationService, appService) {
+        function MemberActivityController($scope, $mdDialog, $stateParams, $mdMedia, $state, $log, memberService, appNotificationService, appService) {
 
         var vm = this;
         vm.churchId = $stateParams.churchId;
@@ -156,4 +154,10 @@ angular.module('app').controller('memberActivityController',
         }
 
         return vm;
-    }]);
+};
+
+
+MemberActivityController.$inject = ['$scope', '$mdDialog', '$stateParams', '$mdMedia', '$state', '$log', 'memberService', 'appNotificationService', 'appService'];
+
+angular.module('app').controller('memberActivityController', MemberActivityController);
+

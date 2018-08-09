@@ -1,9 +1,7 @@
 ﻿
 'use strict';
 
-angular.module('app')
-    .controller('addMemberController', ['$mdDialog', '$log', 'memberService', 'appNotificationService', 'currentItem', 'config'
-        , function ($mdDialog, $log, memberService, appNotificationService, currentItem, config) {
+        function AddMemberController($mdDialog, $log, memberService, appNotificationService, currentItem, config) {
 
         var vm = this;
         vm.config = config;
@@ -71,4 +69,8 @@ angular.module('app')
         }
 
         return vm;
-    }]);
+};
+
+AddMemberController.$inject = ['$mdDialog', '$log', 'memberService', 'appNotificationService', 'currentItem', 'config'];
+
+angular.module('app').controller('addMemberController', AddMemberController);

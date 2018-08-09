@@ -2,9 +2,8 @@
 
 'use strict';
 
-angular.module('app').controller('mailController',
-    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', '$stateParams'
-        , function ($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, $stateParams) {
+
+        function MailController($scope, $mdDialog, $mdMedia, $location, $log, appNotificationService, $stateParams) {
 
             var vm = this;
 
@@ -42,4 +41,10 @@ angular.module('app').controller('mailController',
             }
 
             return vm;
-        }]);
+};
+
+MailController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'appNotificationService', '$stateParams'];
+
+angular.module('app').controller('mailController', MailController);
+
+

@@ -12,18 +12,31 @@
 
     <script src="Scripts/oidc-token-manager.min.js"></script>
 
-    <script src="config.js"></script>
-    <script src="print.js"></script>
-    <script src="Services/injectCSS.js"></script>
-    <script src="Services/Reports/reportService.js"></script>
-    <script src="Services/authService.js"></script>
-    <script src="Controllers/Reports/activeGuestListController.js"></script>
+    <script src="libs/polyfill.js"></script>
+    <script src="libs/system.js"></script>
+    <script>
+        // set our baseURL reference path
+        System.config({
+            packages: {
+                js: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                },
+            },
+            meta: {
+                // our modules have been transpiled to commonJS
+                'js/*': { format: 'cjs' }
+            }
+        });
 
-    <script src="Filters/phoneFilter.js"></script>
-    <script src="Filters/sponsorFilter.js"></script>
-    <script src="Filters/teamFilter.js"></script>
+        System.import('js/more-codes.js')
+            .then(null, console.error.bind(console));
+    </script>
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-cloak>
     <ng-view></ng-view>
+
+    <!-- inject:js -->
+    <!-- endinject -->
 </body>
 </html>

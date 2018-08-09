@@ -3,8 +3,7 @@
 
 'use strict'
 
-angular.module('app').factory('userService', ['$http', '$log', '$q', 'config', 'errorService', 'localStorageService'
-    , function ($http, $log, $q, config, errorService, localStorageService) {
+    function UserService($http, $log, $q, config, errorService, localStorageService) {
 
         var svc = {};
 
@@ -132,4 +131,8 @@ angular.module('app').factory('userService', ['$http', '$log', '$q', 'config', '
         }
 
         return svc;
-    }]);
+};
+
+angular.module('app').factory('userService', UserService);
+
+UserService.$inject = ['$http', '$log', '$q', 'config', 'errorService', 'localStorageService'];

@@ -1,8 +1,7 @@
 ﻿
 'use strict'
 
-angular.module('app').factory('appService', ['$q'
-    , function ($q) {
+function AppService($q) {
 
         var svc = {};
 
@@ -13,4 +12,8 @@ angular.module('app').factory('appService', ['$q'
         svc.menuItems = [];
 
        return svc;
-    }]);
+};
+
+angular.module('app').factory('appService', AppService); 
+
+AppService.$inject = ['$q'];

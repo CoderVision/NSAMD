@@ -1,9 +1,7 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('churchListController',
-    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$state', '$log', 'churchService', 'appNotificationService', 'appService'
-        , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $state, $log, churchService, appNotificationService, appService) {
+        function ChurchListController($scope, $mdDialog, $mdMedia, $mdBottomSheet, $state, $log, churchService, appNotificationService, appService) {
 
         var vm = this;
         vm.churchId = 0; // default to the first one that they have access to
@@ -123,4 +121,12 @@ angular.module('app').controller('churchListController',
         }
 
         return vm;
-    }]);
+};
+
+
+ChurchListController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$state', '$log', 'churchService', 'appNotificationService', 'appService'];
+
+angular.module('app').controller('churchListController', ChurchListController);
+
+
+

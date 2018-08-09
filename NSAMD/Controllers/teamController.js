@@ -1,9 +1,8 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('teamController',
-    ['$scope', '$stateParams', '$mdDialog', '$mdMedia', '$log', 'teamService', 'appNotificationService', 'appService'
-        , function ($scope, $stateParams, $mdDialog, $mdMedia, $log, teamService, appNotificationService, appService) {
+
+        function TeamController($scope, $stateParams, $mdDialog, $mdMedia, $log, teamService, appNotificationService, appService) {
 
         var vm = this;
 
@@ -156,4 +155,11 @@ angular.module('app').controller('teamController',
         }
 
         return vm;
-    }]);
+};
+
+TeamController.$inject = ['$scope', '$stateParams', '$mdDialog', '$mdMedia', '$log', 'teamService', 'appNotificationService', 'appService'];
+
+angular.module('app').controller('teamController', TeamController);
+
+
+

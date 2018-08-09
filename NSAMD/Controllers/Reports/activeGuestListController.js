@@ -3,9 +3,7 @@
 
 'use strict';
 
-angular.module('app').controller('activeGuestListController',
-    ['$http', '$routeParams', '$log', 'reportService'
-    , function ($http, $routeParams, $log, reportService) {
+        function ActiveGuestListController($http, $routeParams, $log, reportService) {
 
         var vm = this;
 
@@ -84,4 +82,10 @@ angular.module('app').controller('activeGuestListController',
         }
 
         return vm;
-    }]);
+};
+
+ActiveGuestListController.$inject = ['$http', '$routeParams', '$log', 'reportService'];
+
+angular.module('app').controller('activeGuestListController', ActiveGuestListController);
+
+

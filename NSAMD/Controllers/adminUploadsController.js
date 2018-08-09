@@ -2,9 +2,8 @@
 
 'use strict';
 
-angular.module('app').controller('adminUploadsController',
-    ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'config', 'appNotificationService', 'authService'
-        , function ($scope, $mdDialog, $mdMedia, $location, $log, config, appNotificationService, authService) {
+
+        function AdminUploadsController($scope, $mdDialog, $mdMedia, $location, $log, config, appNotificationService, authService) {
 
             var vm = this;
             vm.selectedFile = null;
@@ -30,10 +29,10 @@ angular.module('app').controller('adminUploadsController',
                 vm.progressBarValue = 0;
                 vm.progressMessage = 'Uploading...';
 
-                // For more info on XMLHttpRequest: 
-                // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+                //// For more info on XMLHttpRequest: 
+                //// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 
-                let xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
 
                 xhr.upload.onloadstart = function (e) {
                     $scope.$apply(function () { 
@@ -77,4 +76,10 @@ angular.module('app').controller('adminUploadsController',
             }
 
             return vm;
-        }]);
+};
+
+AdminUploadsController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$location', '$log', 'config', 'appNotificationService', 'authService'];
+
+angular.module('app').controller('adminUploadsController', AdminUploadsController);
+
+

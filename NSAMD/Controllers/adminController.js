@@ -1,9 +1,9 @@
 ﻿
 'use strict';
 
-angular.module('app').controller('adminController',
-    ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$state', 'appService'
-        , function ($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $state, appService) {
+
+
+ function AdminController($scope, $mdDialog, $mdMedia, $mdBottomSheet, $location, $log, $state, appService) {
 
     // handle add item event from root scope
             $scope.$emit('enableAddItemEvent', { enabled: false });
@@ -26,4 +26,9 @@ angular.module('app').controller('adminController',
 
 
     return vm;
-}]);
+};
+
+AdminController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$mdBottomSheet', '$location', '$log', '$state', 'appService'];
+
+angular.module('app').controller('adminController', AdminController);
+

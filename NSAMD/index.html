@@ -12,8 +12,12 @@
     <link href="Content/angular-material.layout-attributes.css" rel="stylesheet" />
     <link href="Content/angular-material.layouts.css" rel="stylesheet" />
     <link href="Content/angular-data-grid.material.css" rel="stylesheet" />
-    <!--<link href="Content/md-date-picker.min.css" rel="stylesheet" />-->
-    <link href="Content/app.css" rel="stylesheet" />
+
+    <!-- inject:css -->
+    <!-- endinject -->
+
+    <script src="libs/polyfill.js"></script>
+    <script src="libs/system.js"></script>
 
 </head>
 <body ng-app="app" ng-controller="rootController as rootCtrl" init="init()" style="height:100%;">
@@ -51,7 +55,6 @@
     <script src="Scripts/angular-local-storage.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
     <script src="Scripts/moment.min.js"></script>
-    <!--<script src="Scripts/moment-timezone.min.js"></script>-->
     <script src="Scripts/moment-timezone-with-data.min.js"></script>
     <script src="Scripts/angular-ui-router.min.js"></script>
 
@@ -60,52 +63,10 @@
     <script src="Scripts/pagination.min.js"></script>
     <script src="Scripts/ngMask.min.js"></script>
 
-    <!--https://github.com/appfoundations/md-date-picker-->
-    <!--<script src="Scripts/md-date-picker.min.js"></script>-->
-
     <script src="Scripts/oidc-token-manager.min.js"></script>
-    <!--<script src="Scripts/oidc-token-manager.js"></script>-->
 
-    <script src="config.js"></script>
-    <script src="app.js"></script>
-
-    <script src="Services/appService.js"></script>
-    <script src="Services/appNotificationService.js"></script>
-    <script src="Services/errorService.js"></script>
-    <script src="Services/configService.js"></script>
-    <script src="Services/churchService.js"></script>
-    <script src="Services/memberService.js"></script>
-    <script src="Services/teamService.js"></script>
-    <script src="Services/reportService.js"></script>
-    <script src="Services/authService.js"></script>
-    <script src="Services/userService.js"></script>
-    <script src="Services/messageService.js"></script>
-
-    <script src="Controllers/rootController.js"></script>
-    <script src="Controllers/adminController.js"></script>
-    <script src="Controllers/adminUsersController.js"></script>
-    <script src="Controllers/adminUploadsController.js"></script>
-    <script src="Controllers/adminChangeMembershipController.js"></script>
-    <script src="Controllers/churchListController.js"></script>
-    <script src="Controllers/churchController.js"></script>
-    <script src="Controllers/addChurchController.js"></script>
-    <script src="Controllers/memberListController.js"></script>
-    <script src="Controllers/memberController.js"></script>
-    <script src="Controllers/addMemberController.js"></script>
-    <script src="Controllers/memberActivityController.js"></script>
-    <script src="Controllers/teamListController.js"></script>
-    <script src="Controllers/teamController.js"></script>
-    <script src="Controllers/addTeamController.js"></script>
-    <script src="Controllers/reportsController.js"></script>
-    <script src="Controllers/simpleDialogController.js"></script>
-    <script src="Controllers/messageDialogController.js"></script>
-    <script src="Controllers/messageGroupDialogController.js"></script>
-    <script src="Controllers/messagesController.js"></script>
-    <script src="Controllers/smsController.js"></script>
-    <script src="Controllers/mailController.js"></script>
-
-    <script src="Filters/phoneFilter.js"></script>
-    <script src="Filters/mapAddressFilter.js"></script>
+    <!-- inject:js -->
+    <!-- endinject -->
 
 
 </body>

@@ -2,9 +2,7 @@
 
 'use strict';
 
-angular.module('app')
-    .controller('addTeamController', ['$mdDialog', '$log', 'teamService', 'appNotificationService', 'currentItem', 'config'
-        , function ($mdDialog, $log, teamService, appNotificationService, currentItem, config) {
+        function AddTeamController($mdDialog, $log, teamService, appNotificationService, currentItem, config) {
 
             var vm = this;
             vm.config = config;
@@ -39,4 +37,11 @@ angular.module('app')
             }
 
             return vm;
-        }]);
+};
+
+
+AddTeamController.$inject = ['$mdDialog', '$log', 'teamService', 'appNotificationService', 'currentItem', 'config'];
+
+angular.module('app').controller('addTeamController', AddTeamController);
+
+

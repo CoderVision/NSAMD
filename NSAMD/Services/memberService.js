@@ -1,8 +1,7 @@
 ﻿
 'use strict'
 
-angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config', 'localStorageService'
-    , function ($http, $log, $q, config, localStorageService) {
+    function MemberService($http, $log, $q, config, localStorageService) {
 
     var svc = {};
 
@@ -240,4 +239,8 @@ angular.module('app').factory('memberService', ['$http', '$log', '$q', 'config',
     }
 
     return svc;
-}]);
+};
+
+angular.module('app').factory('memberService', MemberService);
+
+MemberService.$inject = ['$http', '$log', '$q', 'config', 'localStorageService'];

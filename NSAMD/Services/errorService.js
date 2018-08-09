@@ -1,8 +1,7 @@
 ﻿
 'use strict'
 
-angular.module('app').factory('errorService', ['config'
-    , function (config) {
+    function ErrorService(config) {
 
         var vm = {};
 
@@ -58,4 +57,8 @@ angular.module('app').factory('errorService', ['config'
         }
 
         return vm;
-}]);
+};
+
+angular.module('app').factory('errorService', ErrorService);
+
+ErrorService.$inject = ['config'];

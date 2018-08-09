@@ -1,9 +1,9 @@
 ﻿
 'use strict';
 
-angular.module('app')
-    .controller('messageDialogController', ['$mdDialog', '$q', 'currentItem',
-        function ($mdDialog, $q, currentItem) {
+
+
+        function MessageDialogController($mdDialog, $q, currentItem) {
 
         var vm = this;
 
@@ -30,4 +30,9 @@ angular.module('app')
         }
 
         return vm;
-    }]);
+};
+
+MessageDialogController.$inject = ['$mdDialog', '$q', 'currentItem'];
+
+angular.module('app').controller('messageDialogController', MessageDialogController);
+
