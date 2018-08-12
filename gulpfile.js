@@ -12,6 +12,11 @@ var del = require('del');
 var uuid = require('uuid/v4');
 var ngAnnotate = require('gulp-ng-annotate')
 var fs = require('fs');
+var FileCache = require("gulp-file-cache");
+ 
+var fileCache = new FileCache();
+
+var port = process.env.PORT || config.defaultPort;
 
 var appJsFileName = "";
 var printJsFileName = "";
@@ -61,24 +66,43 @@ gulp.task('publish', ['build'], function () {
     // theartboy.com/stuff/tests/webProject
 });
 
+gulp.task('dev', ['connect'], function () {
+    var cfg = config.getConfig();
+    gulp.watch([
+         'NSAMD/**/*.html',
+         'NSAMD/**/*.js',
+         'NSAMD/**/*.css',
+         'NSAMD/**/*.scss'
+    ], ['reload']); // run the 'styles' task whenever sass files change.
+});
+
 gulp.task('connect', ['build'], function () {
 
-    //var cert = {
-    //    pfx: fs.readFileSync('localhost.pfx')
-    //   // passphrase: 'sample'
-    //};
+    var cert = {
+        pfx: fs.readFileSync('localhoststar.pfx'),
+        passphrase: 'password'
+    };
 
     var options = {
         https: true,
        // https: cert,
         port: 44363,
         root: 'dist',
-        //   livereload: true
+        livereload: true
     };
 
     $.connect.server(options);
 });
 
+
+gulp.task('reload', ['build'], function() {
+     return gulp.src('./dist/index.html')
+        .pipe(gulp.dest('./dist'))
+        .pipe($.connect.reload());
+});
+
+
+// 'clean-build',
 gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
 
     log('Running build.  Need to inject js into print.html');
@@ -100,7 +124,9 @@ gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
             '!NSAMD/print.html',
             '!NSAMD/silentRefresh.html',
             ], { base: 'NSAMD' })
+     //   .pipe(fileCache.filter())
         .pipe($.if(config.isProductionPublish === false, print()))
+     //   .pipe(fileCache.cache())
         .pipe(gulp.dest(cfg.dist));
 
     return merge(temp, app);
@@ -108,7 +134,7 @@ gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
 
 // test that injects JavaScript and css
 gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
-    log("Wireup our custom css in the html and call wiredep")
+    log("Wireup our custom css in the html")
 
     var mergedStream = merge();
 
@@ -123,7 +149,7 @@ gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
 
     var appInject = gulp
         .src(cfg.index)
-        .pipe($.inject(gulp.src(cfg.temp + 'Content/*.css', { read: false }), injectOptions))
+        .pipe($.inject(gulp.src([cfg.temp + '*.css'], { read: false }), injectOptions))
         .pipe($.inject(gulp.src([cfg.temp + this.configFileName, cfg.temp + appJsFileName], { read: false }), injectOptions))
         .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp)); // he used client here (same as config.src)
@@ -199,6 +225,7 @@ gulp.task('scripts', ['clean-scripts'], function () {
     // vendor scripts (angular, etc.)
     var vendorScripts = gulp
         .src(['NSAMD/Scripts/**/*.min.js'], { base: 'NSAMD' })
+        .pipe($.cached('scripts'))
         .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp));
 
@@ -209,13 +236,15 @@ gulp.task('scripts', ['clean-scripts'], function () {
 
 gulp.task('libs', function () {
     var cfg = config.getConfig();
+
     return gulp
         .src([
             'node_modules/systemjs/dist/system.js',
             'node_modules/babel-polyfill/dist/polyfill.js',
         ])
+        .pipe($.cached('libs'))
         .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe(gulp.dest(cfg.temp + 'libs'))
+        .pipe(gulp.dest(cfg.dist + 'libs'));
 })
 
 gulp.task('styles', ['clean-styles'], function () {
@@ -230,10 +259,11 @@ gulp.task('styles', ['clean-styles'], function () {
         .pipe($.sass())
         .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
         .pipe($.csso())  // minify css output
-        .pipe(gulp.dest(cfg.temp + 'Content/'));
+        .pipe(gulp.dest(cfg.temp));
 
     var vendorCss = gulp
         .src(['NSAMD/Content/**/*.css', '!NSAMD/Content/app.css', '!NSAMD/Content/appReportActiveGuestList.css'], { base: 'NSAMD' })
+        .pipe($.cached('css'))
         .pipe($.if(config.isProductionPublish === false, print()))
         .pipe(gulp.dest(cfg.temp));
 
@@ -242,7 +272,11 @@ gulp.task('styles', ['clean-styles'], function () {
 
 gulp.task('clean-build', function () {
     var cfg = config.getConfig();
-    del.sync([cfg.dist + '**', '!' + cfg.dist]);
+    del.sync([cfg.dist + '**', '!./dist', 
+        '!./dist/libs', '!./dist/libs/*.js',
+        '!./dist/Content', '!./dist/Content/*.css',
+        '!./dist/Scripts', '!./dist/Scripts/*.js'
+    ]);
 });
 
 gulp.task('clean-html', function () {
@@ -253,12 +287,12 @@ gulp.task('clean-html', function () {
 // this is a dependency of styles
 gulp.task('clean-styles', function () { 
     var cfg = config.getConfig();
-    del.sync([cfg.temp + '**/*.css', '!' + cfg.temp]);
+    del.sync([cfg.temp + '*.css']);
 });
 
 gulp.task('clean-scripts', function () {
     var cfg = config.getConfig();
-    del.sync([cfg.temp + '**/*.js', '!' + cfg.temp]);
+    del.sync([cfg.temp + '*.js']);
 });
 
 gulp.task('sass-watcher', function () {

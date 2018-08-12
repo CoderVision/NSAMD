@@ -6,7 +6,8 @@ module.exports = function () {
 
         getConfig: () => {
     
-            let src = './NSAMD/'
+            let src = './NSAMD/';
+            let server = './server/';    // he did ./src/server/
 
             let configFile = this.isProductionPublish ? 'config.publish.js' : 'config.js';
 
@@ -47,7 +48,13 @@ module.exports = function () {
                     src + 'Services/authService.js',
                     src + 'Controllers/Reports/activeGuestListController.js',
                     src + 'Filters/**/*.js'
-                ]
+                ],
+
+                // node settings
+                defaultPort: 44363,
+                nodeServer: './server/app.js',
+                server: server,
+                
 
                 // replace bower with Yarn 
                 //yarn: {
