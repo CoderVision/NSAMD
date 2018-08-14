@@ -13,6 +13,9 @@ var uuid = require('uuid/v4');
 var ngAnnotate = require('gulp-ng-annotate')
 var fs = require('fs');
 var FileCache = require("gulp-file-cache");
+var express = require('express');
+var https = require('https');
+var reload = require('express-reload')
  
 var fileCache = new FileCache();
 
@@ -66,20 +69,37 @@ gulp.task('publish', ['build'], function () {
     // theartboy.com/stuff/tests/webProject
 });
 
-gulp.task('dev', ['connect'], function () {
+gulp.task('dev', ['serve'], function () {
     var cfg = config.getConfig();
     gulp.watch([
          'NSAMD/**/*.html',
          'NSAMD/**/*.js',
          'NSAMD/**/*.css',
          'NSAMD/**/*.scss'
-    ], ['reload']); // run the 'styles' task whenever sass files change.
+    ], ['build']); 
 });
 
-gulp.task('connect', ['build'], function () {
+// ['build'], 
+gulp.task('serve', ['build'], function () {
+    var options = {
+        pfx: fs.readFileSync('localhost-dev.pfx'),
+        passphrase: 'journal'
+    };
+    var server = express();
+    var path = __dirname + '/dist/';
+
+    //server.use(reload(path))
+    server.use(express.static(path));
+
+    https.createServer(options, server).listen(44363);
+
+    console.log("site running at:  https://localhost:44363")
+});
+
+/* gulp.task('connect', ['build'], function () {
 
     var cert = {
-        pfx: fs.readFileSync('localhoststar.pfx'),
+        pfx: fs.readFileSync('localhost4.pfx'),
         passphrase: 'password'
     };
 
@@ -92,14 +112,14 @@ gulp.task('connect', ['build'], function () {
     };
 
     $.connect.server(options);
-});
+}); */
 
 
-gulp.task('reload', ['build'], function() {
-     return gulp.src('./dist/index.html')
+/* gulp.task('reload', ['build'], function() {
+      return gulp.src('./dist/index.html')
         .pipe(gulp.dest('./dist'))
-        .pipe($.connect.reload());
-});
+        .pipe($.connect.reload()); 
+}); */
 
 
 // 'clean-build',
