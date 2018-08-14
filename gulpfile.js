@@ -61,6 +61,7 @@ gulp.task('publish', ['build'], function () {
         .pipe(conn.dest(path));
 });
 
+
 gulp.task('dev', ['serve'], function () {
     var cfg = config.getConfig();
     gulp.watch([
