@@ -12,13 +12,9 @@ var del = require('del');
 var uuid = require('uuid/v4');
 var ngAnnotate = require('gulp-ng-annotate')
 var fs = require('fs');
-var FileCache = require("gulp-file-cache");
 var express = require('express');
 var https = require('https');
-var reload = require('express-reload')
  
-var fileCache = new FileCache();
-
 var port = process.env.PORT || config.defaultPort;
 
 var appJsFileName = "";
@@ -33,7 +29,8 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 ///     Set "config.isProductionPublish = false;" to the correct state
 ///     To Use:`Open command window, cd to C:\Source\Repos\NSAMD
 ///     To Build:  type "gulp build"  (outputs to dist folder)
-///     To Serve the website:  type "gulp connect", then open https://localhost:44363 in Chrome, etc.
+///     To Serve the website:  type "gulp serve", then open https://localhost:44363 in Chrome, etc.
+///     To Develop type "gulp dev", then open https://localhost:44363 in Chrome, etc.
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
 
 config.isProductionPublish = false;
@@ -55,8 +52,6 @@ gulp.task('publish', ['build'], function () {
 
 
     var path = '/Site';  // <-- this worked!  It's case sensitive
-   // var path = '/site/UploadTest';  // <- this one worked
-    //var path = 'hissteward.com/site/UploadTest';
 
     return gulp.src('dist/**', { base: './dist/', buffer: false })
         .pipe($.if(config.isProductionPublish === false, $.exit()))
@@ -64,9 +59,6 @@ gulp.task('publish', ['build'], function () {
         .pipe(print())
         .pipe(conn.newer(path)) // only upload newer files
         .pipe(conn.dest(path));
-
-    // this was his path:
-    // theartboy.com/stuff/tests/webProject
 });
 
 gulp.task('dev', ['serve'], function () {
@@ -79,7 +71,7 @@ gulp.task('dev', ['serve'], function () {
     ], ['build']); 
 });
 
-// ['build'], 
+
 gulp.task('serve', ['build'], function () {
     var options = {
         pfx: fs.readFileSync('localhost-dev.pfx'),
@@ -88,38 +80,13 @@ gulp.task('serve', ['build'], function () {
     var server = express();
     var path = __dirname + '/dist/';
 
-    //server.use(reload(path))
     server.use(express.static(path));
+
 
     https.createServer(options, server).listen(44363);
 
     console.log("site running at:  https://localhost:44363")
 });
-
-/* gulp.task('connect', ['build'], function () {
-
-    var cert = {
-        pfx: fs.readFileSync('localhost4.pfx'),
-        passphrase: 'password'
-    };
-
-    var options = {
-        https: true,
-       // https: cert,
-        port: 44363,
-        root: 'dist',
-        livereload: true
-    };
-
-    $.connect.server(options);
-}); */
-
-
-/* gulp.task('reload', ['build'], function() {
-      return gulp.src('./dist/index.html')
-        .pipe(gulp.dest('./dist'))
-        .pipe($.connect.reload()); 
-}); */
 
 
 // 'clean-build',
