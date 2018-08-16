@@ -12,6 +12,10 @@ var del = require('del');
 var uuid = require('uuid/v4');
 var ngAnnotate = require('gulp-ng-annotate')
 var fs = require('fs');
+var express = require('express');
+var https = require('https');
+ 
+var port = process.env.PORT || config.defaultPort;
 
 var appJsFileName = "";
 var printJsFileName = "";
@@ -25,10 +29,12 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 ///     Set "config.isProductionPublish = false;" to the correct state
 ///     To Use:`Open command window, cd to C:\Source\Repos\NSAMD
 ///     To Build:  type "gulp build"  (outputs to dist folder)
-///     To Serve the website:  type "gulp connect", then open https://localhost:44363 in Chrome, etc.
+///     To Serve the website:  type "gulp serve", then open https://localhost:44363 in Chrome, etc.
+///     To Develop type "gulp dev", then open https://localhost:44363 in Chrome, etc.
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
 
 config.isProductionPublish = false;
+var printFiles = false;
 
 // 
 gulp.task('publish', ['build'], function () {
@@ -47,114 +53,200 @@ gulp.task('publish', ['build'], function () {
 
 
     var path = '/Site';  // <-- this worked!  It's case sensitive
-   // var path = '/site/UploadTest';  // <- this one worked
-    //var path = 'hissteward.com/site/UploadTest';
 
     return gulp.src('dist/**', { base: './dist/', buffer: false })
-        .pipe($.if(config.isProductionPublish === false, $.exit()))
+        .pipe($.if(printFiles === true, $.exit()))
         .pipe($.plumber())  // gracefully handles errors
         .pipe(print())
         .pipe(conn.newer(path)) // only upload newer files
         .pipe(conn.dest(path));
-
-    // this was his path:
-    // theartboy.com/stuff/tests/webProject
 });
 
-gulp.task('connect', ['build'], function () {
 
-    var cert = {
-        pfx: fs.readFileSync('LocalDevServer.pfx'),
-        passphrase: 'Journal1!'
-    };
+gulp.task('dev', ['serve'], function () {
+    var cfg = config.getConfig();
+    gulp.watch([
+         'NSAMD/**/*.html',
+         'NSAMD/**/*.js',
+         'NSAMD/**/*.css',
+         'NSAMD/**/*.scss'
+    ], ['build']); 
+});
 
+
+gulp.task('serve', ['build'], function () {
     var options = {
-        https: true,
-      //  https: cert,
-        port: 44363,
-        root: 'dist',
-        livereload: true  // to use livereload you may have to use node 8.1.2:
-       /* 
-          https://github.com/intesso/connect-livereload/issues/79
-          This is likely because of lack of http2 support, where the request sends authority header instead of host, 
-          the short term solution is to use up to node 8.1.2 and to uninstall the http2 module which causes gulp-connect to favour it, 
-          actual solution is to support http2 by pulling from the authority header instead of host
-        */
+        pfx: fs.readFileSync('localhost-dev.pfx'),
+        passphrase: 'journal'
     };
+    var server = express();
+    var path = __dirname + '/dist/';
 
-    $.connect.server(options);
+    server.use(express.static(path));
+
+
+    https.createServer(options, server).listen(44363);
+
+    console.log("site running at:  https://localhost:44363")
 });
 
-gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
+
+// 'clean-build',
+// ['clean-build', 'inject', 'libs'],
+gulp.task('build', function () {
 
     log('Running build.  Need to inject js into print.html');
 
     var cfg = config.getConfig();
 
-    var temp = gulp.src(['tmp/**/*.*'])
-        .pipe(gulp.dest(cfg.dist));
+    // we don't want to  copy everything, only the app files (not vendor files)
+    //var temp = gulp.src(['tmp/**/*.*'])
+    var temp = gulp.src(['tmp/Scripts/**/*.min.js', 'tmp/Views/**/*.*'], { base: 'NSAMD' })
+         .pipe($.if(printFiles === true, print()))
+         .pipe(gulp.dest(cfg.dist));
 
-    // removed 'NSAMD/**/*.html', 'NSAMD/**/*.css', 
-    var app = gulp
-        .src([
-            'NSAMD/**/*.html',
-            'NSAMD/**/*.svg',
-            'NSAMD/**/*.png',
-            'NSAMD/Scripts/**/*.*',
-            'tmp/**/*.*',
-            '!NSAMD/index.html',
-            '!NSAMD/print.html',
-            '!NSAMD/silentRefresh.html',
-            ], { base: 'NSAMD' })
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe(gulp.dest(cfg.dist));
-
-    return merge(temp, app);
+    return temp;
 })
 
 // test that injects JavaScript and css
-gulp.task('inject', ['clean-html', 'scripts', 'styles'], function () {
-    log("Wireup our custom css in the html and call wiredep")
+gulp.task('inject', ['clean-html', 'html', 'scripts', 'styles'], function () {
+    log("Wireup our custom css in the html")
 
     var mergedStream = merge();
 
-    var cfg = config.getConfig();
+    var cfg = config.getConfig('./tmp/');
+
+    // config script
+    this.configFileName = config.isProductionPublish === true ? 'config.publish.js' : 'config.js';
+
+    var configProcess = gulp
+        .src('tmp/' + this.configFileName, { base: 'NSAMD' })
+        .pipe($.plumber())  // gracefully handles errors
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.dist));
+
+    mergedStream.add(configProcess);
+
+    // app scripts
+    appJsFileName = uuid() + '.min.js';
+
+    var appProcess = gulp
+        .src(cfg.alljs)
+        .pipe($.plumber())  // gracefully handles errors
+        .pipe($.if(printFiles === true, print()))
+        .pipe($.concat(appJsFileName))
+        .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
+        .pipe(ngAnnotate())
+        .pipe($.uglify())
+        .pipe(gulp.dest(cfg.dist));
+
+    mergedStream.add(appProcess);
+
+    // print scripts
+    printJsFileName = uuid() + '.min.js';
+
+    var printProcess = gulp
+        .src(cfg.printjs)
+        .pipe($.plumber())  // gracefully handles errors
+        .pipe($.if(printFiles === true, print()))
+        .pipe($.concat(printJsFileName))
+        .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
+        .pipe(ngAnnotate())
+        .pipe($.uglify())
+        .pipe(gulp.dest(cfg.dist));
+
+    mergedStream.add(printProcess);
+
+    // vendor scripts (angular, etc.)
+    var vendorScripts = gulp
+        .src(['tmp/Scripts/**/*.min.js'], { base: 'NSAMD' })
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.dist));
+
+    mergedStream.add(vendorScripts);
+
+
+    var appCss = gulp
+        .src([cfg.css, cfg.sass])
+        .pipe($.plumber())  // gracefully handles errors
+        .pipe($.if(printFiles === true, print()))
+        .pipe($.concat(uuid() + '.min.css'))
+        .pipe($.sass())
+        .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
+        .pipe($.csso())  // minify css output
+        .pipe(gulp.dest(cfg.dist));
+
+    mergedStream.add(appCss);
+
+    var vendorCss = gulp
+        .src(['tmp/Content/**/*.min.css',
+             'tmp/Content/angular-data-grid.material.css',  
+             '!tmp/Content/app.css', 
+             '!tmp/Content/appSass.scss', 
+             '!tmp/Content/appReportActiveGuestList.css'
+            ], { base: 'NSAMD' })
+        .pipe($.cached('css'))
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.dist));
+
+    mergedStream.add(vendorCss);
 
     // addPrefix: '.'
     var injectOptions = {
         relative: false,
         addRootSlash: false,
-        ignorePath: 'tmp/'
+        ignorePath: 'dist/'
     };
 
     var appInject = gulp
-        .src(cfg.index)
-        .pipe($.inject(gulp.src(cfg.temp + 'Content/*.css', { read: false }), injectOptions))
-        .pipe($.inject(gulp.src([cfg.temp + this.configFileName, cfg.temp + appJsFileName], { read: false }), injectOptions))
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe(gulp.dest(cfg.temp)); // he used client here (same as config.src)
+        .src(cfg.temp + 'index.html' )
+        .pipe($.inject(gulp.src([cfg.dist + '*.css'], { read: false }), injectOptions))
+        .pipe($.inject(gulp.src([cfg.dist + this.configFileName, cfg.dist + appJsFileName], { read: false }), injectOptions))
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.dist)); // he used client here (same as config.src)
 
     mergedStream.add(appInject);
 
     var silentRefresh = gulp
-        .src(cfg.silentRefresh)
-        .pipe(gulp.dest(cfg.temp));  // copy silent refresh html page
+        .src(cfg.temp + 'silentRefresh.html')
+        .pipe(gulp.dest(cfg.dist));  // copy silent refresh html page
 
     mergedStream.add(silentRefresh);
 
     var printInject = gulp
-        .src(cfg.printIndex)
-        .pipe($.inject(gulp.src(cfg.temp + printJsFileName, { read: false }), injectOptions))
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe(gulp.dest(cfg.temp)); 
+        .src(cfg.temp +  'print.html')
+        .pipe($.inject(gulp.src(cfg.dist + printJsFileName, { read: false }), injectOptions))
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.dist)); 
 
     mergedStream.add(printInject);
 
     return mergedStream;
 });
 
+gulp.task('html', function () {
+
+    log('Running html.');
+
+    var cfg = config.getConfig();
+
+    // removed 'NSAMD/**/*.html', 'NSAMD/**/*.css', 
+    var app = gulp
+        .src([
+            'NSAMD/**/*.html',
+            'NSAMD/**/*.svg',
+            'NSAMD/**/*.png'
+            ], { base: 'NSAMD' })
+       //   .pipe($.cached('config'))
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.temp));
+
+    return app;
+})
+
 // add gulp-polyfill also
-gulp.task('scripts', ['clean-scripts'], function () {
+// , ['clean-scripts']
+gulp.task('scripts', function () {
     log('Compiling Javascript');
 
     var mergedStream = merge();
@@ -166,38 +258,28 @@ gulp.task('scripts', ['clean-scripts'], function () {
 
     var configProcess = gulp
         .src('NSAMD/' + this.configFileName, { base: 'NSAMD' })
+     //   .pipe($.cached('config'))
         .pipe($.plumber())  // gracefully handles errors
-        .pipe($.if(config.isProductionPublish === false, print()))
+        .pipe($.if(printFiles === true, print()))
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(configProcess);
 
-    // app scripts
-    appJsFileName = uuid() + '.min.js';
-
     var appProcess = gulp
-        .src(cfg.alljs)
+        .src(cfg.alljs, { base: 'NSAMD' })
+     //   .pipe($.cached('appscripts'))
         .pipe($.plumber())  // gracefully handles errors
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe($.concat(appJsFileName))
-        .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
-        .pipe(ngAnnotate())
-        .pipe($.uglify())
+        .pipe($.if(printFiles === true, print()))
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(appProcess);
 
     // print scripts
-    printJsFileName = uuid() + '.min.js';
-
     var printProcess = gulp
-        .src(cfg.printjs)
+        .src(cfg.printjs, { base: 'NSAMD' })
+     //   .pipe($.cached('printscripts'))
         .pipe($.plumber())  // gracefully handles errors
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe($.concat(printJsFileName))
-        .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
-        .pipe(ngAnnotate())
-        .pipe($.uglify())
+        .pipe($.if(printFiles === true, print()))
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(printProcess);
@@ -205,7 +287,8 @@ gulp.task('scripts', ['clean-scripts'], function () {
     // vendor scripts (angular, etc.)
     var vendorScripts = gulp
         .src(['NSAMD/Scripts/**/*.min.js'], { base: 'NSAMD' })
-        .pipe($.if(config.isProductionPublish === false, print()))
+     //   .pipe($.cached('vendorscripts'))
+        .pipe($.if(printFiles === true, print()))
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(vendorScripts);
@@ -215,32 +298,34 @@ gulp.task('scripts', ['clean-scripts'], function () {
 
 gulp.task('libs', function () {
     var cfg = config.getConfig();
+
     return gulp
         .src([
             'node_modules/systemjs/dist/system.js',
             'node_modules/babel-polyfill/dist/polyfill.js',
         ])
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe(gulp.dest(cfg.temp + 'libs'))
+        .pipe($.cached('libs'))
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.dist + 'libs'));
 })
 
-gulp.task('styles', ['clean-styles'], function () {
+//  ['clean-styles'],
+gulp.task('styles', function () {
     log('Compiling SASS -> CSS');
     var cfg = config.getConfig();
 
     var appCss = gulp
         .src([cfg.css, cfg.sass])
+     //   .pipe($.cached('appstyles'))
         .pipe($.plumber())  // gracefully handles errors
-        .pipe($.if(config.isProductionPublish === false, print()))
-        .pipe($.concat(uuid() + '.min.css'))
-        .pipe($.sass())
-        .pipe($.autoprefixer({ browsers: ['last 2 versions', '> 5%'] })) // get only the last 2 versions of browsers that have more than 5% of the market.
-        .pipe($.csso())  // minify css output
-        .pipe(gulp.dest(cfg.temp + 'Content/'));
+        .pipe($.if(printFiles === true, print()))
+        .pipe(gulp.dest(cfg.temp));
 
     var vendorCss = gulp
         .src(['NSAMD/Content/**/*.css', '!NSAMD/Content/app.css', '!NSAMD/Content/appReportActiveGuestList.css'], { base: 'NSAMD' })
-        .pipe($.if(config.isProductionPublish === false, print()))
+     //   .pipe($.cached('vendorstyles'))
+        .pipe($.cached('css'))
+        .pipe($.if(printFiles === true, print()))
         .pipe(gulp.dest(cfg.temp));
 
     return merge(appCss, vendorCss);
@@ -248,7 +333,11 @@ gulp.task('styles', ['clean-styles'], function () {
 
 gulp.task('clean-build', function () {
     var cfg = config.getConfig();
-    del.sync([cfg.dist + '**', '!' + cfg.dist]);
+    del.sync([cfg.dist + '**', '!./dist', 
+        '!./dist/libs', '!./dist/libs/*.js',
+        '!./dist/Content', '!./dist/Content/*.css',
+        '!./dist/Scripts', '!./dist/Scripts/*.js'
+    ]);
 });
 
 gulp.task('clean-html', function () {
@@ -259,18 +348,14 @@ gulp.task('clean-html', function () {
 // this is a dependency of styles
 gulp.task('clean-styles', function () { 
     var cfg = config.getConfig();
-    del.sync([cfg.temp + '**/*.css', '!' + cfg.temp]);
+    del.sync([cfg.temp + '*.css']);
 });
 
 gulp.task('clean-scripts', function () {
     var cfg = config.getConfig();
-    del.sync([cfg.temp + '**/*.js', '!' + cfg.temp]);
+    del.sync([cfg.temp + '*.js']);
 });
 
-gulp.task('sass-watcher', function () {
-    var cfg = config.getConfig();
-    gulp.watch([cfg.sass], ['styles']); // run the 'styles' task whenever sass files change.
-});
 
 
 function log(msg) {

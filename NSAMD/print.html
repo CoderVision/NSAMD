@@ -14,24 +14,6 @@
 
     <script src="libs/polyfill.js"></script>
     <script src="libs/system.js"></script>
-    <script>
-        // set our baseURL reference path
-        System.config({
-            packages: {
-                js: {
-                    format: 'register',
-                    defaultExtension: 'js'
-                },
-            },
-            meta: {
-                // our modules have been transpiled to commonJS
-                'js/*': { format: 'cjs' }
-            }
-        });
-
-        System.import('js/more-codes.js')
-            .then(null, console.error.bind(console));
-    </script>
 </head>
 <body ng-app="app" ng-cloak>
     <ng-view></ng-view>
