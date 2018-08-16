@@ -34,7 +34,7 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 ///     To Publish:  type "gulp publish"  (ftp's dist folder contents to website)
 
 config.isProductionPublish = false;
-var printFiles = true;
+var printFiles = false;
 
 // 
 gulp.task('publish', ['build'], function () {
