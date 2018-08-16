@@ -1,4 +1,5 @@
-/*jshint node:true*/
+/* delete if this is not required
+
 'use strict';
 
 var express = require('express');
@@ -56,3 +57,4 @@ app.listen(port, function() {
                 '\n__dirname = ' + __dirname +
                 '\nprocess.cwd = ' + process.cwd());
 });
+ */
