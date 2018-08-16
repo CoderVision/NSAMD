@@ -20,6 +20,7 @@ app.config(function ($routeProvider, $mdThemingProvider, $mdIconProvider, $compi
             'request': function (requestConfig) {
 
                 var mgr = authService.oidcManager;
+                
 
                 // this is commented out here, because we are using a refesh token and we do not to immediately redirect, but let it handle it silently
                 // if access token is expired, redirect to login page

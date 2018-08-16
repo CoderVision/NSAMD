@@ -6,6 +6,7 @@
     "private": true,
     "dependencies": {
         "babel-polyfill": "^6.26.0",
+        "express": "^4.16.3",
         "systemjs": "^0.21.4"
     },
     "devDependencies": {
@@ -17,10 +18,12 @@
         "gulp": "^3.9.1",
         "gulp-autoprefixer": "^5.0.0",
         "gulp-babel": "^7.0.1",
+        "gulp-cached": "^1.1.1",
         "gulp-concat": "^2.6.1",
         "gulp-connect": "^5.5.0",
         "gulp-csso": "^3.0.1",
         "gulp-exit": "0.0.2",
+        "gulp-file-cache": "0.0.1",
         "gulp-if": "^2.0.2",
         "gulp-inject": "^4.3.2",
         "gulp-load-plugins": "^1.5.0",
