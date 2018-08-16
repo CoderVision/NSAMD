@@ -119,8 +119,6 @@ function MemberListController($scope, $mdDialog, $mdMedia, $log, memberService, 
 
     vm.addItem = function ($event) {
 
-        alert('test dude from Earth!!!!'); // test
-
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
         var member = {
