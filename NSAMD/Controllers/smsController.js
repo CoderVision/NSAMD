@@ -125,6 +125,8 @@
             vm.edit = function(item, event) {
 
                 event.preventDefault();
+
+                vm.editGroup(event, item);
             }
 
             vm.removeItemFromList = function(item){
