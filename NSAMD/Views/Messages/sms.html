@@ -20,16 +20,20 @@
 
                         <div class="correspondenceDate correspondenceSecondary" layout="column" layout-align="center end">
                                 {{mc.formatDate(user.lastMessageDate)}}
-                                <ng-md-icon icon="more_horiz" ></ng-md-icon>
+                                <!-- ng-md-icon icon="more_horiz" ng-click="smc.testMore($event)" ></ng-md-icon-->
 
-                            <!--     <div style="width: auto;">                    
+                                <!--md-button class="md-icon-button messageGroupMenuButton" ng-click="smc.testMore($event)" aria-label="call">
+                                    <ng-md-icon icon="more_horiz"></ng-md-icon>
+                                </md-button-->
+                                  
+                             <div style="width: auto;position: absolute;top: 35px;right: 15px;">                    
                                     <md-menu md-position-mode="target-right target">
-                                        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="smc.openMenu($mdMenu, $event)">
+                                        <md-button aria-label="Open phone interactions menu" class="md-icon-button messageGroupMenuButton" ng-click="smc.openMenu($mdMenu, $event)">
                                             <ng-md-icon icon="more_horiz" md-menu-origin></ng-md-icon>
                                         </md-button>
                                         <md-menu-content width="3">
                                           <md-menu-item>
-                                            <md-button ng-click="smc.edit($event)">
+                                            <md-button ng-click="smc.edit(user, $event)">
                                                 <div layout="row" flex>
                                                         <p flex>Edit</p>
                                                         <ng-md-icon icon="edit" md-menu-align-target style="margin: auto 3px auto 0;"></ng-md-icon>  
@@ -37,7 +41,7 @@
                                             </md-button>
                                           </md-menu-item>
                                           <md-menu-item>
-                                            <md-button ng-click="smc.hide(smc.selectedItem)">
+                                            <md-button ng-click="smc.hide(user, $event)">
                                                 <div layout="row" flex>
                                                     <p flex>Hide</p>
                                                     <ng-md-icon icon="remove_circle_outline" md-menu-align-target style="margin: auto 3px auto 0;"></ng-md-icon>  
@@ -46,7 +50,7 @@
                                           </md-menu-item>
                                           <md-menu-divider></md-menu-divider>
                                           <md-menu-item>
-                                            <md-button ng-click="smc.delete(smc.selectedItem)">
+                                            <md-button ng-click="smc.delete(user, $event)">
                                                 <div layout="row" flex>
                                                     <p flex>Delete</p>
                                                     <ng-md-icon icon="delete" md-menu-align-target style="margin: auto 3px auto 0;"></ng-md-icon>  
@@ -55,7 +59,7 @@
                                           </md-menu-item>
                                         </md-menu-content>
                                       </md-menu>
-                                </div> -->
+                                </div>
                         </div>
 
                     </div>

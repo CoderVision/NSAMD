@@ -94,7 +94,7 @@ gulp.task('serve', ['build'], function () {
 // 'clean-build',
 gulp.task('build', ['clean-build', 'inject', 'libs'], function () {
 
-    log('Running build.  Need to inject js into print.html');
+    log('Running build.');
 
     var cfg = config.getConfig();
 
@@ -191,7 +191,9 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .pipe($.concat(appJsFileName))
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
         .pipe(ngAnnotate())
-        .pipe($.uglify())
+        //.pipe($.uglify())
+        .pipe($.if(config.isProductionPublish === true, $.uglify()))
+
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(appProcess);

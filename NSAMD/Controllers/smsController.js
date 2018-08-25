@@ -53,8 +53,14 @@
 
             vm.openMenu = function($mdMenu, ev) {
               originatorEv = ev;
+              ev.preventDefault();
               $mdMenu.open(ev);
             };
+
+/*             vm.testMore = function(e){
+                e.preventDefault();
+                alert('hello world!')
+            } */
 
             // have to think about how we are going to handle this
             vm.editGroup = function ($event, group) {
@@ -102,6 +108,31 @@
                     vm.loadData();
             }
 
+            vm.delete = function(item, event) {
+
+                event.preventDefault();
+
+                vm.removeItemFromList(item);
+            }
+
+            vm.hide = function(item, event) {
+
+                event.preventDefault();
+
+                vm.removeItemFromList(item);
+            }
+
+            vm.edit = function(item, event) {
+
+                event.preventDefault();
+            }
+
+            vm.removeItemFromList = function(item){
+
+                const index = vm.correspondences.findIndex((c) => { return item.id == c.id});
+                vm.correspondences.splice(index, 1);
+            }
+            
             vm.loadData = function () {
                 if (vm.churchId === undefined) {
                     return;
