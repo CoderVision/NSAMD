@@ -21,6 +21,7 @@
             vm.useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
             $scope.$on('addMessageGroup', function (event, params) {
+                params.group.isNew = true;
                 vm.editGroup(params.event, params.group);
             });
 
@@ -77,9 +78,10 @@
                     fullscreen: vm.useFullScreen
                 }).then(function (editedItem) {
 
-                    vm.correspondences.unshift(editedItem);
-
-                    vm.selectedItem = editedItem;
+                    if (editedItem.isNew == true) {
+                        vm.correspondences.unshift(editedItem);
+                        vm.selectedItem = editedItem;
+                    }
 
                 }, function () {
                     $log.info("Edit item cancelled");
@@ -112,13 +114,24 @@
 
                 event.preventDefault();
 
-                vm.removeItemFromList(item);
+                messageService.deleteRecipientGroup(item.id).then(function (data) {
+
+                    vm.removeItemFromList(item);
+                }
+                , function (error) {
+                    vm.error = error;
+                    appNotificationService.openToast(error);
+                });
             }
 
             vm.hide = function(item, event) {
 
                 event.preventDefault();
 
+                // set a hidden property that will stay hidden until the next conversation is started
+                // have to figure out how that is going to work.
+                // it should stay hidden until a new message is created for that group
+                //   or until a new message is received for that group.
                 vm.removeItemFromList(item);
             }
 

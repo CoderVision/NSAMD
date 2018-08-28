@@ -11,7 +11,7 @@
         </div>
     </md-toolbar>
 
-    <form name="newGroupForm" ng-submit="dc.save()">
+    <form name="newGroupForm" >
         <md-dialog-content style="padding:8px;">
             <div layout="row">
                 <md-input-container class="md-block" flex>
@@ -36,12 +36,20 @@
                                          md-item-text="item.name"
                                          placeholder="Search for a recipient"
                                          ng-model-options='{ debounce: 500 }'>
-                            <span ng-if="dc.messageType == 2" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address | phone}}) {{ item.preferredAddress ? '*Preferred' : ''}}</span>
-                            <span ng-if="dc.messageType == 1" md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address}}) {{ item.preferredAddress ? '*Preferred' : ''}}</span>
+                            <div ng-if="dc.currentItem.messageTypeEnumID == 47">
+                                <span md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address | phone}})</span> <span class="preferred">{{ item.preferredAddress ? 'Preferred' : ''}}</span>
+                            </div>
+                            <div ng-if="dc.currentItem.messageTypeEnumID == 46">
+                                <span md-highlight-text="dc.recipientSearchText">{{item.name}} ({{item.address}})</span> <span class="preferred">{{ item.preferredAddress ? 'Preferred' : ''}}</span>
+                            </div>
                         </md-autocomplete>
                         <md-chip-template>
-                            <span ng-if="dc.messageType == 2">{{$chip.name}} ({{$chip.address  | phone}})</span>
-                            <span ng-if="dc.messageType == 1">{{$chip.name}} ({{$chip.address}})</span>
+                            <div ng-if="dc.currentItem.messageTypeEnumID == 47">
+                                <span>{{$chip.name}} ({{$chip.address  | phone}})</span> <span class="preferred">{{ $chip.preferredAddress ? 'Preferred' : ''}}</span>
+                            </div>
+                            <div ng-if="dc.currentItem.messageTypeEnumID == 46">
+                                <span>{{$chip.name}} ({{$chip.address}})</span> <span class="preferred">{{ $chip.preferredAddress ? 'Preferred' : ''}}</span>
+                            </div>
                         </md-chip-template>
                     </md-chips>
                 </md-content>
@@ -52,7 +60,7 @@
             <md-button ng-click="dc.cancel()" class="md-cancel-button">
                 Close
             </md-button>
-            <md-button type="submit" class="md-primary md-confirm-button"
+            <md-button ng-click="dc.save()" class="md-primary md-confirm-button"
                        ng-disabled="newGroupForm.$invalid">
                 Save
             </md-button>

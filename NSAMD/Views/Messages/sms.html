@@ -14,7 +14,7 @@
 
                     <div layout="row" layout-align="space-between start" style="width:100%;">
                         <div class="md-list-item-text correspondenceFrom" layout="column" layout-align="start start" flex>
-                            <span class="correspondencePrimary">{{user.description}}</span>
+                            <span class="correspondencePrimary">{{user.name}}</span>
                             <span class="correspondenceSecondary truncate">{{ user.lastMessageBody}}</span>
                         </div>
 
@@ -71,7 +71,7 @@
         <div layout="column" flex>
             <md-toolbar class="userToolbar" layout="column" layout-align="center center" 
                         md-colors="::{background: 'default-accent-500-1', color: 'default-primary-500-1'}">
-                    <span>{{smc.selectedItem.description}}</span>
+                    <span>{{smc.selectedItem.name}}</span>
             </md-toolbar>
 
             <div layout="column" layout-align="end start" layout-padding flex>

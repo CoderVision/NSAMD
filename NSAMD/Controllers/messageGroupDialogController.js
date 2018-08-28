@@ -13,7 +13,7 @@
             vm.recipientSearchText;
             vm.isLoading = false;
 
-            vm.messageType = currentItem.messageType;  // 1 = Email, 2 = Sms
+           // 46 = Email, 47 = Sms
 
             $scope.$watch("dc.selectedRecipients", function (sponsors) {
 
@@ -45,8 +45,6 @@
 
             vm.save = function () {
 
-                vm.currentItem.messageTypeEnumID = vm.messageType == 1 ? 46 : 47;
-
                 vm.currentItem.recipients = []; // clear array
 
                 for (var i = 0; i < vm.selectedRecipients.length; i++) {
@@ -70,6 +68,20 @@
             }
 
             vm.load = function () {
+
+                messageService.getGroupRecipients(vm.currentItem.id).then(function (success) {
+
+                    vm.selectedRecipients = success;
+
+                }, function (failure) {
+
+                    var errMsg = "error loading group:  " + failure
+                    $log.error(errMsg);
+
+                    // show error notification
+                    appNotificationService.openToast(errMsg);
+                });
+
                 return;
             }
 
@@ -83,8 +95,7 @@
                 }
 
                 vm.isLoading = true;
-                var messageTypeEnumId = vm.messageType == 2 ? 47 : 46;
-                messageService.getRecipients(vm.currentItem.churchId, messageTypeEnumId, recipientSearchText).then(function (success) {
+                messageService.getRecipients(vm.currentItem.churchId, vm.currentItem.messageTypeEnumID, recipientSearchText).then(function (success) {
 
                     deferred.resolve(success);
 
@@ -99,9 +110,6 @@
 
                 return deferred.promise;
             }
-
-            //vm.searchCustomers = function () {
-
 
             return vm;
 };
