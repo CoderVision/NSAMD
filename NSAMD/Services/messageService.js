@@ -140,7 +140,10 @@
 
             $http.post(uri, recipientGroup).then(function (success) {
 
-                deferred.resolve(success.data);
+                var group = success.data;
+                group.isNew = recipientGroup.isNew;
+                group.messageType = recipientGroup.messageType;
+                deferred.resolve(group);
 
             }, function (error) {
 

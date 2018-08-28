@@ -12,6 +12,7 @@
             vm.selectedRecipients = [];
             vm.recipientSearchText;
             vm.isLoading = false;
+            vm.currentItem.messageTypeEnumID = currentItem.messageType == 2 ? 47 : 46;
 
            // 46 = Email, 47 = Sms
 

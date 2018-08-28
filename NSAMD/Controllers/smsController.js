@@ -79,6 +79,7 @@
                 }).then(function (editedItem) {
 
                     if (editedItem.isNew == true) {
+                        editedItem.isNew = false;
                         vm.correspondences.unshift(editedItem);
                         vm.selectedItem = editedItem;
                     }
@@ -174,8 +175,8 @@
                 vm.selectedItem = correspondence;
 
                 // get messages for this correspondence, then append it to it.
-                if (correspondence !== undefined) { 
-                    messageService.getMessages(correspondence.id, vm.maxRows)
+                if (vm.selectedItem !== undefined) { 
+                    messageService.getMessages(vm.selectedItem.id, vm.maxRows)
                         .then(function (data) {
                             vm.selectedItem.messages = data;
                         },
