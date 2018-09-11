@@ -190,10 +190,10 @@ gulp.task('scripts', ['clean-scripts'], function () {
         .pipe($.if(printFiles === true, print()))
         .pipe($.concat(appJsFileName))
         .pipe($.babel({ presets: ['es2015'] })) // #3. transpile ES2015 to ES5 using ES2015 preset
-        .pipe(ngAnnotate())
-        //.pipe($.uglify())
+    //    .pipe(ngAnnotate())
+        .pipe($.if(config.isProductionPublish === true, ngAnnotate()))
+    //    .pipe($.uglify())
         .pipe($.if(config.isProductionPublish === true, $.uglify()))
-
         .pipe(gulp.dest(cfg.temp));
 
     mergedStream.add(appProcess);
